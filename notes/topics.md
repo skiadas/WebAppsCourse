@@ -89,7 +89,7 @@ This page contains a list of the topics to be covered.
    - Markdown
    - JSDoc basics
    - Doccu?
-- Revision systems
+- Version Control Systems
    - Git and GitHub
    - Using GitHub's Issues
 - Deployment, Bundling

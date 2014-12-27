@@ -4,7 +4,6 @@
 
 - [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/)
 - [Node API](http://nodejs.org/api/)
-- [nodeschool tutorials](http://nodeschool.io/)
 - [devdocs](http://devdocs.io/)
 - [jQuery API](http://api.jquery.com/)
 - [Free programming books](https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md)
@@ -13,10 +12,18 @@
 - [Large-scale architecture patterns](http://addyosmani.com/largescalejavascript/)
 - [Eloquent Javascript](http://eloquentjavascript.net/)
 - [Douglas Crockford's writings](http://www.crockford.com/javascript/)
+- [Javascript Garden](http://bonsaiden.github.io/JavaScript-Garden/)
+
+## Tutorials/Guides
+
+- [codeschool](https://www.codeschool.com/paths/javascript)
+- [nodeschool](http://nodeschool.io/)
+- [codecademy](http://www.codecademy.com/)
 
 ## Videos
 
 - [Douglas Crockford's series](http://www.yuiblog.com/crockford/). Very worthwhile watching. More worthwhile videos on [his page](http://www.crockford.com/javascript/).
+- [Crockford's 2007 series](https://www.youtube.com/watch?v=v2ifWcnQs6M), [part 2](https://www.youtube.com/watch?v=Y2Y0U-2qJMs), [part 3](https://www.youtube.com/watch?v=DwYPG6vreJg).
 
 ## Non-free books worth considering
 
