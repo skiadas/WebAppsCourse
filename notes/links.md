@@ -30,7 +30,7 @@
 - [Programming JavaScript Applications](http://shop.oreilly.com/product/0636920033141.do).
 - [JavaScript: The Good Parts](http://shop.oreilly.com/product/9780596517748.do), a must have.
 - [Functional JavaScript](http://shop.oreilly.com/product/0636920028857.do).
-- [JavaScript: The Definitive Guide, 6th Edition](http://shop.oreilly.com/product/9780596805531.do), the course "textbook".
+- [JavaScript: The Definitive Guide, 6th Edition](http://shop.oreilly.com/product/9780596805531.do), the course textbook and a solid reference.
 - [Head First JavaScript Programming](http://shop.oreilly.com/product/0636920027065.do)
 - [Learning Node](http://shop.oreilly.com/product/0636920024606.do)
 - [Javascript Patterns](http://shop.oreilly.com/product/9780596806767.do)
