@@ -1,3 +1,4 @@
+import Data.Char (isNumber)
 import System.FilePath
 import Text.Pandoc.Definition
 import Text.Pandoc.Walk
@@ -24,7 +25,8 @@ makeLink num   = Span attrs link
          link  = [Space, Str "(", Link [Str "pdf"] (num ++ ".pdf", num), Str ")"]
 
 addLink :: [Inline] -> [Inline]
-addLink [Str num] = [Str num, makeLink num]
+addLink [Str num] | all isNumber num = [Str num, makeLink num]
+                  | otherwise        = [Str num]
 addLink (x : xs) = x : addLink xs
 addLink [] = []
 
