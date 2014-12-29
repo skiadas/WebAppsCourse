@@ -9,40 +9,40 @@ A week-by-week breakdown of the material.
     - [Components of a Web Page](notes/page_components.md)
     - [How to run Javascript](notes/how_to_run.md)
     - [Numbers in Javascript](notes/numbers.md)
-    - [Assignment 1](assignments/1.md)
+    - [Assignment 1](../assignments/1.md)
 - Day 2
     - [Local and Global Variables](notes/local_vs_global.md)
     - [Basics of Arrays](notes/array_basics.md)
     - [Basics of Objects](notes/object_basics.md)
-    - [Assignment 2](assignments/2.md)
+    - [Assignment 2](../assignments/2.md)
 - Day 3
     - [Strings and Regular Expressions](notes/strings_and_re.md)
     - [Function basics](notes/functions_basic.md)
-    - [Assignment 3](assignments/3.md)
+    - [Assignment 3](../assignments/3.md)
 - Day 4
     - [Basics of Version Control](notes/git/version_control.md)
     - [Git and GitHub basics](notes/git/git_github_basics.md)
     - [Review of Git commands](notes/git/commands_review.md)
-    - [Lab 1: Fork, Pull, Commit, Push](labs/1.md)
+    - [Lab 1: Fork, Pull, Commit, Push](../labs/1.md)
 
 ## Week  2 (01/12-01/16)
 
 - Day 1
     - [Functions as Closures](notes/function_closures.md)
     - [Array Collection methods](notes/array_methods.md)
-    - [Assignment 4](assignments/4.md)
+    - [Assignment 4](../assignments/4.md)
 - Day 2
     - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
     - [Some tricks using functions](notes/function_tricks.md)
     - [Functions created in loops](notes/functions_in_loops.md)
-    - [Assignment 5](assignments/5.md)
+    - [Assignment 5](../assignments/5.md)
 - Day 3
     - [Methods in objects. Using `this`](notes/object_methods.md)
     - [Object creation forms. Prototypes](notes/object_creation_prototypes.md)
-    - [Assignment 6](assignments/6.md)
+    - [Assignment 6](../assignments/6.md)
 - Day 4
     - [Writing tests](notes/test_writing.md)
-    - [Lab 2: Node, Testing](labs/2.md)
+    - [Lab 2: Node, Testing](../labs/2.md)
 
 ## Week  3 (01/19-01/23)
 
@@ -53,29 +53,29 @@ A week-by-week breakdown of the material.
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
     - [Creation Patterns: Mixins](notes/pattern_mixin.md)
-    - [Assignment 7](assignments/7.md)
+    - [Assignment 7](../assignments/7.md)
 - Day 3
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Manipulating the DOM tree](notes/dom_tree.md)
-    - [Assignment 8](assignments/8.md)
+    - [Assignment 8](../assignments/8.md)
 - Day 4
     - [Data Structures in Javascript](notes/data_structures.md)
-    - [Lab 3: Union/Find, Sets](labs/3.md)
+    - [Lab 3: Union/Find, Sets](../labs/3.md)
 
 ## Week  4 (01/26-01/30)
 
 - Day 1
     - [Introduction to DOM Events](notes/event_intro.md)
     - [Bubbling of Events](notes/event_bubbling.md)
-    - [Assignment 9](assignments/9.md)
+    - [Assignment 9](../assignments/9.md)
 - Day 2
     - [Timers](notes/event_timers.md)
     - [Function idiom: Throttling](notes/function_throttling.md)
-    - [Assignment 10](assignments/10.md)
+    - [Assignment 10](../assignments/10.md)
 - Day 3
     - [A custom Event module](notes/event_custom.md)
 - Day 4
-    - [Lab 4: Starting on a TODOapp](labs/4.md)
+    - [Lab 4: Starting on a TODOapp](../labs/4.md)
 
 ## Week  5 (02/02-02/06)
 
@@ -85,11 +85,11 @@ A week-by-week breakdown of the material.
 - Day 2
     - [Implementation of Publish/Subscribe](notes/pubsub_implementation.md)
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
-    - [Assignment 11](assignments/11.md)
+    - [Assignment 11](../assignments/11.md)
 - Day 3
     - [Introduction to jQuery](notes/jquery_intro.md)
 - Day 4
-    - [Lab 5: Continued work on TODOapp](labs/5.md)
+    - [Lab 5: Continued work on TODOapp](../labs/5.md)
 
 ## Week  6 (02/09-02/13)
 
@@ -99,9 +99,9 @@ A week-by-week breakdown of the material.
     - [Implementing a basic MVC](notes/mvc_implement.md)
 - Day 3
     - [Introduction to Backbone](notes/backbone.md)
-    - [Assignment 12](assignments/12.md)
+    - [Assignment 12](../assignments/12.md)
 - Day 4
-    - [Lab 6: Incorporating MVC in TODOapp](labs/6.md)
+    - [Lab 6: Incorporating MVC in TODOapp](../labs/6.md)
 
 ## Week  7 (02/16-02/20)
 
@@ -111,7 +111,7 @@ A week-by-week breakdown of the material.
     - [Ajax via jQuery](notes/xhr_jquery.md)
 - Day 3
 - Day 4
-    - [Lab 7: Introducing data persistence in TODOapp](labs/7.md)
+    - [Lab 7: Introducing data persistence in TODOapp](../labs/7.md)
 
 ## Week  8 (02/23-02/27)
 
@@ -137,7 +137,7 @@ BREAK
 - Day 3
     - [Survey of CSS features](notes/css_survey.md)
 - Day 4
-    - [Lab 8: ](labs/8.md)
+    - [Lab 8: ](../labs/8.md)
 
 ## Week 11 (03/16-03/20)
 
