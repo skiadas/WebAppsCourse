@@ -10,7 +10,7 @@ $(HTMLFILES): site/%.html: %.md $(TEMPLATE)
 	pandoc -o $@ --template=$(TEMPLATE) --mathjax --filter ./makeHtml.hs $<
 
 $(PDFS): site/%.pdf: %.md $(TEXTEMPLATE)
-	pandoc -o $@ --template=$(TEXTEMPLATE) -t latex --filter ./makeTex.hs $<
+	pandoc -o $@ --template=$(TEXTEMPLATE) -t latex --listings --filter ./makeTex.hs $<
 
 site: $(HTMLFILES) $(PDFS)
 
