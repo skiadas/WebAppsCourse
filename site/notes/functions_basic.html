@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="basics-on-functions">Basics on functions</h1>
+<h2 id="relevant-links">Relevant links</h2>
+<ul>
+<li>Flanagan's book, section 4.3, 8.1, 8.2.1, 8.3.1</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">MDN's reference for function statements</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function">MDN's reference for function expressions</a></li>
+</ul>
+<h2 id="functions-in-javascript">Functions in Javascript</h2>
+<ul>
+<li>Functions are first class objects in Javascript. While we will explore later what that means in more detail, for now it means that functions can be defined anywhere in the code, even within other functions, or in the value field of an object property, and so on.</li>
+<li>The basic syntax for a function definition is: <code>function f(arg1, arg2) { ... }</code>.</li>
+<li>You can often have anonymous functions: <code>function(args) { ... }</code>. These can be stored as local variables via a <code>var</code> statement.</li>
+<li>Function declarations use the same &quot;variable hoisting&quot; system we discussed in the <a href="local_vs_global.html">variable section</a>. In practice this means that functions can be used <em>before</em> the code that defines them.</li>
+<li>Unlike some other languages, the value of the last statement is not used as the return value of the function. Your function must use explicit <code>return</code> statements if it wants to return a result.</li>
+<li>The function stops execution the moment a <code>return</code> statement is encountered. Any lines following that <code>return</code> statement will be ignored.</li>
+<li>There are various ways of calling functions with some subtle semantics that we will discuss later. But for now, the name of the function followed by values for the arguments will suffice: <code>f(val1, val2)</code></li>
+<li>The number of values provided when a function is called may differ from the number of arguments in its definition, and that is OK.</li>
+<li>Any extra values passed can be accessed via the <code>arguments</code> object, which we may touch on at a later time.</li>
+<li>If there are two few values passed, the remaining arguments will default to the value <code>undefined</code>.</li>
+<li><p>Here is an example of a function that each time it is called with an argument <code>n</code> returns a new array of <code>n</code> random values:</p>
+<pre><code>function makeRandomArray(n) {
+    var newArray = [];
+    var i;
+    for (i = 0; i &lt; n; i += 1) {
+        newArray[i] = Math.random();
+    }
+    return newArray;
+}
+makeRandomArray(4);
+makeRandomArray(2);</code></pre></li>
+</ul>
+</body>
+</html>

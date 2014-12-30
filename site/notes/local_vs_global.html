@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="local-and-global-variables">Local and Global Variables</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li>Flanagan's book, sections 3.5, 3.9, 3.10</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Values,_variables,_and_literals#Variables">MDN's guide</a></li>
+</ul>
+<h2 id="variables-in-javascript">Variables in Javascript</h2>
+<ul>
+<li>Apart from a few reserved words, most other identifiers can be used as variable names.</li>
+<li>You declare a local variable via the keyword <code>var</code>. You can also give it a value at the same time.</li>
+<li>To begin with, things are defined in the global scope. A new scope is created within the body of any function.</li>
+<li><p>One particularly interesting behavior of Javascript is &quot;variable hoisting&quot;: <em>Variable declarations are always processed as if they happened at the top of the function</em>. For example consider the following code:</p>
+<pre><code>function f() {
+    a = 2;
+    var a = 1;
+}</code></pre></li>
+</ul>
+<p>This is equivalent to:</p>
+<pre><code>function f() {
+    var a;
+    a = 2;
+    a = 1;
+}</code></pre>
+<ul>
+<li>A local variable is not visible outside the scope of the function in which it was defined.</li>
+<li>Variables that are assigned a value without a corresponding declaration are &quot;global&quot;. Global variables are visible everywhere.</li>
+<li><p>Global variables are really nothing more than properties of the global object:</p>
+<pre><code>a = 2;        // Defining a global variable
+window.a;     // That variable exists as part of the global object
+window.b = 4; // Can define global variables as properties of the global object
+b;            // Returns 4</code></pre></li>
+<li><p>Here is a gotcha to watch out for, there are no other scopes than those introduced by functions:</p>
+<pre><code>for (var i = 0; i &lt; 10; i += 1) {
+    i;
+}
+i;     // i is still declared outside the loop, and with value 10</code></pre></li>
+<li>Pay particular attention to the example at the top of page 54.</li>
+<li><p>Make a point to <strong>always declare variables at the top of functions/files</strong>.</p></li>
+</ul>
+</body>
+</html>

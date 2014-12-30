@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-3">Assignment 3<span class="small"> (<a href="3.pdf" title="3">pdf</a>)</span></h1>
+<p>Make sure to test all your answers in the console.</p>
+<ol style="list-style-type: decimal">
+<li>For this question, we assume we have defined a string <code>var s = &quot;cars , trucks,bikes&quot;</code>. So there are words, and they are separated by commas, but there might be one or more spaces (or possibly even tabs) on either side of those commas. You should not make any assumptions about how many spaces there are. You can assume that there are no spaces at the very beginning or at the very end.
+<ol style="list-style-type: lower-roman">
+<li>What regular expression <code>r</code> should we use, so that <code>s.split(r)</code> returns the array <code>[&quot;cars&quot;, &quot;trucks&quot;, &quot;bikes&quot;]</code>? Make sure that your regular expression removes those spaces too, the resulting array should contain only the words without any spaces.  </li>
+<li>Now need a regular expression, so that <code>s.match(/../g)</code> would result in the same array. Notice that we are using a &quot;g&quot; so that the regular expression matches as many times as it can. So the regular expression that you provide should be the one that matches just a single word.  </li>
+<li>Suppose I want to use <code>s.substr(i, j)</code> in this specific example in order to get back the string <code>&quot;tracks&quot;</code>. What would <code>i</code>, <code>j</code> be?  </li>
+<li>Same as the previous question, but now for a call <code>s.substring(i, j)</code>.  </li>
+</ol></li>
+<li>Write a function <code>addPowers</code> that takes as an argument an array <code>arr</code>. It should return the average of the values in the array: So it adds all the values up, then divides by the array length. Do not forget the <code>return</code> statement and to test your function.      </li>
+<li>Write a function <code>howManyWords</code> that takes as an argument a string <code>s</code> and returns the number of &quot;words&quot; in <code>s</code>.  </li>
+</ol>
+</body>
+</html>

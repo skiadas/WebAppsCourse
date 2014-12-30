@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-2">Assignment 2<span class="small"> (<a href="2.pdf" title="2">pdf</a>)</span></h1>
+<p>Make sure to test all your answers in the console.</p>
+<ol style="list-style-type: decimal">
+<li>In this question we will be working with arrays. Start a new console and define an array via: <code>var a = [Math.random(), Math.random(), Math.random()]</code>.
+<ol style="list-style-type: lower-alpha">
+<li>Write an expression that would return the middle element of the array (for this particular array, that has length 3, not in general).  </li>
+<li>Write an expression that would return a <em>new</em> array containing the last two elements from <code>a</code>. You should use <code>slice</code> to do it.  </li>
+<li>Define an array via <code>var b = [&quot;hi&quot;, &quot;there&quot;, &quot;you&quot;]</code>. Which of the following would result in the string <code>&quot;hi,there,you&quot;</code>? Circle all that are correct.
+<ol style="list-style-type: lower-roman">
+<li><code>b.join()</code>.</li>
+<li><code>b.join(,)</code>.</li>
+<li><code>b.join(&quot;,&quot;)</code>.</li>
+<li><code>b.join(',')</code>.</li>
+<li><code>b.join(&quot;hi,there,you&quot;)</code>.</li>
+</ol></li>
+<li>The following code is supposed to compute the sum of the squares of the numbers in the array. Fill in the right hand side of the assignment:</li>
+</ol>
+<pre><code>var s = 0, i;
+for (i = 0; i &lt; a.length; i += 1) {
+
+    s =  ...                              // Fill this in
+
+}
+console.log(s);</code></pre></li>
+<li>This question concerns the object <code>var o = { foo: 23, bar: 5 }</code>.
+<ol style="list-style-type: lower-alpha">
+<li>Which of the following would return 23? circle all that are correct.
+<ol style="list-style-type: lower-roman">
+<li><code>o.foo</code></li>
+<li><code>o[foo]</code></li>
+<li><code>o[(&quot;foo&quot;)]</code></li>
+<li><code>o.&quot;foo&quot;</code></li>
+</ol></li>
+<li>What would <code>o.baz</code> return?
+<ol style="list-style-type: lower-roman">
+<li>nothing</li>
+<li><code>undefined</code></li>
+<li><code>null</code></li>
+<li><code>5</code></li>
+<li>It will produce an error.</li>
+</ol></li>
+<li>After the line <code>o.bar = undefined</code>, how many keys does <code>o</code> have?
+<ol style="list-style-type: lower-roman">
+<li><code>1</code></li>
+<li><code>2</code></li>
+<li><code>3</code></li>
+</ol></li>
+<li>After the line <code>o.bar = { baz: 2 }</code>, what would <code>o[&quot;bar.baz&quot;]</code> return?
+<ol style="list-style-type: lower-roman">
+<li><code>2</code></li>
+<li><code>undefined</code></li>
+<li><code>null</code></li>
+<li>It will produce an error</li>
+</ol></li>
+</ol></li>
+<li><p>For this question we start with an array of objects from a shopping cart:</p>
+<pre><code>var cart = [
+    { item: &quot;shirt&quot;, quantity: 1 , price: 10 },
+    { item: &quot;shoes&quot;, quantity: 3 , price: 5 },
+    { item: &quot;pens&quot; , quantity: 10, price: 2 }
+];</code></pre>
+<ol style="list-style-type: lower-alpha">
+<li><p>The following code is meant to compute the total cost of everything in the cart. The prices are per item, so they need to be multiplied by the quantities. Fill in the body of the loop:</p>
+<pre><code>var total = 0, i, obj;
+for (i = 0; i &lt; cart.length; i += 1) {
+
+                                        // Fill this in
+
+}
+console.log(total);</code></pre></li>
+<li><p>We decide that we want to buy two more shoes. Write an expression that would make that happen.  </p></li>
+</ol></li>
+</ol>
+</body>
+</html>

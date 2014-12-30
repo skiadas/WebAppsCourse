@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="../css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="components-of-a-web-application">Components of a Web Application</h1>
+<h2 id="relevant-links">Relevant links</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">HTML elements</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">CSS reference</a></li>
+</ul>
+<h2 id="components-of-a-web-application-1">Components of a Web Application</h2>
+<p>A web application starts with an HTTP request, which the browser performs when you go to a URL. The response to this request is an HTML document:</p>
+<pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<span class="kw">&lt;html&gt;</span>
+    <span class="kw">&lt;head&gt;</span>
+        ... meta information about the page here ...
+        ... next line loads a CSS file ...
+        <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href=</span><span class="st">&quot;aFilename.css&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;/head&gt;</span>
+    <span class="kw">&lt;body&gt;</span>
+        ... content ...
+        <span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;</span>
+           ... <span class="fu">javascript</span> <span class="fu">code</span> <span class="fu">can</span> <span class="fu">go</span> <span class="ot">here</span> ...
+        <span class="kw">&lt;/script&gt;</span>
+        <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;aFilename.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>  ... This line loads a Javascript file.
+    <span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre>
+<p>There are essentially 3 components to every page:</p>
+<dl>
+<dt>Structure</dt>
+<dd>What elements there are in the page and how they relate to each other. This is indicated by the HTML tags in this document.
+</dd>
+<dt>Appearance</dt>
+<dd>How the elements look. This is indicated by information in the CSS file linked via the <code>link</code> tag.
+</dd>
+<dt>Behavior</dt>
+<dd>How the elements react to user interaction. This is determined by the Javascript code provided via the <code>script</code> tags.
+</dd>
+</dl>
+<ul>
+<li>Processing of the information in this HTML file happens sequentially. As tags are encountered, they are <em>rendered</em> on the page.</li>
+<li>When a <code>link</code> to a CSS file is encountered, that file is downloaded in the background, while the rest of the page is rendered. When it has been downloaded, its effects are applied to the current document.</li>
+<li>When a <code>script</code> tag is encountered, page rendering stops until that tag has been fully processed. This is important to keep in mind.</li>
+<li>As a consequence, the practice is that we put &quot;css links at the top of the file, scripts at the bottom&quot;.</li>
+<li><code>script</code> tags are the only way to get Javascript code to run.</li>
+<li>Scripts are all loaded in a &quot;global scope&quot;, there is no distinction between the different tags.</li>
+<li>Internally, the structure of the page is a tree. You can examine this tree in the using the developer tools (Elements tag in Chrome).</li>
+</ul>
+<h2 id="working-with-the-elements-tag-in-chrome">Working with the Elements tag in Chrome</h2>
+<ul>
+<li>You can activate the Developer tools from the View menu. Choose the Elements tag.</li>
+<li>You can navigate the tree, expand out tags.</li>
+<li>Right-clicking on a tag allows you to:
+<ul>
+<li>Edit the tag as HTML.</li>
+<li>Add/edit tag attributes</li>
+<li>Set breakpoints for when something happens related to that element</li>
+</ul></li>
+<li>The magnifying glass at the left side allows you to focus on an element by highlighting it on the page.</li>
+<li>On the right side you see the styles present for this element.
+<ul>
+<li>You can edit those styles.</li>
+<li>You can add new styles.</li>
+</ul></li>
+</ul>
+</body>
+</html>

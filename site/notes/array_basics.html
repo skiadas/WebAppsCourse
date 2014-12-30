@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="basics-of-javascript-arrays">Basics of Javascript Arrays</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li>Flanagan's book, 7.1-7.8</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">MDN's page on the Array global</a></li>
+</ul>
+<h2 id="javascript-arrays">Javascript Arrays</h2>
+<ul>
+<li>In Javascript, arrays can contain absolutely any elements and have a variable length.</li>
+<li>Easiest way to create is with an array literal, e.g. <code>[]</code>, <code>[1, 2, 3]</code> or <code>[1, [3, 4]]</code>.</li>
+<li>Access an array value via bracket notation: <code>arr[2]</code>. Indexing starts at 0.</li>
+<li>Set any array value similarly: <code>arr[5] = 2</code>. You can set values out of bounds!</li>
+<li>Arrays are actually just objects, and can have properties that are non-numeric.</li>
+<li><p>The length of an array is one more than the largest numeric property.</p>
+<pre><code>var a = [1, 4, 5];
+a[2];                 // 2 -&gt; 5
+a[6] = 2;
+a;
+a.length;             // 7
+a.foo = 5;            // A random property.</code></pre></li>
+<li><p>The most basic way to iterate over an array's elements is with a <code>for</code> loop:</p>
+<pre><code>var a = [1,2,3,4], i;
+for (i = 0; i &lt; a.length; i += 1) {
+   console.log(a[i]);
+}</code></pre></li>
+</ul>
+<h3 id="standard-methods">Standard Methods</h3>
+<p>Consult individual method pages as well as section 7.8 from the book.</p>
+<p>Inserting/Removing elements:</p>
+<dl>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push">push</a></dt>
+<dd>adds one or more elements to the end of the array. <em>Returns the new length of the array</em>.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop">pop</a></dt>
+<dd>removes the last element of the array and returns it.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift">unshift</a></dt>
+<dd>adds one or more elements at the beginning of the array, shifting other elements to the right. <em>Returns the new length of the array</em>.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift">shift</a></dt>
+<dd>removes the first element of the array and returns it. Shifts all other elements accordingly.
+</dd>
+</dl>
+<p>Slicing:</p>
+<dl>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">slice</a></dt>
+<dd>returns a <em>new</em> array containing a specific range of elements from the original array.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">splice</a></dt>
+<dd>removes and/or inserts elements at a specified location in the array.
+</dd>
+</dl>
+<p>Finding:</p>
+<dl>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf">indexOf</a></dt>
+<dd>searches into an array looking for a specific element. Returns the index of the first match, or -1 if the search fails.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf">lastIndexOf</a></dt>
+<dd>finds the last match instead.
+</dd>
+</dl>
+<p>Others:</p>
+<dl>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse">reverse</a></dt>
+<dd>reverses the array <em>in place</em>.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">sort</a></dt>
+<dd>sorts the array <em>in place</em>. You can provide a custom sorting function, a topic we will discuss more later.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat">concat</a></dt>
+<dd>returns a new array comprising of the concatenation of the original array and the arguments.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join">join</a></dt>
+<dd>used for arrays of strings. Join the strings together, possibly inserting a separator.
+</dd>
+</dl>
+<p>There is another set of methods following a higher-order-function paradigm. We will discuss these in future segments.</p>
+</body>
+</html>
