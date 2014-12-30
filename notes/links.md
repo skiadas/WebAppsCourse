@@ -13,6 +13,8 @@
 - [Eloquent Javascript](http://eloquentjavascript.net/)
 - [Douglas Crockford's writings](http://www.crockford.com/javascript/)
 - [Javascript Garden](http://bonsaiden.github.io/JavaScript-Garden/)
+- [HTML reference](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
 ## Tutorials/Guides
 
