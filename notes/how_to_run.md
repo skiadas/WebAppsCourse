@@ -21,7 +21,7 @@ We will have a lot more to say about all this later.
 
 ## Javascript in Node
 
-TODO: Talk about what Node is.
+Node is essentially an implementation of Javascript that is meant to run directly on your computer, rather than inside a browser. As such, it contains the core Javascript, but not any of the extensions that make Javascript interact with the webpage. Instead, it contains numerous libraries to allow you to work with the computer's resources, such as file streams, directory information, multiple processes.
 
 Make sure you are on a terminal.
 
@@ -41,7 +41,7 @@ wget http://github.com/isaacs/nave/raw/master/nave.sh
 curl -L http://github.com/isaacs/nave/raw/master/nave.sh > nave.sh
 ```
 
-We then needs to change permissions to make the shell executable:
+We then need to change permissions to make the shell executable:
 ```
 chmod u+x nave.sh
 cd ~

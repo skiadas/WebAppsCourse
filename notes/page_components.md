@@ -44,7 +44,7 @@ Behavior
 - As a consequence, the practice is that we put "css links at the top of the file, scripts at the bottom".
 - `script` tags are the only way to get Javascript code to run.
 - Scripts are all loaded in a "global scope", there is no distinction between the different tags.
-- Internally, the structure of the page is a tree. You can examine this tree in the using the developer tools (Elements tag in Chrome).
+- Internally, the structure of the page is a tree. You can examine this tree using the developer tools (Elements tag in Chrome).
 
 ## Working with the Elements tag in Chrome
 

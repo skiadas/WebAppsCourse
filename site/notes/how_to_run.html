@@ -23,7 +23,7 @@
 window.a   // That variable was created as a property of the window object</code></pre>
 <p>We will have a lot more to say about all this later.</p>
 <h2 id="javascript-in-node">Javascript in Node</h2>
-<p>TODO: Talk about what Node is.</p>
+<p>Node is essentially an implementation of Javascript that is meant to run directly on your computer, rather than inside a browser. As such, it contains the core Javascript, but not any of the extensions that make Javascript interact with the webpage. Instead, it contains numerous libraries to allow you to work with the computer's resources, such as file streams, directory information, multiple processes.</p>
 <p>Make sure you are on a terminal.</p>
 <p>We will first discuss locally installing Node. If you don't have administrator access on your computer, you will likely need to follow these steps.</p>
 <p>Here is a <a href="https://gist.github.com/isaacs/579814">link</a> with numerous ways to install Node. We will use the <a href="https://gist.githubusercontent.com/isaacs/579814/raw/14f8c47ba12166cfe53e0e80d0e978fc02327091/use-nave.sh">approach using nave</a>.</p>
@@ -33,7 +33,7 @@ cd ~/.nave</code></pre>
 <p>Next we download the nave script. Depending on your system, one of these will work:</p>
 <pre><code>wget http://github.com/isaacs/nave/raw/master/nave.sh
 curl -L http://github.com/isaacs/nave/raw/master/nave.sh &gt; nave.sh</code></pre>
-<p>We then needs to change permissions to make the shell executable:</p>
+<p>We then need to change permissions to make the shell executable:</p>
 <pre><code>chmod u+x nave.sh
 cd ~</code></pre>
 <p>We can now prefix all commands with &quot;~/.nave/nave.sh&quot;. The following will install the latest node installation.</p>
