@@ -1,5 +1,5 @@
-WebAppsCourse
-=============
+Web Application Development
+===========================
 
 Course website for Web Application Development
 
