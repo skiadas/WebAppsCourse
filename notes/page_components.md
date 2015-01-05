@@ -4,6 +4,7 @@
 
 - [HTML elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 - [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)
+- [Chrome Devtools](https://developer.chrome.com/devtools)
 
 ## Components of a Web Application
 
