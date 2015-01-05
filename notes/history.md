@@ -18,26 +18,35 @@ Optional:
 
 ## History of Javascript
 
-- In 1993, Mosaic Web Browser developed in UIUC. First popular web browser (image tag).
-- Part of that group created Netscape. Another part created Explorer.
-- Javascript designed in 1995 within 2 weeks by Brendan Eich at Netscape. Goal was to add interactivity to web pages.
-- Initially named Mocha, then LiveScript.
-- Influenced by other languages: Self (prototype objects), Scheme (function model), Java (syntax).
-- Was originally meant to also run on the server.
-- Netscape and Sun team up to fight Microsoft.
-- Netscape licensed the name Javascript from Sun (who had trademark on `Java`), to capitalize on Java's popularity at the time. Java was supposed to be the web language back in 1995.
-- In 1996, Microsoft reverse-engineers "JScript" in 1996 for IE 3 to compete with Netscape. Named so to avoid trademark disputes.
-- Netscape asked W3C to standardize the language. W3C said no.
-- In November 1996 they asked [ECMA](http://www.ecma-international.org/). First standard adopted in June 1997. It is called ECMAScript. (Because noone else was allowed to call it JavaScript).
+- 1993
+    - Mosaic Web Browser developed in UIUC. First popular web browser (image tag).
+    - Part of that group created Netscape. Another part created Explorer.
+- 1995
+    - Javascript designed within 2 weeks by Brendan Eich at Netscape. Goal was to add interactivity to web pages.
+    - Initially named Mocha, then LiveScript.
+    - Influenced by other languages: Self (prototype objects), Scheme (function model), Java (syntax).
+    - Was originally meant to also run on the server (LiveWire).
+    - Netscape and Sun team up to fight Microsoft.
+    - Netscape licensed the name Javascript from Sun (who had trademark on `Java`), to capitalize on Java's popularity at the time. Java was supposed to be the web language back in 1995.
+    - Sun/Oracle still holds the trademark on "Javascript".
+- 1996
+    - Microsoft reverse-engineers "JScript" in 1996 for IE 3 to compete with Netscape. Named so to avoid trademark disputes.
+    - Netscape asked W3C to standardize the language. W3C said no.
+    - In November 1996 they asked [ECMA](http://www.ecma-international.org/). First standard adopted in June 1997. It is called ECMAScript. (Because noone else was allowed to call it JavaScript).
 - Browser wars (1996-1999)
     - Netscape and Microsoft start introducing new and slightly incompatible features
     - Webpage writers want to use these features. Browser detection.
     - As other browsers start supporting features, they need to bypass browser detection.
     - A lot of old code still maintains some of these ugly hacks.
-- ECMAScript 3 standard (baseline for modern JS) released in 1999.
-- "JavaScript" is now a trademark of Oracle.
-- In 2005, Ajax introduced: A set of (existing) technologies that allows web applications to load data in the background.
-- In 2009, ECMAScript 3.1 renamed to ECMAScript 5. Essentially the current standard.
-- ES5 has "default" and "strict" mode.
+- 1999
+    - ECMAScript 3 standard (baseline for modern JS) released.
+    - Era of standardization begins.
+    - Still many legacy sites out there.
+    - Still many users using old browsers.
+- 2005
+    - Ajax introduced: A set of (existing) technologies that allows web applications to load data in the background.
+- 2009
+    - ECMAScript 3.1 renamed to ECMAScript 5. Essentially the current standard.
+    - ES5 has "default" and "strict" mode.
+    - Node is released. Server-side Javascript.
 - Work on ES6, codenamed Harmony, ongoing.
-- In 2009, Node is released. Server-side Javascript.
