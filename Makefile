@@ -12,6 +12,9 @@ $(HTMLFILES): site/%.html: %.md $(TEMPLATE)
 $(PDFS): site/%.pdf: %.md $(TEXTEMPLATE)
 	pandoc -o $@ --template=$(TEXTEMPLATE) -t latex --listings --filter ./makeTex.hs $<
 
+email:
+	open "mailto:`cat students.txt`"
+
 site: $(HTMLFILES) $(PDFS)
 
 all: site
