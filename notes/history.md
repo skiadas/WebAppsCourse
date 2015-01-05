@@ -45,6 +45,7 @@ Optional:
     - Still many users using old browsers.
 - 2005
     - Ajax introduced: A set of (existing) technologies that allows web applications to load data in the background.
+    - Work on web standardization continues.
 - 2009
     - ECMAScript 3.1 renamed to ECMAScript 5. Essentially the current standard.
     - ES5 has "default" and "strict" mode.
