@@ -84,7 +84,7 @@ A large part of your grade will be the term project that you will need to work o
 
 ## Grading
 
-Your final grade depends on class attendance, labs, project, quizzes, midterms and the final, as follows:
+Your final grade depends on class attendance, homework, labs, project and the final, as follows:
 
   Component   Percent
 -----------  --------

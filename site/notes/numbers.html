@@ -28,13 +28,15 @@
 <li>Certain operations (e.g. bitwise) are performed treating the numbers as 32-bit integers instead.</li>
 <li>Number literals are much like in other languages. You can use <code>0x</code> for hexadecimals.</li>
 <li>Avoid using octal literals (those starting with a 0).</li>
-<li>The <code>Math</code> object contains a number of useful functions. Refer to the MDN documentation for these functions for details. You should make sure you become familiar with the functions for the following (avoid &quot;experimental&quot; functions):</li>
+<li>The <code>Math</code> object contains a number of useful functions. Refer to the MDN documentation for these functions for details. You should make sure you become familiar with the functions for the following (avoid &quot;experimental&quot; functions):
+<ul>
 <li>Raising to a power</li>
 <li>Maximum/Minimum</li>
 <li>Random numbers</li>
 <li>Various rounding</li>
 <li>Logarithm and exponential</li>
 <li>Trigonometric functions</li>
+</ul></li>
 <li>The <code>Math</code> object also contains a number of mathematical constants (pi, e).</li>
 <li>The <code>Number</code> object contains constants for the largest integer, as well as <code>Infinity</code> and <code>NaN</code> (not a number).</li>
 <li>Arithmetic operations never raise errors, instead producing either <code>Infinity</code>, <code>-Infinity</code> or <code>NaN</code>.</li>
@@ -46,7 +48,6 @@
 <li>You can see that by trying <code>NaN == NaN</code>.</li>
 </ul></li>
 <li>Some behavior to watch out for (try to explain it): <code>Number.MAX_VALUE == Number.MAX_VALUE + 1</code>.</li>
-<li><strong>NOTE</strong>: These are not reserved values. In theory someone could create a local variable with the same name, and set it to any value.</li>
 <li>Make sure to read about rounding errors, that are unavoidable whenever you do floating point arithmetic.</li>
 </ul>
 </body>
