@@ -28,6 +28,7 @@ The keys can be written without quotes around them if there is no ambiguity in d
     ```
     var b = "foo";
     a[b];              // same as a["foo"]
+    ```
 - Setting a property: `a["foo"] = 3`, `a.foo = 3`.
 - You may delete properties, though this is rare and to be avoided: `delete a.foo`.
 - You can chain accesses: `a.even.other`.

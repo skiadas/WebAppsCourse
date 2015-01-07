@@ -12,7 +12,7 @@
 - String literals are formed by surrounding the text in single or double quotes: `"a string"`, `'another string'`.
 - Escape characters are combinations that hold special meaning. Refer to table 3.1 in the book, or in MDN's String reference.
 - The plus operator is overloaded to cause string concatenation. Other values will be coersed to strings if necessary.
-- Strings can be accessed via array indexing location: `"hi there"[4] == "h"`, `"hello".length == 5`. There is no separate type for single characters.
+- Strings can be accessed via array indexing: `"hi there"[4] == "h"`, `"hello".length == 5`. There is no separate type for single characters.
 - Strings are immutable: You cannot change their value, you can only create a new string.
 
 ### String methods
@@ -49,7 +49,7 @@
 
 ## Regular Expressions in Javascript
 
-- Regular expressions are patterns that allow us to express very intelligent search patterns in strings.
+- Regular expressions are patterns that allow us to express very intelligent searches in strings.
 - The full language of regular expressions is quite rich and will take some time to fully digest. We will only scratch the surface here.
 - A regular expression literal is marked by two forward slashes: `/stuffHere/`. The second slash may optionally be followed by the letters "i", "g", and/or "m", which affect how the expression behaves.
 
@@ -65,7 +65,7 @@
 - Between the two forward slashes, a number of elements can be present, each with its meaning. Here are the most important ones:
 
     c
-      ~ Any character except for a few special that we will mention furhter down matches itself. This includes numbers, letters, some punctuation etc.
+      ~ Any character except for a few special that we will mention further down matches itself. This includes numbers, letters, some punctuation etc.
 
     \\t
       ~ Matches a tab character.
