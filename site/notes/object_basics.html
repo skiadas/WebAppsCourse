@@ -34,7 +34,9 @@
 };</code></pre>
 The keys can be written without quotes around them if there is no ambiguity in doing so.</li>
 <li>Accessing a property: <code>a[&quot;foo&quot;]</code>, <code>a.foo</code>.</li>
-<li>You can also access a property if you have it as a variable value: ``` var b = &quot;foo&quot;; a[b]; // same as a[&quot;foo&quot;]</li>
+<li><p>You can also access a property if you have it as a variable value:</p>
+<pre><code>var b = &quot;foo&quot;;
+a[b];              // same as a[&quot;foo&quot;]</code></pre></li>
 <li>Setting a property: <code>a[&quot;foo&quot;] = 3</code>, <code>a.foo = 3</code>.</li>
 <li>You may delete properties, though this is rare and to be avoided: <code>delete a.foo</code>.</li>
 <li>You can chain accesses: <code>a.even.other</code>.</li>
