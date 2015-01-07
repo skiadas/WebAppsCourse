@@ -16,12 +16,12 @@
 - Number literals are much like in other languages. You can use `0x` for hexadecimals.
 - Avoid using octal literals (those starting with a 0).
 - The `Math` object contains a number of useful functions. Refer to the MDN documentation for these functions for details. You should make sure you become familiar with the functions for the following (avoid "experimental" functions):
-   - Raising to a power
-   - Maximum/Minimum
-   - Random numbers
-   - Various rounding
-   - Logarithm and exponential
-   - Trigonometric functions
+    - Raising to a power
+    - Maximum/Minimum
+    - Random numbers
+    - Various rounding
+    - Logarithm and exponential
+    - Trigonometric functions
 - The `Math` object also contains a number of mathematical constants (pi, e).
 - The `Number` object contains constants for the largest integer, as well as `Infinity` and `NaN` (not a number).
 - Arithmetic operations never raise errors, instead producing either `Infinity`, `-Infinity` or `NaN`.
@@ -31,5 +31,4 @@
     - `NaN` is not equal to any value, including itself.
     - You can see that by trying `NaN == NaN`.
 - Some behavior to watch out for (try to explain it): `Number.MAX_VALUE == Number.MAX_VALUE + 1`.
-- **NOTE**: These are not reserved values. In theory someone could create a local variable with the same name, and set it to any value.
 - Make sure to read about rounding errors, that are unavoidable whenever you do floating point arithmetic.
