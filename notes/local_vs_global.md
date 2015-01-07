@@ -11,7 +11,8 @@
 - You declare a local variable via the keyword `var`. You can also give it a value at the same time.
 - To begin with, things are defined in the global scope. A new scope is created within the body of any function.
 - One particularly interesting behavior of Javascript is "variable hoisting": *Variable declarations are always processed as if they happened at the top of the function*.
-For example consider the following code:
+
+    For example consider the following code:
     ```
     function f() {
         a = 2;
@@ -19,16 +20,14 @@ For example consider the following code:
     }
     ```
 
-
-This is equivalent to:
-
-```
-function f() {
-    var a;
-    a = 2;
-    a = 1;
-}
-```
+    This is equivalent to:
+    ```
+    function f() {
+        var a;
+        a = 2;
+        a = 1;
+    }
+    ```
 
 - A local variable is not visible outside the scope of the function in which it was defined.
 - Variables that are assigned a value without a corresponding declaration are "global". Global variables are visible everywhere.
@@ -48,3 +47,4 @@ function f() {
     ```
 - Pay particular attention to the example at the top of page 54.
 - Make a point to **always declare variables at the top of functions/files**.
+- Here is an example of what can go horribly wrong if you are not careful: [local_global.html](../testPages/local_global.html) and [local_global.js](../testPages/local_global.js)
