@@ -60,5 +60,11 @@ git add testFile.html</code></pre>
 <p>Now do a &quot;commit&quot;. If you want to skip the &quot;message in the editor&quot; part, you can instead do this:</p>
 <pre><code>git commit -m &quot;Hello becomes goodbye&quot;</code></pre>
 <p>Congratulations, you have now made your first two commits! We will see a bit later how to view previous commits and other cool stuff.</p>
+<p>And these are the basics of the commit system.</p>
+<h3 id="managing-commits-and-their-history">Managing commits and their history</h3>
+<p>All these commits wouldn't do us any good if we couldn't go back and interact with previous commits. Let's see how we can do that. The basic command is <code>git log</code>, try it out now. You should see two commits, each with a hash number next to the word &quot;commit&quot;. This hash number is in fact the commit's &quot;name&quot;, it's how the system refers to that commit. It also shows you the name of the committer, as well as the message.</p>
+<p>Some times you want a shorter view:</p>
+<pre><code>git log --pretty=oneline</code></pre>
+<p>There are lots of other options.</p>
 </body>
 </html>

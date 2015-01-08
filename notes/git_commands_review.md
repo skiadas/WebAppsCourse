@@ -21,4 +21,9 @@
 [git diff](http://git-scm.com/docs/git-diff)
   ~ Shows the difference between two versions of a file. Do `git diff --staged` to see the modifications that are staged.
 
+`.gitignore`
+  ~ A file that you can have in your project's root, indicating files and folders that should not be tracked by git.
+
+[git log](http://git-scm.com/docs/git-log)
+  ~ Shows you a listing of past commits. Many useful options.
 

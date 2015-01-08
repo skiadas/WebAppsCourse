@@ -81,3 +81,20 @@ git commit -m "Hello becomes goodbye"
 ```
 
 Congratulations, you have now made your first two commits! We will see a bit later how to view previous commits and other cool stuff.
+
+And these are the basics of the commit system.
+
+### Managing commits and their history
+
+All these commits wouldn't do us any good if we couldn't go back and interact with previous commits. Let's see how we can do that. The basic command is `git log`, try it out now. You should see two commits, each with a hash number next to the word "commit". This hash number is in fact the commit's "name", it's how the system refers to that commit. It also shows you the name of the committer, as well as the message.
+
+Some times you want a shorter view:
+
+```
+git log --pretty=oneline
+```
+
+There are lots of other options.
+
+
+
