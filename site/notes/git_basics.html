@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="basics-of-working-with-git">Basics of working with Git</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://git-scm.com/book/en/v2">Pro git book</a></li>
+<li><a href="http://git-scm.com/docs">Git command reference</a></li>
+<li><a href="http://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository">Read this</a> Chapter 2 (at least skim through it)</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<h3 id="starting-a-repository">Starting a repository</h3>
+<ul>
+<li>The most common way to start work is by cloning an existing repository, and we will learn about that later. For now, we will look into starting a fresh repository.</li>
+<li>Start by going to the directory that you want to have become a repository.</li>
+<li>We can type <code>git init</code> to start maintaining the current directory as a repository. It is OK if there is stuff already there, it will not be deleted or anything like that. But for now, do it to a new directory.</li>
+</ul>
+<h3 id="recording-changes">Recording changes</h3>
+<p>Look at this <a href="http://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository">picture</a> for a good idea on the different stages that files can be in.</p>
+<p>The main command used to get information about the status of your files is <code>git status</code>. If we try this on our empty directory, we get a nice clean message that there's nothing to do. Let's get something in there. Open the folder in Sublime Text. You can do it by typing &quot;<code>subl .</code>&quot;</p>
+<p>Let's create a new HTML file, call it <code>testFile.html</code>. Try these contents:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+   &lt;body&gt;
+      &lt;p&gt;Hello world!&lt;/p&gt;
+   &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Save the file, and back on the terminal type <code>git status</code>. It should tell you that you now have one untracked file.</p>
+<p>To start tracking this file, you need to add it:</p>
+<pre><code>git add testFile.html
+git status</code></pre>
+<p>You should see that the file now is staged to be committed when we make the next commit. Git also tells you what to do if you want to unstage it. Let's try it:</p>
+<pre><code>git rm --cached testFile.html
+git status
+git add testFile.html</code></pre>
+<p>Let us go ahead and commit this file:</p>
+<pre><code>git commit</code></pre>
+<p>This should open a window in your chosen editor, allowing you to type in a comment to go with the commit. Type in a comment, save and close the window. Git will get back to you with an somewhat informative message. Try <code>git status</code> again.</p>
+<p>Let us go back and edit our file:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+   &lt;body&gt;
+      &lt;p&gt;Goodbye cruel world!&lt;/p&gt;
+   &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Try <code>git status</code> again. It will now tell you that there is a modified file, but that it is not staged for commit. To get more information, we can use <code>git diff</code>. Try that now. It should show you that there is one line removed, and one line inserted. Go ahead and do an &quot;add&quot; to stage that change.</p>
+<p>It is typical that you might want to review the changes that you are about to commit before you do so. you can do this as follows:</p>
+<pre><code>git diff --staged</code></pre>
+<p>Now do a &quot;commit&quot;. If you want to skip the &quot;message in the editor&quot; part, you can instead do this:</p>
+<pre><code>git commit -m &quot;Hello becomes goodbye&quot;</code></pre>
+<p>Congratulations, you have now made your first two commits! We will see a bit later how to view previous commits and other cool stuff.</p>
+</body>
+</html>

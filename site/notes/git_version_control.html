@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="version-control-and-git">Version Control and git</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://git-scm.com/book/en/v2">Pro git book</a></li>
+<li><a href="http://git-scm.com/docs">Git command reference</a></li>
+<li><a href="http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">Read this</a> Chapter 1 (at least skim through it)</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<h3 id="general-information-about-version-control-and-git">General information about Version Control and git</h3>
+<ul>
+<li>Version Control allows you to maintain copies of your code at various stages during its evolution.</li>
+<li>Here are some things it allows you to do:
+<ul>
+<li>quickly revert back to a previous, perhaps more stable, version of your code</li>
+<li>see the differences between where you code is now and where it was at a previous time</li>
+<li>find out who in your team was the last person to change a line of code, and what happened in that change</li>
+<li>seamlessly merge together changes implemented at the same time by different people</li>
+<li>share changes to someone's code, that they can decide to use or not</li>
+<li>see a history of what has happened when in your code</li>
+</ul></li>
+<li>Your code history is stored in a <strong>repository</strong></li>
+<li>A specific version of your code is called a <strong>revision</strong></li>
+<li>Creating a new revision based on the current state of your code is called a <strong>commit</strong></li>
+<li>We will be using &quot;git&quot;, which is known as a <strong>distributed version control system</strong>
+<ul>
+<li>Essentially this means that each person holds in their local repository the entire history of the project</li>
+<li>Git achieves this very efficiently</li>
+<li>Git was developed in order to maintain the Linux operating system kernel</li>
+<li>DVCSs allow nonlinear development. You can work on your computer moving along and making commits, and at some later point try to sync those commits with a backup repository that others may have been using as well.</li>
+</ul></li>
+<li>When you commit, git takes a &quot;snapshot&quot; of how your entire project filesystem looks, and saves that snapshot.</li>
+<li>Git uses a lot of checksums. Every file and snapshot is captured by its checksum and referred to that way.</li>
+<li><p>When working with Git there are 3 main areas (see <a href="http://git-scm.com/book/en/v2/Getting-Started-Git-Basics#The-Three-States">here</a>)</p>
+<dl>
+<dt>repository</dt>
+<dd>where all previous revisions are stored. This is actually a hidden folder named &quot;.git&quot;, and nothing more.
+</dd>
+<dt>working directory</dt>
+<dd>This is your current directory the way you have it set up, with all its files and things.
+</dd>
+<dt>staging area</dt>
+<dd>This sits between the repository and the working directory. When you decide that you want to keep some of the changes you made to your repository, you will &quot;stage&quot; them, and then they become part of the staging area. When you are certain that you have staged all the changes that &quot;are logically together&quot;, you can &quot;commit&quot; them, which moves these staged changes into the repository.
+</dd>
+</dl></li>
+<li><p>Your files can be in 4 different states:</p>
+<dl>
+<dt>committed</dt>
+<dd>these are file whose current version is already in the repository.
+</dd>
+<dt>staged</dt>
+<dd>these files have some modifications to them, and we have already added them to the staging area.
+</dd>
+<dt>modified</dt>
+<dd>these files have some modifications to them, but have not been added to the staging area.
+</dd>
+<dt>untracked</dt>
+<dd>these files are in the directory that is being tracked by the repository, but they themselves have never been added to the repository.
+</dd>
+</dl></li>
+</ul>
+<h3 id="setting-up-git-in-your-system">Setting up git in your system</h3>
+<ul>
+<li>We have already installed git for you. You do need to customize it a bit however.</li>
+<li><p>First, you want to set a name and email address for yourself. These are used every time you make a commit, to identify who made the commit. You can do this with the lines:</p>
+<pre><code>git config --global user.name &quot;John Doe&quot;
+git config --global user.email johndoe@example.com</code></pre></li>
+<li><p>Next you will want to set your editor, so that git knows what program to use. This would be done with a line like:</p>
+<pre><code>git config --global core.editor &quot;/usr/bin/subl -n -w&quot;</code></pre>
+of course the path will be different depending on what editor you want to use; the above line is for sublime text. For vi you would do instead <code>&quot;/usr/bin/vi&quot;</code>, for emacs you would do <code>&quot;/usr/bin/emacs&quot;</code></li>
+<li><p>You can verify your settings with <code>git config --list</code>.</p></li>
+</ul>
+</body>
+</html>

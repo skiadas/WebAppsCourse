@@ -20,9 +20,10 @@ A week-by-week breakdown of the material.
     - [Function basics](notes/functions_basic.md)
     - [Assignment 3](assignments/3.md)
 - Day 4
-    - [Basics of Version Control](notes/git/version_control.md)
-    - [Git and GitHub basics](notes/git/git_github_basics.md)
-    - [Review of Git commands](notes/git/commands_review.md)
+    - [Basics of Version Control](notes/git_version_control.md)
+    - [Git basics](notes/git_basics.md)
+    - [GitHub basics](notes/github_basics.md)
+    - [Review of Git commands](notes/git_commands_review.md)
     - [Lab 1: Fork, Pull, Commit, Push](labs/1.md)
 
 ## Week  2 (01/12-01/16)
