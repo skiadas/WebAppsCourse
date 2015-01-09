@@ -17,9 +17,8 @@
 - There are various ways of calling functions with some subtle semantics that we will discuss later. But for now, the name of the function followed by values for the arguments will suffice: `f(val1, val2)`
 - The number of values provided when a function is called may differ from the number of arguments in its definition, and that is OK.
    - Any extra values passed can be accessed via the `arguments` object, which we may touch on at a later time.
-   - If there are two few values passed, the remaining arguments will default to the value `undefined`.
-- Here is an example of a function that each time it is called with an argument `n`
-returns a new array of `n` random values:
+   - If there are too few values passed, the remaining arguments will default to the value `undefined`.
+- Here is an example of a function that each time it is called with an argument `n` returns a new array of `n` random values:
     ```
     function makeRandomArray(n) {
         var newArray = [];

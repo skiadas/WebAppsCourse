@@ -7,7 +7,7 @@
 ## Commands
 
 [git clone](http://git-scm.com/docs/git-clone)
-   ~ `git clone theRepository` (also see [here](http://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)) this will clone the repository starting in a current directory, in a subdirectory named after the project. You can add one more parameter to specify a different name.
+  ~ `git clone theRepository` (also see [here](http://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)) this will clone the repository starting in a current directory, in a subdirectory named after the project. You can add one more parameter to specify a different name.
 
 [git status](http://git-scm.com/docs/git-status)
   ~ Shows the current status of files/directories.
@@ -16,7 +16,7 @@
   ~ Adds a new or modified file to the staging area. Can be used to add multiple files too.
 
 [git commit](http://git-scm.com/docs/git-commit)
-  ~ Creates a commit from the staged changes. Use the `-m` flag to leave a message right there.
+  ~ Creates a commit from the staged changes. Use the `-m` flag to leave a message right there. You can use the `--amend` flag to amend to the previous commit instead.
 
 [git diff](http://git-scm.com/docs/git-diff)
   ~ Shows the difference between two versions of a file. Do `git diff --staged` to see the modifications that are staged.
@@ -27,3 +27,5 @@
 [git log](http://git-scm.com/docs/git-log)
   ~ Shows you a listing of past commits. Many useful options.
 
+[git reset](http://git-scm.com/docs/git-reset)
+  ~ "Resets" your staging area, typically by unstaging a file.

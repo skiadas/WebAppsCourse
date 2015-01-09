@@ -13,22 +13,22 @@ A week-by-week breakdown of the material.
 - Day 2
     - [Local and Global Variables](notes/local_vs_global.md)
     - [Basics of Arrays](notes/array_basics.md)
-    - [Basics of Objects](notes/object_basics.md)
     - [Assignment 2](assignments/2.md)
 - Day 3
+    - [Basics of Objects](notes/object_basics.md)
     - [Strings and Regular Expressions](notes/strings_and_re.md)
+- Day 4
     - [Function basics](notes/functions_basic.md)
     - [Assignment 3](assignments/3.md)
-- Day 4
     - [Basics of Version Control](notes/git_version_control.md)
     - [Git basics](notes/git_basics.md)
-    - [GitHub basics](notes/github_basics.md)
     - [Review of Git commands](notes/git_commands_review.md)
-    - [Lab 1: Fork, Pull, Commit, Push](labs/1.md)
 
 ## Week  2 (01/12-01/16)
 
 - Day 1
+    - [GitHub basics](notes/github_basics.md)
+    - [Lab 1: Fork, Pull, Commit, Push](labs/1.md)
     - [Functions as Closures](notes/function_closures.md)
     - [Array Collection methods](notes/array_methods.md)
     - [Assignment 4](assignments/4.md)

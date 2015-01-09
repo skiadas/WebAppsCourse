@@ -39,10 +39,10 @@
     staging area
       ~ This sits between the repository and the working directory. When you decide that you want to keep some of the changes you made to your repository, you will "stage" them, and then they become part of the staging area. When you are certain that you have staged all the changes that "are logically together", you can "commit" them, which moves these staged changes into the repository.
 
-- Your files can be in 4 different states:
+- Your files can be in 4 [different states](http://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository):
 
     committed
-      ~ these are file whose current version is already in the repository.
+      ~ these are files whose current version is already in the repository.
 
     staged
       ~ these files have some modifications to them, and we have already added them to the staging area.

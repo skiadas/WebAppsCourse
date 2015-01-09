@@ -30,7 +30,7 @@
 <li>There are various ways of calling functions with some subtle semantics that we will discuss later. But for now, the name of the function followed by values for the arguments will suffice: <code>f(val1, val2)</code></li>
 <li>The number of values provided when a function is called may differ from the number of arguments in its definition, and that is OK.</li>
 <li>Any extra values passed can be accessed via the <code>arguments</code> object, which we may touch on at a later time.</li>
-<li>If there are two few values passed, the remaining arguments will default to the value <code>undefined</code>.</li>
+<li>If there are too few values passed, the remaining arguments will default to the value <code>undefined</code>.</li>
 <li><p>Here is an example of a function that each time it is called with an argument <code>n</code> returns a new array of <code>n</code> random values:</p>
 <pre><code>function makeRandomArray(n) {
     var newArray = [];
