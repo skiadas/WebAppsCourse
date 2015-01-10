@@ -73,7 +73,7 @@ Try `git status` again. It will now tell you that there is a modified file, but 
 git diff
 ```
 
-Try that now. It should show you that there is one line removed, and one line inserted. Go ahead and do an "add" to stage that change.
+Try that now. It should show you that there is one line removed, and one line inserted. Go ahead and do an "git add" to stage that change.
 
 It is typical that you might want to review the changes that you are about to commit before you do so. you can do this as follows:
 
@@ -115,7 +115,7 @@ git log --pretty=oneline
 
 There are lots of other options. Note that these "hashlike" commit names may look weird, but are in many ways awesome. For now, know that it is usually enough to copy/paste just the first 6 numbers/letters, they are usually enough to uniquely determine the commit.
 
-Here are some other useful version of `git log`:
+Here are some other useful versions of `git log`:
 
 ```bash
 git log -p -2

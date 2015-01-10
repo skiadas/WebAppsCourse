@@ -28,11 +28,14 @@ A week-by-week breakdown of the material.
 
 - Day 1
     - [GitHub basics](notes/github_basics.md)
-    - [Lab 1: Fork, Pull, Commit, Push](labs/1.md)
+    - [Remotes and Branches](notes/git_remotes_branches.md)
+    - [GitHub Workflow](notes/github_workflow.md)
+    - [Overall Project Workflow](notes/project_workflow.md)
+    - [Lab 1: Getting used to the basics](labs/1.md)
+- Day 2
     - [Functions as Closures](notes/function_closures.md)
     - [Array Collection methods](notes/array_methods.md)
     - [Assignment 4](assignments/4.md)
-- Day 2
     - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
     - [Some tricks using functions](notes/function_tricks.md)
     - [Functions created in loops](notes/functions_in_loops.md)
