@@ -75,7 +75,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="kw">&lt;/html&gt;</span></code></pre>
 <p>Try <code>git status</code> again. It will now tell you that there is a modified file, but that it is not staged for commit. To get more information, we can use :</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff</code></pre>
-<p>Try that now. It should show you that there is one line removed, and one line inserted. Go ahead and do an &quot;add&quot; to stage that change.</p>
+<p>Try that now. It should show you that there is one line removed, and one line inserted. Go ahead and do an &quot;git add&quot; to stage that change.</p>
 <p>It is typical that you might want to review the changes that you are about to commit before you do so. you can do this as follows:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff --staged</code></pre>
 <p>Now do a &quot;commit&quot;. If you want to skip the &quot;message in the editor&quot; part, you can instead do this:</p>
@@ -92,7 +92,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Some times you want a shorter view:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --pretty=oneline</code></pre>
 <p>There are lots of other options. Note that these &quot;hashlike&quot; commit names may look weird, but are in many ways awesome. For now, know that it is usually enough to copy/paste just the first 6 numbers/letters, they are usually enough to uniquely determine the commit.</p>
-<p>Here are some other useful version of <code>git log</code>:</p>
+<p>Here are some other useful versions of <code>git log</code>:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log -p -2
 <span class="kw">git</span> log --stat</code></pre>
 <p>The first one will show you, along with each commit, a diff of the changes that commit introduced. The <code>-2</code> limits it to the last two commits. The second will show you some statistics of each commit.</p>

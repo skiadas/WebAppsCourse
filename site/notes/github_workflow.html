@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="basic-github-workflow">Basic GitHub workflow</h1>
+<p>We will go through an example of standard tasks you would need to perform in relation to Git and GitHub.</p>
+<h2 id="notes">Notes</h2>
+<h3 id="creating-issues">Creating issues</h3>
+<p>We will perform the following steps:</p>
+<ul>
+<li>Create a new issue in GitHub</li>
+<li>Practice with things we can do with that issue (labels, assign, close, reopen)</li>
+<li>Changing some code and viewing the changes we made.</li>
+<li>Making a commit to automatically close the issue.</li>
+</ul>
+<p>First off, let us make an issue. Open the GitHub project in YOUR account that is called WebAppsLabs. Typically just going to <a href="https://github.com">github.com</a> will automatically take you to your starting page. You should see a &quot;repositories&quot; section, with &quot;WebAppsLabs&quot; in it, click that link.</p>
+<p>For this time only, we need to enable the &quot;issues&quot; tracker for your project. To do this, choose the &quot;Settings&quot; section on the right, and check the &quot;Issues&quot; checkbox in the &quot;Features&quot; section.</p>
+<p>You should now see a new icon on the right, the Issues icon that looks like an exclamation mark, so click on that. You should see a very welcoming message.</p>
+<p>Let's create a new issue! Click the &quot;New Issue&quot; button on the top right.</p>
+<ul>
+<li>For &quot;title&quot; put &quot;Add our name to yourCode.js&quot;.</li>
+<li>From the Labels section on the right chooose &quot;enhancement&quot; and &quot;bug&quot;.</li>
+<li>Right below the title it says &quot;no one is assigned&quot;. Choose to assign it to you.</li>
+<li>You can leave a comment in the box right below the &quot;Write&quot; message. Leave it empty for now though. Click on &quot;Submit new Issue&quot;.</li>
+<li>You should now be looking at the issue. You see that it has the tracking number 1, and along the way it says that two labels were added to it, and it was assigned to you.</li>
+<li><p>Leave a comment! Type the following in the comment space (made up to allow you to learn some of the Markdown syntax)</p>
+<pre><code>This is my **first** comment! I *love* it! I&#39;m going to make a list of points about it:
+
+- A first item
+- A second item
+
+    1. Move four spaces in to create a &quot;subitem&quot;
+    2. A numbered list, woohoo!
+
+- I will use `backticks for code`
+
+```
+I will use &quot;fenced by 3 backticks&quot; blocks for whole code blocks
+```
+- I can create a &quot;mention&quot; to another user by typing an at-sign: @skiadas to draw their attention to an issue.
+- This will actually make that user receive emails, so you&#39;ve just bombarded your instructor with emails, cool!</code></pre>
+After you have typed all that in, click the &quot;Comment&quot; button. This should add a comment, and offer you a space to leave another comment. Look at how the things we typed end up looking! That's Markdown.</li>
+<li><p>Go ahead and type another comment in, but this time click the &quot;Close and comment&quot; button instead. You will notice that this marked the issues as &quot;closed&quot; meaning &quot;resolved&quot;, and it also says who closed it and when. Let's go ahead and use the &quot;Reopen Issue&quot; button to reopen it.</p>
+<p>By the way, remember how you got the comment earlier to send an annoying email to that skiadas fella? Well, he also received a notification for each one of these changes you just made, oh what joy!</p>
+But the point is that issues can be a very effective place to have a conversation with someone on an issue.</li>
+<li><p>You can also change the labels of an issue after it has been assigned, go ahead and do that (more emails for <span class="citation">@skiadas</span>, yey!).</p></li>
+<li><p>After you've had enough fun, click back at the exclamation point to the right, and you should see a list of all &quot;open&quot; issues, only one in this case. You see the title for it, the labels attached to it, when it was opened, how many comments it has and who is assigned to it on the right side.</p></li>
+</ul>
+<h3 id="making-commits">Making Commits</h3>
+<p>And these are the basics of creating issues. We will now make a change in our code.</p>
+<ul>
+<li>Make sure the Terminal is pointing at the WebAppsLabs directory, use the &quot;<code>cd .....</code>&quot; command to navigate there.</li>
+<li>Open up Sublime Text with &quot;<code>subl .</code>&quot; or in any other way you like, or whatever editor you like, and find the file <code>yourCode.js</code>. You will see that the first couple of lines have room to put the names of the two people in the project. Go ahead and edit those two lines, then save the file. Then go back to the Terminal.</li>
+<li>If you do <code>git status</code>, it should now show you that there is one file with modifications, and that you are in the Lab1 branch.</li>
+<li><p>Now do <code>git diff yourCode.js</code> to see the modifications you have made. Don't forget to use &quot;Tab&quot; to autocomplete the name.</p>
+<p>The lines with a dash in front of them will be removed, the ones with a plus will be added.</p>
+<p>If you want to see the diffs in your editor instead, do &quot;<code>git diff yourCode.js | subl</code>&quot;.</p></li>
+<li>Looks good! So go ahead and add that file, with <code>git add yourCode.js</code>.</li>
+<li>Do a <code>git status</code> now. You should see it as &quot;to be committed&quot;.</li>
+<li>Remember that while <code>git diff yourCode.js</code> will not show you anything now, as the changes have been staged, you can see the staged changes with <code>git diff --staged yourCode.js</code>.</li>
+<li>Now do a <code>git commit</code>. For a message, put &quot;<code>Add our names. Close #1</code>&quot;</li>
+<li>It is important that you spell the last part correctly. You can however type &quot;Fix&quot; instead of &quot;Close&quot;. Save and close the commit file.</li>
+<li>Now if you do <code>git status</code>, it should tell you that there is nothing to commit. It also says something interesting: Your branch is ahead of <code>'origin/Lab1'</code> by 1 commit. That is the name of the Lab1 branch that is stored on GitHub's servers. The commit we did was a local commit. We now need to push our changes to the remote.</li>
+<li>So do <code>git push</code>. It will ask you for your GitHub login and password. When you are done, open the web browser back up and look at the issues page now. You should see that your issue is now closed, and it even links to the commit that did it. This is because of the &quot;Close #1&quot; we put as part of the commit message. GitHub automatically picked it up.</li>
+<li>NOTE: It might actually not be automatically closed. But you will definitely see the issue now mentions the commit we just did.</li>
+<li><p>Try to always include issue numbers to the commits made to refer to them.</p></li>
+</ul>
+</body>
+</html>

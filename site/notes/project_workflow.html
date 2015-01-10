@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="overall-project-workflow">Overall Project Workflow</h1>
+<p>We describe here the steps to take for each session when you work on your project.</p>
+<h2 id="references">References</h2>
+<p><a href="http://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project">Pro Git chapter on contributing</a></p>
+<h2 id="notes">Notes</h2>
+<p>This assumes a small team, in our case two people.</p>
+<h3 id="initial-setup">Initial Setup</h3>
+<ul>
+<li>Decide on one person, we will call him person A, to be the &quot;owner&quot; of the main repository. The other person will be person B.</li>
+<li>Create such a repository on A's GitHub account. This is the &quot;remote&quot; repository that both of you will be using.</li>
+<li>In the GitHub project's page, go to the Settings tab on the right, then to Collaborators. Type in person's B name and add them as collaborator.</li>
+<li>Both team members, log into your accounts, and open up:
+<ul>
+<li>A web browser. Navigate the browser to person A's repository. Copy the url that appears in the right side under &quot;HTTPS clone URL&quot;.</li>
+<li><p>A terminal window. Choose a location where you want to store the &quot;local&quot; repositories, and navigate there. Use <code>mkdir folderName</code> when needed to create subfolders. Do NOT create a folder specifically to hold the project, cloning will do that. Just go into the subfolder in which you want that project folder to be created.</p>
+<p>Now do <code>git clone thatURLYouCopied</code> to create a local clone of the repository.</p></li>
+</ul></li>
+<li>You are set!</li>
+</ul>
+<h3 id="daily-workflow">Daily workflow</h3>
+<ul>
+<li>Pair programming assumes you are both working on the same computer. Read more about <a href="http://en.wikipedia.org/wiki/Pair_programming">pair programming here</a>. You will be carrying out all the following steps together.</li>
+<li>Choose which one of you will be the one typing for this session. Switch roles every session or every few hours.</li>
+<li>The person typing should log into their account.</li>
+<li>Navigate in your terminal to the project folder.</li>
+<li>Do <code>git pull</code> to pull in any changes that were done in the previous session. Since it was the other person's computer last time, your repository does not have these changes yet; this command will update your system and bring it in line with the most recent changes.</li>
+<li>There should not be any merge conflicts, if there are then resolving them can get a bit tricky and require some more reading. But if you follow our workflow you should not have this problem.</li>
+<li>Back in GitHub, review the project's Issues page.
+<ul>
+<li>Are there issues that need to be addressed?</li>
+<li>Should new issues be added? Add them, with appropriate labels and clear comments.</li>
+<li>You can create your own labels as well if you don't like the ones that are there.</li>
+<li>Do you have some new thoughts on an issue? Then leave a comment!</li>
+<li>Reading through the totality of issues should give someone a good idea on where your project is.</li>
+<li>Ideally every thing you do related to your project should have an issue associated with it. And when you make a commit you link that commit to a particular issue by mentioning the issue number (e.g. #1) in the message.</li>
+<li>In both issues and commits, try to use imperative sentences or questions (well, questions only on the issues). e.g. &quot;Add a test for empty arrays&quot;, &quot;Should myAwesomeMethod treat `null` specially?&quot; and so on.</li>
+<li>Keep your issues &quot;small&quot;. Some times it makes sense to have a bigger issue, but to break it into smaller parts. See <a href="https://github.com/blog/1375%0A-task-lists-in-gfm-issues-pulls-comments">this article</a> for how to create checklists in your issue's comment.</li>
+<li>Ideally an &quot;issue&quot; would be something you can work on in a single session, within a couple of hours.</li>
+<li>Essentially the Issues page should contain everything in relation to your project. You shouldn't be keeping in your head things that need to be done or questions that need to be asked, turn them into issues. And this is something you can do at any time any place, you don't have to be with your partner to create new issues.</li>
+</ul></li>
+<li>Decide which issue you will work on addressing.</li>
+<li>Open up your favorite editor (for Sublime Text you can do &quot;<code>subl .</code>&quot; from the terminal to open the whole folder).</li>
+<li>Write tests for the issue you are about to address. (This will be a topic we will discuss later on)
+<ul>
+<li>Run them to make sure they fail.</li>
+<li>Think about them to make sure they are testing all you will need this code to do!</li>
+<li>If there are some maybe more extensive tests that you need but don't want to write right now, make an issue for them.</li>
+</ul></li>
+<li>Add the code that would address the issue. (This line probably will take longer than its length here suggests)
+<ul>
+<li>As you work on your code, new issues might come up. Go back to the GitHub Issues page and add them!</li>
+</ul></li>
+<li>Run your tests to make sure that they have now been addressed.</li>
+<li>Run eslint to make sure your code follows the style standards. We will discuss this later.
+<ul>
+<li>Everything you commit for your project should be passing the tests and the lint process.</li>
+</ul></li>
+<li>Now you need to prepare commits.
+<ul>
+<li>The commits are essentially the history of your project, a journal of what happened when and by whom. Treat it with respect! It is what your coworkers will have to rely on to get up to speed with your project.</li>
+<li>Do <code>git status</code> followed by <code>git diff</code> on individual files to see all the modifications you have done.</li>
+<li>Decide if some modifications deserve to be a separate commit. Add only those modifications (using <code>git add</code>).</li>
+<li>Some times you need to add only a part of a file. Use <code>git add --patch theFileName</code> to choose which sections of that file to commit.</li>
+<li>Do a <code>git commit</code>.
+<ul>
+<li>Add your &quot;commit message&quot; at the top of the window that popped on your editor, above all the hashtagged lines.</li>
+<li>Do NOT mess with any of the hashtagged lines.</li>
+<li>The first line of your commit message should be short, no more than 50 characters, and should include any issue numbers addressed (possibly as &quot;Close #5&quot;. It will often be very similar to the issue's title.</li>
+<li>If you want to leave a longer explanation, add an empty line and your message after that. Use Markdown formatting rules. This is a good place to say in plain words what changes your code introduces.</li>
+<li>Commits should be &quot;<strong>atomic</strong>&quot;: A commit ideally should be doing one thing and one thing only.</li>
+</ul></li>
+<li>Repeat as long as you have uncommitted modifications.</li>
+<li>Do a <code>git log</code>, possibly <code>git log -p -2</code>, to see all the commits you just created and make sure they seem in order.</li>
+<li>Do a <code>git status</code> to make sure you haven't left something out.</li>
+</ul></li>
+<li>Now you need to push your changes to the GitHub repository. Do <code>git push</code>.</li>
+<li>NEVER leave the project:
+<ul>
+<li>With local modifications that have not been committed.</li>
+<li>Without doing a <code>git push</code> of your commits to the main repository.</li>
+</ul></li>
+<li>Back on your web browser, you should see the new commits there, as well as any issues you addressed having been closed.</li>
+<li>Congratulations! Take a short break and swap roles, then have at it on the next issue!</li>
+</ul>
+</body>
+</html>
