@@ -33,18 +33,19 @@ A week-by-week breakdown of the material.
     - [Overall Project Workflow](notes/project_workflow.md)
     - [Lab 1: Getting used to the basics](labs/1.md)
 - Day 2
-    - [Functions as Closures](notes/function_closures.md)
-    - [Array Collection methods](notes/array_methods.md)
+    - [Functions as values](notes/function_values.md)
+    - [Functions as closures](notes/function_closures.md)
     - [Assignment 4](assignments/4.md)
+- Day 3
     - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
+    - [Array Collection methods](notes/array_methods.md)
     - [Some tricks using functions](notes/function_tricks.md)
     - [Functions created in loops](notes/functions_in_loops.md)
     - [Assignment 5](assignments/5.md)
-- Day 3
+- Day 4
     - [Methods in objects. Using `this`](notes/object_methods.md)
     - [Object creation forms. Prototypes](notes/object_creation_prototypes.md)
     - [Assignment 6](assignments/6.md)
-- Day 4
     - [Writing tests](notes/test_writing.md)
     - [Lab 2: Node, Testing](labs/2.md)
 
