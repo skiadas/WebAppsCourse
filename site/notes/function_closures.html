@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="functions-as-closures">Functions as Closures</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li>Flanagan's book, section 8.6</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li><p>Javascript, like most modern programming languages, employs what is known as <strong>lexical scope</strong>:</p>
+<blockquote>
+<p>In <em>lexical scope</em> the local variables that a function has access to are determined by where the function was <em>defined</em>, rather than where it was <em>used</em>.</p>
+</blockquote>
+<p>Here's a code example:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> c = <span class="dv">2</span>;
+<span class="kw">var</span> v = <span class="dv">10</span>;
+<span class="kw">function</span> <span class="fu">storeMe</span>(v) {
+   <span class="kw">var</span> c = <span class="dv">5</span>;
+   <span class="kw">return</span> <span class="kw">function</span> <span class="fu">printStuff</span>() {
+      <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;In f&#39;s call, v is:&quot;</span>, v);
+      <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;In f&#39;s call, c is:&quot;</span>, c);
+   }
+}
+<span class="kw">var</span> f = <span class="fu">storeMe</span>(<span class="dv">20</span>);
+<span class="fu">f</span>();
+<span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Out here, v is:&quot;</span>, v);
+<span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Out here, c is:&quot;</span>, c);</code></pre>
+Let us see what is going on:
+<ul>
+<li>First of all, the two variables <code>c</code> and <code>v</code> are defined, with values <code>2</code> and <code>10</code>.</li>
+<li>Then a function <code>storeMe</code> is defined, and later on is called with value <code>20</code>.</li>
+<li>When that call is executed, a new scope is created, on which <code>v</code> has the passed value <code>20</code>, and after the first line is executed a variable <code>c</code> is defined with value <code>5</code>.</li>
+<li>We then return a function. This function will need a <code>v</code> and a <code>c</code> where it is called.</li>
+<li>These are determined by what values they have <em>where</em> the function was defined, namely inside the execution of <code>storeMe</code>.</li>
+</ul></li>
+<li>So when <code>storeMe(20)</code> returns a function, and we store it at the variable named <code>f</code>, we in fact store more than just a function. We store the &quot;environment&quot;, the &quot;scope&quot;, in which that function was defined.</li>
+<li>This is called a &quot;function closure&quot;, or just &quot;closure&quot; for short. It is the basis for some extremely interesting patterns that we will study in the days to come.</li>
+<li><p>The most standard example of this idea is a counter function:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeCounter</span>() {
+   <span class="kw">var</span> c = <span class="dv">0</span>;
+   <span class="kw">return</span> <span class="kw">function</span> <span class="fu">count</span>() {
+      c += <span class="dv">1</span>;
+      <span class="kw">return</span> c;
+   }
+}
+<span class="kw">var</span> c1 = <span class="fu">makeCounter</span>();
+<span class="kw">var</span> c2 = <span class="fu">makeCounter</span>();
+<span class="fu">c1</span>();
+<span class="fu">c1</span>();
+<span class="fu">c2</span>();</code></pre>
+<p>Call <code>c1</code> and <code>c2</code> a couple of times and notice their behavior, before we discuss it.</p>
+<ul>
+<li>Let's go through what goes on when <code>makeCounter</code> is called. First of all, a variable <code>c</code> is created.</li>
+<li>Then a function <code>count</code> is returned. That function will have access to all the variables available where it was defined, in particular to the variable <code>c</code>.</li>
+<li>When that function <code>count</code> is called, it first increments that variable <code>c</code>. It then returns the new value. Every time it is called, it will increment once more.</li>
+<li>If <code>makeCounter</code> is called a second time, to create <code>c2</code>, then a new different scope is created, in which a variable <code>c</code> is declared, completely different from the one used in <code>c1</code>.</li>
+<li>In fact, noone else has access to that variable <code>c</code> belonging to the function <code>c1</code>. The counter function <code>c1</code> can count (if you pardon the pun) on the fact that noone can mess with its counter variable <code>c</code>. We have effectively created a &quot;private variable&quot;.</li>
+</ul></li>
+<li>As a final and more extended example, here is an implementation of a stack. Of course we could use an array instead, but arrays have many more methods. We want to provide a system, so that users should only be able to do the following, and nothing else:
+<ul>
+<li>Create a new empty stack</li>
+<li>Push a new element at the top of the stack</li>
+<li>Pop and return the element at the top of the stack</li>
+<li>query whether the stack is empty</li>
+</ul>
+<p>Here is a way to implement this:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeStack</span>() {
+    <span class="kw">var</span> arr = [];
+    <span class="kw">return</span> {
+        <span class="dt">push</span>: <span class="kw">function</span>(el) { <span class="ot">arr</span>.<span class="fu">push</span>(el); <span class="kw">return</span> <span class="kw">null</span>; },
+        <span class="dt">pop</span>: <span class="kw">function</span>() {
+            <span class="kw">if</span> (<span class="ot">arr</span>.<span class="fu">length</span> === <span class="dv">0</span>) {
+                <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
+            } <span class="kw">else</span> {
+                <span class="kw">return</span> <span class="ot">arr</span>.<span class="fu">pop</span>();
+            }
+        },
+        <span class="dt">isEmpty</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="ot">arr</span>.<span class="fu">length</span> === <span class="dv">0</span>; }
+    };
+}
+<span class="kw">var</span> s1 = <span class="fu">makeStack</span>();
+<span class="kw">var</span> s2 = <span class="fu">makeStack</span>();
+<span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">1</span>); <span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>); <span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">3</span>);
+<span class="kw">while</span> (!<span class="ot">s1</span>.<span class="fu">isEmpty</span>()) { <span class="ot">s2</span>.<span class="fu">push</span>(<span class="ot">s1</span>.<span class="fu">pop</span>()); }</code></pre>
+<p>When the function <code>makeStack</code> is called, it creates a new array empty, <code>arr</code>, to hold the values. But it keeps that array secret. Instead, it returns an object with three properties, whose values implement the three operations we require of a stack.</p>
+<p>This is important. We only expose to the user the functions they are supposed to call, and hide everything else. This way we can me sure our structure is used in a predictable way.</p></li>
+</ul>
+</body>
+</html>

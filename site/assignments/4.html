@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-4">Assignment 4<span class="small"> (<a href="4.pdf" title="4">pdf</a>)</span></h1>
+<p>Make sure to test all your answers in the console.</p>
+<ol style="list-style-type: decimal">
+<li>Write a function that takes as arguments an array <code>arr</code> and a function <code>g</code>, and returns the result of applying <code>g</code> to each element in the array and adding the resulting values. Do not use any array methods other than array indexing and array length.</li>
+</ol>
+<p>     </p>
+<ol start="2" style="list-style-type: decimal">
+<li>Write a function <code>makeAlternate</code> that takes no arguments, and when called returns a function. That returned function when called returns true one time, false the next time, then back to true and so on, alternating between true and false.</li>
+</ol>
+<p>     </p>
+<ol start="3" style="list-style-type: decimal">
+<li>Write a function <code>makeCounter</code> that is similar to the one we introduced in class, but it also accepts an argument <code>init</code>, and the counter it returns will start counting from <code>init</code> instead of <code>1</code>. (So if <code>var a = makeCounter(10)</code>, then <code>a()</code> would equal 10 the first time and 11 the second time and so on from there).</li>
+</ol>
+<p>     </p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Consider the following code:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> a = <span class="dv">2</span>;
+<span class="kw">function</span> <span class="fu">foo</span>(a) { a = <span class="dv">6</span>; }
+<span class="fu">foo</span>();
+a;</code></pre>
+<p>What is the value of the variable <code>a</code> from the last line? How do you explain that?</p>
+<p>     </p></li>
+</ol>
+</body>
+</html>

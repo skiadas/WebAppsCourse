@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="various-implementations-of-stacks">Various implementations of stacks</h1>
+<p>TODO: This section is not ready. Do NOT read.</p>
+<p>In this section we will compare showcase some different stack implementations.</p>
+<h2 id="notes">Notes</h2>
+<p>These stack implementations vary from each other in two different ways:</p>
+<ul>
+<li>The way that the values are stored. Some implementations use an array, while others use something akin to a linked list.</li>
+<li>The interface provided. While all implementations provide the same 3 methods, the way they must be called differs from one to the next.</li>
+</ul>
+<h3 id="array-based">Array-based</h3>
+<p>These implementations all use an array <code>arr</code> to hold the stack values.</p>
+<p>This is the implementation we saw previously, here it is reproduced with a slight variation to avoid code duplication:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeStack</span>() {
+    <span class="kw">var</span> arr = [];
+    <span class="kw">function</span> <span class="fu">push</span>(el) {
+        <span class="ot">arr</span>.<span class="fu">push</span>(el);
+        <span class="kw">return</span> <span class="kw">null</span>;
+    };
+    <span class="kw">function</span> <span class="fu">pop</span>() {
+        <span class="kw">if</span> (<span class="fu">isEmpty</span>()) {
+            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
+        } <span class="kw">else</span> {
+            <span class="kw">return</span> <span class="ot">arr</span>.<span class="fu">pop</span>();
+        }
+    };
+    <span class="kw">function</span> <span class="fu">isEmpty</span>() {
+        <span class="kw">return</span> <span class="ot">arr</span>.<span class="fu">length</span> === <span class="dv">0</span>;
+    };
+    <span class="kw">return</span> {
+        <span class="dt">push</span>: push,
+        <span class="dt">pop</span>: pop,
+        <span class="dt">isEmpty</span>: isEmpty
+    };
+}</code></pre>
+<p>Notice that we give a name to the object containing the 3 methods.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>In this question we will construct an alternative to the &quot;stack&quot; implementation we saw in class. This should be close to the linked list approach you may be familiar with from data structures.</p>
+<p>We will represent each &quot;entry&quot; with an object: <code>{ value: v, next: o }</code> where <code>v</code> is the value and <code>o</code> is the object that had the previous entry, and so on. So we would want the stack to start its life empty, and we will use <code>null</code> to represent that. If we then push the value <code>5</code> in the stack, we should end up with <code>{ value: 5, next: null }</code>. if we then push <code>6</code> we should end up with <code>{ value: 6, next: { value: 5, next: null }}</code>, and so on. Each time the top element is in the <code>value</code> property, while the object containing the rest is in the <code>next</code> property. Here is a skeleton for this implementation:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeStack</span>() {
+    <span class="kw">var</span> stack = (part i goes here);
+    <span class="kw">return</span> {
+        <span class="dt">push</span>: <span class="kw">function</span>(v) {
+            (part ii goes here);
+        },
+        <span class="dt">pop</span>: <span class="kw">function</span>(v) {
+            <span class="kw">if</span> (... <span class="fu">test</span> <span class="fu">for</span> <span class="fu">empty</span> <span class="fu">stack</span> <span class="ot">here</span> ...) {
+                <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
+            } <span class="kw">else</span> {
+                (part iv goes here);
+            }
+        },
+        <span class="dt">isEmpty</span>: <span class="kw">function</span>() {
+            (part iii goes here);
+        },
+    };
+}</code></pre>
+<p>We will now implement each step. Throughout, the <code>stack</code> variable is meant to hold the current stack, which is really just an object containing the value at the top plus a &quot;link&quot; to the rest.</p>
+<ol style="list-style-type: lower-roman">
+<li>In this part, we look at setting the initial value to the <code>stack</code> variable. Fill in that initial value here:</li>
+</ol>
+<p> </p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>In this part, we write the body of the function that pushes a new value <code>v</code> in. You will need to set the <code>stack</code> variable to point to a new object that contains the new value and a pointer to the previous <code>stack</code>.</li>
+</ol>
+<p>   </p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>In this part, we write the body of the function that tests to see if the <code>stack</code> is empty. This should be a single <code>return</code> statement.</li>
+</ol>
+<p> </p>
+<ol start="4" style="list-style-type: lower-roman">
+<li>In this part we write the body of the function that pops an element from the top of the <code>stack</code>. It has an <code>if</code> part, that needs to perform the exact same test as part iii, just negated. You do not need to rewrite that. You need to write what would go into the <code>then</code> clause. You will need to change the <code>stack</code> variable so that it points to the next element, and you need to return the value of the element you just removed. You will probably need 3 lines for this.</li>
+</ol>
+<p>     </p></li>
+</ol>
+</body>
+</html>
