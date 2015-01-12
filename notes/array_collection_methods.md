@@ -1,7 +1,5 @@
 # Array Collection Methods
 
-TODO: Not ready yet
-
 We look at a number of methods of array objects that capture the idea of a "collection of values", and offer ways to manipulate the entire collection, rather than performing an iterative `for` loop.
 
 These are often called "higher-order functions".
@@ -107,3 +105,23 @@ console.log(times);
 ```
 
 ### `filter`
+
+The filter method expects a predicate, namely a function that returns a boolean. It will call this function for each value, and will add to a new array those values that return true from the predicate.
+
+As usual with the other methods here, the predicate will be given two more arguments, the index and the whole array.
+
+As an example, the following will retrieve the even-indexed elements in the array:
+
+```javascript
+arr.filter(function(v, i) { return i % 2 === 0; });
+```
+
+### `every` and `some`
+
+These methods take the same argument as `filter`, and apply it to the array values until they can resolve their result.
+
+`every` will return `false` the moment it encounters a value that the predicate evaluates to `false`, and otherwise (if it makes it to the end of the array) it will return `true`.
+
+`some` is sort of the opposite. It will return `true` the moment if finds a value that the predicate evaluates to `true`, and otherwise (if it makes it to the end of the array) it will return `false`.
+
+Makes sure you understand how these two methods will behave on an empty array.
