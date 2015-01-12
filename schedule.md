@@ -38,11 +38,11 @@ A week-by-week breakdown of the material.
     - [Assignment 4](assignments/4.md)
 - Day 3
     - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
-    - [Array Collection methods](notes/array_methods.md)
-    - [Some tricks using functions](notes/function_tricks.md)
-    - [Functions created in loops](notes/functions_in_loops.md)
+    - [Array Collection methods](notes/array_collection_methods.md)
     - [Assignment 5](assignments/5.md)
 - Day 4
+    - [Some tricks using functions](notes/function_tricks.md)
+    - [Functions created in loops](notes/functions_in_loops.md)
     - [Methods in objects. Using `this`](notes/object_methods.md)
     - [Object creation forms. Prototypes](notes/object_creation_prototypes.md)
     - [Assignment 6](assignments/6.md)
@@ -52,6 +52,7 @@ A week-by-week breakdown of the material.
 ## Week  3 (01/19-01/23)
 
 - Day 1
+    - [Different stack implementations](notes/stack_various.md)
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
     - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
 - Day 2
