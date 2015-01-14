@@ -43,18 +43,21 @@ A week-by-week breakdown of the material.
 - Day 4
     - [Function Usage Patterns](notes/function_usage_patterns.md)
     - [Methods in objects and the need for `this`](notes/object_methods.md)
-    - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
 
 ## Week  3 (01/19-01/23)
 
 - Day 1
-    - [Object creation forms. Prototypes](notes/object_creation_prototypes.md)
+    - EVERYTHING BELOW IS WORK IN PROGRESS
+    - [Object creation and prototypes](notes/object_creation_prototypes.md)
+    - [Constructor functions](notes/constructors.md)
+    - [Lab 2: Node, Testing](labs/2.md)
+- Day 2
+    - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
+    - [Object properties](notes/object_properties.md)
     - [Assignment 6](assignments/6.md)
     - [Writing tests](notes/test_writing.md)
-    - [Lab 2: Node, Testing](labs/2.md)
     - [Different stack implementations](notes/stack_various.md)
     - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
-- Day 2
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
     - [Creation Patterns: Mixins](notes/pattern_mixin.md)
