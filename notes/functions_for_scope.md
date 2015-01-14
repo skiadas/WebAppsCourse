@@ -45,7 +45,7 @@ function makeTimer() {
 }
 ```
 
-So, within the function makeTimer, we define some local variables and some local functions. None of these methods are seen by anyone outside the function. But we can choose to share some of them by including them in the returned object. In this case, we keep `notify` private, and return the two methods that are part of the interface. All three method have access to each other, as well as the two local variables. Here is how a full implementation might look like. Notice how `fire` calls `notify`.
+So, within the function makeTimer, we define some local variables and some local functions. None of these methods are seen by anyone outside the function. But we can choose to share some of them by including them in the returned object. In this case, we keep `notify` private, and return the two methods that are part of the interface. All three methods have access to each other, as well as the two local variables. Here is how a full implementation might look like. Notice how `fire` calls `notify`.
 
 ```javascript
 function makeTimer() {

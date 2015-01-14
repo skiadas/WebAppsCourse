@@ -41,19 +41,18 @@ A week-by-week breakdown of the material.
     - [Array Collection methods](notes/array_collection_methods.md)
     - [Assignment 5](assignments/5.md)
 - Day 4
-    - [Some tricks using functions](notes/function_tricks.md)
-    - [Functions created in loops](notes/functions_in_loops.md)
-    - [Methods in objects. Using `this`](notes/object_methods.md)
-    - [Object creation forms. Prototypes](notes/object_creation_prototypes.md)
-    - [Assignment 6](assignments/6.md)
-    - [Writing tests](notes/test_writing.md)
-    - [Lab 2: Node, Testing](labs/2.md)
+    - [Function Usage Patterns](notes/function_usage_patterns.md)
+    - [Methods in objects and the need for `this`](notes/object_methods.md)
+    - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
 
 ## Week  3 (01/19-01/23)
 
 - Day 1
+    - [Object creation forms. Prototypes](notes/object_creation_prototypes.md)
+    - [Assignment 6](assignments/6.md)
+    - [Writing tests](notes/test_writing.md)
+    - [Lab 2: Node, Testing](labs/2.md)
     - [Different stack implementations](notes/stack_various.md)
-    - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
     - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
 - Day 2
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)

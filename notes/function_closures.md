@@ -32,7 +32,7 @@
     - First of all, the two variables `c` and `v` are defined, with values `2` and `10`.
     - Then a function `storeMe` is defined, and later on is called with value `20`.
     - When that call is executed, a new scope is created, on which `v` has the passed value `20`, and after the first line is executed a variable `c` is defined with value `5`.
-    - We then return a function. This function will need a `v` and a `c` where it is called.
+    - We then return a function. This function will need a `v` and a `c` when it is called.
     - These are determined by what values they have *where* the function was defined, namely inside the execution of `storeMe`.
 - So when `storeMe(20)` returns a function, and we store it at the variable named `f`, we in fact store more than just a function. We store the "environment", the "scope", in which that function was defined.
 - This is called a "function closure", or just "closure" for short. It is the basis for some extremely interesting patterns that we will study in the days to come.
