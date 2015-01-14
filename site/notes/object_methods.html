@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="objects-and-methods">Objects and Methods</h1>
+<p>In this section we discuss how methods interact with the objects they belong to, and look into the infamous <code>this</code> language construct.</p>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this"><code>this</code> in MDN</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>A key characteristic of objects is that all objects &quot;of the same class&quot; tend to have access to a common set of functions, which are typically called the object methods.</p>
+<p>In other languages, these would be placed in a &quot;class&quot;. Javascript doesn't use classes. Instead, objects essentially inherit properties from other objects.</p>
+<p>We will see how that happens more extensively soon, but for now let us try a silly example:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> a = {
+    <span class="dt">name</span>: <span class="st">&quot;Pete&quot;</span>,
+    <span class="dt">greet</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;Hello! I am &quot;</span> + <span class="ot">a</span>.<span class="fu">name</span>; }
+};
+<span class="ot">a</span>.<span class="fu">greet</span>();</code></pre>
+<p>Now let us suppose we want to create a second object. It will need its own name, but perhaps we could reuse the <code>greet</code> function. Here is an attempt at doing so:</p>
+<pre><code>var b = { name: &quot;Myka&quot; };
+b.greet = a.greet;
+b.greet();</code></pre>
+<p>Oops, that did not work! <code>greet</code> still only knows about Pete. Lexical scoping doesn't really leave it with any other option.</p>
+<p>What we need is a special way to refer to the &quot;current object&quot;, the object that the function was executed from. This is what <code>this</code> is for.</p>
+<blockquote>
+<p>In a call like <code>o.f(...)</code>, any references to <code>this</code> in the function <code>f</code> will refer to the object <code>o</code>.</p>
+</blockquote>
+<p>So here is a version of the above that works:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> a = {
+    <span class="dt">name</span>: <span class="st">&quot;Pete&quot;</span>,
+    <span class="dt">greet</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;Hello! I am &quot;</span> + <span class="kw">this</span>.<span class="fu">name</span>; }
+};
+<span class="kw">var</span> b = { <span class="dt">name</span>: <span class="st">&quot;Myka&quot;</span> };
+<span class="ot">b</span>.<span class="fu">greet</span> = <span class="ot">a</span>.<span class="fu">greet</span>;</code></pre>
+<p>Of course it's not always a great idea to create objects in quite this way, each of them having the methods they need as properties. But it a good example to illustrate some of the mechanics of <code>this</code>.</p>
+<p>To understand Javascript's object model further, we will need to study prototypes.</p>
+</body>
+</html>

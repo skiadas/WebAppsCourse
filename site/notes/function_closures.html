@@ -61,7 +61,7 @@ Let us see what is going on:
 <li>First of all, the two variables <code>c</code> and <code>v</code> are defined, with values <code>2</code> and <code>10</code>.</li>
 <li>Then a function <code>storeMe</code> is defined, and later on is called with value <code>20</code>.</li>
 <li>When that call is executed, a new scope is created, on which <code>v</code> has the passed value <code>20</code>, and after the first line is executed a variable <code>c</code> is defined with value <code>5</code>.</li>
-<li>We then return a function. This function will need a <code>v</code> and a <code>c</code> where it is called.</li>
+<li>We then return a function. This function will need a <code>v</code> and a <code>c</code> when it is called.</li>
 <li>These are determined by what values they have <em>where</em> the function was defined, namely inside the execution of <code>storeMe</code>.</li>
 </ul></li>
 <li>So when <code>storeMe(20)</code> returns a function, and we store it at the variable named <code>f</code>, we in fact store more than just a function. We store the &quot;environment&quot;, the &quot;scope&quot;, in which that function was defined.</li>

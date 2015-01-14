@@ -69,7 +69,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
         <span class="dt">fire</span>: fire
     };
 }</code></pre>
-<p>So, within the function makeTimer, we define some local variables and some local functions. None of these methods are seen by anyone outside the function. But we can choose to share some of them by including them in the returned object. In this case, we keep <code>notify</code> private, and return the two methods that are part of the interface. All three method have access to each other, as well as the two local variables. Here is how a full implementation might look like. Notice how <code>fire</code> calls <code>notify</code>.</p>
+<p>So, within the function makeTimer, we define some local variables and some local functions. None of these methods are seen by anyone outside the function. But we can choose to share some of them by including them in the returned object. In this case, we keep <code>notify</code> private, and return the two methods that are part of the interface. All three methods have access to each other, as well as the two local variables. Here is how a full implementation might look like. Notice how <code>fire</code> calls <code>notify</code>.</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeTimer</span>() {
     <span class="kw">var</span> times = <span class="dv">0</span>;
     <span class="kw">var</span> observers = [];
