@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="function-call-forms-and-the-value-of-this">Function call forms and the value of <code>this</code></h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li>Flanagan's book, section 8.2</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>There are 4 different ways that functions can be called, called &quot;invocations&quot;. We describe them briefly here, and we will go deeper into them later. A big difference is how <code>this</code> is treated in each case.</p>
+<dl>
+<dt>function invoc.</dt>
+<dd><p><code>f(...)</code> where <code>f</code> is a function.</p>
+<p><code>this</code> set to the global object. CAREFUL!</p>
+</dd>
+<dt>method invoc.</dt>
+<dd><p><code>m.f(...)</code> where <code>m</code> is an object and <code>f</code> is a property of it with function value.</p>
+<p><code>this</code> set to <code>m</code>.</p>
+</dd>
+<dt>constructor invoc.</dt>
+<dd><p><code>new F(...)</code> where <code>F</code> is a function. Constructors are by convention capitalized.</p>
+<p><code>this</code> set to a newly created object.</p>
+</dd>
+<dt>indirect invoc.</dt>
+<dd><p><code>f.call(...)</code>, <code>f.bind(...)</code>, <code>f.apply(...)</code>.</p>
+<p><code>this</code> set to the first argument.</p>
+</dd>
+</dl>
+<p>You need to be very careful when passing functions to some other part of your code, as you don't necessarily know how they are going to be called.</p>
+<p>Here is an example of what can go wrong:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>].<span class="fu">forEach</span>(<span class="ot">console</span>.<span class="fu">log</span>);</code></pre>
+<p>This produces an error in Chrome (but not in Node interestingly enough). It appears that in Chrome, <code>console.log</code> expects to be invoked with the <code>this</code> object set to <code>console</code>. But the functions passed in <code>forEach</code> are invoked as functions, not as methods. Try this to see it more clearly:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>].<span class="fu">forEach</span>(<span class="kw">function</span>() { <span class="ot">console</span>.<span class="fu">log</span>(<span class="kw">this</span>); });</code></pre>
+<h3 id="indirect-invocations">Indirect Invocations</h3>
+<p>The indirect invocations deserve further notice. There are mainly 3 functions:</p>
+<dl>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call"><code>f.call</code></a></dt>
+<dd><p>Calls <code>f</code> with the first argument serving as <code>this</code> and any subsequent arguments passed as arguments to <code>f</code>.</p>
+<p>e.g. f.call(null, 1, 2, 3);</p>
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply"><code>f.apply</code></a></dt>
+<dd><p>Calls <code>f</code> with the first argument serving as this and the second argument being an array of the arguments to be used in the call.</p>
+<p>e.g. f.apply(null, [1,2,3]);</p>
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind"><code>f.bind</code></a></dt>
+<dd><p>Does not actually call <code>f</code>, but it returns a function which behaves like <code>f</code> except that it has &quot;bound&quot; the <code>this</code> object, and optionally has bound some number of arguments.</p>
+<p>e.g. <code>f.bind(o, 1, 2)(3, 4)</code> is the same as <code>f.call(o, 1, 2, 3, 4)</code>.</p>
+</dd>
+</dl>
+</body>
+</html>

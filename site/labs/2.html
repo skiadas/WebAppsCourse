@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="lab-2">Lab 2<span class="small"> (<a href="2.pdf" title="2">pdf</a>)</span></h1>
+<p>In this lab you will learn how to write tests, and practice some of the structure-building concepts we have learned so far.</p>
+<h2 id="testing-basics">Testing Basics</h2>
+<h2 id="testing-in-javascript">Testing in Javascript</h2>
+<p>We will be using <a href="http://mochajs.org/">mocha</a> in combination with <a href="http://chaijs.com/">chai</a> for our tests. Here is a basic html file:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+   &lt;link rel=<span class="st">&quot;stylesheet&quot;</span> href=<span class="st">&quot;mocha.css&quot;</span> <span class="ot">/&gt;</span>
+<span class="ot">&lt;/head</span>&gt;
+&lt;body&gt;
+   &lt;div id=<span class="st">&quot;mocha&quot;</span>&gt;&lt;<span class="ot">/div&gt;</span>
+<span class="ot">   &lt;script src=&quot;chai.js&quot; type=&quot;text/javascript</span><span class="st">&quot;&gt;&lt;/script&gt;</span>
+   &lt;script src=<span class="st">&quot;mocha.js&quot;</span>&gt;&lt;<span class="ot">/script&gt;</span>
+<span class="ot">   &lt;script&gt;</span>
+<span class="ot">      mocha.setup</span><span class="fl">(</span><span class="ot">&#39;bdd&#39;</span><span class="fl">)</span><span class="ot">;</span>
+<span class="ot">      var expect = chai.expect;</span>
+<span class="ot">   &lt;/script</span>&gt;
+   &lt;script src=<span class="st">&quot;yourCode.js&quot;</span>&gt;&lt;<span class="ot">/script&gt;</span>
+<span class="ot">   &lt;script src=&quot;tests.spec.js&quot;&gt;&lt;/script</span>&gt;
+   &lt;script&gt;
+      <span class="ot">mocha</span>.<span class="fu">checkLeaks</span>();
+      <span class="ot">mocha</span>.<span class="fu">globals</span>([<span class="st">&#39;chai&#39;</span>]);
+      <span class="ot">mocha</span>.<span class="fu">run</span>();
+  &lt;<span class="ot">/script&gt;</span>
+<span class="ot">&lt;/body</span>&gt;
+&lt;<span class="ot">/html&gt;</span></code></pre>
+<p>All the tests go into <code>tests.spec.js</code> (or a similarly named file). You can also use multiple test files, just put them after each other.</p>
+<h2 id="basic-steps">Basic steps</h2>
+<ol style="list-style-type: decimal">
+<li>You should have already decided which of the two partner's GitHub account to use.</li>
+<li>If you have not switched roles with your partner so far, this is a good time to do so.</li>
+<li>Check out the correct branch, via <code>git checkout Lab2</code>.</li>
+<li>Open the <code>README.md</code> file there, it will contain the instructions on what you need to do.</li>
+<li>Commit your changes, review them, push them to your repository, and when you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>
+<li>You should use the issues page to track your progress. Create a new label called &quot;Lab2&quot; and use it to tag all issues related to this lab. I will review those issues to look at your work.</li>
+<li>Needless to say it ,but you are NOT allowed to look at other people's forks of the project and their issues/solutions.</li>
+<li>I expect you to do the coding using pair programming.</li>
+</ol>
+</body>
+</html>

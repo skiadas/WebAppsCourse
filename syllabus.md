@@ -24,7 +24,7 @@ Websites
   ~ [for notes](skiadas.github.io/WebAppsCourse/site/)
 
 Class times
-  ~ MWRF 11am-12pm SCH120.
+  ~ MWRF 11am-12pm in SCH120
 
 ## Course Description
 
