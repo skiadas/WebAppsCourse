@@ -34,8 +34,53 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1 id="lab-2">Lab 2<span class="small"> (<a href="2.pdf" title="2">pdf</a>)</span></h1>
 <p>In this lab you will learn how to write tests, and practice some of the structure-building concepts we have learned so far.</p>
 <h2 id="testing-basics">Testing Basics</h2>
+<p>When we refer to tests, we typically mean automated tests. Those tests fall into various categories:</p>
+<dl>
+<dt>Unit Tests</dt>
+<dd><p>Unit tests test a single tiny individual component of your application. You typically want to have unit tests for every bit of your code that is part of your application's <em>interface</em>.</p>
+<p>You should avoid testing for things that are too implementation-dependent.</p>
+<p>Unit tests are a crucial part of the refactoring process, whose goal is to rearrange and rewrite sections of your code. A solid suite of unit tests can allow you to do this freely without worrying about breaking code. &quot;Your tests will catch that&quot;. And revision control allows you to recover if you've messed things up too much.</p>
+</dd>
+<dt>Integration Tests</dt>
+<dd><p>Integration tests test bigger parts of your application, making sure that different parts come together naturally.</p>
+<p>Time permitting, we will talk more about integration tests later in the term.</p>
+</dd>
+<dt>Timing Tests</dt>
+<dd><p>Timing tests are used in algorithm implementations to assess the efficiency of the algorithms.</p>
+<p>They can also be used to try to find bottlenecks in your application, though some of the browser profiling tools might be better.</p>
+</dd>
+<dt>Deployment Tests</dt>
+<dd>Deployment tests are meant to ensure that your application performs well on various browsers / deployment environments. Hard to do.
+</dd>
+</dl>
+<p>We will focus on unit tests for now.</p>
+<h2 id="test-driven-development">Test-Driven Development</h2>
+<p>In Test-Driven-Development, you typically would follow these steps:</p>
+<ul>
+<li>Decide on a small piece of functionality you want to add.</li>
+<li>Make a GitHub issue about it.
+<ul>
+<li>If you prefer, you can create one bigger more &quot;logical&quot; issue, and create a &quot;task list&quot; in it, following the <a href="https://github.com/blog/1375%0A-task-lists-in-gfm-issues-pulls-comments">example at this blog post</a>. Then check those items off as you implement them.</li>
+</ul></li>
+<li>Write a test for the code you want to introduce.</li>
+<li>Run your tests, and watch this new test fail. This makes us more certain that the test does indeed detect the feature we want to add.</li>
+<li>Optionally, make a git commit of the test, using &quot;#...&quot; to reference the issue you created.
+<ul>
+<li>This is a bit of a style decision, whether to commit the tests separately or whether to do one commit containing both test and new code.</li>
+</ul></li>
+<li>Write a minimal set of code that would make the test pass.</li>
+<li>Check that all your tests pass.</li>
+<li>Make a commit, using &quot;#...&quot; to reference the issue you created. Say &quot;close #...&quot; if it was a &quot;single-problem issue&quot;.
+<ul>
+<li>This gives you a safe backup point to revert to.</li>
+</ul></li>
+<li>Consider any refactoring that you might want to have take place.</li>
+<li>Do the refactoring, and make sure your tests still all pass.</li>
+<li>Commit (optionally creating an issue first to explain what the refactoring was about).</li>
+</ul>
+<p>This is some of the general theory behind testing. The lab readme will have more specific instructions.</p>
 <h2 id="testing-in-javascript">Testing in Javascript</h2>
-<p>We will be using <a href="http://mochajs.org/">mocha</a> in combination with <a href="http://chaijs.com/">chai</a> for our tests. Here is a basic html file:</p>
+<p>We will be using <a href="http://mochajs.org/">mocha</a> in combination with <a href="http://chaijs.com/">chai</a> for our unit tests. Here is a basic html file:</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -58,7 +103,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   &lt;<span class="ot">/script&gt;</span>
 <span class="ot">&lt;/body</span>&gt;
 &lt;<span class="ot">/html&gt;</span></code></pre>
-<p>All the tests go into <code>tests.spec.js</code> (or a similarly named file). You can also use multiple test files, just put them after each other.</p>
+<p>All the tests go into <code>tests.spec.js</code> (or a similarly named file). You can also use multiple test files, just put them after each other. Use the rest as a template on every project.</p>
 <h2 id="basic-steps">Basic steps</h2>
 <ol style="list-style-type: decimal">
 <li>You should have already decided which of the two partner's GitHub account to use.</li>
