@@ -104,13 +104,66 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="ot">&lt;/body</span>&gt;
 &lt;<span class="ot">/html&gt;</span></code></pre>
 <p>All the tests go into <code>tests.spec.js</code> (or a similarly named file). You can also use multiple test files, just put them after each other. Use the rest as a template on every project.</p>
+<p>mocha and chai together offer all the primitives we need for testing. We will describe them briefly in the following section. Refer to their homepages for more info.</p>
+<h3 id="mocha-and-chai">Mocha and Chai</h3>
+<p>Mocha provides a couple of basic functions for us. We use them to structure our test suites.</p>
+<dl>
+<dt><code>describe</code></dt>
+<dd><p>Starts a new test suite. First argument is a string &quot;title&quot;. Second is an anonymous argumentless function that contains the tests.</p>
+<p>The string titles together with the titles from the &quot;it&quot; sections should form sentences asserting what the test does.</p>
+<p>You can have nested &quot;describe&quot;s.</p>
+</dd>
+<dt><code>it</code></dt>
+<dd><p>Starts a new unit test. Should only appear within the function in a &quot;describe&quot;. First argument is a string &quot;test title&quot;. Together with the &quot;describe&quot;'s string, it should form a sentence.</p>
+<p>Second argument is an anonymous argumentless function. It will contain the statements that comprise the test.</p>
+</dd>
+<dt><code>before</code>/<code>after</code></dt>
+<dd>They go in a &quot;describe&quot; and they take as argument an anonymous argumentless function. They will run this function before starting (respectively after completing) the tests. Look for &quot;hooks&quot; in mocha doc.
+</dd>
+<dt><code>beforeEach</code>/<code>afterEach</code></dt>
+<dd>Similar, except that they run before/after <em>each</em> test in the describe, rather than only once. Look for &quot;hooks&quot; in mocha doc.
+</dd>
+<dt><code>only</code></dt>
+<dd>You can force the running of a single test, or test suite, by using this. Look for &quot;exclusive tests&quot; in mocha doc.
+</dd>
+<dt><code>skip</code></dt>
+<dd>Can be used to tell it to skip the specific test. Look for &quot;inclusive tests&quot; in mocha doc.
+</dd>
+</dl>
+<p>Chai is used to write tests. We will be using its &quot;expect&quot; interface, <a href="http://chaijs.com/api/bdd/">whose API is here</a>.</p>
+<dl>
+<dt><code>expect(...)</code></dt>
+<dd>The start point. <code>expect(something).to..</code> is the basic structure. Everything else is &quot;chained&quot; at the end of the expect.
+</dd>
+<dt>chainable words</dt>
+<dd>a series of &quot;words&quot; that have no meaning but are used to form something that looks more like a sentence: &quot;to&quot;, &quot;be&quot;, &quot;is&quot;, &quot;that&quot;, &quot;have&quot;, &quot;has&quot;, some more.
+</dd>
+<dt><code>.not</code></dt>
+<dd>negates the test.
+</dd>
+<dt><code>.deep</code></dt>
+<dd>for array comparisons, it will test each matching element. So two arrays would be equal if they have equal elements, even if they are different objects.
+</dd>
+<dt><code>.a(...)</code></dt>
+<dd>checks for <code>typeof</code>.
+</dd>
+<dt><code>.include(...)</code></dt>
+<dd>checks that target includes the value.
+</dd>
+<dt><code>.equal(...)</code></dt>
+<dd>tests that the target equals the value.
+</dd>
+<dt>many others</dt>
+<dd>Look in the <a href="http://chaijs.com/api/bdd/">Chai API</a>.
+</dd>
+</dl>
 <h2 id="basic-steps">Basic steps</h2>
 <ol style="list-style-type: decimal">
 <li>You should have already decided which of the two partner's GitHub account to use.</li>
 <li>If you have not switched roles with your partner so far, this is a good time to do so.</li>
 <li>Check out the correct branch, via <code>git checkout Lab2</code>.</li>
 <li>Open the <code>README.md</code> file there, it will contain the instructions on what you need to do.</li>
-<li>Commit your changes, review them, push them to your repository, and when you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>
+<li>when you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>
 <li>You should use the issues page to track your progress. Create a new label called &quot;Lab2&quot; and use it to tag all issues related to this lab. I will review those issues to look at your work.</li>
 <li>Needless to say it ,but you are NOT allowed to look at other people's forks of the project and their issues/solutions.</li>
 <li>I expect you to do the coding using pair programming.</li>
