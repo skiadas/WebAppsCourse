@@ -161,6 +161,15 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ol style="list-style-type: decimal">
 <li>You should have already decided which of the two partner's GitHub account to use.</li>
 <li>If you have not switched roles with your partner so far, this is a good time to do so.</li>
+<li>You need to first bring your version of the lab up-to-date by fetching from the remote that is linked to MY project. This is a bit tedious.
+<ul>
+<li>Use &quot;<code>git remote -v</code>&quot; to see the remote branches. There should be one named <code>mainSource</code> and pointing to <code>skiadas/WebAppsLabs</code>.</li>
+<li>We will start by fetching the newest version of that, with: &quot;<code>git fetch mainSource</code>&quot;. It should tell you about a new branch, Lab2.</li>
+<li>Create a new branch with &quot;<code>git checkout -b Lab2 --track mainSource/Lab2</code>&quot;.</li>
+<li>Push this repository to your fork, by &quot;<code>git push origin Lab2</code>&quot;.</li>
+<li>Set your local branch to in the future update your repository by: &quot;<code>git branch --set-upstream Lab2 origin/Lab2</code>&quot;.</li>
+<li>To make sure this is set up properly, do &quot;git branch -vv&quot;.</li>
+</ul></li>
 <li>Check out the correct branch, via <code>git checkout Lab2</code>.</li>
 <li>Open the <code>README.md</code> file there, it will contain the instructions on what you need to do.</li>
 <li>when you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>

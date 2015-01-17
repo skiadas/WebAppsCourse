@@ -47,12 +47,12 @@ A week-by-week breakdown of the material.
 ## Week  3 (01/19-01/23)
 
 - Day 1
+    - [Lab 2: Writing Tests](labs/2.md)
+- Day 2
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
-- Day 2
     - [Different stack implementations](notes/stack_various.md)
     - EVERYTHING BELOW IS WORK IN PROGRESS
-    - [Lab 2: Node, Testing](labs/2.md)
     - [Object properties](notes/object_properties.md)
     - [Assignment 6](assignments/6.md)
     - [Writing tests](notes/test_writing.md)
