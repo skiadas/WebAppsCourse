@@ -8,7 +8,7 @@ Object literal
   ~ What we've been using: `{ foo: bar, foo2: baz }`
 
 [`Object.create`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
-  ~ The ES5 way.
+  ~ Introduced in ES5.
 
 Constructors
   ~ Using `new`. So something like `new Object()`, `new Array()` etc. We will discuss these more later.
@@ -51,7 +51,7 @@ myka.__proto__ === pete
 
 > Object methods and properties are looked up the prototype chain, which eventuallly ends in the `null` object.
 
-Prototypes are a good place to put share methods and values, that all objects of a certain "type/class" should have access to. With the use of `this`, these functions can have access to the object that they are meant to represent. We will see examples of this in the stack examples of the next segment.
+Prototypes are a good place to put shared methods and values, that all objects of a certain "type/class" should have access to. With the use of `this`, these functions can have access to the object that they are meant to represent. We will see examples of this in the stack examples of the next segment.
 
 ### Constructors and Prototypes
 

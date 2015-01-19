@@ -39,7 +39,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>What we've been using: <code>{ foo: bar, foo2: baz }</code>
 </dd>
 <dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create"><code>Object.create</code></a></dt>
-<dd>The ES5 way.
+<dd>Introduced in ES5.
 </dd>
 <dt>Constructors</dt>
 <dd>Using <code>new</code>. So something like <code>new Object()</code>, <code>new Array()</code> etc. We will discuss these more later.
@@ -70,7 +70,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <blockquote>
 <p>Object methods and properties are looked up the prototype chain, which eventuallly ends in the <code>null</code> object.</p>
 </blockquote>
-<p>Prototypes are a good place to put share methods and values, that all objects of a certain &quot;type/class&quot; should have access to. With the use of <code>this</code>, these functions can have access to the object that they are meant to represent. We will see examples of this in the stack examples of the next segment.</p>
+<p>Prototypes are a good place to put shared methods and values, that all objects of a certain &quot;type/class&quot; should have access to. With the use of <code>this</code>, these functions can have access to the object that they are meant to represent. We will see examples of this in the stack examples of the next segment.</p>
 <h3 id="constructors-and-prototypes">Constructors and Prototypes</h3>
 <p>Constructors are special functions that are meant to be used for creating objects. They are meant to always be called with the keyword <code>new</code>, and by convention are always capitalized. You have already seen a number of these constructors, but did not know they were that:</p>
 <ul>

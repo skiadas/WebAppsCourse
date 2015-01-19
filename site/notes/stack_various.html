@@ -41,7 +41,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>What Javascript techniques they use to make things happen.</li>
 </ul>
 <h3 id="a-using-local-object">(A) Using Local Object</h3>
-<p>These implementations all use an array <code>arr</code> to hold the stack values.</p>
 <p>This is the implementation we saw previously, here it is reproduced with a slight variation to avoid code duplication:</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeStack</span>() {
     <span class="kw">var</span> arr = [];
@@ -143,5 +142,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="co">// Usage</span>
 <span class="kw">var</span> s1 = <span class="kw">new</span> <span class="fu">Stack</span>();
 <span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">5</span>).<span class="fu">push</span>(<span class="dv">1</span>);</code></pre>
+<h3 id="main-differences">Main differences</h3>
+<p>The prototype-based methods (C) and (D) expose the local variable that holds the array.</p>
+<p>There is really no easy way around this: If the functions are to be defined in the prototype object, then they can only have access to the same set of variables, so they cannot behave differently for each object other than by using the <code>this</code> construct. But all properties of <code>this</code> are accessible from the outside.</p>
+<p>We will see how you can at least &quot;hide&quot; the properties if it is critical, so that they are not easily visible, but if the prototype methods have access to them, then so does the rest of the world.</p>
+<p>The advantage is that it is easier to extend the &quot;class&quot; later by adding new methods. If the local variable is not exposed, then these new methods will have no way to access it.</p>
 </body>
 </html>

@@ -13,8 +13,6 @@ These stack implementations vary from each other in certain different ways:
 
 ### (A) Using Local Object
 
-These implementations all use an array `arr` to hold the stack values.
-
 This is the implementation we saw previously, here it is reproduced with a slight variation to avoid code duplication:
 
 ```javascript
@@ -133,4 +131,12 @@ var s1 = new Stack();
 s1.push(2).push(5).push(1);
 ```
 
+### Main differences
 
+The prototype-based methods (C) and (D) expose the local variable that holds the array.
+
+There is really no easy way around this: If the functions are to be defined in the prototype object, then they can only have access to the same set of variables, so they cannot behave differently for each object other than by using the `this` construct. But all properties of `this` are accessible from the outside.
+
+We will see how you can at least "hide" the properties if it is critical, so that they are not easily visible, but if the prototype methods have access to them, then so does the rest of the world.
+
+The advantage is that it is easier to extend the "class" later by adding new methods. If the local variable is not exposed, then these new methods will have no way to access it.

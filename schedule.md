@@ -38,34 +38,33 @@ A week-by-week breakdown of the material.
     - [Assignment 4](assignments/4.md)
 - Day 3
     - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
-    - [Array Collection methods](notes/array_collection_methods.md)
-    - [Assignment 5](assignments/5.md)
 - Day 4
+    - [Array Collection methods](notes/array_collection_methods.md)
     - [Function Usage Patterns](notes/function_usage_patterns.md)
-    - [Methods in objects and the need for `this`](notes/object_methods.md)
+    - [Assignment 5](assignments/5.md)
 
 ## Week  3 (01/19-01/23)
 
 - Day 1
     - [Lab 2: Writing Tests](labs/2.md)
 - Day 2
+    - [Methods in objects and the need for `this`](notes/object_methods.md)
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
+- Day 3
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
     - [Different stack implementations](notes/stack_various.md)
+    - [Assignment 6](assignments/6.md)
+- Day 4
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Object properties](notes/object_properties.md)
-    - [Assignment 6](assignments/6.md)
-    - [Writing tests](notes/test_writing.md)
     - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
     - [Creation Patterns: Mixins](notes/pattern_mixin.md)
     - [Assignment 7](assignments/7.md)
-- Day 3
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Manipulating the DOM tree](notes/dom_tree.md)
     - [Assignment 8](assignments/8.md)
-- Day 4
     - [Data Structures in Javascript](notes/data_structures.md)
     - [Lab 3: Union/Find, Sets](labs/3.md)
 

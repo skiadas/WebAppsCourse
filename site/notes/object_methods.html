@@ -50,8 +50,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre><code>var b = { name: &quot;Myka&quot; };
 b.greet = a.greet;
 b.greet();</code></pre>
-<p>Oops, that did not work! <code>greet</code> still only knows about Pete. Lexical scoping doesn't really leave it with any other option.</p>
-<p>What we need is a special way to refer to the &quot;current object&quot;, the object that the function was executed from. This is what <code>this</code> is for.</p>
+<p>Oops, that did not work! <code>greet</code> still only knows about Pete. <code>a.name</code> still references the <code>a</code> object.</p>
+<p>What we need is a special way to refer to the &quot;current object&quot;, the object that the function was executed from. This is what the keyword &quot;<code>this</code>&quot; is for.</p>
 <blockquote>
 <p>In a call like <code>o.f(...)</code>, any references to <code>this</code> in the function <code>f</code> will refer to the object <code>o</code>.</p>
 </blockquote>

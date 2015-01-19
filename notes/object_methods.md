@@ -30,9 +30,9 @@ b.greet = a.greet;
 b.greet();
 ```
 
-Oops, that did not work! `greet` still only knows about Pete. Lexical scoping doesn't really leave it with any other option.
+Oops, that did not work! `greet` still only knows about Pete. `a.name` still references the `a` object.
 
-What we need is a special way to refer to the "current object", the object that the function was executed from. This is what `this` is for.
+What we need is a special way to refer to the "current object", the object that the function was executed from. This is what the keyword "`this`" is for.
 
 > In a call like `o.f(...)`, any references to `this` in the function `f` will refer to the object `o`.
 
