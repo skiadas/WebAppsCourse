@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-6">Assignment 6<span class="small"> (<a href="6.pdf" title="6">pdf</a>)</span></h1>
+<p>Make sure to test all your answers in the console.</p>
+<ol style="list-style-type: decimal">
+<li>Consider the following code:</li>
+</ol>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> o = { <span class="dt">a</span>: <span class="dv">5</span> };
+<span class="ot">o</span>.<span class="fu">foo</span> = ......   <span class="co">// The different answers provide this.</span>
+<span class="kw">var</span> f = <span class="ot">o</span>.<span class="fu">foo</span>;
+<span class="fu">f</span>();          <span class="co">// Must return 5</span>
+<span class="ot">o</span>.<span class="fu">a</span> = <span class="dv">2</span>;
+<span class="fu">f</span>();          <span class="co">// Must return 2</span></code></pre>
+<p>We want the call to <code>f</code> to return the value 5 the first time and 2 the second time. Each of the options below will set a value for <code>o.foo</code>. Put a check next to those options that would make it so that the calls to <code>f</code> behave as described.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option A</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = <span class="kw">function</span>() { <span class="kw">return</span> a; };</code></pre>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option B</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">a</span>; };</code></pre>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option C</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = <span class="kw">function</span>() { <span class="kw">this</span>.<span class="fu">a</span>; }</code></pre>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option D</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = (<span class="kw">function</span>() {
+    <span class="kw">return</span> <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">a</span>; };
+}());</code></pre>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option E</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = (<span class="kw">function</span>() {
+    <span class="kw">return</span> <span class="kw">function</span>() { <span class="kw">return</span> <span class="ot">o</span>.<span class="fu">a</span>; };
+}());</code></pre>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option F</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = (<span class="kw">function</span>() {
+    <span class="kw">var</span> a = <span class="ot">o</span>.<span class="fu">a</span>;
+    <span class="kw">return</span> <span class="kw">function</span>() { <span class="kw">return</span> a; };
+}());</code></pre>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option G</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = (<span class="kw">function</span>() {
+    <span class="kw">return</span> <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">a</span>; };
+}(o));</code></pre>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option H</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = (<span class="kw">function</span>(v) {
+    <span class="kw">return</span> <span class="kw">function</span>() { <span class="kw">return</span> <span class="ot">v</span>.<span class="fu">a</span>; };
+}(o));</code></pre>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Option I</span>
+<span class="ot">o</span>.<span class="fu">foo</span> = (<span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">a</span>; }).<span class="fu">bind</span>(o);</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Explain the output of the following code, in particular the print-outs of the last 4 lines:</li>
+</ol>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">Foo</span>(v) { }
+<span class="ot">Foo</span>.<span class="fu">prototype</span> = { <span class="dt">f</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;hi there!&quot;</span>; } };
+<span class="kw">var</span> foo1 = <span class="kw">new</span> <span class="fu">Foo</span>();
+<span class="ot">Foo</span>.<span class="ot">prototype</span>.<span class="fu">g</span> = <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;hi again!&quot;</span>; };
+<span class="ot">Foo</span>.<span class="fu">prototype</span> = { <span class="dt">f</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;huh?&quot;</span>; },
+                  <span class="dt">g</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;double huh?&quot;</span>; }};
+<span class="kw">var</span> foo2 = <span class="kw">new</span> <span class="fu">Foo</span>();
+<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo1</span>.<span class="fu">f</span>());
+<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo2</span>.<span class="fu">f</span>());
+<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo1</span>.<span class="fu">g</span>());
+<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo2</span>.<span class="fu">g</span>());</code></pre>
+</body>
+</html>
