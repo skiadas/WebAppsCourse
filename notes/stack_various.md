@@ -1,8 +1,6 @@
 # Various implementations of stacks
 
-TODO: ADD pros and cons
-
-In this section we will compare showcase some different stack implementations.
+In this section we will showcase some different stack implementations.
 
 ## Notes
 
@@ -17,21 +15,21 @@ This is the implementation we saw previously, here it is reproduced with a sligh
 
 ```javascript
 function makeStack() {
-    var arr = [];
+    var values = [];
     var stack = {
         push: function push(el) {
-            arr.push(el);
+            values.push(el);
             return stack;
         },
         pop: function pop() {
             if (stack.isEmpty()) {
                 throw new Error("Attempt to pop from empty stack");
             } else {
-                return arr.pop();
+                return values.pop();
             }
         },
         function isEmpty() {
-            return arr.length === 0;
+            return values.length === 0;
         }
     };
     return stack;
@@ -47,20 +45,20 @@ Notice that we give a name to the object containing the 3 methods.
 
 ```javascript
 function makeStack() {
-    var arr = [];
+    var values = [];
     function push(el) {
-        arr.push(el);
+        values.push(el);
         return stack;
     };
     function pop() {
         if (isEmpty()) {
             throw new Error("Attempt to pop from empty stack");
         } else {
-            return arr.pop();
+            return values.pop();
         }
     };
     function isEmpty() {
-        return arr.length === 0;
+        return values.length === 0;
     };
     return {
         push: push,
@@ -79,23 +77,23 @@ s1.push(2).push(5).push(1);
 var makeStack = (function() {
     var proto = {
         push: function push(el) {
-            this.arr.push(el);
+            this.values.push(el);
             return this;
         },
         pop: function pop() {
             if (this.isEmpty()) {
                 throw new Error("Attempt to pop from empty stack");
             } else {
-                return this.array.pop();
+                return this.values.pop();
             }
         },
         isEmpty: function isEmpty() {
-            return this.arr.length === 0;
+            return this.values.length === 0;
         }
     };
     return function makeStack() {
         var o = Object.create(proto);
-        o.arr = [];
+        o.values = [];
         return o;
     };
 }()); // Immediate function invocation
@@ -104,26 +102,57 @@ var s1 = makeStack();
 s1.push(2).push(5).push(1);
 ```
 
-### (D) Using constructor
+Here is a variant of this that I personally prefer. It exposes the prototype object:
 
 ```javascript
-function Stack() {
-    this.arr = [];
-}
-Stack.prototype = {
+var Stack = {};
+Stack.new = function makeStack() {
+    var o = Object.create(Stack._proto);
+    o.values = [];
+    return o;
+};
+Stack._proto = {
     push: function push(el) {
-        this.arr.push(el);
+        this.values.push(el);
         return this;
     },
     pop: function pop() {
         if (this.isEmpty()) {
             throw new Error("Attempt to pop from empty stack");
         } else {
-            return this.array.pop();
+            return this.values.pop();
         }
     },
     isEmpty: function isEmpty() {
-        return this.arr.length === 0;
+        return this.values.length === 0;
+    }
+};
+
+// Usage
+var s1 = Stack.new();
+s1.push(2).push(5).push(1);
+```
+
+### (D) Using constructor
+
+```javascript
+function Stack() {
+    this.values = [];
+}
+Stack.prototype = {
+    push: function push(el) {
+        this.values.push(el);
+        return this;
+    },
+    pop: function pop() {
+        if (this.isEmpty()) {
+            throw new Error("Attempt to pop from empty stack");
+        } else {
+            return this.values.pop();
+        }
+    },
+    isEmpty: function isEmpty() {
+        return this.values.length === 0;
     }
 };
 // Usage

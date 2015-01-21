@@ -79,12 +79,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="ot">Foo</span>.<span class="fu">prototype</span> = { <span class="dt">f</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;hi there!&quot;</span>; } };
 <span class="kw">var</span> foo1 = <span class="kw">new</span> <span class="fu">Foo</span>();
 <span class="ot">Foo</span>.<span class="ot">prototype</span>.<span class="fu">g</span> = <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;hi again!&quot;</span>; };
-<span class="ot">Foo</span>.<span class="fu">prototype</span> = { <span class="dt">f</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;huh?&quot;</span>; },
-                  <span class="dt">g</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;double huh?&quot;</span>; }};
+<span class="ot">Foo</span>.<span class="fu">prototype</span> = {
+    <span class="dt">f</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;huh?&quot;</span>; },
+    <span class="dt">g</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;double huh?&quot;</span>; }
+};
 <span class="kw">var</span> foo2 = <span class="kw">new</span> <span class="fu">Foo</span>();
 <span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo1</span>.<span class="fu">f</span>());
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo2</span>.<span class="fu">f</span>());
 <span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo1</span>.<span class="fu">g</span>());
+<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo2</span>.<span class="fu">f</span>());
 <span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">foo2</span>.<span class="fu">g</span>());</code></pre>
 </body>
 </html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="survey-of-html">Survey of HTML</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="https://boagworld.com/dev/semantic-code-what-why-how/">Semantic Code</a></li>
+<li><a href="http://devdocs.io/">devdocs</a></li>
+<li><a href="http://learn.shayhowe.com/html-css/">Learn HTML&amp;CSS</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Introduction">MDN's introduction to HTML</a></li>
+<li><a href="http://caniuse.com/">&quot;Can I use&quot; site</a></li>
+<li><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md#html--css">Free online books</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>An HTML document consists of nested &quot;tags&quot;, each tag representing a certain &quot;structure&quot; for its contents.</p>
+<p>For instance we will see tags for lists, tables, headings and so on.</p>
+<p>This is important:</p>
+<blockquote>
+<p>HTML describes structure, semantics, not appearance. It is used to describe &quot;what something is&quot;, not &quot;how it should look&quot;. CSS is responsible for appearance.</p>
+</blockquote>
+<p>There is entirely too much legacy information on HTML and various standards. We will be focusing on the current standard, usually termed HTML5. A number of all tags have been deprecated.</p>
+<blockquote>
+<p>HTML5 is actually a collection of standards, some with very varying levels of adoption. The <a href="http://caniuse.com/">can-i-use site</a> can tell you more information about the state of adoption of the particular technology you want to use.</p>
+</blockquote>
+<p>What we will cover in this class is standard and widely adopted.</p>
+<p>Let us define some key terms:</p>
+<dl>
+<dt>doctype</dt>
+<dd>The first line of any HTML document needs to be its doctype. For HTML5, this is <code>&lt;!DOCTYPE html&gt;</code>.
+</dd>
+<dt>html tag</dt>
+<dd>The next thing in any HTML document is an <code>&lt;html&gt;</code> tag. Everything else will be nested inside this tag.
+</dd>
+<dt>head tag</dt>
+<dd>The <code>head</code> tag is the first thing inside the HTML document. It contains metadata information about the document (keywords, author, description, title etc), as well as links to CSS spreadsheets and fonts.
+</dd>
+<dt>body tag</dt>
+<dd>The <code>body</code> tag follows the head tag, and contains all the actual elements in the page.
+</dd>
+<dt>attributes</dt>
+<dd>properties attached to tags. They are contained within the open tag like so <code>&lt;tag attr1=&quot;...&quot; attr2=&quot;...&quot;&gt;</code>.
+</dd>
+<dt>block tags</dt>
+<dd>Some tags are meant to represent &quot;block&quot; elements. These tend to occupy space, as opposed to &quot;inline&quot; tags. Examples: <code>div</code>, <code>section</code>, <code>nav</code>, <code>table</code>.
+</dd>
+<dt>inline tags</dt>
+<dd>These tags are meant to identify a structure within an inline text. For example, the <code>em</code> tag is used to indicate its content should be &quot;emphasized&quot;.
+</dd>
+</dl>
+<p>We will now describe in some detail some attributes and elements. We start with <strong>attributes</strong>:</p>
+<dl>
+<dt>id</dt>
+<dd>A string uniquely identifying an element. No two elements can have the same id.
+</dd>
+<dt>class</dt>
+<dd>A string containing space-separated &quot;classes&quot; for the element. These classes can be easily targetted by Javascript and CSS. For example <code>class=&quot;hidden cartItem&quot;</code> identifies this element as being a &quot;cartItem&quot; and also being &quot;hidden&quot;. (This does not actually mean it is hidden, it means that it appears however CSS has specified &quot;hidden&quot; elements should appear).
+</dd>
+<dt>alt</dt>
+<dd>alternative text for images and inputs.
+</dd>
+<dt>title</dt>
+<dd>used for tooltips.
+</dd>
+<dt>data-*</dt>
+<dd>Used to add custom data to the element, that Javascript can use. Usually set programmatically.
+</dd>
+<dt>disabled</dt>
+<dd>For inputs, whether they are &quot;editable&quot;.
+</dd>
+<dt>hidden</dt>
+<dd>Prevents rendering of the item.
+</dd>
+<dt>name</dt>
+<dd>Used in form elements.
+</dd>
+<dt>value</dt>
+<dd>Used in form elements.
+</dd>
+</dl>
+<p>There are many more attributes, most more specialized to certain elements. You will encounter them as you find them.</p>
+<p>Here are some of the most important <strong>tags/elements</strong> from standard HTML:</p>
+<dl>
+<dt>h1,h2,h3</dt>
+<dd>6 tags for 6 different heading levels
+</dd>
+<dt>ol,ul,li</dt>
+<dd>ordered and unordered lists, and list items
+</dd>
+<dt>dl,dt,dd</dt>
+<dd>definition lists, terms and definitions
+</dd>
+<dt>p</dt>
+<dd>paragraph
+</dd>
+<dt>form,fieldset,input</dt>
+<dd>controls for creating forms
+</dd>
+<dt>pre,code</dt>
+<dd>preformatted text and code
+</dd>
+<dt>blockquote,quote</dt>
+<dd>quotes, block/inline
+</dd>
+<dt>a</dt>
+<dd>anchor links (to other documents, or within page)
+</dd>
+<dt>em,strong</dt>
+<dd>&quot;emphasized&quot; and strongly emphasized text
+</dd>
+<dt>hr</dt>
+<dd>thematic break between paragraph-level elements. Typically displayed as a horizontal ruler
+</dd>
+<dt>img</dt>
+<dd>embedded image
+</dd>
+<dt>div,span</dt>
+<dd>generic block-level/inline elements
+</dd>
+<dt>b,i</dt>
+<dd>to denote text that would normally be shown as bold/italicized
+</dd>
+<dt>select,option</dt>
+<dd>for creating pull-down lists of items
+</dd>
+<dt>script</dt>
+<dd>used for embedding scripts
+</dd>
+<dt>table, tr, td, th, thead, tbody</dt>
+<dd>used to make tables
+</dd>
+</dl>
+<p>Here are some elements added in <strong>HTML5</strong>:</p>
+<dl>
+<dt>audio,video</dt>
+<dd>used to embed sound/video content
+</dd>
+<dt>canvas</dt>
+<dd>one of the two ways of introducing graphics, the other being <a href="https://developer.mozilla.org/en-US/docs/Web/SVG">SVG</a>.
+</dd>
+<dt>datalist</dt>
+<dd>used with <code>option</code> tags to form list of options for other input elements.
+</dd>
+<dt>figure</dt>
+<dd>meant for self-contained content typically with a <code>figcaption</code>. Its position is meant to not be part of the normal flow.
+</dd>
+<dt>header,footer</dt>
+<dd>meant to identify the content at the header/footer of the page
+</dd>
+<dt>main,article,section</dt>
+<dd>meant to identify key sections of the document
+</dd>
+<dt>nav</dt>
+<dd>identifies the section of the document meant for navigation within the page or to other pages
+</dd>
+</dl>
+<p>An example of an HTML document can be seen in the WebAppsTODO application page. TODO LINK!</p>
+</body>
+</html>

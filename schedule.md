@@ -55,37 +55,39 @@ A week-by-week breakdown of the material.
     - [Different stack implementations](notes/stack_various.md)
     - [Assignment 6](assignments/6.md)
 - Day 4
-    - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Object properties](notes/object_properties.md)
-    - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
-    - [Creation Patterns: Constructor](notes/pattern_constructor.md)
-    - [Creation Patterns: Singleton](notes/pattern_singleton.md)
-    - [Creation Patterns: Mixins](notes/pattern_mixin.md)
-    - [Assignment 7](assignments/7.md)
-    - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
-    - [Manipulating the DOM tree](notes/dom_tree.md)
-    - [Assignment 8](assignments/8.md)
-    - [Data Structures in Javascript](notes/data_structures.md)
-    - [Lab 3: Union/Find, Sets](labs/3.md)
 
 ## Week  4 (01/26-01/30)
 
 - Day 1
+    - [Survey of HTML](notes/html_survey.md)
+    - EVERYTHING BELOW IS WORK IN PROGRESS
+    - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
+    - [Manipulating the DOM tree](notes/dom_tree.md)
+- Day 2
     - [Introduction to DOM Events](notes/event_intro.md)
     - [Bubbling of Events](notes/event_bubbling.md)
+- Day 3
+    - [Introduction to jQuery](notes/jquery_intro.md)
+- Day 4
+    - [Assignment 7](assignments/7.md)
+    - [Assignment 8](assignments/8.md)
+    - [Lab 3: Union/Find, Sets](labs/3.md)
     - [Assignment 9](assignments/9.md)
-- Day 2
     - [Timers](notes/event_timers.md)
     - [Function idiom: Throttling](notes/function_throttling.md)
     - [Assignment 10](assignments/10.md)
-- Day 3
     - [A custom Event module](notes/event_custom.md)
-- Day 4
     - [Lab 4: Starting on a TODOapp](labs/4.md)
 
 ## Week  5 (02/02-02/06)
 
 - Day 1
+    - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
+    - [Creation Patterns: Constructor](notes/pattern_constructor.md)
+    - [Creation Patterns: Singleton](notes/pattern_singleton.md)
+    - [Creation Patterns: Mixins](notes/pattern_mixin.md)
+    - [Data Structures in Javascript](notes/data_structures.md)
     - [Behavioral Patterns: Observer](notes/pattern_observer.md)
     - [Behavioral Patterns: Publish/Subscribe](notes/pattern_pubsub.md)
 - Day 2
@@ -93,7 +95,6 @@ A week-by-week breakdown of the material.
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
     - [Assignment 11](assignments/11.md)
 - Day 3
-    - [Introduction to jQuery](notes/jquery_intro.md)
 - Day 4
     - [Lab 5: Continued work on TODOapp](labs/5.md)
 
@@ -139,7 +140,7 @@ BREAK
 - Day 1
     - [Project structure](notes/project.md)
 - Day 2
-    - [Survey of HTML elements](notes/html_survey.md)
+    -
 - Day 3
     - [Survey of CSS features](notes/css_survey.md)
 - Day 4

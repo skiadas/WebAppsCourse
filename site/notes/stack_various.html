@@ -32,8 +32,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </head>
 <body>
 <h1 id="various-implementations-of-stacks">Various implementations of stacks</h1>
-<p>TODO: ADD pros and cons</p>
-<p>In this section we will compare showcase some different stack implementations.</p>
+<p>In this section we will showcase some different stack implementations.</p>
 <h2 id="notes">Notes</h2>
 <p>These stack implementations vary from each other in certain different ways:</p>
 <ul>
@@ -43,21 +42,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="a-using-local-object">(A) Using Local Object</h3>
 <p>This is the implementation we saw previously, here it is reproduced with a slight variation to avoid code duplication:</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeStack</span>() {
-    <span class="kw">var</span> arr = [];
+    <span class="kw">var</span> values = [];
     <span class="kw">var</span> stack = {
         <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
-            <span class="ot">arr</span>.<span class="fu">push</span>(el);
+            <span class="ot">values</span>.<span class="fu">push</span>(el);
             <span class="kw">return</span> stack;
         },
         <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
             <span class="kw">if</span> (<span class="ot">stack</span>.<span class="fu">isEmpty</span>()) {
                 <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
             } <span class="kw">else</span> {
-                <span class="kw">return</span> <span class="ot">arr</span>.<span class="fu">pop</span>();
+                <span class="kw">return</span> <span class="ot">values</span>.<span class="fu">pop</span>();
             }
         },
         <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-            <span class="kw">return</span> <span class="ot">arr</span>.<span class="fu">length</span> === <span class="dv">0</span>;
+            <span class="kw">return</span> <span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
         }
     };
     <span class="kw">return</span> stack;
@@ -68,20 +67,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Notice that we give a name to the object containing the 3 methods.</p>
 <h3 id="b-using-local-functions">(B) Using local functions</h3>
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeStack</span>() {
-    <span class="kw">var</span> arr = [];
+    <span class="kw">var</span> values = [];
     <span class="kw">function</span> <span class="fu">push</span>(el) {
-        <span class="ot">arr</span>.<span class="fu">push</span>(el);
+        <span class="ot">values</span>.<span class="fu">push</span>(el);
         <span class="kw">return</span> stack;
     };
     <span class="kw">function</span> <span class="fu">pop</span>() {
         <span class="kw">if</span> (<span class="fu">isEmpty</span>()) {
             <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
         } <span class="kw">else</span> {
-            <span class="kw">return</span> <span class="ot">arr</span>.<span class="fu">pop</span>();
+            <span class="kw">return</span> <span class="ot">values</span>.<span class="fu">pop</span>();
         }
     };
     <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-        <span class="kw">return</span> <span class="ot">arr</span>.<span class="fu">length</span> === <span class="dv">0</span>;
+        <span class="kw">return</span> <span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
     };
     <span class="kw">return</span> {
         <span class="dt">push</span>: push,
@@ -96,47 +95,74 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> makeStack = (<span class="kw">function</span>() {
     <span class="kw">var</span> proto = {
         <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
-            <span class="kw">this</span>.<span class="ot">arr</span>.<span class="fu">push</span>(el);
+            <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(el);
             <span class="kw">return</span> <span class="kw">this</span>;
         },
         <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
             <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
                 <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
             } <span class="kw">else</span> {
-                <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">array</span>.<span class="fu">pop</span>();
+                <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">pop</span>();
             }
         },
         <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">arr</span>.<span class="fu">length</span> === <span class="dv">0</span>;
+            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
         }
     };
     <span class="kw">return</span> <span class="kw">function</span> <span class="fu">makeStack</span>() {
         <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(proto);
-        <span class="ot">o</span>.<span class="fu">arr</span> = [];
+        <span class="ot">o</span>.<span class="fu">values</span> = [];
         <span class="kw">return</span> o;
     };
 }()); <span class="co">// Immediate function invocation</span>
 <span class="co">// Usage</span>
 <span class="kw">var</span> s1 = <span class="fu">makeStack</span>();
 <span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">5</span>).<span class="fu">push</span>(<span class="dv">1</span>);</code></pre>
-<h3 id="d-using-constructor">(D) Using constructor</h3>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">Stack</span>() {
-    <span class="kw">this</span>.<span class="fu">arr</span> = [];
-}
-<span class="ot">Stack</span>.<span class="fu">prototype</span> = {
+<p>Here is a variant of this that I personally prefer. It exposes the prototype object:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Stack = {};
+<span class="ot">Stack</span>.<span class="fu">new</span> = <span class="kw">function</span> <span class="fu">makeStack</span>() {
+    <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(<span class="ot">Stack</span>.<span class="fu">_proto</span>);
+    <span class="ot">o</span>.<span class="fu">values</span> = [];
+    <span class="kw">return</span> o;
+};
+<span class="ot">Stack</span>.<span class="fu">_proto</span> = {
     <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
-        <span class="kw">this</span>.<span class="ot">arr</span>.<span class="fu">push</span>(el);
+        <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(el);
         <span class="kw">return</span> <span class="kw">this</span>;
     },
     <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
         <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
             <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
         } <span class="kw">else</span> {
-            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">array</span>.<span class="fu">pop</span>();
+            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">pop</span>();
         }
     },
     <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-        <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">arr</span>.<span class="fu">length</span> === <span class="dv">0</span>;
+        <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
+    }
+};
+
+<span class="co">// Usage</span>
+<span class="kw">var</span> s1 = <span class="ot">Stack</span>.<span class="fu">new</span>();
+<span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">5</span>).<span class="fu">push</span>(<span class="dv">1</span>);</code></pre>
+<h3 id="d-using-constructor">(D) Using constructor</h3>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">Stack</span>() {
+    <span class="kw">this</span>.<span class="fu">values</span> = [];
+}
+<span class="ot">Stack</span>.<span class="fu">prototype</span> = {
+    <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
+        <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(el);
+        <span class="kw">return</span> <span class="kw">this</span>;
+    },
+    <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
+        <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
+            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
+        } <span class="kw">else</span> {
+            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">pop</span>();
+        }
+    },
+    <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
+        <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
     }
 };
 <span class="co">// Usage</span>

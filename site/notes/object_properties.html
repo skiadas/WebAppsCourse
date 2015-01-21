@@ -6,6 +6,25 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
 <link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -13,10 +32,215 @@
 </head>
 <body>
 <h1 id="object-properties">Object Properties</h1>
-<p>We discuss here various &quot;properties&quot; of Javascript objects' properties.</p>
+<p>We discuss here various issues related to Javascript object properties.</p>
 <h1 id="relevant-links">Relevant Links</h1>
 <ul>
-<li>Flanagan's book,</li>
+<li>Flanagan's book, 6.6-6.8</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object methods in MDN</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty in MDN</a></li>
 </ul>
+<h2 id="notes">Notes</h2>
+<p>An object's properties have a number of customizable &quot;attributes&quot;, that are exposed via methods of <code>Object</code>. These attributes are used when we try to set properties via <code>Object.defineProperty</code> or <code>Object,defineProperties</code> or when we pass a second argument to <code>Object.create</code>.</p>
+<p>A call to <code>Object.defineProperty</code> would look something like this:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">Object</span>.<span class="fu">defineProperty</span>(obj, prop, desc)</code></pre>
+<p>where the third argument is a &quot;descriptor&quot; object containing the attributes. There are two types of descriptor objects, &quot;data&quot; and &quot;accessor&quot;.</p>
+<p>Both types of descriptors are allowed to contain the following two properties:</p>
+<dl>
+<dt>configurable</dt>
+<dd>Boolean, default false. Determines if the property can be configured and deleted.
+</dd>
+<dt>enumerable</dt>
+<dd>Boolean, default false. Whether this property will show up during enumeration (say in a for-in loop).
+</dd>
+</dl>
+<p>Data descriptors are meant for properties that simply hold values, and will contain the following keys:</p>
+<dl>
+<dt>value</dt>
+<dd>The initial value. Defaults to <code>undefined</code>.
+</dd>
+<dt>writable</dt>
+<dd>Boolean, determining whether the variable is writable or not.
+</dd>
+</dl>
+<p>Accessor descriptors are meant for properties that require getter and setter methods, and will contain the following keys:</p>
+<dl>
+<dt>get</dt>
+<dd>A function <code>f</code> whose return value is what the property returns. A value of <code>undefined</code> would mean there is no getter.
+</dd>
+<dt>set</dt>
+<dd>A function <code>f(v)</code> used to &quot;set&quot; the value of the property to the value v. A value of <code>undefined</code> will mean there is no setter.
+</dd>
+</dl>
+<p>Here is an example of this:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> o = {};
+<span class="ot">Object</span>.<span class="fu">defineProperty</span>(o, <span class="st">&#39;countMe&#39;</span>, {
+    <span class="dt">set</span>: <span class="kw">undefined</span>,
+    <span class="dt">get</span>: (<span class="kw">function</span>() {
+        <span class="kw">var</span> count = <span class="dv">0</span>;
+        <span class="kw">return</span> <span class="kw">function</span>() { count += <span class="dv">1</span>; <span class="kw">return</span> count; };
+    }())
+})</code></pre>
+<p>Use these features sparingly!</p>
+<h3 id="small-getset-illustration-temperatures">Small get/set Illustration: Temperatures</h3>
+<p>Here is a small example where these getters and setters might be useful. Say we want to create a &quot;temperature&quot; object that understands both Celsius and Fahrenheit. Here is a way to do it:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">f2c</span>(F) { <span class="kw">return</span> (F - <span class="dv">32</span>) * <span class="dv">5</span> / <span class="dv">9</span>; }
+<span class="kw">function</span> <span class="fu">c2f</span>(C) { <span class="kw">return</span> C * <span class="dv">9</span> / <span class="dv">5</span> + <span class="dv">32</span>; }
+<span class="kw">function</span> <span class="fu">makeTemp</span>() {
+    <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(<span class="kw">null</span>);
+    <span class="ot">o</span>.<span class="fu">C</span> = <span class="dv">0</span>;
+    <span class="ot">Object</span>.<span class="fu">defineProperty</span>(o, <span class="st">&quot;F&quot;</span>, {
+        <span class="dt">configurable</span>: <span class="kw">false</span>,
+        <span class="dt">enumerable</span>: <span class="kw">true</span>,
+        <span class="dt">get</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="fu">c2f</span>(<span class="kw">this</span>.<span class="fu">C</span>); },
+        <span class="dt">set</span>: <span class="kw">function</span>(F) { <span class="kw">this</span>.<span class="fu">C</span> = <span class="fu">f2c</span>(F); <span class="kw">return</span> F; }
+    });
+    <span class="kw">return</span> o;
+}</code></pre>
+<p>We are essentially turning &quot;F&quot; into a &quot;virtual property&quot;, that instead just sets the corresponding C value appropriately transformed.</p>
+<p>You can also use these get/set methods to do some validation.</p>
+<h3 id="stack-implementation-again.-locking-things-down.">Stack implementation, again. Locking things down.</h3>
+<p>Let us look at what was the second version of the prototype-based implementation of stacks we had in previous classes:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Stack = {};
+<span class="ot">Stack</span>.<span class="fu">new</span> = <span class="kw">function</span> <span class="fu">makeStack</span>() {
+    <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(<span class="ot">Stack</span>.<span class="fu">_proto</span>);
+    <span class="ot">o</span>.<span class="fu">values</span> = [];
+    <span class="kw">return</span> o;
+};
+<span class="ot">Stack</span>.<span class="fu">_proto</span> = {
+    <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
+        <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(el);
+        <span class="kw">return</span> <span class="kw">this</span>;
+    },
+    <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
+        <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
+            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
+        } <span class="kw">else</span> {
+            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">pop</span>();
+        }
+    },
+    <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
+        <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
+    }
+};</code></pre>
+<p>This was not a bad implementation, but it had some &quot;flaws&quot;. It allows people to change it. We will try to &quot;lock it down&quot;. This is not always a good idea, so think carefully before trying to do this.</p>
+<p>Here are the &quot;flaws&quot;:</p>
+<ol style="list-style-type: decimal">
+<li>The <code>_proto</code> property is visible: If someone enumerates the keys in <code>Stack</code>, it will see it. We will want to make it not enumerable, so that it can be accessed only if someone wants to find it.</li>
+<li>The <code>_proto</code> property is configurable and writeable. Someone can change what prototype object our stack objects will inherit.</li>
+<li>The object pointed to by the <code>_proto</code> property is editable. This means someone can change how our prototype methods behave, add their own, remove them altogether, and so on.</li>
+<li>The object pointed to by the <code>_proto</code> property inherits from <code>Object.prototype</code>. We do not really need it to.</li>
+<li>The <code>values</code> property of individual objects, that contains the array of values in the stack, is enumerable. This should not be visible to the world.</li>
+<li>The <code>values</code> property is writeable. Someone could simply replace our array with their own.</li>
+<li>The stack object we return is extensible. Someone could implement &quot;push&quot; and &quot;pop&quot; methods on it, and they will hide our prototype methods.</li>
+<li>The array stored in the <code>values</code> property is subject to all array methods, so someone could manually add and remove properties. Nothing we can do to protect from that, if we want to use prototypes (though we will discuss a somewhat obscure solution further down).</li>
+</ol>
+<p>So let us see how we can address these issues:</p>
+<ol style="list-style-type: decimal">
+<li>We will make sure that the <code>_proto</code> property is marked as not enumerable, not configurable, and not writeable.</li>
+<li>We will <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">freeze</a> the object that <code>_proto</code> points to. We will also create it to inherit from null.</li>
+<li>We will mark the <code>values</code> property as being not enumerable, not configurable, and not writeable.</li>
+<li>We will freeze the stack object we return.</li>
+</ol>
+<p>Here is an implementation:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Stack = <span class="ot">Object</span>.<span class="fu">freeze</span>(<span class="ot">Object</span>.<span class="fu">create</span>(<span class="kw">null</span>, {
+    <span class="kw">new</span>: {
+        <span class="dt">enumerable</span>: <span class="kw">true</span>,
+        <span class="dt">configurable</span>: <span class="kw">false</span>,
+        <span class="dt">writeable</span>: <span class="kw">false</span>,
+        <span class="dt">value</span>: <span class="kw">function</span> <span class="fu">makeStack</span>() {
+            <span class="kw">return</span> <span class="ot">Object</span>.<span class="fu">freeze</span>(<span class="ot">Object</span>.<span class="fu">create</span>(<span class="ot">Stack</span>.<span class="fu">_proto</span>, {
+                <span class="dt">values</span>: {
+                    <span class="dt">enumerable</span>: <span class="kw">false</span>,
+                    <span class="dt">configurable</span>: <span class="kw">false</span>,
+                    <span class="dt">writeable</span>: <span class="kw">false</span>,
+                    <span class="dt">value</span>: []
+                }
+            }));
+        }
+    },
+    <span class="dt">_proto</span>: {
+        <span class="dt">enumerable</span>: <span class="kw">false</span>,
+        <span class="dt">configurable</span>: <span class="kw">false</span>,
+        <span class="dt">writeable</span>: <span class="kw">false</span>,
+        <span class="dt">value</span>: <span class="ot">Object</span>.<span class="fu">freeze</span>({
+            <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
+                <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(el);
+                <span class="kw">return</span> <span class="kw">this</span>;
+            },
+            <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
+                <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
+                    <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
+                } <span class="kw">else</span> {
+                    <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">pop</span>();
+                }
+            },
+            <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
+                <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
+            }
+        })
+    }
+}));
+
+<span class="ot">Object</span>.<span class="fu">keys</span>(Stack);    <span class="co">// Only [&quot;new&quot;]</span>
+<span class="ot">Stack</span>.<span class="ot">_proto</span>.<span class="fu">f</span> = <span class="dv">2</span>;    <span class="co">// Fails to change _proto</span>
+<span class="kw">var</span> s1 = <span class="ot">Stack</span>.<span class="fu">new</span>();
+<span class="ot">s1</span>.<span class="fu">push</span> = <span class="dv">2</span>;           <span class="co">// Fails to create a push property</span>
+<span class="ot">Object</span>.<span class="fu">keys</span>(s1);       <span class="co">// Empty</span>
+<span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">3</span>);    <span class="co">// These work fine.</span>
+<span class="ot">s1</span>.<span class="fu">pop</span>();
+<span class="ot">s1</span>.<span class="fu">values</span>;             <span class="co">// Shows us what&#39;s there</span>
+<span class="ot">s1</span>.<span class="fu">values</span> = [];        <span class="co">// Fails to change the values array.</span>
+<span class="ot">s1</span>.<span class="ot">values</span>.<span class="fu">push</span>(<span class="dv">4</span>);     <span class="co">// But this works and modifies the array.</span></code></pre>
+<h3 id="optional-further-lockdown">Optional: Further lockdown</h3>
+<p>We will describe here a way to lock down even that part of the story, where the values array is accessible to users of our stack. Here is the plan:</p>
+<ul>
+<li>Create a local variable keeping an array called <code>cache</code>, whose elements are the arrays for our stacks. This variable will be visible to the prototype methods, but not to the outside world. We wrap the whole thing in a immediate function invocation to create this local scope.</li>
+<li>When a new stack object is created, an index is stored in the object and a place for it is created in <code>cache</code>, to hold its array of elements. The index stored in the object creates a link between the cache and the object.</li>
+<li>Our stack methods will need to first look the array up based on the index in their <code>this</code> object, then perform the appropriate operation on it.</li>
+</ul>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Stack = (<span class="kw">function</span>() {
+    <span class="kw">var</span> cache, proto;
+
+    cache = [];
+
+    <span class="kw">function</span> <span class="fu">makeStack</span>() {
+        <span class="ot">cache</span>.<span class="fu">push</span>([]);
+        <span class="kw">return</span> <span class="ot">Object</span>.<span class="fu">freeze</span>(<span class="ot">Object</span>.<span class="fu">create</span>(proto, {
+            <span class="dt">index</span>: {
+                <span class="dt">enumerable</span>: <span class="kw">false</span>,
+                <span class="dt">configurable</span>: <span class="kw">false</span>,
+                <span class="dt">writeable</span>: <span class="kw">false</span>,
+                <span class="dt">value</span>: <span class="ot">cache</span>.<span class="fu">length</span> - <span class="dv">1</span>
+            }
+        }));
+    }
+
+    proto = <span class="ot">Object</span>.<span class="fu">freeze</span>({
+        <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
+            cache[<span class="kw">this</span>.<span class="fu">index</span>].<span class="fu">push</span>(el);
+            <span class="kw">return</span> <span class="kw">this</span>;
+        },
+        <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
+            <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
+                <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
+            } <span class="kw">else</span> {
+                <span class="kw">return</span> cache[<span class="kw">this</span>.<span class="fu">index</span>].<span class="fu">pop</span>();
+            }
+        },
+        <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
+            <span class="kw">return</span> cache[<span class="kw">this</span>.<span class="fu">index</span>].<span class="fu">length</span> === <span class="dv">0</span>;
+        }
+    });
+
+    <span class="kw">return</span> <span class="ot">Object</span>.<span class="fu">freeze</span>(<span class="ot">Object</span>.<span class="fu">create</span>(<span class="kw">null</span>, {
+        <span class="st">&quot;new&quot;</span>: {
+            <span class="dt">enumerable</span>: <span class="kw">true</span>,
+            <span class="dt">configurable</span>: <span class="kw">false</span>,
+            <span class="dt">writeable</span>: <span class="kw">false</span>,
+            <span class="dt">value</span>: makeStack
+        }
+    }));
+}());</code></pre>
+<p>One downside to this pattern, other than its complexity, is that automatic garbage collection cannot clear the cache array for us: If a stack object is garbage-collected, we have no real way of knowing it. We would have to add a manual method for people to call when they no longer need the stack, so we can do some cleanup.</p>
 </body>
 </html>
