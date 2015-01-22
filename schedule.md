@@ -55,6 +55,7 @@ A week-by-week breakdown of the material.
     - [Different stack implementations](notes/stack_various.md)
     - [Assignment 6](assignments/6.md)
 - Day 4
+    - ["Class" construction examples](notes/class_construction.md)
     - [Object properties](notes/object_properties.md)
 
 ## Week  4 (01/26-01/30)

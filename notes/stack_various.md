@@ -28,7 +28,7 @@ function makeStack() {
                 return values.pop();
             }
         },
-        function isEmpty() {
+        isEmpty: function isEmpty() {
             return values.length === 0;
         }
     };
