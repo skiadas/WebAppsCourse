@@ -35,7 +35,7 @@ var Foo = (function() {
     };
 
     return Foo;
-});
+}());
 
 // Call with
 var foo = Foo.new(...);
@@ -84,7 +84,7 @@ var Foo = (function() {
     };
 
     return Foo;
-});
+}());
 
 // Call with
 var foo = new Foo(...);

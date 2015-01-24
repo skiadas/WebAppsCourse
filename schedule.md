@@ -61,11 +61,12 @@ A week-by-week breakdown of the material.
 ## Week  4 (01/26-01/30)
 
 - Day 1
+    - [Lab 3: Linting, Collections](labs/3.md)
+- Day 2
     - [Survey of HTML](notes/html_survey.md)
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Manipulating the DOM tree](notes/dom_tree.md)
-- Day 2
     - [Introduction to DOM Events](notes/event_intro.md)
     - [Bubbling of Events](notes/event_bubbling.md)
 - Day 3
@@ -73,7 +74,6 @@ A week-by-week breakdown of the material.
 - Day 4
     - [Assignment 7](assignments/7.md)
     - [Assignment 8](assignments/8.md)
-    - [Lab 3: Union/Find, Sets](labs/3.md)
     - [Assignment 9](assignments/9.md)
     - [Timers](notes/event_timers.md)
     - [Function idiom: Throttling](notes/function_throttling.md)
