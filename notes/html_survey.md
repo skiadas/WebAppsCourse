@@ -152,4 +152,4 @@ main,article,section
 nav
   ~ identifies the section of the document meant for navigation within the page or to other pages
 
-An example of an HTML document can be seen in the WebAppsTODO application page. TODO LINK!
+An example of an HTML document can be seen in the [WebAppsTODO application page](https://github.com/skiadas/WebAppsTodo/blob/master/index.html).
