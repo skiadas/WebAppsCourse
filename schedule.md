@@ -64,14 +64,14 @@ A week-by-week breakdown of the material.
     - [Lab 3: Linting, Collections](labs/3.md)
 - Day 2
     - [Survey of HTML](notes/html_survey.md)
-    - EVERYTHING BELOW IS WORK IN PROGRESS
-    - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
-    - [Manipulating the DOM tree](notes/dom_tree.md)
-    - [Introduction to DOM Events](notes/event_intro.md)
-    - [Bubbling of Events](notes/event_bubbling.md)
+    - [Survey of CSS](notes/css_survey.md)
 - Day 3
+    - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Introduction to jQuery](notes/jquery_intro.md)
 - Day 4
+    - EVERYTHING BELOW IS WORK IN PROGRESS
+    - [Introduction to DOM Events](notes/event_intro.md)
+    - [Bubbling of Events](notes/event_bubbling.md)
     - [Assignment 7](assignments/7.md)
     - [Assignment 8](assignments/8.md)
     - [Assignment 9](assignments/9.md)

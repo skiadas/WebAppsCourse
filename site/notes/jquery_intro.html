@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="survey-of-html">Survey of HTML</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li>Flanagan's book, Chapter 19</li>
+<li>Flanagan's book, Part IV (jQuery summary around page 945)</li>
+<li><a href="http://devdocs.io/jquery/">devdocs on jQuery</a></li>
+<li><a href="http://jquery.com/">jQuery front page</a></li>
+<li><a href="http://api.jquery.com/">jQuery API</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>jQuery is a very popular library for handling the DOM parts of an application. It offers a uniform interface, not marred by the various incompatibilities between browser implementations.</p>
+<p>jQuery has 3 main components that we will utilize in due course:</p>
+<ul>
+<li>Page / element access and manipulation</li>
+<li>event-handling</li>
+<li>asynchronous data loading</li>
+</ul>
+<p>Even if you do decide not to use it, you need to become familiar with it, as many others do use it.</p>
+<p>As an external library, jQuery needs to be first incorporated into your project via a script tag (or the AMD module methods we will learn about later). You can either download the version you want and link to it, or you can link to the <a href="https://code.jquery.com/">jQuery CDN</a> (the <a href="http://en.wikipedia.org/wiki/Content_delivery_network">wikipedia page</a> is a good place to start if you want to learn more about Content Delivery Networks and their advantages).</p>
+<p>jQuery defines two global objects, that you can use to access it. One is <code>jQuery</code>, the other is <code>$</code>. For all our purposes, they are synonyms and we will be using <code>$</code>.</p>
+<h3 id="the-global-factory-function">The global (factory) function <code>$</code></h3>
+<p>The global <code>$</code> is a swiss-army knife, it is a function that sort of does everything. It has three main forms, depending on what the first argument is:</p>
+<dl>
+<dt>$(sel)</dt>
+<dd>If the first argument is a string that is a selector, it will return a &quot;jQuery object&quot; that represents the collection of all elements that match the selector. If a second &quot;context&quot; argument is passed, representing an element or elements, it will search for the elements <em>relative to that context</em>.
+</dd>
+<dt>$(domEls)</dt>
+<dd>If the first argument is a dom element or array of dom elements, it will return a &quot;jQuery object&quot; that represents that same array of elements, but now as jQuery objects.
+</dd>
+<dt>$(f)</dt>
+<dd>If the first argument is a function, then this function will be called when the document has finished loading. This is a good place to do page initialization.
+</dd>
+</dl>
+<h3 id="jquery-object-methods">jQuery object methods</h3>
+<p>All jQuery objects respond to a similar set of methods. You can explore the whole <a href="http://api.jquery.com/">API online</a>, and in Part IV of Flanagan's book.</p>
+<p>First we have collection methods.</p>
+<dl>
+<dt><a href="http://api.jquery.com/each/">each(f)</a></dt>
+<dd>Given a function <code>f(i, el)</code>, will call the function for each element (if a collection).
+</dd>
+<dt><a href="http://api.jquery.com/get/">get(i), el[i]</a></dt>
+<dd>gets the element at the i-th index. jQuery objects tend to be collections, this picks out a specific element from that collection.
+</dd>
+<dt><a href="http://api.jquery.com/jQuery.map/">map(f)</a></dt>
+<dd>Translates all items of the array to a new array, via the function.
+</dd>
+<dt><a href="http://api.jquery.com/filter/">filter()</a></dt>
+<dd>Filters the list based on the first argument. See the documentation for options.
+</dd>
+<dt><a href="http://api.jquery.com/add/">add()</a></dt>
+<dd>Adds more elements to the current selection, and returns the resulting object.
+</dd>
+<dt><a href="http://api.jquery.com/children/">children()</a></dt>
+<dd>Selects the children of the current selection.
+</dd>
+<dt><a href="http://api.jquery.com/closest/">closest()</a></dt>
+<dd>Returns the closest ancestor of each element that matches certain criteria.
+</dd>
+<dt><a href="http://api.jquery.com/find/">find()</a></dt>
+<dd>Selects all descendants that match certain criteria.
+</dd>
+</dl>
+<p>Next we have some element methods that read/write element properties.</p>
+<dl>
+<dt><a href="http://api.jquery.com/addClass/">addClass</a>, <a href="http://api.jquery.com/removeClass/">removeClass</a>, <a href="http://api.jquery.com/toggleClass/">toggleClass</a></dt>
+<dd><p>Add / remove / toggle classes to each element in the collection.</p>
+<p>This can actually toggle multiple classes at once.</p>
+</dd>
+<dt><a href="http://api.jquery.com/attr/">attr</a></dt>
+<dd>Get or set one more more attributes.
+</dd>
+<dt><a href="http://api.jquery.com/data/">data</a></dt>
+<dd>Get or set data attributes.
+</dd>
+<dt><a href="http://api.jquery.com/val/">val</a></dt>
+<dd>Get or set the &quot;value&quot; associated with the element.
+</dd>
+</dl>
+<p>Next we have methods for inserting/removing elements from the dom.</p>
+<dl>
+<dt><a href="http://api.jquery.com/after/">after()</a>, <a href="http://api.jquery.com/before/">before()</a></dt>
+<dd>Insert the provided content after /before each element.
+</dd>
+<dt><a href="http://api.jquery.com/append/">append()</a>, <a href="http://api.jquery.com/prepend/">prepend()</a></dt>
+<dd>Appends / prepends the provided content at the end of each element.
+</dd>
+<dt><a href="http://api.jquery.com/appendTo/">appendTo()</a>, <a href="http://api.jquery.com/prependTo/">prependTo()</a></dt>
+<dd>Inserts each element at the end / start of the argument.
+</dd>
+<dt><a href="http://api.jquery.com/html/">html()</a></dt>
+<dd>Sets/gets the html contents of the elements.
+</dd>
+<dt><a href="http://api.jquery.com/insertAfter/">insertAfter()</a>, <a href="http://api.jquery.com/insertBefore/">insertBefore()</a></dt>
+<dd>Inserts each element after the argument. It will also clone them if the target argument is many elements.
+</dd>
+<dt><a href="http://api.jquery.com/wrap/">wrap</a>, <a href="http://api.jquery.com/wrapInner/">wrapInner</a></dt>
+<dd>Various ways or wrapping specific HTML around/inside the elements.
+</dd>
+</dl>
+<p>There are a lot of other methods, mostly related to events, that we will revisit later.</p>
+<h3 id="examples">Examples</h3>
+<p>We will run some examples on a barebones page. Save this page in an HTML file, open it in the browser, then fire up the console, to follow along.</p>
+<pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<span class="kw">&lt;html&gt;</span>
+<span class="kw">&lt;head&gt;</span>
+  <span class="kw">&lt;title&gt;</span>A basic page<span class="kw">&lt;/title&gt;</span>
+<span class="kw">&lt;/head&gt;</span>
+<span class="kw">&lt;body&gt;</span>
+  <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;mainDiv&quot;</span><span class="kw">&gt;</span>
+    Basic content.
+  <span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://code.jquery.com/jquery-1.11.2.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre>
+<p>Okay, now first off, let's type <code>$</code> in the console. We should see that it exists and is a function.</p>
+<p>Try each of these lines in order.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> mainDiv = <span class="fu">$</span>(<span class="st">&quot;#mainDiv&quot;</span>);
+<span class="ot">mainDiv</span>.<span class="fu">addClass</span>(<span class="st">&quot;foo&quot;</span>).<span class="fu">append</span>(<span class="st">&quot;&lt;p&gt;Hi! I&#39;m new!&lt;/p&gt;&quot;</span>);
+<span class="ot">mainDiv</span>.<span class="fu">text</span>();                        <span class="co">// Text in mainDiv</span>
+<span class="ot">mainDiv</span>.<span class="fu">html</span>();                        <span class="co">// HTML in mainDiv</span>
+<span class="ot">mainDiv</span>.<span class="fu">html</span>(<span class="st">&quot;Oops it&#39;s all gone!&quot;</span>);   <span class="co">// Replacing the html</span>
+<span class="fu">$</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]).<span class="fu">map</span>(<span class="kw">function</span>(i) { <span class="kw">return</span> <span class="fu">$</span>(<span class="st">&#39;&lt;p&gt;&lt;/p&gt;&#39;</span>).<span class="fu">html</span>(<span class="st">&quot;Hi! I&#39;m &quot;</span> + i)[<span class="dv">0</span>]; })
+          .<span class="fu">appendTo</span>(mainDiv).<span class="fu">wrap</span>(<span class="st">&#39;&lt;li&gt;&lt;/li&gt;&#39;</span>);
+<span class="fu">$</span>(<span class="st">&#39;&lt;input type=&quot;input&quot; /&gt;&#39;</span>).<span class="fu">appendTo</span>(<span class="st">&#39;li&#39;</span>).<span class="fu">val</span>(<span class="dv">20</span>);
+<span class="fu">$</span>(<span class="st">&#39;&lt;input type=&quot;input&quot; /&gt;&#39;</span>).<span class="fu">appendTo</span>(<span class="st">&#39;li&#39;</span>).<span class="fu">val</span>(<span class="kw">function</span>(i) { <span class="kw">return</span> i; });
+<span class="fu">$</span>(<span class="st">&#39;li&#39;</span>).<span class="fu">first</span>().<span class="fu">css</span>(<span class="st">&#39;background-color&#39;</span>, <span class="st">&#39;blue&#39;</span>)</code></pre>
+</body>
+</html>

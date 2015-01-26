@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="survey-of-css">Survey of CSS</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="https://boagworld.com/dev/semantic-code-what-why-how/">Semantic Code</a></li>
+<li><a href="http://devdocs.io/">devdocs</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">List of CSS properties</a></li>
+<li><a href="http://learn.shayhowe.com/html-css/">Learn HTML&amp;CSS</a></li>
+<li><a href="https://developer.mozilla.org/en-US/learn/css">MDN's links for learning CSS</a></li>
+<li><a href="http://caniuse.com/">&quot;Can I use&quot; site</a></li>
+<li><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md#html--css">Free online books</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>CSS stands for <em>Cascading Style Sheets</em>.</p>
+<p>CSS is used to control the <em>appearance</em> of the web page.</p>
+<p>Here are some key notions, before we look at some examples:</p>
+<dl>
+<dt>rules</dt>
+<dd>A rule consists of a &quot;selector&quot; and series of property-value specifications. It indicates that those elements that match the selector should have those properties set to those values.
+</dd>
+<dt>selectors</dt>
+<dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Selectors">Selectors</a> &quot;target&quot; certain elements in the page. For instance a selector could say: &quot;I want to look at the <code>li</code> elements that have a class of <code>todo</code> and are contained inside an element with and id of <code>main</code>.&quot;
+</dd>
+<dt>properties and values</dt>
+<dd>CSS properties specify the appearance of elements. There is a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">long list of properties</a>, and each property accepts a specific set of values. Each property-value pair must end with a semicolon.
+</dd>
+<dt>specificity</dt>
+<dd><p>Each selector has a <em><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity">specificity</a></em> value, indicating how &quot;precisely&quot; it is pinpointing the elements. For instance, targetting a specific id is more &quot;specific&quot; than targetting a specific class, which is more &quot;specific&quot; than targetting a specific HTML tag.</p>
+<p>If two rules try to apply the same property to an element, the rule with higher specificity wins. If they have equal specificity, the rule that appears later in the file wins.</p>
+</dd>
+<dt>inheritance</dt>
+<dd>Many of the properties are <em>[inherited](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance</em> from a parent node to its children. This behavior lends cascading style sheets their name.
+</dd>
+<dt>box model</dt>
+<dd>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box_model">box model</a> specifies how different properties specifying dimensions of elements should behave. It consists of <em>content width</em>, <em>padding</em>, <em>border</em> and <em>margins</em>.
+</dd>
+<dt>layout mode</dt>
+<dd>At any given time, depending on the element and its settings, the browser is in one of four main <em><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_mode">layout modes</a></em>: <em>block</em>, <em>inline</em>, <em>table</em> and <em>positioned</em>.
+</dd>
+<dt>floats</dt>
+<dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">Floats</a> are a difficult concept to work with at first. A &quot;floating&quot; element is taken out of the normal flow and placed along the left or right side of the page, while other elements wrap around it.
+</dd>
+</dl>
+<p>There are too many properties to list here, but we will list the <strong>various selectors</strong>:</p>
+<dl>
+<dt>aTag</dt>
+<dd>An HTML tag when used as a selector targets all elements in the page with that tag.
+</dd>
+<dt>#anId</dt>
+<dd>Targets only the element with that specific id.
+</dd>
+<dt>.aClass</dt>
+<dd>Targets all elements with this class.
+</dd>
+<dt>sel1sel2</dt>
+<dd>Putting selectors right next to each other indicates that they should all apply to an element for it to be targetted. For example <code>div#main</code> targets only a div element with an id of main, and nothing else.
+</dd>
+<dt>sel1 sel2</dt>
+<dd>A space between two selectors indicates that the second selector should target descendants of elements matched by the first selector. For instance <code>.todo p</code> targets paragraph elements only when they appear within an element with class &quot;todo&quot;.
+</dd>
+<dt>sel1 &gt; sel2</dt>
+<dd>Targets elements that match the second selector, that are children (immediate descendants) of elements that match the first selector.
+</dd>
+<dt>sel1 ~ sel2</dt>
+<dd>Targets elements that match the second selector, that are siblings of elements that match the first selector.
+</dd>
+<dt>sel1 + sel2</dt>
+<dd>Targets elements that match the second selector, that are adjacent siblings (immediately follow) of elements that match the first selector.
+</dd>
+<dt>[attr=value]</dt>
+<dd>Attribute selectors target elements with a specific value for a specific attribute. There are a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors">number of variants</a> depending on the relation between the specified value and the element's value.
+</dd>
+<dt>::pseudo</dt>
+<dd>There are a few <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements">pseudo-elements</a> that can be targetted this way, for instance the first line in a paragraph or the first letter in a paragraph.
+</dd>
+<dt>:pseudo</dt>
+<dd>These are <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/pseudo-classes">pseudo-classes</a> and represent specific behavior of the targetted elements. For instance, you can use <code>:hover</code> to indicate something that should happen only when the element is hovered over by the mouse, you can use <code>:visited</code> to highlight links that have already been followed, and so on.
+</dd>
+</dl>
+<p>For an example of how a CSS stylesheet might look like, have a look at the <a href="https://github.com/skiadas/skiadas.github.io/blob/master/css/course.css">CSS file</a> used for our class notes.</p>
+</body>
+</html>

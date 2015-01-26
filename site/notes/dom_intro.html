@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="survey-of-html">Survey of HTML</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li>Flanagan's book, Chapter 15</li>
+<li><a href="https://developer.mozilla.org/fi/docs/DOM">MDN's DOM documentation</a></li>
+<li><a href="http://eloquentjavascript.net/13_dom.html">Eloquent Javascript</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document">MDN's page on document</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">MDN's page on elements</a></li>
+<li><a href="http://devdocs.io/">devdocs</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>The <em>Document Object Model</em> is an API for accessing HTML and XML documents.</p>
+<p>It represents the document as a tree, the <em>root node</em> being the html/xml tag.</p>
+<p>Each node has:</p>
+<dl>
+<dt>children</dt>
+<dd>all the nodes that are immediately below the node.
+</dd>
+<dt>siblings</dt>
+<dd>children of the same node are siblings to each other.
+</dd>
+<dt>descendents</dt>
+<dd>all the nodes that are somewhere below the node (so all their children, their children's children, their children's children's children and so on).
+</dd>
+<dt>parent</dt>
+<dd>Each non-root node has a parent node.
+</dd>
+<dt>ancestors</dt>
+<dd>The node's parent, its parent's parent, its parent's parent's parent and so on.
+</dd>
+</dl>
+<p>DOM Nodes comes in various types. Even though you might expect that only tag elements would be nodes, in fact this is in practice not the case: There are text nodes, attribute nodes, comment nodes and so on. Some of the DOM methods bypass non-element nodes. Also many popular libraries, like jQuery, offer a more convenient interface.</p>
+<p>The DOM interface also allows you to manipulate the page elements, not only access them. We will see examples in the future.</p>
+<p>Here is a main list of the properties and methods you have access to. Most of these apply to both the <code>document</code> object and any specific <code>element</code> objects.</p>
+<dl>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document.getElementById">getElementById</a></dt>
+<dd>Returns the element node in the document with a given id.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.getElementsByTagName">getElementsByTagName</a></dt>
+<dd>Returns all elements with a specific tag.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.getElementsByClassName">getElementsByClassName</a></dt>
+<dd>Returns all elements with a specific class.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelector">querySelector</a></dt>
+<dd>Returns the first element that matches the given selector.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll">querySelectorAll</a></dt>
+<dd>Returns all elements that match the given selector.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode.children">children</a></dt>
+<dd>Returns all the element nodes that are children of the current node.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode.firstElementChild">firstElementChild</a></dt>
+<dd>Returns the first element node that is a child of the current node.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.innerHTML">innerHTML</a></dt>
+<dd>A property specifying the contents of the node (as a string). Also see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node.textContent">textContent</a>
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.outerHTML">outerHTML</a></dt>
+<dd>A property specifying the entire node with its contents (as a string).
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.className">className</a></dt>
+<dd>The string containing the element's classes (space-separated).
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.tagName">tagName</a></dt>
+<dd>The element's tag name.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.id">id</a></dt>
+<dd>The element's id.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.getAttribute">getAttribute</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element.setAttribute">setAttribute</a></dt>
+<dd>Get and set the attribute with a specific name.
+</dd>
+</dl>
+<p>We will not spend more time with this part of the DOM, and we will instead rely on jQuery for DOM manipulation. But you should be aware of what is out there, and that you could do directly most of the things that jQuery offers.</p>
+<p>Chapter 15 of Flanagan's book, along with sections of Part IV, do a very good job showing what is possible as well as how one would manipulate a page with the standard DOM toolkit.</p>
+</body>
+</html>
