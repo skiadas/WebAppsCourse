@@ -1,4 +1,4 @@
-# Survey of HTML
+# Introduction to jQuery
 
 ## Relevant Links
 
@@ -86,7 +86,7 @@ Next we have some element methods that read/write element properties.
 Next we have methods for inserting/removing elements from the dom.
 
 [after()](http://api.jquery.com/after/), [before()](http://api.jquery.com/before/)
-  ~ Insert the provided content after /before each element.
+  ~ Insert the provided content after / before each element.
 
 [append()](http://api.jquery.com/append/), [prepend()](http://api.jquery.com/prepend/)
   ~ Appends / prepends the provided content at the end of each element.
@@ -140,3 +140,40 @@ $('<input type="input" />').appendTo('li').val(20);
 $('<input type="input" />').appendTo('li').val(function(i) { return i; });
 $('li').first().css('background-color', 'blue')
 ```
+
+Let's look at a longer example of a page.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A basic page</title>
+  <style>
+  * { font-size: 16pt; }
+  .big { color: blue; }
+  .small { color: red; }
+  </style>
+</head>
+<body>
+  <div id="mainDiv"></div>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+  $(function() { // Code here runs once page has loaded.
+    var ul = $("<ul></ul>").appendTo("#mainDiv"), v;
+    for (var i = 0; i < 10; i += 1) {
+      v = Math.random();
+      $("<li>" + v + "</li>")
+        .addClass(v > 0.5 ? "big" : "small")
+        .appendTo(ul);
+    }
+    $('li').each(function(i, v) {
+      $(v).fadeOut(Math.random() * 5000, function() {
+        $(v).fadeIn(Math.random() * 5000);
+      });
+    });
+  });
+  </script>
+</body>
+</html>
+```
+

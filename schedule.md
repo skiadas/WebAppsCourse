@@ -68,11 +68,14 @@ A week-by-week breakdown of the material.
 - Day 3
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Introduction to jQuery](notes/jquery_intro.md)
-- Day 4
-    - EVERYTHING BELOW IS WORK IN PROGRESS
-    - [Introduction to DOM Events](notes/event_intro.md)
-    - [Bubbling of Events](notes/event_bubbling.md)
     - [Assignment 7](assignments/7.md)
+- Day 4
+    - [Introduction to DOM Events](notes/event_intro.md)
+
+## Week  5 (02/02-02/06)
+
+- Day 1
+    - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Assignment 8](assignments/8.md)
     - [Assignment 9](assignments/9.md)
     - [Timers](notes/event_timers.md)
@@ -80,10 +83,6 @@ A week-by-week breakdown of the material.
     - [Assignment 10](assignments/10.md)
     - [A custom Event module](notes/event_custom.md)
     - [Lab 4: Starting on a TODOapp](labs/4.md)
-
-## Week  5 (02/02-02/06)
-
-- Day 1
     - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)

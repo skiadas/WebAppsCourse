@@ -61,6 +61,9 @@ sel1sel2
 sel1 sel2
   ~ A space between two selectors indicates that the second selector should target descendants of elements matched by the first selector. For instance `.todo p` targets paragraph elements only when they appear within an element with class "todo".
 
+sel1, sel2
+  ~ A comma between two selectors indicates that this rule should apply if either selector applies.
+
 sel1 \> sel2
   ~ Targets elements that match the second selector, that are children (immediate descendants) of elements that match the first selector.
 
