@@ -33,13 +33,13 @@ specificity
     If two rules try to apply the same property to an element, the rule with higher specificity wins. If they have equal specificity, the rule that appears later in the file wins.
 
 inheritance
-  ~ Many of the properties are *[inherited](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance* from a parent node to its children. This behavior lends cascading style sheets their name.
+  ~ Many of the properties are [*inherited*](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) from a parent node to its children. This behavior lends cascading style sheets their name.
 
 box model
   ~ The [box model](https://developer.mozilla.org/en-US/docs/Web/CSS/box_model) specifies how different properties specifying dimensions of elements should behave. It consists of *content width*, *padding*, *border* and *margins*.
 
 layout mode
-  ~ At any given time, depending on the element and its settings, the browser is in one of four main *[layout modes](https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_mode)*: *block*, *inline*, *table* and *positioned*.
+  ~ At any given time, depending on the element and its settings, the browser is in one of four main [*layout modes*](https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_mode): *block*, *inline*, *table* and *positioned*.
 
 floats
   ~ [Floats](https://developer.mozilla.org/en-US/docs/Web/CSS/float) are a difficult concept to work with at first. A "floating" element is taken out of the normal flow and placed along the left or right side of the page, while other elements wrap around it.
