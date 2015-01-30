@@ -64,17 +64,17 @@ A week-by-week breakdown of the material.
     - [Lab 3: Linting, Collections](labs/3.md)
 - Day 2
     - [Survey of HTML](notes/html_survey.md)
-    - [Survey of CSS](notes/css_survey.md)
 - Day 3
+    - [Survey of CSS](notes/css_survey.md)
+- Day 4
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Introduction to jQuery](notes/jquery_intro.md)
     - [Assignment 7](assignments/7.md)
-- Day 4
-    - [Introduction to DOM Events](notes/event_intro.md)
 
 ## Week  5 (02/02-02/06)
 
 - Day 1
+    - [Introduction to DOM Events](notes/event_intro.md)
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Assignment 8](assignments/8.md)
     - [Assignment 9](assignments/9.md)
