@@ -76,10 +76,12 @@ A week-by-week breakdown of the material.
 - Day 1
     - [Introduction to DOM Events](notes/events_intro.md)
     - [Lab 4: Controllers, jQuery](labs/4.md)
+- Day 2
+    - [Timers](notes/events_timers.md)
+- Day 3
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Assignment 8](assignments/8.md)
     - [Assignment 9](assignments/9.md)
-    - [Timers](notes/event_timers.md)
     - [Function idiom: Throttling](notes/function_throttling.md)
     - [Assignment 10](assignments/10.md)
     - [A custom Event module](notes/event_custom.md)
@@ -90,11 +92,9 @@ A week-by-week breakdown of the material.
     - [Data Structures in Javascript](notes/data_structures.md)
     - [Behavioral Patterns: Observer](notes/pattern_observer.md)
     - [Behavioral Patterns: Publish/Subscribe](notes/pattern_pubsub.md)
-- Day 2
     - [Implementation of Publish/Subscribe](notes/pubsub_implementation.md)
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
     - [Assignment 11](assignments/11.md)
-- Day 3
 - Day 4
     - [Lab 5: Continued work on TODOapp](labs/5.md)
 
