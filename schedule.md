@@ -82,7 +82,6 @@ A week-by-week breakdown of the material.
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Assignment 8](assignments/8.md)
     - [Assignment 9](assignments/9.md)
-    - [Function idiom: Throttling](notes/function_throttling.md)
     - [Assignment 10](assignments/10.md)
     - [A custom Event module](notes/event_custom.md)
     - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
