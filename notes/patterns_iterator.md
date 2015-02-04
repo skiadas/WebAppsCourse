@@ -1,14 +1,12 @@
 # Introduction to Patterns: The Iterator
 
-
-
 ## Notes
 
 Design Patterns are well-established solutions to standard problems.
 
-In this instance the problem is that of traversing a collection in order to perform some task. It is an important illustration of the principle of **decoupling** and **separation of responsibilities**.
+In this instance the problem is that of traversing a collection in order to perform some task. It is an important illustration of the principles of **decoupling** and **separation of responsibilities**, as well as the **single responsibility** principle.
 
-> The **Iterator Pattern** allows traversal of the elements in a collection in a way that decouples the act of iteration and reliance on a particular collection implementation from the task to be performed.
+> The **Iterator Pattern** allows traversal of the elements in a collection in a way that decouples the act of iteration and reliance on a particular collection implementation from the task to be performed on those elements.
 
 Essentially the iterator pattern allows you to traverse a collection without needing to know how specifically that collection is constructed (it could be an array, a linked list, a heap, a set etc).
 
@@ -18,7 +16,7 @@ This is an important separation of responsibilities: The collection is responsib
 
 The iterator pattern consists of two parts:
 
-1. The collection needs to have a method `iterator` that returns an "iterator object".
+1. The collection needs to have a method `iterator` that returns an "iterator object". In a statically typed language, this would be enforced with an interface.
 2. The `Iterator` class consists of objects that have two methods:
     - `hasNext`: Returns a boolean telling us whether there is a next element or not.
     - `next`: Returns the next element (behavior undefined if hasNext has returned `false`).

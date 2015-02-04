@@ -35,16 +35,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1 id="introduction-to-patterns-the-iterator">Introduction to Patterns: The Iterator</h1>
 <h2 id="notes">Notes</h2>
 <p>Design Patterns are well-established solutions to standard problems.</p>
-<p>In this instance the problem is that of traversing a collection in order to perform some task. It is an important illustration of the principle of <strong>decoupling</strong> and <strong>separation of responsibilities</strong>.</p>
+<p>In this instance the problem is that of traversing a collection in order to perform some task. It is an important illustration of the principles of <strong>decoupling</strong> and <strong>separation of responsibilities</strong>, as well as the <strong>single responsibility</strong> principle.</p>
 <blockquote>
-<p>The <strong>Iterator Pattern</strong> allows traversal of the elements in a collection in a way that decouples the act of iteration and reliance on a particular collection implementation from the task to be performed.</p>
+<p>The <strong>Iterator Pattern</strong> allows traversal of the elements in a collection in a way that decouples the act of iteration and reliance on a particular collection implementation from the task to be performed on those elements.</p>
 </blockquote>
 <p>Essentially the iterator pattern allows you to traverse a collection without needing to know how specifically that collection is constructed (it could be an array, a linked list, a heap, a set etc).</p>
 <p>Conversely, the collection can offer access to its elements without needing to know anything about how those elements are to be used.</p>
 <p>This is an important separation of responsibilities: The collection is responsible for maintaining it elements, adding new elements or removing them when appropriate, and so on. It needs to provide access to the elements in some fashion, but it does <em>not</em> need to know about how its clients will use those elements.</p>
 <p>The iterator pattern consists of two parts:</p>
 <ol style="list-style-type: decimal">
-<li>The collection needs to have a method <code>iterator</code> that returns an &quot;iterator object&quot;.</li>
+<li>The collection needs to have a method <code>iterator</code> that returns an &quot;iterator object&quot;. In a statically typed language, this would be enforced with an interface.</li>
 <li>The <code>Iterator</code> class consists of objects that have two methods:
 <ul>
 <li><code>hasNext</code>: Returns a boolean telling us whether there is a next element or not.</li>
