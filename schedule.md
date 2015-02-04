@@ -79,6 +79,7 @@ A week-by-week breakdown of the material.
 - Day 2
     - [Timers](notes/events_timers.md)
 - Day 3
+    - [Intro to Patterns: Iterator](patterns_iterator.md)
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Assignment 8](assignments/8.md)
     - [Assignment 9](assignments/9.md)
