@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="patterns-of-code-reuse">Patterns of Code Reuse</h1>
+<h2 id="notes">Notes</h2>
+<p>We will discuss in this section the main ways one can share functionality in Javascript. They are:</p>
+<ul>
+<li><strong>inheritance</strong></li>
+<li><strong>composition</strong></li>
+<li><strong>mixin</strong></li>
+</ul>
+<h3 id="inheritance">Inheritance</h3>
+<p>Class inheritance is a fundamental component of object-oriented programming, but must be used with care and when appropriate. The key notion is that of a <em>subclass</em>, whereupon a class can inherit all of another class's properties and methods, and override those that it needs to or add new methods. The subclassing relation is often called an &quot;is a&quot; relation.</p>
+<p>We will take a look at an example in a minute, but first of all, let us discuss a &quot;newClass&quot; method we will start using, which &quot;creates&quot; a new class.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">newClass</span>(init, superclass) {
+   <span class="kw">var</span> cls, proto;
+
+   init = init || <span class="kw">function</span>() {};
+   superclass = superclass || Object;
+   proto = <span class="ot">Object</span>.<span class="fu">create</span>(<span class="ot">superclass</span>.<span class="fu">prototype</span>);
+   cls = <span class="ot">Object</span>.<span class="fu">create</span>({}, {
+      <span class="st">&quot;prototype&quot;</span>: { <span class="dt">value</span>: proto },
+      <span class="st">&quot;super&quot;</span>: { <span class="dt">value</span>: superclass }
+   });
+   <span class="ot">Object</span>.<span class="fu">defineProperty</span>(<span class="ot">cls</span>.<span class="fu">prototype</span>, <span class="st">&quot;class&quot;</span>, { <span class="dt">value</span>: cls });
+   <span class="ot">cls</span>.<span class="fu">initialize</span> = init;
+   <span class="ot">cls</span>.<span class="fu">new</span> = <span class="kw">function</span> <span class="fu">newObj</span>() {
+      <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(proto);
+      <span class="ot">cls</span>.<span class="ot">initialize</span>.<span class="fu">apply</span>(o, arguments);
+      <span class="kw">return</span> o;
+   };
+
+   <span class="kw">return</span> cls;
+}</code></pre>
+<p>This allows us to create classes and have them inherit from other classes.</p>
+<p>The basic construction for inheritance would go something like this:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Point = <span class="fu">newClass</span>(<span class="kw">function</span> <span class="fu">init</span>(x, y) {
+   <span class="kw">this</span>.<span class="fu">x</span> = x;
+   <span class="kw">this</span>.<span class="fu">y</span> = y;
+});
+<span class="ot">Point</span>.<span class="ot">prototype</span>.<span class="fu">r</span> = <span class="kw">function</span>() {
+   <span class="kw">return</span> <span class="ot">Math</span>.<span class="fu">sqrt</span>(<span class="kw">this</span>.<span class="fu">x</span> * <span class="kw">this</span>.<span class="fu">x</span> + <span class="kw">this</span>.<span class="fu">y</span> * <span class="kw">this</span>.<span class="fu">y</span>);
+};
+
+<span class="kw">var</span> ColorPoint = <span class="fu">newClass</span>(
+   <span class="kw">function</span> <span class="fu">init</span>(x, y, color) {
+      <span class="ot">Point</span>.<span class="ot">initialize</span>.<span class="fu">call</span>(<span class="kw">this</span>, x, y);
+      <span class="kw">this</span>.<span class="fu">color</span> = color;
+   },
+   Point  <span class="co">// &lt;---- ColorPoint inherits from Point</span>
+);
+<span class="ot">ColorPoint</span>.<span class="ot">prototype</span>.<span class="fu">getColor</span> = <span class="kw">function</span>() {
+      <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">color</span>;
+};
+
+<span class="kw">var</span> p1 = <span class="ot">Point</span>.<span class="fu">new</span>(<span class="dv">2</span>,<span class="dv">3</span>);
+<span class="ot">p1</span>.<span class="fu">x</span>;
+<span class="ot">p1</span>.<span class="fu">y</span>;
+<span class="ot">p1</span>.<span class="fu">r</span>();
+
+<span class="kw">var</span> p2 = <span class="ot">ColorPoint</span>.<span class="fu">new</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="st">&quot;blue&quot;</span>);
+<span class="ot">p2</span>.<span class="fu">x</span>;
+<span class="ot">p2</span>.<span class="fu">y</span>;
+<span class="ot">p2</span>.<span class="fu">r</span>();
+<span class="ot">p2</span>.<span class="fu">getColor</span>();</code></pre>
+<p>We set a class to inherit from another by passing the superclass as the second argument in newClass. Effectively this makes our subclass's prototype inherit from the superclass' prototype. So in our example, the ColorPoint class inherits all methods of the Point class.</p>
+<p>This is then one way to &quot;reuse code&quot;: The subclass' objects can reuse the methods of the superclass', provided the don't override them.</p>
+<p>Disadvantages:</p>
+<ul>
+<li>The subclass now becomes dependent on the internals of the superclass. instance variables are shared, you have to be careful with method names, etc. Inheritance requires a very tight relationship between the class and its superclass.</li>
+<li>On deep inheritance chains, it might be hard to figure out for a given method which code will actually get executed. Looking at your code does not make that immediately clear, you have to find the &quot;newest&quot; superclass that implemented the method. Avoid long complicated inheritance chains.</li>
+<li>Cannot easily inherit from multiple classes.</li>
+</ul>
+<h3 id="composition-and-delegation">Composition and Delegation</h3>
+<p>In object composition one object holds in its instance variables a reference to another object, and accesses it that way. It might optionally create methods that turn around and call methods of the composed object:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ColorPoint = <span class="ot">MyClass</span>.<span class="fu">new</span>({
+   <span class="dt">initialize</span>: <span class="kw">function</span>(x, y, color) {
+      <span class="kw">this</span>.<span class="fu">point</span> = <span class="ot">Point</span>.<span class="fu">new</span>(x, y);
+      <span class="kw">this</span>.<span class="fu">color</span> = color;
+   },
+   <span class="dt">getColor</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">color</span>; },
+   <span class="dt">setPoint</span>: <span class="kw">function</span>(p) { <span class="kw">this</span>.<span class="fu">point</span> = p; <span class="kw">return</span> <span class="kw">this</span>; },
+   <span class="dt">getx</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">x</span>; },    <span class="co">// &lt;- delegate to point</span>
+   <span class="dt">gety</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">y</span>; }
+});</code></pre>
+<p>Advantages:</p>
+<ul>
+<li>The internals of the composed object are kept private; the object that included it just uses its interface. For instance in the above example, the Point class could have been implemented any old way and our ColorPoint wouldn't care. This leads to more loosely coupled designs.</li>
+<li>The class of the composed object can be selected dynamically at run time, as long as it still provides the interface needed. Inheritance on the other hand is more of a &quot;compile-time&quot; consideration.</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>There is a certain level of indirection needed, as every time you need to access a property of the composed object you have to go through the enclosing object first.</li>
+</ul>
+<p>One of our design principles is to favor composition over inheritance, as it tends to create more flexible designs.</p>
+<h3 id="mixins">Mixins</h3>
+<p>There is another possibility that can be helpful some times, called a mixin. It is typically used when you want to reuse some functionality. For instance, we can &quot;mix in&quot; the iterator prototype methods into an object with &quot;next&quot; and &quot;hasNext&quot; methods.</p>
+<p>Mixing in involves directly copying all the methods from one or more objects into another, with something like this:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">mixin</span>(target) {
+   <span class="ot">Array</span>.<span class="ot">prototype</span>.<span class="ot">slice</span>.<span class="fu">call</span>(arguments, <span class="dv">1</span>)
+      .<span class="fu">forEach</span>(<span class="kw">function</span>(source) {
+         <span class="ot">Object</span>.<span class="fu">keys</span>(source).<span class="fu">forEach</span>(<span class="kw">function</span>(key) {
+            target[key] = source[key];
+         });
+      });
+
+   <span class="kw">return</span> target;
+}</code></pre>
+<p>Disadvantages:</p>
+<ul>
+<li>The link between the new methods and the old ones is broken. If something dynamically changes the old methods, the mixed in ones will not change.</li>
+<li>You end up with a lot of enumerable properties, that you may or may not have wanted there. (Though mixing methods into the prototype is probably a more stable idea)</li>
+</ul>
+</body>
+</html>

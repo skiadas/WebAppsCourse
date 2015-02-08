@@ -61,7 +61,7 @@ A week-by-week breakdown of the material.
 ## Week  4 (01/26-01/30)
 
 - Day 1
-    - [Lab 3: Linting, Collections](labs/3.md)
+    - [Lab 3: Linting, Tasks](labs/3.md)
 - Day 2
     - [Survey of HTML](notes/html_survey.md)
 - Day 3
@@ -80,12 +80,30 @@ A week-by-week breakdown of the material.
     - [Timers](notes/events_timers.md)
 - Day 3
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
+- Day 4
+    - [Intro to Patterns: Iterator (cont)](notes/patterns_iterator.md)
+
+## Week  6 (02/09-02/13)
+
+- Day 1
+    - [Lab 5: Collections](labs/5.md)
+- Day 2
+    - [Design Patterns](notes/design_patterns.md)
+- Day 3
+    - [Patterns of code reuse](notes/code_reuse.md)
+- Day 4
+
+## Week  7 (02/16-02/20)
+
+- Day 1
+- Day 2
+- Day 3
+- Day 4
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Assignment 8](assignments/8.md)
     - [Assignment 9](assignments/9.md)
     - [Assignment 10](assignments/10.md)
     - [A custom Event module](notes/event_custom.md)
-    - [Introduction to the concept of Design Patterns](notes/design_patterns.md)
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
     - [Creation Patterns: Mixins](notes/pattern_mixin.md)
@@ -95,29 +113,14 @@ A week-by-week breakdown of the material.
     - [Implementation of Publish/Subscribe](notes/pubsub_implementation.md)
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
     - [Assignment 11](assignments/11.md)
-- Day 4
     - [Lab 5: Continued work on TODOapp](labs/5.md)
-
-## Week  6 (02/09-02/13)
-
-- Day 1
     - [Architectural Patterns: Model-View-Controller](notes/pattern_mvc.md)
-- Day 2
     - [Implementing a basic MVC](notes/mvc_implement.md)
-- Day 3
     - [Introduction to Backbone](notes/backbone.md)
     - [Assignment 12](assignments/12.md)
-- Day 4
     - [Lab 6: Incorporating MVC in TODOapp](labs/6.md)
-
-## Week  7 (02/16-02/20)
-
-- Day 1
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
-- Day 2
     - [Ajax via jQuery](notes/xhr_jquery.md)
-- Day 3
-- Day 4
     - [Lab 7: Introducing data persistence in TODOapp](labs/7.md)
 
 ## Week  8 (02/23-02/27)
