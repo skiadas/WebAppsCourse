@@ -9,7 +9,7 @@
 //                       behavior undefined if no next element.
 // - hasNext        <--- returns whether there is a next element.
 //
-// We can turn collections into "iterators" by providing two methods
+// We can turn collections into "iterators" by providing this iterator method
 // Once we have a such a method, we can provide for free a number of
 // other methods:
 // - forEach     <--- execute function on each element
@@ -30,16 +30,12 @@
 // - map2        <--- Combined with another iterator and a function of
 //                    two arguments, returns an iterator
 //
-// We should be able to mix-in these methods into any "iterator".
-// This would be done via a `mixin` method.
 // We also want to have methods that convert from standard objects to
 // iterators, that create some primitive iterators etc. These would be
 // "class methods" if you like:
 //
 // - fromArray   <--- Iterates over array's values
-// - fromObject  <--- Iterates over values
-// - fromObject2 <--- Iterates over { key: key, val: value } pairs
-// - sequence    <--- Creates an interable from a value increasing
+// - sequence    <--- Creates an iterator from a value increasing
 //                    by a step
 // - constant    <--- Constant iterator, returning a single value forever
 
@@ -317,5 +313,10 @@ var Iterator = (function() {
         };
         return this;
     };
+
     return Iterator;
 }());
+
+try { module.export = Iterator; } catch (err) {}
+
+
