@@ -305,9 +305,12 @@ var Iterator = (function() {
                 hasNextSuccessful = false;
                 return oldNext.call(this);
             }
-            throw new Error("'Next' called without successful 'hasNext'");
+            throw new Error("Should only call 'next' after a successful 'hasNext'");
         };
         this.hasNext = function() {
+            if (hasNextSuccessful) {
+               throw new Error("Should not follow up a successful 'hasNext' with another 'hasNext'");
+            }
             hasNextSuccessful = oldHasNext.call(this);
             return hasNextSuccessful;
         };
