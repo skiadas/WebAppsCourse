@@ -177,7 +177,7 @@ Iterator
     .<span class="fu">fromFunction</span>(<span class="ot">Math</span>.<span class="fu">random</span>)
     .<span class="fu">take</span>(<span class="dv">100</span>)
     .<span class="fu">toArray</span>();</code></pre>
-<p>Look at the <a href="testPages/iterators.js">complete file</a> for the implementation of these methods after you try to do them on our own.</p>
+<p>Look at the <a href="../testPages/iterators.js">complete file</a> for the implementation of these methods after you try to do them on our own.</p>
 <p>Before we close, we will discuss the idea of &quot;enforcing the contract&quot;. We want to give clients of our iterator the option to &quot;force&quot; the iteration process, so that a <code>next</code> only precedes a successful <code>hasNext</code>. We can do this in a prototype method: What this method does is simple:</p>
 <ol style="list-style-type: decimal">
 <li>Keeps a variable <code>hasNextSuccessful</code> that is true if <code>hasNext</code> has been called and was positive, and a <code>next</code> has not been called yet.</li>

@@ -181,7 +181,7 @@ Iterator
     .toArray();
 ```
 
-Look at the [complete file](testPages/iterators.js) for the implementation of these methods after you try to do them on our own.
+Look at the [complete file](../testPages/iterators.js) for the implementation of these methods after you try to do them on our own.
 
 Before we close, we will discuss the idea of "enforcing the contract". We want to give clients of our iterator the option to "force" the iteration process, so that a `next` only precedes a successful `hasNext`. We can do this in a prototype method: What this method does is simple:
 
