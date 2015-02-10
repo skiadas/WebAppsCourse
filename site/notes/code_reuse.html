@@ -104,15 +104,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <h3 id="composition-and-delegation">Composition and Delegation</h3>
 <p>In object composition one object holds in its instance variables a reference to another object, and accesses it that way. It might optionally create methods that turn around and call methods of the composed object:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ColorPoint = <span class="ot">MyClass</span>.<span class="fu">new</span>({
-   <span class="dt">initialize</span>: <span class="kw">function</span>(x, y, color) {
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ColorPoint = <span class="fu">newClass</span>(<span class="kw">function</span> <span class="fu">init</span>(x, y, color) {
       <span class="kw">this</span>.<span class="fu">point</span> = <span class="ot">Point</span>.<span class="fu">new</span>(x, y);
       <span class="kw">this</span>.<span class="fu">color</span> = color;
-   },
-   <span class="dt">getColor</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">color</span>; },
-   <span class="dt">setPoint</span>: <span class="kw">function</span>(p) { <span class="kw">this</span>.<span class="fu">point</span> = p; <span class="kw">return</span> <span class="kw">this</span>; },
-   <span class="dt">getx</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">x</span>; },    <span class="co">// &lt;- delegate to point</span>
-   <span class="dt">gety</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">y</span>; }
+});
+<span class="ot">ColorPoint</span>.<span class="ot">prototype</span>.<span class="fu">setPoint</span> = <span class="kw">function</span>(p) {
+   <span class="kw">this</span>.<span class="fu">point</span> = p;
+   <span class="kw">return</span> <span class="kw">this</span>;
+};
+<span class="co">// delegate calls to point</span>
+<span class="ot">ColorPoint</span>.<span class="ot">prototype</span>.<span class="fu">getx</span> = <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">x</span>; };
+<span class="co">// Or even transparently</span>
+<span class="ot">Object</span>.<span class="fu">defineProperty</span>(<span class="ot">ColorPoint</span>.<span class="fu">prototype</span>, <span class="st">&quot;x&quot;</span>, {
+   <span class="dt">enumerable</span>: <span class="kw">true</span>,
+   <span class="dt">get</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">x</span>; },
+   <span class="dt">set</span>: <span class="kw">function</span>(v) { <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">x</span> = v; <span class="kw">return</span> <span class="kw">this</span>; }
 });</code></pre>
 <p>Advantages:</p>
 <ul>

@@ -92,6 +92,7 @@ A week-by-week breakdown of the material.
 - Day 3
     - [Patterns of code reuse](notes/code_reuse.md)
 - Day 4
+    - [Pattern: Observer](notes/patterns_observer.md)
 
 ## Week  7 (02/16-02/20)
 

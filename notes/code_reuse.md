@@ -88,15 +88,21 @@ Disadvantages:
 In object composition one object holds in its instance variables a reference to another object, and accesses it that way. It might optionally create methods that turn around and call methods of the composed object:
 
 ```javascript
-var ColorPoint = MyClass.new({
-   initialize: function(x, y, color) {
+var ColorPoint = newClass(function init(x, y, color) {
       this.point = Point.new(x, y);
       this.color = color;
-   },
-   getColor: function() { return this.color; },
-   setPoint: function(p) { this.point = p; return this; },
-   getx: function() { return this.point.x; },    // <- delegate to point
-   gety: function() { return this.point.y; }
+});
+ColorPoint.prototype.setPoint = function(p) {
+   this.point = p;
+   return this;
+};
+// delegate calls to point
+ColorPoint.prototype.getx = function() { return this.point.x; };
+// Or even transparently
+Object.defineProperty(ColorPoint.prototype, "x", {
+   enumerable: true,
+   get: function() { return this.point.x; },
+   set: function(v) { this.point.x = v; return this; }
 });
 ```
 
