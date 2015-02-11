@@ -7,6 +7,25 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
 <link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -67,5 +86,14 @@
 </dl>
 <p>We will see later details on how to implement this. Internally, we will mix in the &quot;Events&quot; class to any class that we want to make Observable. A hidden variable named <code>_events</code> will hold the information about all the various handlers that the object needs to keep around.</p>
 <p>An implementation can be found <a href="../testPages/events.js">here</a>.</p>
+<h4 id="example">Example</h4>
+<p>Here's a simple example of a timer that sends a notification out every minute to whoever's listening on the global Event channel.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>(){
+    <span class="kw">var</span> i = <span class="dv">0</span>;
+    <span class="kw">function</span> <span class="fu">callem</span>() { i+= <span class="dv">1</span>; <span class="ot">Event</span>.<span class="fu">trigger</span>(<span class="st">&#39;tick&#39;</span>, i); }
+    <span class="fu">setInterval</span>(callem, <span class="dv">60000</span>);
+}());</code></pre>
+<p>The most standard application of the Observer model is in the Model-View-Controller pattern we will discuss later. Models are responsible for application state, and they send out notifications whenever their state changes.</p>
+<p>Similarly, and related, a Collection could send notifications out when a new item is added, and it can also listen to changes on its items and forward them to its observers, so that they don't have to observe the items themselves.</p>
 </body>
 </html>

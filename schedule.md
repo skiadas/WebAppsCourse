@@ -89,10 +89,10 @@ A week-by-week breakdown of the material.
     - [Lab 5: Collections](labs/5.md)
 - Day 2
     - [Design Patterns](notes/design_patterns.md)
-- Day 3
     - [Patterns of code reuse](notes/code_reuse.md)
 - Day 4
     - [Pattern: Observer](notes/patterns_observer.md)
+- Day 3
 
 ## Week  7 (02/16-02/20)
 

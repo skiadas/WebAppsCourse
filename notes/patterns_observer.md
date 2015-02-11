@@ -63,3 +63,19 @@ once
 We will see later details on how to implement this. Internally, we will mix in the "Events" class to any class that we want to make Observable. A hidden variable named `_events` will hold the information about all the various handlers that the object needs to keep around.
 
 An implementation can be found [here](../testPages/events.js).
+
+#### Example
+
+Here's a simple example of a timer that sends a notification out every minute to whoever's listening on the global Event channel.
+
+```javascript
+(function(){
+    var i = 0;
+    function callem() { i+= 1; Event.trigger('tick', i); }
+    setInterval(callem, 60000);
+}());
+```
+
+The most standard application of the Observer model is in the Model-View-Controller pattern we will discuss later. Models are responsible for application state, and they send out notifications whenever their state changes.
+
+Similarly, and related, a Collection could send notifications out when a new item is added, and it can also listen to changes on its items and forward them to its observers, so that they don't have to observe the items themselves.
