@@ -51,18 +51,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>More abstractly, the intent of the Observer Pattern is to define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified automatically.</p>
 <h3 id="participants-implementation">Participants / Implementation</h3>
 <p>The Observer Pattern consists of the following, with slight variations depending on the target language. We first describe it in the more abstract form and with a statically typed language in mind, then we discuss its implementation in Javascript.</p>
-<ul>
-<li>The <strong>Subject</strong>, or <strong>Observable</strong>, is an abstract interface/class that provides for the following methods:
-<ul>
-<li><code>registerObserver</code> to add a new observer.</li>
-<li><code>unregisterObserver</code> to remove a given observer.</li>
-<li><code>notifyObservers</code> to inform the observers of the change.</li>
-<li>As a class it would further contain an <code>observerCollection</code>.</li>
-</ul></li>
-<li>The <strong>ConcreteObservable</strong> is a concrete implementation/subclass of Observable, that maintains some state variable, and in its <code>setState</code> method calls <code>notifyObservers</code>.</li>
-<li>The <strong>Observer</strong> is an abstract interface/class that provides for a single <code>notify</code> method. When <code>notifyObservers</code> is called, it goes through each observer on its list and calls the observer's <code>notify</code> method.</li>
-<li><strong>ConcreteObserver</strong> classes that implement/subclass Observer must implement their own <code>notify</code> method that handles their needs.</li>
-</ul>
+<dl>
+<dt>Subject</dt>
+<dd>or <strong>Observable</strong>, is an abstract interface/class that provides for the following methods: - <code>registerObserver</code> to add a new observer. - <code>unregisterObserver</code> to remove a given observer. - <code>notifyObservers</code> to inform the observers of the change. - As a class it would further contain an <code>observerCollection</code>.
+</dd>
+<dt>ConcreteObservable</dt>
+<dd>is a concrete implementation/subclass of Observable, that maintains some state variable, and in its <code>setState</code> method calls <code>notifyObservers</code>.
+</dd>
+<dt>Observer</dt>
+<dd>is an abstract interface/class that provides for a single <code>notify</code> method. When <code>notifyObservers</code> is called, it goes through each observer on its list and calls the observer's <code>notify</code> method.
+</dd>
+<dt>ConcreteObserver</dt>
+<dd>classes that implement/subclass Observer must implement their own <code>notify</code> method that handles their needs.
+</dd>
+</dl>
 <h4 id="javascript-implementation">Javascript implementation</h4>
 <p>In Javascript implementations, usually done via an &quot;Events&quot; class/mixin, there are two key differences:</p>
 <ul>
@@ -86,6 +88,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dl>
 <p>We will see later details on how to implement this. Internally, we will mix in the &quot;Events&quot; class to any class that we want to make Observable. A hidden variable named <code>_events</code> will hold the information about all the various handlers that the object needs to keep around.</p>
 <p>An implementation can be found <a href="../testPages/events.js">here</a>.</p>
+<p>One important consideration is regarding when the handlers should be fired. You have to choose in your implementation whether they should fire right away, and only then return control to the function that triggered the event, or whether they should set a timer for them to fire at the first available moment after the current function has finished running.</p>
 <h4 id="example">Example</h4>
 <p>Here's a simple example of a timer that sends a notification out every minute to whoever's listening on the global Event channel.</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>(){

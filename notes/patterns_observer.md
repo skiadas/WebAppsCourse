@@ -30,14 +30,21 @@ More abstractly, the intent of the Observer Pattern is to define a one-to-many d
 
 The Observer Pattern consists of the following, with slight variations depending on the target language. We first describe it in the more abstract form and with a statically typed language in mind, then we discuss its implementation in Javascript.
 
-- The **Subject**, or **Observable**, is an abstract interface/class that provides for the following methods:
+Subject
+  ~ or **Observable**, is an abstract interface/class that provides for the following methods:
     - `registerObserver` to add a new observer.
     - `unregisterObserver` to remove a given observer.
     - `notifyObservers` to inform the observers of the change.
     - As a class it would further contain an `observerCollection`.
-- The **ConcreteObservable** is a concrete implementation/subclass of Observable, that maintains some state variable, and in its `setState` method calls `notifyObservers`.
-- The **Observer** is an abstract interface/class that provides for a single `notify` method. When `notifyObservers` is called, it goes through each observer on its list and calls the observer's `notify` method.
-- **ConcreteObserver** classes that implement/subclass Observer must implement their own `notify` method that handles their needs.
+
+ConcreteObservable
+  ~ is a concrete implementation/subclass of Observable, that maintains some state variable, and in its `setState` method calls `notifyObservers`.
+
+Observer
+  ~ is an abstract interface/class that provides for a single `notify` method. When `notifyObservers` is called, it goes through each observer on its list and calls the observer's `notify` method.
+
+ConcreteObserver
+  ~ classes that implement/subclass Observer must implement their own `notify` method that handles their needs.
 
 #### Javascript implementation
 
@@ -63,6 +70,8 @@ once
 We will see later details on how to implement this. Internally, we will mix in the "Events" class to any class that we want to make Observable. A hidden variable named `_events` will hold the information about all the various handlers that the object needs to keep around.
 
 An implementation can be found [here](../testPages/events.js).
+
+One important consideration is regarding when the handlers should be fired. You have to choose in your implementation whether they should fire right away, and only then return control to the function that triggered the event, or whether they should set a timer for them to fire at the first available moment after the current function has finished running.
 
 #### Example
 

@@ -90,9 +90,10 @@ A week-by-week breakdown of the material.
 - Day 2
     - [Design Patterns](notes/design_patterns.md)
     - [Patterns of code reuse](notes/code_reuse.md)
-- Day 4
-    - [Pattern: Observer](notes/patterns_observer.md)
 - Day 3
+    - [Pattern: Observer](notes/patterns_observer.md)
+- Day 4
+    - [Pattern: Command](notes/patterns_command.md)
 
 ## Week  7 (02/16-02/20)
 
