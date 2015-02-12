@@ -69,7 +69,7 @@ once
 
 We will see later details on how to implement this. Internally, we will mix in the "Events" class to any class that we want to make Observable. A hidden variable named `_events` will hold the information about all the various handlers that the object needs to keep around.
 
-An implementation can be found [here](../testPages/events.js).
+An implementation can be found [here](../../testPages/events.js).
 
 One important consideration is regarding when the handlers should be fired. You have to choose in your implementation whether they should fire right away, and only then return control to the function that triggered the event, or whether they should set a timer for them to fire at the first available moment after the current function has finished running.
 

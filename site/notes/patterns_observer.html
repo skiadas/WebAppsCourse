@@ -87,7 +87,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 </dl>
 <p>We will see later details on how to implement this. Internally, we will mix in the &quot;Events&quot; class to any class that we want to make Observable. A hidden variable named <code>_events</code> will hold the information about all the various handlers that the object needs to keep around.</p>
-<p>An implementation can be found <a href="../testPages/events.js">here</a>.</p>
+<p>An implementation can be found <a href="../../testPages/events.js">here</a>.</p>
 <p>One important consideration is regarding when the handlers should be fired. You have to choose in your implementation whether they should fire right away, and only then return control to the function that triggered the event, or whether they should set a timer for them to fire at the first available moment after the current function has finished running.</p>
 <h4 id="example">Example</h4>
 <p>Here's a simple example of a timer that sends a notification out every minute to whoever's listening on the global Event channel.</p>
