@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="the-proxy-pattern">The Proxy Pattern</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://www.oodesign.com/proxy-pattern.html">OODesign</a></li>
+<li><a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/">GoF Book</a>, page 207</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<h3 id="classification">Classification</h3>
+<p>The Proxy is a Structural Pattern.</p>
+<h3 id="intent">Intent</h3>
+<p>To provide a surrogate / placeholder for another object to control access to that object.</p>
+<h3 id="motivation">Motivation</h3>
+<p>The intent of the proxy pattern is to control access to an object. There are a number of reasons why one might want to do that.</p>
+<p>If the object is expensive to create, we might use a proxy to delay that creation until it is actually needed.</p>
+<p>Or we might want to control exactly how an object's methods are called.</p>
+<p>Or perhaps simply to log calls to the object's methods for testing purposes.</p>
+<p>Some times we also have &quot;remote proxies&quot; that stand for objects that live in a different space (like another computer).</p>
+<h3 id="participants-implementation">Participants / Implementation</h3>
+<p>There are 3 participants in a proxy pattern:</p>
+<dl>
+<dt>Subject</dt>
+<dd>This is the interface with the functionality that our object is meant to support.
+</dd>
+<dt>RealSubject</dt>
+<dd>This is the actual object that our proxy is supposed to control access to. It must implement the Subject interface (in essence defines that interface).
+</dd>
+<dt>Proxy</dt>
+<dd>The proxy also implements the Subject interface, and relays any appropriate requests to the RealSubject. It needs to maintain a reference to RealSubject to achieve its goals.
+</dd>
+</dl>
+<h4 id="javascript-implementation">Javascript implementation</h4>
+<p>In its simplest form, a proxy would be constructed by creating a new object that contains the original as a property, and it also contains one property/method for each property/method of the original object. In general you do not need to provide more than what is part of the interface, but you have to also respect any properties inherited through the prototype.</p>
+<p>If you do not care about controlling access to the prototype methods, you can simply inherit from the prototype directly.</p>
+<p>Returning the correct <code>this</code> can get tricky, as the proxy must return itself whenever the original object would have returned <code>this</code>.</p>
+<p>In our implementation, we will introduce two new objects: One is the actual proxy, which is meant to look exactly like the original object. The other is an object that manages the proxy, and acts as a glue between the two objects.</p>
+<p>Here is a possible <a href="../../testPages/proxy.js">implementation</a>.</p>
+<h4 id="example">Example</h4>
+<p>Recall the <code>forceContract</code> method in the iterator:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">proto</span>.<span class="fu">forceContract</span> = <span class="kw">function</span>() {
+    <span class="kw">var</span> hasNextSuccessful = <span class="kw">false</span>,
+        oldNext = <span class="kw">this</span>.<span class="fu">next</span>,
+        oldHasNext = <span class="kw">this</span>.<span class="fu">hasNext</span>;
+    <span class="kw">this</span>.<span class="fu">next</span> = <span class="kw">function</span>() {
+        <span class="kw">if</span> (hasNextSuccessful) {
+            hasNextSuccessful = <span class="kw">false</span>;
+            <span class="kw">return</span> <span class="ot">oldNext</span>.<span class="fu">call</span>(<span class="kw">this</span>);
+        }
+        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Should only call &#39;next&#39; after a successful &#39;hasNext&#39;&quot;</span>);
+    };
+    <span class="kw">this</span>.<span class="fu">hasNext</span> = <span class="kw">function</span>() {
+        <span class="kw">if</span> (hasNextSuccessful) {
+           <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Should not follow up a successful &#39;hasNext&#39; with another &#39;hasNext&#39;&quot;</span>);
+        }
+        hasNextSuccessful = <span class="ot">oldHasNext</span>.<span class="fu">call</span>(<span class="kw">this</span>);
+        <span class="kw">return</span> hasNextSuccessful;
+    };
+    <span class="kw">return</span> <span class="kw">this</span>;
+};</code></pre>
+<p>One of the things we talked about back then was that it would be best if this method did not replace the next/hasNext methods. We can instead serve a proxy:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">proto</span>.<span class="fu">forceContract</span> = <span class="kw">function</span>() {
+    <span class="kw">var</span> hasNextSuccessful = <span class="kw">false</span>,
+        that = <span class="kw">this</span>;
+    <span class="kw">return</span> <span class="ot">Iterator</span>.<span class="fu">new</span>(
+        <span class="kw">function</span> <span class="fu">next</span>() {
+            <span class="kw">if</span> (hasNextSuccessful) {
+                hasNextSuccessful = <span class="kw">false</span>;
+                <span class="kw">return</span> <span class="ot">that</span>.<span class="fu">next</span>();
+            }
+            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Should only call &#39;next&#39; after a successful &#39;hasNext&#39;&quot;</span>);
+        },
+        <span class="kw">function</span>() {
+            <span class="kw">if</span> (hasNextSuccessful) {
+               <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Should not follow up a successful &#39;hasNext&#39; with another &#39;hasNext&#39;&quot;</span>);
+            }
+            hasNextSuccessful = <span class="ot">that</span>.<span class="fu">hasNext</span>();
+            <span class="kw">return</span> hasNextSuccessful;
+        }
+    );
+};</code></pre>
+<p>So we create a new iterator that restricts access to the old iterator to only appropriate calls: You must call <code>hasNext</code> and if it is successful follow it up with a <code>next</code> before you can use <code>hasNext</code> again. This would be called a <strong>protection proxy</strong>.</p>
+</body>
+</html>

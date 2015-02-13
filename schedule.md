@@ -92,8 +92,9 @@ A week-by-week breakdown of the material.
     - [Patterns of code reuse](notes/code_reuse.md)
 - Day 3
     - [Pattern: Observer](notes/patterns_observer.md)
-- Day 4
     - [Pattern: Command](notes/patterns_command.md)
+- Day 4
+    - [Pattern: Proxy](notes/patterns_proxy.md)
 
 ## Week  7 (02/16-02/20)
 
@@ -110,12 +111,8 @@ A week-by-week breakdown of the material.
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
     - [Creation Patterns: Mixins](notes/pattern_mixin.md)
     - [Data Structures in Javascript](notes/data_structures.md)
-    - [Behavioral Patterns: Observer](notes/pattern_observer.md)
-    - [Behavioral Patterns: Publish/Subscribe](notes/pattern_pubsub.md)
-    - [Implementation of Publish/Subscribe](notes/pubsub_implementation.md)
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
     - [Assignment 11](assignments/11.md)
-    - [Lab 5: Continued work on TODOapp](labs/5.md)
     - [Architectural Patterns: Model-View-Controller](notes/pattern_mvc.md)
     - [Implementing a basic MVC](notes/mvc_implement.md)
     - [Introduction to Backbone](notes/backbone.md)
@@ -147,7 +144,6 @@ BREAK
 - Day 2
     -
 - Day 3
-    - [Survey of CSS features](notes/css_survey.md)
 - Day 4
     - [Lab 8: ](labs/8.md)
 
