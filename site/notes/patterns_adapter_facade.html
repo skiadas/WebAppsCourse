@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="the-adapter-and-facade-patterns">The Adapter and Facade Patterns</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://www.oodesign.com/adapter-pattern.html">OODesign on Adapter</a></li>
+<li><a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/">GoF Book on Adapter</a>, page 139</li>
+<li><a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/">GoF Book on Facade</a>, page 185</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>We discuss together two somewhat related patterns, the Adapter and Facade.</p>
+<h2 id="adapter">Adapter</h2>
+<p>We start with the Adapter.</p>
+<h3 id="classification">Classification</h3>
+<p>The Adapter is a Structural Pattern.</p>
+<h3 id="intent">Intent</h3>
+<p>The <strong>Adapter</strong> is used to convert the interface of a class to another interface that clients expect. It allows classes to work together that otherwise could not because of incompatible interfaces.</p>
+<p>It is also often called <strong>Wrapper</strong>.</p>
+<h3 id="motivation">Motivation</h3>
+<p>The idea is that we have a class whose objects already achieve a certain goal and have a given interface. We want to use those objects in a different part of the application that uses a slightly different interface. For instance maybe some methods are omitted, or they have different names, or take different arguments, and so on.</p>
+<p>The Adapter provides this &quot;transformation&quot;.</p>
+<p>Similar to the Proxy, the Adapter sits in front of the actual object, and it relays calls to the actual object. But unlike the Proxy, the Adapter <em>changes the interface</em>. While the Proxy was meant to provide the exact same interface as the object it was proxying, the Adapter is meant to provide a different interface, to match what the client wants.</p>
+<p>The Adapter is useful when you have to use some piece of code that behaves in a certain way, but you need to use it in a different way.</p>
+<h3 id="participants-implementation">Participants / Implementation</h3>
+<dl>
+<dt>Target</dt>
+<dd>This is the Interface that the client wants to use/see.
+</dd>
+<dt>Client</dt>
+<dd>Expect to work with objects with Target interface.
+</dd>
+<dt>Adaptee</dt>
+<dd>An existing interface provided by e.g. an external class.
+</dd>
+<dt>Adapter</dt>
+<dd>Adapts the interface of the Adaptee to the Target.
+</dd>
+</dl>
+<p>Clients will call the Adapter, which appears to them via the Target interface. The Adapter turns around and relays requests to the Adaptee as appropriate.</p>
+<h2 id="facade">Facade</h2>
+<p>We now look at the Facade Pattern.</p>
+<h3 id="classification-1">Classification</h3>
+<p>The Facade is a Structural Pattern.</p>
+<h3 id="intent-1">Intent</h3>
+<p>The Facade Pattern provides a unified interface to a set of interfaces in a subsystem. It essentially defines a higher-level interface that makes the subsystem easier to use.</p>
+<h3 id="motivation-1">Motivation</h3>
+<p>Use a Facade when you want to offer your clients a simpler interface, while still allowing them more fine-grained control when they choose to.</p>
+<p>For instance if we are writing a compiler, then we have all sorts of different components: A lexxer that breaks the program into &quot;tokens&quot;, a parser that turns those tokens into syntax structures, a class to hold the different syntax structures, a semantic analyzer, a code generator and so on and so forth. For somes uses clients might need to peek into all these parts, but for the most part they just want to get their programs compiled. This is where the Facade comes in, to expose to the client a simplified interface with a &quot;compile&quot; method that under the hood calls all these other components.</p>
+<p>Similarly in a Linear Algebra application, there is typically a &quot;solve&quot; method that solves linear systems. Behind the scenes there are many different specialized types of solvers, depending on what type of system of equations we are solving. While specialized clients might want to pick the specific subsystem, most just want a &quot;solve&quot; method.</p>
+<h3 id="participants-implementation-1">Participants / Implementation</h3>
+<dl>
+<dt>Facade</dt>
+<dd>Knows the various subsystem classes and what it needs to use to handle a request. It delegates all client requests to appropriate subystem objects.
+</dd>
+<dt>Subsystem Classes</dt>
+<dd><p>The subsystem classes implement their functionality as normal, and they handle the work assigned to them by the Facade object.</p>
+<p>They have no knowledge of the fact that they are called by the Facade rather than the client directly.</p>
+</dd>
+</dl>
+</body>
+</html>

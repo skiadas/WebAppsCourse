@@ -100,17 +100,26 @@ A week-by-week breakdown of the material.
 
 - Day 1
 - Day 2
+    - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
+    - [Lab 6: Double-Linked Lists, History](labs/6.md)
 - Day 3
+    - [Pattern: Visitor](notes/patterns_visitor.md)
 - Day 4
+
+## Week  8 (02/23-02/27)
+
+BREAK
+
+## Week  9 (03/02-03/06)
+
+- Day 1
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Assignment 8](assignments/8.md)
     - [Assignment 9](assignments/9.md)
     - [Assignment 10](assignments/10.md)
-    - [A custom Event module](notes/event_custom.md)
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
     - [Creation Patterns: Mixins](notes/pattern_mixin.md)
-    - [Data Structures in Javascript](notes/data_structures.md)
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
     - [Assignment 11](assignments/11.md)
     - [Architectural Patterns: Model-View-Controller](notes/pattern_mvc.md)
@@ -121,14 +130,6 @@ A week-by-week breakdown of the material.
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
     - [Ajax via jQuery](notes/xhr_jquery.md)
     - [Lab 7: Introducing data persistence in TODOapp](labs/7.md)
-
-## Week  8 (02/23-02/27)
-
-BREAK
-
-## Week  9 (03/02-03/06)
-
-- Day 1
     - [Testing with Stubs, Mocks and Spies](notes/test_stubs.md)
 - Day 2
     - [Module Patterns: Node modules](notes/pattern_module.md)

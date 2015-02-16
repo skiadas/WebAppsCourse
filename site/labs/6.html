@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="lab-6">Lab 6<span class="small"> (<a href="6.pdf" title="6">pdf</a>)</span></h1>
+<p>In this lab we will implement double-linked lists and a &quot;command history&quot;.</p>
+<p>You should continue to create atomic issues and make atomic commits referencing the issues. You should continue using a milestone (Lab6 in this case) to keep together the issues related to this lab. I will expect to see a number of issues and corresponding commits to match them, within that milestone.</p>
+<h2 id="basic-steps">Basic steps</h2>
+<ol style="list-style-type: decimal">
+<li>You should have already decided which of the two partner's GitHub account to use.</li>
+<li>If you have not switched roles with your partner for a while, this is a good time to do so.</li>
+<li>You need to first bring your version of the lab up-to-date by fetching from the remote that is linked to MY project. This is a bit tedious. Only ONE of the two persons needs to do this.
+<ul>
+<li>Use &quot;<code>git remote -v</code>&quot; to see the remote branches. There should be one named <code>mainSource</code> and pointing to <code>skiadas/WebAppsLabs</code>.</li>
+<li>We will start by fetching the newest version of that, with: &quot;<code>git fetch mainSource</code>&quot;. It should tell you about a new branch, Lab6.</li>
+<li>Create a new branch with &quot;<code>git checkout -b Lab6 --track mainSource/Lab6</code>&quot;.</li>
+<li>Push this repository to your fork, by &quot;<code>git push origin Lab6</code>&quot;.</li>
+<li>Set your local branch to in the future update your repository by: &quot;<code>git branch --set-upstream Lab6 origin/Lab6</code>&quot;.</li>
+<li>To make sure this is set up properly, do &quot;<code>git branch -vv</code>&quot;. You should see <code>[origin/Lab6]</code> next to the Lab6 branch line.</li>
+</ul></li>
+<li>Check out the correct branch, via <code>git checkout Lab6</code>.</li>
+<li>One person did steps 3 and 4, here is what the other person needs to do after that, on their repository:
+<ul>
+<li>Use &quot;<code>git fetch origin</code>&quot; to grab the changes your partner just made.</li>
+<li>Create a new branch to follow the new lab by &quot;<code>git branch Lab6 origin/Lab6</code>&quot;.</li>
+<li>Switch to the new branch via &quot;<code>git checkout Lab6</code>&quot;.</li>
+</ul></li>
+<li>In the GitHub issues page for your project, switch to the Milestones tab and create a Lab6 milestone. Use that instead of a label for all issues you create related to Lab6.</li>
+<li>In the Settings page you can set the &quot;Default branch&quot; for the application. Set this to the Lab6 branch. This should make it so that your pushed commits close any issues that they mention via &quot;Close #n&quot;.</li>
+<li>Open the <code>README.md</code> file there, it will contain the instructions on what you need to do.</li>
+<li>When you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>
+<li>You should use the issues page to track your progress. Use the Lab6 milestone to track the relevant issues. I will review those issues to look at your work.</li>
+<li>Needless to say it, but you are NOT allowed to look at other people's forks of the project and their issues/solutions.</li>
+<li>I expect you to do the coding using pair programming.</li>
+</ol>
+</body>
+</html>
