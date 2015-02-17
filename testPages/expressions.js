@@ -47,8 +47,6 @@ function newClass(init, superclass) {
 // - Assign: Assignment operation (e.g. x = ...)
 // - Seq: Sequence of expressions (e.g. e1; e2)
 
-// Uses newClass (defined at end of file)
-
 // A common "interface". We will populate it later
 var Expression = newClass();
 

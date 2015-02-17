@@ -100,11 +100,12 @@ A week-by-week breakdown of the material.
 
 - Day 1
 - Day 2
+    - [Pattern: Visitor](notes/patterns_visitor.md)
+- Day 3
+    - [Pattern: Composite](notes/patterns_composite.md)
+- Day 4
     - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
     - [Lab 6: Double-Linked Lists, History](labs/6.md)
-- Day 3
-    - [Pattern: Visitor](notes/patterns_visitor.md)
-- Day 4
 
 ## Week  8 (02/23-02/27)
 
@@ -119,7 +120,6 @@ BREAK
     - [Assignment 10](assignments/10.md)
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
-    - [Creation Patterns: Mixins](notes/pattern_mixin.md)
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
     - [Assignment 11](assignments/11.md)
     - [Architectural Patterns: Model-View-Controller](notes/pattern_mvc.md)
@@ -155,8 +155,6 @@ BREAK
 - Day 2
     - [Deeper look into Javascript objects](notes/object_deeper.md)
 - Day 3
-    - [Structural Patterns: Facade](notes/pattern_facade.md)
-    - [Structural Patterns: Proxy](notes/pattern_proxy.md)
 - Day 4
     - Work on project
 

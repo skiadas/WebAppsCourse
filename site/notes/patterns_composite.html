@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="the-visitor-pattern">The Visitor Pattern</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://www.oodesign.com/composite-pattern.html">OODesign</a></li>
+<li><a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/">GoF Book</a>, page 163</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>We discuss the Composite pattern, which enables complicated structures of items and groupings of those items.</p>
+<h3 id="classification">Classification</h3>
+<p>The Composite is a Structural Pattern.</p>
+<h3 id="intent">Intent</h3>
+<p>The Composite Pattern's intent is to compose objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly.</p>
+<h3 id="motivation">Motivation</h3>
+<p>Imagine a graphics application. We would have primitives like Line, Rectangle, Text etc, but we also want to compose them together to form more complicated shapes, like a Picture.</p>
+<p>These composed elements must contain some extra methods like a way to access their &quot;children&quot;. But at the same time clients need to be able to access &quot;graphical elements&quot; without needing to know if they are primitives or composites.</p>
+<p>This is done by having both primitives and composites implement the same <em>interface</em> or <em>abstract class</em>, say a &quot;Graphic&quot; interface. That interface will contain the methods that are shared by both primitive and composite elements. On top of that, the composite elements need to have operations for managing their children.</p>
+<h3 id="participants-implementation">Participants / Implementation</h3>
+<dl>
+<dt>Component</dt>
+<dd>This is the abstract class or interface that primitive and composite elements share. It may also implement default behavior when appropriate.
+</dd>
+<dt>Leaf</dt>
+<dd>These are the primitive objects. They have no children.
+</dd>
+<dt>Composite</dt>
+<dd>Composites define the behavior for the components that have children and implement the related operations.
+</dd>
+<dt>Client</dt>
+<dd>Manipulates the objects in the collection through the Component interface. The goal of the pattern is to allow clients to work with the objects in the collection without needing to know if they are leaves or composites.
+</dd>
+</dl>
+<p>The Composite Pattern can work well with Iterator and Visitor, as we will see in the examples.</p>
+<p>An important consideration is how rich to make the Component interface:</p>
+<ul>
+<li>Should it have default implementations for most leaf methods?</li>
+<li>Should it have default implementations for child management methods?</li>
+</ul>
+<p>This is even more of a concern in a statically typed setting.</p>
+<h4 id="javascript-implementation">Javascript implementation</h4>
+<p>See <a href="../../testPages/composite.js">composite.js</a></p>
+</body>
+</html>
