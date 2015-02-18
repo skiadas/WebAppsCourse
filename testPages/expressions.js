@@ -56,14 +56,14 @@ var NumberExp = newClass(function init(x) {
 var VariableExp = newClass(function init(s) {
    this.symbol = s;
 }, Expression);
-var BinopExp = newClass(function init(op, x, y) {
-   this.op = op; this.x = x; this.y = y;
+var BinopExp = newClass(function init(op, e1, e2) {
+   this.op = op; this.e1 = e1; this.e2 = e2;
 }, Expression);
-var FuncExp = newClass(function init(f, x) {
-   this.f = f; this.x = x;
+var FuncExp = newClass(function init(f, e) {
+   this.f = f; this.e = e;
 }, Expression);
-var AssignExp = newClass(function init(s, x) {
-   this.symbol = s; this.x = x;
+var AssignExp = newClass(function init(s, e) {
+   this.symbol = s; this.e = e;
 }, Expression);
 var SeqExp = newClass(function init() {
    this.expressions = Array.prototype.slice.call(arguments);
@@ -97,6 +97,29 @@ AssignExp.prototype.accept = function accept(v) {
 SeqExp.prototype.accept = function accept(v) {
    return v.visitSeq(this);
 };
+
+
+var Visitor = newClass();
+Visitor.prototype.visit = function(node) {
+   return node.accept(this);
+};
+
+// A concrete visitor
+var ConcreteVisitor = newClass(function init() {
+   // Initialize visitor state
+}, Visitor);
+
+// One method for each expression type
+mixin(ConcreteVisitor.prototype, {
+   visitNumber: function(o) { },
+   visitVariable: function(o) { },
+   visitBinop: function(o) { },
+   visitFunc: function(o) { },
+   visitAssign: function(o) { },
+   visitSeq: function(o) { }
+});
+
+
 
 // Helper structure for lookups
 var Table = newClass(function init(name) {
@@ -148,18 +171,18 @@ mixin(EvalVisitor.prototype, {
    },
    // Later on: Rethink this method
    visitBinop: function(o) {
-      var x = this.visit(o.x);
-      var y = this.visit(o.y);
-      return Binops.get(o.op)(x, y);
+      var v1 = this.visit(o.e1);
+      var v2 = this.visit(o.e2);
+      return Binops.get(o.op)(v1, v2);
    },
    visitFunc: function(o) {
-      var x = this.visit(o.x);
-      return Funcs.get(o.f)(x);
+      var v = this.visit(o.e);
+      return Funcs.get(o.f)(v);
    },
    visitAssign: function(o) {
-      var x = this.visit(o.x);
-      this.memory[o.symbol] = x;
-      return x;
+      var v = this.visit(o.e);
+      this.memory[o.symbol] = v;
+      return v;
    },
    visitSeq: function(o) {
       var v, i;
@@ -182,15 +205,15 @@ mixin(PrintVisitor.prototype, {
    visitNumber: function(o) { return o.x.toString(); },
    visitVariable: function(o) { return o.symbol; },
    visitBinop: function(o) {
-      var x = this.visit(o.x);
-      var y = this.visit(o.y);
+      var x = this.visit(o.e1);
+      var y = this.visit(o.e2);
       return "(" + x + o.op + y + ")";
    },
    visitFunc: function(o) {
-      return o.f + "(" + this.visit(o.x) + ")";
+      return o.f + "(" + this.visit(o.e) + ")";
    },
    visitAssign: function(o) {
-      return o.symbol + " = " + this.visit(o.x);
+      return o.symbol + " = " + this.visit(o.e);
    },
    visitSeq: function(o) {
       var that = this;
@@ -217,12 +240,12 @@ mixin(CheckVisitor.prototype, {
       }
    },
    visitBinop: function(o) {
-      o.x.accept(this);
-      o.y.accept(this);
+      o.e1.accept(this);
+      o.e2.accept(this);
    },
-   visitFunc: function(o) { o.x.accept(this); },
+   visitFunc: function(o) { o.e.accept(this); },
    visitAssign: function(o) {
-      o.x.accept(this); // Must happen first
+      o.e.accept(this); // Must happen first
       this.definedVars[o.symbol] = true;
    },
    visitSeq: function(o) {
