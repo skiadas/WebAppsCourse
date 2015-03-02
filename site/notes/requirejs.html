@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="using-require.js">Using require.js</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://requirejs.org/">require.js home page</a></li>
+<li><a href="http://requirejs.org/docs/api.html">require.js API</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>In this section we will discuss setting up an AMD-based application with <code>require.js</code>. Other AMD loaders will work in similar ways. You should consule the <code>require.js</code> documentation page for details.</p>
+<p>We will use as a model our <a href="https://github.com/skiadas/WebAppsTodo">WebAppsTodo application</a>.</p>
+<h3 id="application-structure">Application Structure</h3>
+<p>This is by no means the only way to structure the application, but it is a common way:</p>
+<pre><code>Project Directory/
+    index.html        &lt;-- base html file that starts it all
+    app/              &lt;-- contains your application code
+        require.js    &lt;-- the require.js file. Sets things up
+        main.js       &lt;-- loaded from require.js. Kickstarts app
+        helper/       &lt;-- contains helper modules (e.d. data structures)
+            util.js
+            mixin.js
+        otherFolders/ &lt;-- to organize your app&#39;s pieces
+    lib/              &lt;-- for other people&#39;s modules
+        jquery.js
+    build/            &lt;-- the results of an optimized build process
+    test/             &lt;-- tests
+        test1.spec.js
+        test2.spec.js</code></pre>
+</body>
+</html>

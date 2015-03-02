@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="module-systems-in-javascript">Module Systems in Javascript</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://nodejs.org/api/modules.html">Node's modules</a></li>
+<li><a href="http://wiki.commonjs.org/wiki/Modules/1.1">CommonJS specification</a></li>
+<li><a href="https://github.com/amdjs/amdjs-api">AMD specification</a></li>
+<li><a href="http://requirejs.org/docs/whyamd.html#amdtoday">require.js docs on AMD</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>Modules are the building blocks of applications in most modern programming languages.</p>
+<ul>
+<li>The module has an associated &quot;name&quot;. Other modules can refer to it with that name.</li>
+<li>The module has a specific &quot;interface&quot;, a certain functionality, that it provides. The rest of the application communicates with the module only through that interface. This provides a <strong>separation of concerns</strong>.</li>
+<li>Modules provide <strong>encapsulation</strong>: What happens within a module stays within the module. The module many contain many private functions and constants that perform various tasks, but only expose a small part.</li>
+<li>A module could be swapped with another module that provides the same interface, without affecting the rest of the application.</li>
+<li>In many object-oriented languages, the role of modules is often performed by classes.</li>
+</ul>
+<p>In Javascript, there are at least 3 different kinds of approaches to modules. There are also &quot;ES6 modules&quot;, that are part of the ECMAScript 6 specification, but we will not be discussing these here.</p>
+<dl>
+<dt>Manual Modules</dt>
+<dd>We can build a barebones &quot;module&quot; structure using globals and careful naming. This does not require any extra infrastructure.
+</dd>
+<dt>CommonJS Modules</dt>
+<dd>This module style is used by Node and other mostly server-side technologies.
+</dd>
+<dt>AMD Modules</dt>
+<dd>This is a paradigm that evolved to serve the asynchronous loading needs of client-side applications. It requires the use of &quot;amd loaders&quot;.
+</dd>
+<dt>UMD Modules</dt>
+<dd>A &quot;Universal Module Definition&quot; has emerged as a collection of ways to merge 2 or more of the above types.
+</dd>
+</dl>
+<p>We will now discuss each of these cases in more detail.</p>
+<h3 id="manual-modules">Manual Modules</h3>
+<p>Manual modules offer a simple way to provide some namespacing capabilities. They use immediate function invocations to create a local scope with a specific export.</p>
+<p>You typically start by using one global variable named after the author or application under consideration. That variable is an object whose properties hold the different modules for the application.</p>
+<p>For example, in our application, called <em>PanthR</em>, we would create, if it does not already exist, a global variable called PanthR, and populate it with different modules. For instance we need a module called Variable to represent the statistical notion of a variable. Here's how such a file might look like:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Create global PanthR if it doesn&#39;t already exist</span>
+<span class="kw">var</span> PanthR = PanthR || {};
+<span class="ot">PanthR</span>.<span class="fu">Variable</span> = (<span class="kw">function</span>() {
+    <span class="co">// Local scope that only methods related to Variable see</span>
+    <span class="kw">var</span> Variable;
+    <span class="co">// ... module code here</span>
+    <span class="co">// ... you can refer to other modules:</span>
+    <span class="ot">PanthR</span>.<span class="ot">OtherModule</span>.<span class="fu">doSomething</span>();
+    <span class="kw">return</span> Variable;
+}());</code></pre>
+<p>This can work well for moderately sized projects. We can combine all these files in one big file, and the immediate function invocations keep the different scopes separate. Or we can put them one at a time in their own <code>&lt;script&gt;</code> tags (though one big file tends to be more efficient to download).</p>
+<p>This is a simple format, and requires some discipline on the part of the programmer, but nothing special otherwise.</p>
+<p>Its main drawback is that it offers no way to specify the dependencies between modules. For instance, when we access <code>PanthR.OtherModule</code> in the code above, how to do we know that it has already been created? We don't, we must rely on making sure we load/concatenate the files in their proper order. And this is something we must ourselves keep track of, a very fragile process.</p>
+<h3 id="commonjs-modules">CommonJS Modules</h3>
+<p>The CommonJS Module format was created by a group interested in using Javascript technologies on the server, like for instance Node.js (but there are others). Any such technology must provide certain libraries for input and output, managing the file system, multiple processes etc.</p>
+<p>In the CommonJS module specification there are 3 provides globals:</p>
+<ul>
+<li><code>require</code> is a function that takes as argument the module name returns the object exported by that module.</li>
+<li><code>exports</code> the object exported by the module. The module can provide functionality by adding properties to this object.</li>
+<li><code>module</code> is an object containing properties describing the module. In particular it contains an <code>module.id</code> property that is a string that can be used with <code>require</code> to load the module, and a <code>module.exports</code> property, which is the exported module. In fact <code>exports</code> is a variable initially set to the object in <code>module.exports</code>. So one often sets <code>module.exports</code> to the desired return object/function, rather than adding methods to <code>exports</code>.</li>
+</ul>
+<p>Each file in the CommonJS specification is assumed to have its own local environment (as opposed to files loaded via <code>&lt;script&gt;</code> tags in the browser, where they are all treated as part of the global environment).</p>
+<p>For the rest of the discussion, and examples, we will focus on the Node.js take on the specification, which has some minor variations.</p>
+<p>But briefly here is how code would typically look like in a Node module:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// We read the &quot;filesystem&quot; module</span>
+<span class="kw">var</span> fs = <span class="fu">require</span>(<span class="st">&quot;fs&quot;</span>);
+<span class="co">// Load the &quot;os&quot; module</span>
+<span class="kw">var</span> os = <span class="fu">require</span>(<span class="st">&quot;os&quot;</span>);
+<span class="co">// Load some other custom modules of our own:</span>
+<span class="kw">var</span> otherModule = <span class="fu">require</span>(<span class="st">&quot;./otherModule&quot;</span>);
+
+<span class="co">// Implement our module</span>
+<span class="kw">var</span> myModule = {
+    ...
+};
+
+<span class="co">// Ensure that myModule is what is exported</span>
+<span class="ot">module</span>.<span class="fu">exports</span> = myModule;
+<span class="co">// No need to explicitly return anything</span></code></pre>
+<p>The string passed to the &quot;require&quot; call is used to locate the file. It is <em>resolved</em> to a full path to a file via a set of rules:</p>
+<ul>
+<li>Paths starting with &quot;.&quot; or &quot;..&quot; are computed relative to the current file.</li>
+<li>The &quot;.js&quot; extension is to be omitted.</li>
+<li>If the path is a system-provided library (like &quot;fs&quot; or &quot;os&quot; or <a href="http://nodejs.org/api/">any of the other parts of the API</a>) then it is resolved in that fashion.</li>
+<li>If it is not a system-provided library, and it does not start with &quot;.&quot; or &quot;..&quot;, then it is resolved relative to a &quot;<code>node_modules</code>&quot; folder. It typically will start with the <code>node_modules</code> folder at the root of your project, and will later look at system-specified locations. You can find the details in the <a href="http://nodejs.org/api/modules.html">node modules page</a>.</li>
+</ul>
+<p>The required modules are loaded synchronously. This is an important characteristic of this module format.</p>
+<h3 id="amd-modules">AMD Modules</h3>
+<p>AMD stands for <em>Asynchronous Module Definition</em>. It is a <a href="https://github.com/amdjs/amdjs-api/blob/master/AMD.html">specificiation</a> born out of a need to have modular development in a project that is meant to be deployed in the browser. It consists of a number of parts:</p>
+<dl>
+<dt>AMD Modules</dt>
+<dd><p>You write your module files in a specific format, with the use of the <code>define</code> function that we will discuss shortly. Part of that specification is what other modules your module depends on.</p>
+<p>AMD Modules cannot be inserted into a webpage directly. They need the use of a loader or builder.</p>
+<p>The key features of these modules is that they have explicitly declared dependencies, and that they can be loaded asynchronously: You specify the file's dependencies, along with how your module will finish its loading once those dependencies have been loaded.</p>
+</dd>
+<dt>AMD Loader</dt>
+<dd><p>The loader is responsible for loading the modules in the correct order. It has to provide a &quot;define&quot; function, and it processes the information provided in those &quot;define&quot; calls to determine the correct order in which modules should be loaded to resolve the dependencies.</p>
+<p>There are a number of existing loaders, for including <a href="http://requirejs.org/">require.js</a> and <a href="https://github.com/RaveJS">RaveJS</a>. We will spend more time looking closer at require.js in future segments.</p>
+</dd>
+<dt>AMD Builder</dt>
+<dd><p>There are various programs whose goal is to build/consolidate the various AMD modules into one file to be served in a <code>&lt;script&gt;</code> tag. Loaders are used in the development of the application, while builders are used in the deployment phase. <a href="http://requirejs.org/">require.js</a> includes such a builder/optimizer, but there are many others, for instance <a href="http://browserify.org/">browserify</a>.</p>
+<p>These programs often also do compression, removing spaces, comments etc, to reduce the file size and make it faster to download.</p>
+</dd>
+</dl>
+<p>The key component of and AMD module is the <code>define</code> function. It takes up to three arguments:</p>
+<ul>
+<li><code>id</code> the first argument, and it is optional. It is a string characterizing the module's &quot;identifier&quot;. This often simply defaults to the filename, and is typically omitted.</li>
+<li><p><code>dependencies</code> is the second argument, also optional but usually included. It is an <em>array</em> of the &quot;id&quot;s of modules that your module depends on. Those modules will be processed first before your module is processed. There are three special id names that are treated separately: <code>&quot;require&quot;</code>, <code>&quot;exports&quot;</code> and <code>&quot;module&quot;</code>. If those ids appear, they are resolved to their CommonJS module meaning.</p>
+<p>If this second argument is omitted, then it defaults to the triple <code>[&quot;require&quot;, &quot;exports&quot;, &quot;module&quot;]</code>.</p>
+One key difference with the ids in the AMD specification is that they are looked for either relative to the current file or from &quot;top-level&quot;. There is nothing analogous to the &quot;<code>node_modules</code>&quot; folders.</li>
+<li><code>factory</code> is the third, and only required, argument. It can be an object, in which case it is what is exported by this module. Or more typically it is a function, which will be executed exactly once, and its return value is the exported object from the module. This function will receive as arguments the modules that were listed in the dependencies array.</li>
+<li><p>For a proper AMD implementation, the <code>define</code> function has a property, <code>define.amd</code>, which must be an object but has no other required fields.</p></li>
+</ul>
+<p>Here is an example of how such a file might look like. In its simplest form it has no dependencies:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">define</span>(<span class="kw">function</span>() {
+    <span class="kw">var</span> OurModule;
+    <span class="co">// ... define OurModule here</span>
+    <span class="kw">return</span> OurModule;
+});</code></pre>
+<p>Here's an example of a module that depends on jQuery and one other module:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">define</span>([<span class="st">&quot;jquery&quot;</span>, <span class="st">&quot;otherModule&quot;</span>], <span class="kw">function</span>($, otherM) {
+    <span class="co">// &quot;$&quot; here will equal the jquery object</span>
+    <span class="co">// and otherM equal the &quot;otherModule&quot;</span>
+    <span class="co">// ...</span>
+    <span class="kw">return</span> MyModule;
+});</code></pre>
+<p>We can easily transform a CommonJS module into a Node module by using the simplified CommonJS wrapping:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">define</span>(<span class="kw">function</span>(require, exports, module) {
+    <span class="kw">var</span> a = <span class="fu">require</span>(<span class="st">&#39;a&#39;</span>),
+        b = <span class="fu">require</span>(<span class="st">&#39;b&#39;</span>);
+
+    <span class="ot">exports</span>.<span class="fu">action</span> = <span class="kw">function</span> () {};
+    <span class="co">// Or ...</span>
+    <span class="ot">module</span>.<span class="fu">exports</span> = MyModule;
+});</code></pre>
+<p>A sample of using AMD modules can be <a href="https://github.com/skiadas/HealCalc3/tree/master/">found here</a>. Start by looking inside the <code>js/app</code> folder and the bottom of the <code>index-test.html</code> file for bootstrapping such an application. You will find there the following line:</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; data-main=&quot;js/app/main&quot; src=&quot;js/lib/require.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>This line loads the <code>require.js</code> file, which then takes care of loading the application by starting at the <code>&quot;js/app/main&quot;</code> module and following its dependencies.</p>
+</body>
+</html>
