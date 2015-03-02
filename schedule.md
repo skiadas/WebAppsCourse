@@ -104,6 +104,7 @@ A week-by-week breakdown of the material.
 - Day 3
     - [Pattern: Visitor (cont)](notes/patterns_visitor.md)
 - Day 4
+
 ## Week  8 (02/23-02/27)
 
 BREAK

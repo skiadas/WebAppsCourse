@@ -105,7 +105,7 @@ The required modules are loaded synchronously. This is an important characterist
 
 ### AMD Modules
 
-AMD stands for *Asynchronous Module Definition*. It is a [specificiation](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) born out of a need to have modular development in a project that is meant to be deployed in the browser. It consists of a number of parts:
+AMD stands for *Asynchronous Module Definition*. It is a [specification](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) born out of a need to have modular development in a project that is meant to be deployed in the browser. It consists of a number of parts:
 
 AMD Modules
   ~ You write your module files in a specific format, with the use of the `define` function that we will discuss shortly. Part of that specification is what other modules your module depends on.
