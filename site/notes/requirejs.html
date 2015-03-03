@@ -7,6 +7,25 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
 <link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -18,20 +37,24 @@
 <ul>
 <li><a href="http://requirejs.org/">require.js home page</a></li>
 <li><a href="http://requirejs.org/docs/api.html">require.js API</a></li>
+<li><a href="https://github.com/amdjs/amdjs-api/blob/master/CommonConfig.html">AMD Configuration Options</a></li>
+<li><a href="https://github.com/amdjs/amdjs-api/blob/master/LoaderPlugins.html">AMD Loader Plugins</a></li>
 </ul>
 <h2 id="notes">Notes</h2>
-<p>In this section we will discuss setting up an AMD-based application with <code>require.js</code>. Other AMD loaders will work in similar ways. You should consule the <code>require.js</code> documentation page for details.</p>
+<p>In this section we will discuss setting up an AMD-based application with <code>require.js</code>. Other AMD loaders will work in similar ways. You should consult the <code>require.js</code> documentation page for details.</p>
 <p>We will use as a model our <a href="https://github.com/skiadas/WebAppsTodo">WebAppsTodo application</a>.</p>
 <h3 id="application-structure">Application Structure</h3>
 <p>This is by no means the only way to structure the application, but it is a common way:</p>
 <pre><code>Project Directory/
     index.html        &lt;-- base html file that starts it all
+    require.js        &lt;-- the require.js file. Sets things up
+    build.js          &lt;-- file responsible for creating an optimized build
     app/              &lt;-- contains your application code
-        require.js    &lt;-- the require.js file. Sets things up
         main.js       &lt;-- loaded from require.js. Kickstarts app
-        helper/       &lt;-- contains helper modules (e.d. data structures)
+        helper/       &lt;-- contains helper modules (e.g. data structures)
             util.js
             mixin.js
+        helper.js     &lt;-- container for the various helper files
         otherFolders/ &lt;-- to organize your app&#39;s pieces
     lib/              &lt;-- for other people&#39;s modules
         jquery.js
@@ -39,5 +62,40 @@
     test/             &lt;-- tests
         test1.spec.js
         test2.spec.js</code></pre>
+<p>A common pattern that you will see often is to use a container file for all parts of a module or subfolder. For instance in the above made up example, there are two files in the helper folder. But we can also create a <code>helper.js</code>, which simply puts them all together:</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">define</span>(
+   [<span class="st">&quot;./helper/util&quot;</span>, <span class="st">&quot;./helper/mixin&quot;</span>],
+   <span class="kw">function</span>(util, mixin) {
+      <span class="kw">return</span> {
+         <span class="dt">util</span>: util,
+         <span class="dt">mixin</span>: mixin
+      };
+});</code></pre>
+<p>So a single file that exports as an object all the contents of the folder. Then other parts of the application can use <code>&quot;helper/mixin&quot;</code> if they want for instance only one of the parts, or <code>&quot;helper&quot;</code> if they want to get all subparts at once.</p>
+<h3 id="configuration-options">Configuration Options</h3>
+<p>There are a number of configuration options that <code>require.js</code> <a href="http://requirejs.org/docs/api.html#config-paths">supports</a>. They are not officially part of the AMD standard yet, but most AMD loaders should support them. However, tread carefully.</p>
+<p>These will typically be added in a <code>require.config</code> call or something similar.</p>
+<dl>
+<dt><a href="http://requirejs.org/docs/api.html#config-baseUrl">baseUrl</a></dt>
+<dd>a string indicating the root to be used for path resolutions. Paths are relative to the current working directory. For instance you can use something like <code>&quot;./app&quot;</code> if all your files are to reside inside app.
+</dd>
+<dt><a href="http://requirejs.org/docs/api.html#config-paths">paths</a></dt>
+<dd><p>an object of paths to be used for given module prefixes. This is useful for modules that do not reside under the baseUrl. For example it would be customary here to associate <code>&quot;jquery&quot;</code> with the path to your jquery installation.</p>
+<p>Some implementations allow for an array of paths as the value associated to a module prefix. These paths will be accessed in order until one succeeds. For example for jquery we can use an array consisting of a CDN link followed by a local fallback.</p>
+</dd>
+<dt><a href="http://requirejs.org/docs/api.html#packages">packages</a></dt>
+<dd>used to load packages that are in a CommonJS structure (e.g. Node packages). That structure specifies a <code>package.json</code> file with information about the package, the location of a <code>main</code> file etc. Look at the <a href="http://requirejs.org/docs/api.html#packages">corresponding documentation</a> for details (also the <a href="http://wiki.commonjs.org/wiki/Packages/1.1">packages specification</a>).
+</dd>
+<dt><a href="http://requirejs.org/docs/api.html#config-moduleconfig">config</a></dt>
+<dd>The configuration object may itself have a <code>config</code> property. You can use that property to pass configuration options to modules. Modules access these through their <code>module</code> property, as in <code>module.config.bar</code>.
+</dd>
+<dt><a href="http://requirejs.org/docs/api.html#config-shim">shim</a></dt>
+<dd>used for linking to files that define a global value (rather than using AMD). Useful for incorporating legacy code. See the require.js documentation (and also the <a href="https://github.com/amdjs/amdjs-api/blob/master/CommonConfig.html">AMD specification</a>) for more details.
+</dd>
+</dl>
+<h3 id="loader-plugins">Loader Plugins</h3>
+<p>require.js and other AMD loaders provide support for plugins (see <a href="http://requirejs.org/docs/plugins.html">require.js</a> and <a href="https://github.com/amdjs/amdjs-api/blob/master/LoaderPlugins.html">AMD</a> pages).</p>
+<p>Plugins are essentially module files of a specific form, and loaded in a specific way. A <a href="http://requirejs.org/docs/api.html#plugins">lot of plugins</a> already exist. The most standard of those is the &quot;text&quot; plugin for inclusion of templates, and the &quot;domReady&quot; plugin for specifying actions to be taken after the page has loaded.</p>
+<p>&quot;Modules&quot; that should be handled by a plugin rather than be treated as normal Javascript files are specified by prepending the plugin, followed by an exclamation mark, to the module name. So something like <code>&quot;text!path/to/text/or/html/file&quot;</code> would interpret the contents of that path as a text file and return it as a string.</p>
 </body>
 </html>

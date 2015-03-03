@@ -6,6 +6,7 @@
 - [CommonJS specification](http://wiki.commonjs.org/wiki/Modules/1.1)
 - [AMD specification](https://github.com/amdjs/amdjs-api)
 - [require.js docs on AMD](http://requirejs.org/docs/whyamd.html#amdtoday)
+- [cujo.js tutorials](http://know.cujojs.com/tutorials)
 
 ## Notes
 

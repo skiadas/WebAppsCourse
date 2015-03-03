@@ -116,6 +116,7 @@ BREAK
 - Day 2
     - [Using require.js](notes/requirejs.md)
 - Day 3
+    - [UMD modules](notes/umd.md)
     - [Lab 6: Double-Linked Lists, History](labs/6.md)
 - Day 4
     - [Pattern: Composite](notes/patterns_composite.md)
