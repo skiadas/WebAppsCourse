@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="the-model-view-controller-patterns">The Model-View-Controller patterns</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book/#detailmvcmvp">Addy Osmani's Patterns book, MVC section</a></li>
+<li><a href="http://backbonejs.org/#Model">Backbone's Models</a></li>
+<li><a href="http://backbonejs.org/#View">Backbone's Views/Controllers</a></li>
+<li><a href="http://addyosmani.github.io/backbone-fundamentals/">Addy Osmani's Backbone book</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<h3 id="mvc-in-general">MVC in general</h3>
+<p>The MVC pattern is an important Architectural pattern for designing applications that interact with a user. It designates 3 components that have different responsibilities but work together to produce the desired effect. The three components are:</p>
+<dl>
+<dt>Model</dt>
+<dd><p>The model is responsible for managing the data of your application. It maintains a &quot;state&quot; and accepts observers to that state.</p>
+<p>The model knows how to save and load the data, how to validate the data for consistency and so on. It contains all of the application's &quot;business logic&quot;.</p>
+</dd>
+<dt>View</dt>
+<dd><p>The view is responsible for showing information to the user, and creating the user interface. It reads this information from the model.</p>
+<p>In Javascript, views are typically just HTML code, often implemented via templates, and most of their logic rolls into the controller.</p>
+</dd>
+<dt>Controller</dt>
+<dd><p>The controller is responsible for coordinating the interaction between the user and the application. It registers itself to listen for updates of the model, as well as user-driven events from the view.</p>
+<ul>
+<li>The controller responds to user events communicated via the view by triggering model updates.</li>
+<li>The controller responds to model updates by instructing the view to update what it shows.</li>
+</ul>
+</dd>
+</dl>
+<p>In general in a complex application we would have many different models, views and controllers, loosely coupled to each other.</p>
+<p>The crucial part of this structure is that models should be completely decoupled from their visual representations. You should be able to test that your model works properly without having to worry about interacting with the DOM.</p>
+<h3 id="mvc-for-our-todoapp">MVC for our TODOapp</h3>
+<p>Let us consider our TODOapp application, and review its main parts. Browse through <a href="https://github.com/skiadas/WebAppsTodo">the GitHub page</a> for details, specifically the files <a href="https://github.com/skiadas/WebAppsTodo/blob/master/app/todoList.js">app/todoList</a>, <a href="https://github.com/skiadas/WebAppsTodo/blob/master/app/todoListController.js">app/todoListController</a> and <a href="https://github.com/skiadas/WebAppsTodo/blob/master/app/todoStorage.js">app/todoStorage</a>.</p>
+<h4 id="models">Models</h4>
+<ul>
+<li><code>TodoTask</code>: A single task item</li>
+<li><a href="https://github.com/skiadas/WebAppsTodo/blob/master/app/todoList.js"><code>TodoList</code></a>: Maintains a list of all task items</li>
+</ul>
+<p>Let us start with these two before we discuss more. There is already a decision to be made: Should <code>TodoTask</code> be a &quot;model&quot; itself, or should necessary functionality be baked into <code>TodoList</code>? There are tradeoffs.</p>
+<p>The key question is whether we want observers to be able to observe direct changes to items, or whether the only observer who needs to know that is the one already observing the whole list. <strong>Models are observable</strong>.</p>
+<p>In our example we opted to have only a <code>TodoList</code> &quot;collection&quot;, and baked all functionality in there.</p>
+<p>The model is responsible for maintaining a list of todo tasks, <strong>but</strong> it is not responsible for how those tasks are actually stored (on a server or whatnot). It delegates that responsibility to a <code>TodoStorage</code> class. This allows us to easily swap the TodoStorage class in and out and freely swap between local storage, server storage etc.</p>
+<p>Models want to always mix in an <strong>Event</strong> module to make themselves &quot;observable&quot;. They will therefore always have &quot;on&quot;, &quot;off&quot; and &quot;trigger&quot; methods. They trigger events when they change, and they can decide how fine-grained that triggering process has to be. For instance they can fire a single &quot;change&quot; event and nothing else, or they can fire individual events for &quot;add&quot;, &quot;remove&quot;, &quot;update&quot; etc.</p>
+<h4 id="controllers">Controllers</h4>
+<ul>
+<li><a href="https://github.com/skiadas/WebAppsTodo/blob/master/app/todoListController.js"><code>TodoListController</code></a>: Responsible for creating the view for the list and establishing a relation between the list and its visual representation.</li>
+</ul>
+<p>The Controller is initialized given a UI element and a todoList to manage. It then registers itself to be notified whenever the todoList changes, as well as when the user interacts with the page. It uses a &quot;render&quot; method and a template to get its work done.</p>
+</body>
+</html>

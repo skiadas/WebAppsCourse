@@ -117,41 +117,35 @@ BREAK
     - [Using require.js](notes/requirejs.md)
 - Day 3
     - [UMD modules](notes/umd.md)
-    - [Lab 6: Double-Linked Lists, History](labs/6.md)
 - Day 4
+    - [Lab 6: Double-Linked Lists, History](labs/6.md)
+
+## Week 10 (03/09-03/13)
+
+- Day 1
+    - Project proposals
     - [Pattern: Composite](notes/patterns_composite.md)
     - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
+- Day 2
+    - [MVC: Model-View-Controller](notes/pattern_mvc.md)
+- Day 3
+    - [Using Templates: Handlebars](notes/templates.md)
+- Day 4
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Assignment 8](assignments/8.md)
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
-    - [Architectural Patterns: Model-View-Controller](notes/pattern_mvc.md)
-    - [Implementing a basic MVC](notes/mvc_implement.md)
     - [Introduction to Backbone](notes/backbone.md)
-    - [Lab 6: Incorporating MVC in TODOapp](labs/6.md)
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
     - [Ajax via jQuery](notes/xhr_jquery.md)
-    - [Lab 7: Introducing data persistence in TODOapp](labs/7.md)
     - [Testing with Stubs, Mocks and Spies](notes/test_stubs.md)
-    - Project proposals
-
-## Week 10 (03/09-03/13)
-
-- Day 1
     - [Project structure](notes/project.md)
-- Day 2
-    -
-- Day 3
-- Day 4
-    - [Lab 8: ](labs/8.md)
 
 ## Week 11 (03/16-03/20)
 
 - Day 1
-    - [Using Templates: Handlebars](notes/templates.md)
 - Day 2
-    - [Deeper look into Javascript objects](notes/object_deeper.md)
 - Day 3
 - Day 4
     - Work on project
