@@ -129,24 +129,25 @@ BREAK
 - Day 2
     - [MVC: Model-View-Controller](notes/pattern_mvc.md)
 - Day 3
-    - [Using Templates: Handlebars](notes/templates.md)
+    - Lab / Projects
 - Day 4
+    - [Using Templates: Handlebars](notes/templates.md)
+
+## Week 11 (03/16-03/20)
+
+- Day 1
+    - [Project progress](notes/project_steps.md)
+- Day 2
     - EVERYTHING BELOW IS WORK IN PROGRESS
+    - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
+- Day 3
+    - [Ajax via jQuery](notes/xhr_jquery.md)
     - [Assignment 8](assignments/8.md)
     - [Creation Patterns: Constructor](notes/pattern_constructor.md)
     - [Creation Patterns: Singleton](notes/pattern_singleton.md)
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
     - [Introduction to Backbone](notes/backbone.md)
-    - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
-    - [Ajax via jQuery](notes/xhr_jquery.md)
     - [Testing with Stubs, Mocks and Spies](notes/test_stubs.md)
-    - [Project structure](notes/project.md)
-
-## Week 11 (03/16-03/20)
-
-- Day 1
-- Day 2
-- Day 3
 - Day 4
     - Work on project
 
