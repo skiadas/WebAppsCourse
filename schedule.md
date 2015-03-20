@@ -138,29 +138,25 @@ BREAK
 - Day 1
     - [Project progress](notes/project_steps.md)
 - Day 2
-    - EVERYTHING BELOW IS WORK IN PROGRESS
-    - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
+    - [Project progress](notes/project_steps.md)
 - Day 3
-    - [Ajax via jQuery](notes/xhr_jquery.md)
-    - [Assignment 8](assignments/8.md)
-    - [Creation Patterns: Constructor](notes/pattern_constructor.md)
-    - [Creation Patterns: Singleton](notes/pattern_singleton.md)
-    - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
-    - [Introduction to Backbone](notes/backbone.md)
-    - [Testing with Stubs, Mocks and Spies](notes/test_stubs.md)
+    - [Project progress](notes/project_steps.md)
 - Day 4
-    - Work on project
+    - Projects review
 
 ## Week 12 (03/23-03/27)
 
 - Day 1
-    - [Introduction to Promises](notes/promises.md)
+    - [Example of Designing a Model](notes/design_example.md)
 - Day 2
-    - More advanced testing
 - Day 3
-    - More advanced testing
+    - EVERYTHING BELOW IS WORK IN PROGRESS
+    - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
+    - [Ajax via jQuery](notes/xhr_jquery.md)
+    - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
+    - [Introduction to Backbone](notes/backbone.md)
+    - [Testing with Stubs, Mocks and Spies](notes/test_stubs.md)
 - Day 4
-    - First project submission
 
 ## Week 13 (03/30-04/03)
 
