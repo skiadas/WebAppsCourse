@@ -149,6 +149,7 @@ BREAK
 - Day 1
     - [Example of Designing a Model](notes/design_example.md)
 - Day 2
+    - [Basics of HTTP](notes/http_intro.md)
 - Day 3
     - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
