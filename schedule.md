@@ -151,13 +151,12 @@ BREAK
 - Day 2
     - [Basics of HTTP](notes/http_intro.md)
 - Day 3
-    - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
-    - [Ajax via jQuery](notes/xhr_jquery.md)
+- Day 4
+    - EVERYTHING BELOW IS WORK IN PROGRESS
     - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
     - [Introduction to Backbone](notes/backbone.md)
     - [Testing with Stubs, Mocks and Spies](notes/test_stubs.md)
-- Day 4
 
 ## Week 13 (03/30-04/03)
 
