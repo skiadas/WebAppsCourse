@@ -153,21 +153,26 @@ BREAK
 - Day 3
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
 - Day 4
-    - EVERYTHING BELOW IS WORK IN PROGRESS
-    - [Behavioral Patterns: Mediator](notes/pattern_mediator.md)
-    - [Introduction to Backbone](notes/backbone.md)
-    - [Testing with Stubs, Mocks and Spies](notes/test_stubs.md)
+    - Projects progress
 
 ## Week 13 (03/30-04/03)
 
 - Day 1
+    - Projects progress
 - Day 2
+    - Projects progress
 - Day 3
+    - Projects progress
 - Day 4
+    - Projects progress
 
 ## Week 14 (04/06-04/10)
 
 - Day 1
+    - Projects progress
 - Day 2
+    - Projects progress
 - Day 3
+    - Projects progress
 - Day 4
+    - Projects progress
