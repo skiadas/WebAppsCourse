@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="what-we-left-out">What we left out</h1>
+<h2 id="notes">Notes</h2>
+<p>Web Application Development is a very broad subject. Here are some of the topics we left out, and where appropriate links for further study.</p>
+<h3 id="http-rest-database-interaction-web-apis">HTTP / REST / Database interaction / Web APIs</h3>
+<p>We barely started touching on HTTP, but the world of Web APIs and Web Services is very rich.</p>
+<dl>
+<dt>REST</dt>
+<dd><a href="http://en.wikipedia.org/wiki/Representational_state_transfer">REpresentational State Transfer</a> is a fundamental approach to how we would represent resources and how to utilize the HTTP protocol.
+</dd>
+<dt>CRUD</dt>
+<dd>Standing for <a href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">Create-Read-Update-Delete</a>, this suggests a design philosophy that allows our models to only perform 4 standard operations, that via REST translate to specific database actions
+</dd>
+<dt>Databases</dt>
+<dd>There is a rich variety of databases available out there, as well as ways to access them. Some of the popular ones are <a href="https://www.mysql.com/">MySQL</a>, <a href="http://www.postgresql.org/">PostgreSQL</a>, <a href="https://www.mongodb.org/">MongoDB</a>, <a href="http://redis.io/">Redis</a>.
+</dd>
+<dt>Node Server</dt>
+<dd>There are ways to make very effective servers in Node. The <a href="http://expressjs.com/">Express Framework</a> is a great place to start.
+</dd>
+</dl>
+<h3 id="security">Security</h3>
+<p>There are a number of security-related issues that we did not address at all. In truth, it is best that you follow a proper course on cryptography security, as there are many nuances that are easy to get wrong, with disastrous consequences.</p>
+<dl>
+<dt>Sessions</dt>
+<dd>There are different ways to maintain session information, via cookies and other technologies.
+</dd>
+<dt>Password management</dt>
+<dd>How to safely transmit and store passwords is a complicated process. A dedicated course on security is recommended.
+</dd>
+<dt>OATH</dt>
+<dd>There are ways to utilize authentification provided by other sites like Facebook, Google etc, and validate your users through those sites. These days this goes under the name of <a href="http://oauth.net/2/">OATH 2.0</a>.
+</dd>
+<dt>HTTPS</dt>
+<dd>Network traffic sent via HTTP is fully readable by anyone monitoring the network. There are numerous ways to encrypt this information, HTTPS being one of the most popular ones.
+</dd>
+</dl>
+<h3 id="javascript-parts">Javascript parts</h3>
+<p>In our discussion of Javascript as a language, we left out a number of important parts.</p>
+<dl>
+<dt>WebWorkers</dt>
+<dd><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">WebWorkers</a> technology essentially allows a certain degree of threading. You can send a request over to a &quot;parallel&quot; worker, and continue your normal operation while waiting for the response, all the while never leaving the browser.
+</dd>
+<dt>WebSockets</dt>
+<dd><a href="https://developer.mozilla.org/en-US/docs/WebSockets">WebSockets</a> allow a server and a client to establish a more direct and permanent connection than HTTP would allow, and to exchange efficiently many quick and small messages.
+</dd>
+<dt>MVC Frameworks</dt>
+<dd>There are a number of frameworks that provide much of the basic model-controller functionality needed in Web Applications. A great starting point is to look at a basic <a href="http://todomvc.com/">TODO App</a> implemented in each of these frameworks.
+</dd>
+<dt>Promises</dt>
+<dd>Programming for the web is a fundamentally asynchronous operation. An increasingly popular way to deal with the challenges arising from this asynchronicity is to employ a library providing <a href="https://promisesaplus.com/">promises</a>. Promises are essentially operations that will be resolved in the future, but that you can still pass around as if they were values and you can associate actions to be taken when the value becomes available. The return value of <code>$.ajax</code> is a step in that direction.
+</dd>
+</dl>
+<h3 id="testing">Testing</h3>
+<p>There are a number of issues related to testing, that we did not approach. And a lot of great resources out there.</p>
+<dl>
+<dt>Mocks/Spies</dt>
+<dd>Many libraries allow you to easily create mock objects or spy on certain functions. <a href="http://sinonjs.org/">SinonJS</a> is but one such framework.
+</dd>
+<dt>Browser Automation</dt>
+<dd>There are testing frameworks out there that allow you to automate the testing of web pages. Some worth learning about are <a href="http://phantomjs.org/">PhantomJS</a> and <a href="http://docs.busterjs.org/en/latest/">BusterJS</a>. <a href="https://travis-ci.org/">TravisCI</a> and <a href="http://www.seleniumhq.org/">Selenium</a> are also worth a look. And many more.
+</dd>
+</dl>
+<h3 id="other-stuff">Other Stuff</h3>
+<dl>
+<dt><a href="http://coffeescript.org/">CoffeeScript</a></dt>
+<dd>Compiles into Javascript, and is otherwise often easier and nicer to write in.
+</dd>
+<dt><a href="http://www.typescriptlang.org/">TypeScript</a></dt>
+<dd>An extension of Javascript with static typing.
+</dd>
+<dt><a href="http://sass-lang.com/">Sass</a> and <a href="http://lesscss.org/">Less</a></dt>
+<dd>Both allow you to write CSS in a more modular way, more like programming.
+</dd>
+</dl>
+</body>
+</html>

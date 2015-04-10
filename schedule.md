@@ -175,4 +175,4 @@ BREAK
 - Day 3
     - Projects progress
 - Day 4
-    - Projects progress
+    - [What we left out](notes/left_out.md)
