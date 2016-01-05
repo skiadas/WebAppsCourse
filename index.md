@@ -9,5 +9,6 @@ This project hosts material related to the CS360J Web Application Development co
 - [Learning objectives](objectives.md)
 - [Topics](topics.md)
 - [Schedule](schedule.md)
+- [Notes](notes.md)
 - [Final Study Guide](finalStudyGuide.md)
 - [Useful Links](links.md)
