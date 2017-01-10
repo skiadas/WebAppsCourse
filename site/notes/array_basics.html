@@ -7,23 +7,26 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="basics-of-javascript-arrays">Basics of Javascript Arrays</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
-<li>Flanagan's book, 7.1-7.8</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">MDN's page on the Array global</a></li>
+<li>Flanagan’s book, 7.1-7.8</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">MDN’s page on the Array global</a></li>
 </ul>
 <h2 id="javascript-arrays">Javascript Arrays</h2>
 <ul>
-<li>In Javascript, arrays can contain absolutely any elements and have a variable length.</li>
+<li>In Javascript, arrays can contain absolutely any elements and have a variable length. In this way they are very much like Python’s lists.</li>
 <li>Easiest way to create is with an array literal, e.g. <code>[]</code>, <code>[1, 2, 3]</code> or <code>[1, [3, 4]]</code>.</li>
-<li>Access an array value via bracket notation: <code>arr[2]</code>. Indexing starts at 0.</li>
+<li>Access an array value via bracket notation: <code>arr[2]</code>. Indexing starts at 0.
+<ul>
+<li>Question: How would we access the value 4 in the example above?</li>
+</ul></li>
 <li>Set any array value similarly: <code>arr[5] = 2</code>. You can set values out of bounds!</li>
 <li>Arrays are actually just objects, and can have properties that are non-numeric.</li>
 <li><p>The length of an array is one more than the largest numeric property.</p>
@@ -33,12 +36,13 @@ a[6] = 2;
 a;
 a.length;             // 7
 a.foo = 5;            // A random property.</code></pre></li>
-<li><p>The most basic way to iterate over an array's elements is with a <code>for</code> loop:</p>
+<li><p>The most basic way to iterate over an array’s elements is with a <code>for</code> loop:</p>
 <pre><code>var a = [1,2,3,4], i;
 for (i = 0; i &lt; a.length; i += 1) {
    console.log(a[i]);
 }</code></pre></li>
 </ul>
+<p><strong>Practice:</strong> Create an array containing the squares of the numbers from 1 to 10.</p>
 <h3 id="standard-methods">Standard Methods</h3>
 <p>Consult individual method pages as well as section 7.8 from the book.</p>
 <p>Inserting/Removing elements:</p>

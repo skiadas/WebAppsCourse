@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -36,32 +54,32 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
 <li><a href="https://dvcs.w3.org/hg/xhr/raw-file/tip/Overview.html">XMLHttpRequest Specification</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest">MDN's page on using XMLHttpRequest</a></li>
-<li>Flanagan's book, chapter 18</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest">MDN’s page on using XMLHttpRequest</a></li>
+<li>Flanagan’s book, chapter 18</li>
 <li><a href="http://www.html5rocks.com/en/tutorials/cors/">Cross-Origin Resource Sharing article</a></li>
 </ul>
 <h2 id="notes">Notes</h2>
 <h3 id="xmlhttprequest">XMLHttpRequest</h3>
 <p>The XMLHttpRequest allows you to load some remote resource on the background, and to take appropriate action when that resource has finished loading. The name implies that it is meant to be for HTTP requests that return XML, but neither of those two facts is strictly speaking a requirement.</p>
-<p>This protocol is the essential component of what is known as &quot;AJAX&quot;, an acronym standing for Asynchronous Javascript and XML</p>
+<p>This protocol is the essential component of what is known as “AJAX”, an acronym standing for Asynchronous Javascript and XML</p>
 <p>In order to use XMLHttpRequest, you need to implement the following steps:</p>
 <ul>
 <li>Create a new instance of XMLHttpRequest</li>
 <li>Add an <code>onLoad</code> handler to handle getting the resource</li>
-<li>Call the instance's <code>open</code> method, providing the request's parameters</li>
-<li>Call the instance's <code>send</code> method.</li>
+<li>Call the instance’s <code>open</code> method, providing the request’s parameters</li>
+<li>Call the instance’s <code>send</code> method.</li>
 </ul>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> xhr = <span class="kw">new</span> <span class="fu">XMLHttpRequest</span>();
-<span class="ot">xhr</span>.<span class="fu">onload</span> = <span class="kw">function</span>(ev) {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> xhr <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span>
+<span class="va">xhr</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>(ev) <span class="op">{</span>
     <span class="co">// Runs when resource is loaded</span>
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Event&quot;</span>, ev);
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;xhr object has info&quot;</span>, xhr);
-};
-<span class="ot">xhr</span>.<span class="fu">open</span>(<span class="st">&quot;get&quot;</span>, <span class="st">&quot;xhr_intro.html&quot;</span>, <span class="kw">true</span>);
-<span class="ot">xhr</span>.<span class="fu">send</span>();</code></pre>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Event&quot;</span><span class="op">,</span> ev)<span class="op">;</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;xhr object has info&quot;</span><span class="op">,</span> xhr)<span class="op">;</span>
+<span class="op">};</span>
+<span class="va">xhr</span>.<span class="at">open</span>(<span class="st">&quot;get&quot;</span><span class="op">,</span> <span class="st">&quot;xhr_intro.html&quot;</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span>
+<span class="va">xhr</span>.<span class="at">send</span>()<span class="op">;</span></code></pre></div>
 <p>You will see that the <code>xhr</code> object has been populated with a number of useful information about the request and corresponding response, including status text, code, response etc.</p>
 <p>Look at the documentation for more details on how to use XMLHttpRequest directly. In particular, the API offers fairly fine-grained control over the whole process, including receiving progress notifications at various stages.</p>
-<p>For the remaining of this section we will focus on using jQuery's AJAX features.</p>
+<p>For the remaining of this section we will focus on using jQuery’s AJAX features.</p>
 <h3 id="ajax-via-jquery">Ajax via jQuery</h3>
 <p>jQuery provides a simple method, called just <a href="http://api.jquery.com/jquery.ajax/"><code>$.ajax</code></a>, for performing asynchronous requests.</p>
 <dl>
@@ -78,7 +96,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>Use it to tell the browser not to used cached responses.
 </dd>
 <dt><code>context</code></dt>
-<dd>An object to use as the &quot;context&quot; / &quot;this&quot; for the various callbacks.
+<dd>An object to use as the “context” / “this” for the various callbacks.
 </dd>
 <dt><code>contentType</code></dt>
 <dd>When sending data to the server, specifies their MIME type.
@@ -87,7 +105,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>Used with GET requests to append a query to the URL.
 </dd>
 <dt><code>dataType</code></dt>
-<dd>The type of the data you expect in response. Servers can offer send the data back in multiple formats. jQuery will process these for you. Example types are &quot;xml&quot;, &quot;html&quot;, &quot;json&quot;, &quot;text&quot;.
+<dd>The type of the data you expect in response. Servers can offer send the data back in multiple formats. jQuery will process these for you. Example types are “xml”, “html”, “json”, “text”.
 </dd>
 <dt><code>headers</code></dt>
 <dd>Other headers.
@@ -101,7 +119,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dl>
 </dd>
 <dt><code>jqXHR</code></dt>
-<dd><p>The <code>$.ajax</code> call returns a <code>jqXHR</code> object. It is what is known as a &quot;deferred&quot; or &quot;promise&quot; object. You can read more about javascript promises in many sources.</p>
+<dd><p>The <code>$.ajax</code> call returns a <code>jqXHR</code> object. It is what is known as a “deferred” or “promise” object. You can read more about javascript promises in many sources.</p>
 <p>This object is outfitted with some useful methods, namely:</p>
 <dl>
 <dt><code>done(onSuccess)</code></dt>
@@ -115,39 +133,39 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 </dl>
 <p>So a typical way to make an AJAX request would be:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">$</span>.<span class="fu">ajax</span>(requestObject).<span class="fu">then</span>(onSuccess, onFail)</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">$</span>.<span class="at">ajax</span>(requestObject).<span class="at">then</span>(onSuccess<span class="op">,</span> onFail)</code></pre></div>
 </dd>
 </dl>
 <p>Consult the jQuery documentation for details if you need to use this.</p>
 <h3 id="the-same-origin-policy-and-ways-around-it">The Same Origin Policy and ways around it</h3>
-<p>The <strong>same-origin</strong> policy is a security measure that protects the execution of Javascript code with certain permissions. The policy says that &quot;scripts are contained in a first web page are allowed to access data that is in another web page <strong>only</strong> if those pages have the same <em>origin</em>&quot;.</p>
-<p>For instance there are ways in HTML to load another page within a &quot;frame&quot; of the existing page. This way for instance we can include third-party sections in our page, like amazon ads, widgets etc.</p>
-<p>But we do not want those widgets to have access to the possibly sensitive data that our application creates. We have no reason to trust those scripts that are coming from other sources like google, amazon etc. They can access information related to the &quot;frame&quot; that created them, but they are prevented from interacting with the rest of the page.</p>
+<p>The <strong>same-origin</strong> policy is a security measure that protects the execution of Javascript code with certain permissions. The policy says that “scripts are contained in a first web page are allowed to access data that is in another web page <strong>only</strong> if those pages have the same <em>origin</em>”.</p>
+<p>For instance there are ways in HTML to load another page within a “frame” of the existing page. This way for instance we can include third-party sections in our page, like amazon ads, widgets etc.</p>
+<p>But we do not want those widgets to have access to the possibly sensitive data that our application creates. We have no reason to trust those scripts that are coming from other sources like google, amazon etc. They can access information related to the “frame” that created them, but they are prevented from interacting with the rest of the page.</p>
 <p>This is very critical, and it causes some problems in relation to XHR and ajax.</p>
-<p>Simply put, when performing an ajax request, you can in general only make requests to the same host that provided the page and script in the first place. For example we can't easily make a request to anything other than, in this case, <code>skiadas.github.io</code>, because that would mean our script would attempt to read data originating in a different &quot;origin&quot;.</p>
+<p>Simply put, when performing an ajax request, you can in general only make requests to the same host that provided the page and script in the first place. For example we can’t easily make a request to anything other than, in this case, <code>skiadas.github.io</code>, because that would mean our script would attempt to read data originating in a different “origin”.</p>
 <p>You can easily try this out:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Getting jQuery loaded</span>
-<span class="kw">var</span> jq = <span class="ot">document</span>.<span class="fu">createElement</span>(<span class="st">&#39;script&#39;</span>);
-<span class="ot">jq</span>.<span class="fu">src</span> = <span class="st">&quot;https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;</span>;
-<span class="ot">document</span>.<span class="fu">getElementsByTagName</span>(<span class="st">&#39;head&#39;</span>)[<span class="dv">0</span>].<span class="fu">appendChild</span>(jq);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Getting jQuery loaded</span>
+<span class="kw">var</span> jq <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&#39;script&#39;</span>)<span class="op">;</span>
+<span class="va">jq</span>.<span class="at">src</span> <span class="op">=</span> <span class="st">&quot;https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;</span><span class="op">;</span>
+<span class="va">document</span>.<span class="at">getElementsByTagName</span>(<span class="st">&#39;head&#39;</span>)[<span class="dv">0</span>].<span class="at">appendChild</span>(jq)<span class="op">;</span>
 <span class="co">// Wait a bit. Then $ = jQuery will exist</span>
-<span class="kw">var</span> xhr = <span class="ot">$</span>.<span class="fu">ajax</span>({ <span class="dt">url</span>: <span class="st">&quot;http://www.google.com&quot;</span> });
-<span class="co">// You get an error</span></code></pre>
+<span class="kw">var</span> xhr <span class="op">=</span> <span class="va">$</span>.<span class="at">ajax</span>(<span class="op">{</span> <span class="dt">url</span><span class="op">:</span> <span class="st">&quot;http://www.google.com&quot;</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="co">// You get an error</span></code></pre></div>
 <p>There are two nowadays standard ways around this problem, both requiring some setup on the server side. So these will work provided the server has enabled the necessary functionality.</p>
 <h4 id="jsonp">JSONP</h4>
-<p>JSONP stands for &quot;JSON with padding&quot;. The idea is as follows: Normally the site would return information as a JSON object, so something like:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript">{
-    <span class="dt">a</span>: <span class="dv">4</span>,
-    <span class="dt">b</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>]
-}</code></pre>
-<p>When we make a JSON GET request, we add a &quot;<code>callback=foo</code>&quot; to its end. Then what will get sent back instead is the JSON document wrapped in a function call:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">foo</span>({
-    <span class="dt">a</span>: <span class="dv">4</span>,
-    <span class="dt">b</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>]
-})</code></pre>
-<p>This can then be placed as the source in a <code>&lt;script&gt;</code> tag. Script tags don't suffer the same-origin problems (or else we couldn't load things like jQuery). So as long as we have provided a global function called <code>foo</code>, this will get processed properly. The end result would be the injection into the page of code like:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://pathToJSONResource?callback=foo&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre>
-<p>This code then loads the aforementioned &quot;script&quot; and executes it.</p>
+<p>JSONP stands for “JSON with padding”. The idea is as follows: Normally the site would return information as a JSON object, so something like:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+    <span class="dt">a</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span>
+    <span class="dt">b</span><span class="op">:</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]
+<span class="op">}</span></code></pre></div>
+<p>When we make a JSON GET request, we add a “<code>callback=foo</code>” to its end. Then what will get sent back instead is the JSON document wrapped in a function call:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">foo</span>(<span class="op">{</span>
+    <span class="dt">a</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span>
+    <span class="dt">b</span><span class="op">:</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]
+<span class="op">}</span>)</code></pre></div>
+<p>This can then be placed as the source in a <code>&lt;script&gt;</code> tag. Script tags don’t suffer the same-origin problems (or else we couldn’t load things like jQuery). So as long as we have provided a global function called <code>foo</code>, this will get processed properly. The end result would be the injection into the page of code like:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://pathToJSONResource?callback=foo&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
+<p>This code then loads the aforementioned “script” and executes it.</p>
 <p>jQuery has support for this feature. So we can do something like:</p>
 <pre><code>var xhr = $.ajax({
     url: &quot;http://pathToResource&quot;,
@@ -155,11 +173,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 });</code></pre>
 <p>and jQuery will take care of the rest, in most situations.</p>
 <p>JSONP is not without its risks however. You are loading a script from another source. You are being promised that that script will be nothing more than a function wrapping around some data, but the server could send you arbitrary Javascript code instead, and you will run it. This of course is a general problem with all Javascript scripts that we load from other sources.</p>
-<p>JSONP is really a &quot;clever hack&quot;. It does the trick, but is not the &quot;ideal&quot; solution to the problem.</p>
+<p>JSONP is really a “clever hack”. It does the trick, but is not the “ideal” solution to the problem.</p>
 <h4 id="cross-origin-resource-sharing">Cross-Origin Resource Sharing</h4>
 <p>Cross-Origin Resource Sharing, usually abreviated as CORS, is another more recent approach to cross-domain access.</p>
 <p>CORS requires that the server provide certain headers in response to a request, to indicate that it is willing to allow this cross-domain access. For instance this would have to be something like:</p>
 <pre><code>Access-Control-Allow-Origin: yourSiteHere</code></pre>
-<p>Essentially the server looks at the &quot;origin&quot; header in the browser's request, and echos it back in the response. It essentially says to the browser: &quot;I am aware that this other origin wants to access this data I am about to send you, and I am hereby giving my permission&quot;.</p>
+<p>Essentially the server looks at the “origin” header in the browser’s request, and echos it back in the response. It essentially says to the browser: “I am aware that this other origin wants to access this data I am about to send you, and I am hereby giving my permission”.</p>
 </body>
 </html>

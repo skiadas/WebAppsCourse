@@ -7,9 +7,10 @@
 
 ## Javascript Arrays
 
-- In Javascript, arrays can contain absolutely any elements and have a variable length.
+- In Javascript, arrays can contain absolutely any elements and have a variable length. In this way they are very much like Python's lists.
 - Easiest way to create is with an array literal, e.g. `[]`, `[1, 2, 3]` or `[1, [3, 4]]`.
 - Access an array value via bracket notation: `arr[2]`. Indexing starts at 0.
+    - Question: How would we access the value 4 in the example above?
 - Set any array value similarly: `arr[5] = 2`. You can set values out of bounds!
 - Arrays are actually just objects, and can have properties that are non-numeric.
 - The length of an array is one more than the largest numeric property.
@@ -28,6 +29,8 @@ for (i = 0; i < a.length; i += 1) {
    console.log(a[i]);
 }
 ```
+
+**Practice:** Create an array containing the squares of the numbers from 1 to 10.
 
 ### Standard Methods
 

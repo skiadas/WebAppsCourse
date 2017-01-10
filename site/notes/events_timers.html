@@ -8,51 +8,69 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="timers">Timers</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
-<li>Flanagan's book, Section 14.1</li>
+<li>Flanagan’s book, Section 14.1</li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/EventLoop">The Event Loop</a></li>
 </ul>
 <h2 id="notes">Notes</h2>
 <h3 id="the-event-loop">The Event Loop</h3>
-<p>Javascript follows a simple concurency model, based on an &quot;event loop&quot;:</p>
+<p>Javascript follows a simple concurency model, based on an “event loop”:</p>
 <ul>
-<li>There is a <em>queue</em> of &quot;messages&quot;.</li>
-<li>When an &quot;event&quot; occurs and a handler was registered for it, a message is added to the queue. These events could have come from a UI interaction, from a page loading, or programmatically via the timers we will discuss in a moment.</li>
+<li>There is a <em>queue</em> of “messages”.</li>
+<li>When an “event” occurs and a handler was registered for it, a message is added to the queue. These events could have come from a UI interaction, from a page loading, or programmatically via the timers we will discuss in a moment.</li>
 <li>As long as the queue is not empty, it proceeds to its next message and executes it, triggering all its function handlers in order.</li>
 <li>Execution of that message will continue until all the handlers have returned. There is no way for a function to pause its operation mid-way while some other function performs a task. This has consequences on page refreshes for example, as the page cannot refresh while a function is running.</li>
 <li>One important characteristic of this model is that it can never block. There is never a situation where one function is waiting for another to finish.</li>
 <li>An obvious disadvantage is that it does not really benefit much from multi-threading. However there is the concept of <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a> which we will hopefully get to later in the course.</li>
 </ul>
 <h3 id="timers-1">Timers</h3>
-<p>There are a number of Javascript functions that allow us to add custom &quot;events&quot; on the event loop, to be executed at an appropriate time. Most of these take the form:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">timerFunction</span>(f, milliseconds);</code></pre>
-<p>Where we &quot;register&quot; the function <code>f</code> to be executed after a given number of milliseconds. This is a &quot;desired&quot; time: If something else is executing when that time comes, then the function will be queued to run at the next available opportunity.</p>
+<p>There are a number of Javascript functions that allow us to add custom “events” on the event loop, to be executed at an appropriate time. Most of these take the form:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">timerFunction</span>(f<span class="op">,</span> milliseconds)<span class="op">;</span></code></pre></div>
+<p>Where we “register” the function <code>f</code> to be executed after a given number of milliseconds. This is a “desired” time: If something else is executing when that time comes, then the function will be queued to run at the next available opportunity.</p>
 <p>You should not really expect the function <code>f</code> to receive any arguments, nor to have a good <code>this</code> object.</p>
 <p>Here are the main methods:</p>
 <dl>
@@ -63,87 +81,87 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>Registers a function to run repeatedly every so often.
 </dd>
 <dt><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers.clearTimeout">clearTimeout</a> / <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers.clearInterval">clearInterval</a></dt>
-<dd>These can be used to clear a previously set timer. They use the return values of the corresponding &quot;set-&quot; methods.
+<dd>These can be used to clear a previously set timer. They use the return values of the corresponding “set-” methods.
 </dd>
 </dl>
 <p>Here is a simple example:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> f = (<span class="kw">function</span>() {
-  <span class="kw">var</span> i = <span class="dv">0</span>;
-  <span class="kw">return</span> <span class="kw">function</span>() {
-    i += <span class="dv">1</span>;
-    <span class="ot">console</span>.<span class="fu">log</span>(i);
-  }
-}());
-<span class="kw">var</span> id = <span class="fu">setInterval</span>(f, <span class="dv">1000</span>);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> f <span class="op">=</span> (<span class="kw">function</span>() <span class="op">{</span>
+  <span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+  <span class="cf">return</span> <span class="kw">function</span>() <span class="op">{</span>
+    i <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span>
+    <span class="va">console</span>.<span class="at">log</span>(i)<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span>())<span class="op">;</span>
+<span class="kw">var</span> id <span class="op">=</span> <span class="at">setInterval</span>(f<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span>
 <span class="co">// Watch the pretty numbers</span>
 <span class="co">// Run next line when you want it to stop</span>
-<span class="fu">clearInterval</span>(id);</code></pre>
+<span class="at">clearInterval</span>(id)<span class="op">;</span></code></pre></div>
 <h3 id="function-idioms">Function Idioms</h3>
 <p>We look here at some function idioms that timers allow.</p>
 <h4 id="delay">Delay</h4>
 <p>This is a simple idiom. It is given a function <code>f</code> and a delay time in milliseconds, and returns a function that when called sets up a delayed call to <code>f</code>, passing along whatever arguments it is given.</p>
-<p>This idiom can be handy if we want to pass a function to someone else to execute, but we want to make sure they can't run it right away.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">delay</span>(f, milli) {
-  <span class="kw">return</span> <span class="kw">function</span> <span class="fu">delayed</span>() {
-    <span class="kw">var</span> context = <span class="kw">this</span>;
-    <span class="kw">var</span> args = arguments;
-    <span class="fu">setTimeout</span>(<span class="kw">function</span>() {
-      <span class="ot">f</span>.<span class="fu">apply</span>(context, args);
-    }, milli);
-    <span class="kw">return</span>;
-  };
-}
+<p>This idiom can be handy if we want to pass a function to someone else to execute, but we want to make sure they can’t run it right away.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">delay</span>(f<span class="op">,</span> milli) <span class="op">{</span>
+  <span class="cf">return</span> <span class="kw">function</span> <span class="at">delayed</span>() <span class="op">{</span>
+    <span class="kw">var</span> context <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="kw">var</span> args <span class="op">=</span> arguments<span class="op">;</span>
+    <span class="at">setTimeout</span>(<span class="kw">function</span>() <span class="op">{</span>
+      <span class="va">f</span>.<span class="at">apply</span>(context<span class="op">,</span> args)<span class="op">;</span>
+    <span class="op">},</span> milli)<span class="op">;</span>
+    <span class="cf">return</span><span class="op">;</span>
+  <span class="op">};</span>
+<span class="op">}</span>
 
 <span class="co">// Sample run:</span>
-<span class="kw">var</span> g = <span class="fu">delay</span>(<span class="ot">console</span>.<span class="fu">log</span>, <span class="dv">5000</span>);
-<span class="ot">g</span>.<span class="fu">call</span>(console, <span class="st">&quot;5 seconds later&quot;</span>);</code></pre>
+<span class="kw">var</span> g <span class="op">=</span> <span class="at">delay</span>(<span class="va">console</span>.<span class="at">log</span><span class="op">,</span> <span class="dv">5000</span>)<span class="op">;</span>
+<span class="va">g</span>.<span class="at">call</span>(console<span class="op">,</span> <span class="st">&quot;5 seconds later&quot;</span>)<span class="op">;</span></code></pre></div>
 <h4 id="throttle">Throttle</h4>
 <p>Given a function and an interval, it will only allow the function to be called once in that interval. Useful for events that are coming too fast for us to process them all.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">throttle</span>(f, interval) {
-  <span class="kw">var</span> available = <span class="kw">true</span>;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">throttle</span>(f<span class="op">,</span> interval) <span class="op">{</span>
+  <span class="kw">var</span> available <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
   <span class="co">// function &quot;wait&quot; used in setTimeout</span>
-  <span class="kw">function</span> <span class="fu">wait</span>() { available = <span class="kw">true</span>; };
-  <span class="kw">return</span> <span class="kw">function</span> <span class="fu">throttled</span>() {
-    <span class="kw">if</span> (available) {
-      available = <span class="kw">false</span>;
-      <span class="fu">setTimeout</span>(wait, interval);
-      <span class="ot">f</span>.<span class="fu">apply</span>(<span class="kw">this</span>, arguments);
-    }
-  };
-}
+  <span class="kw">function</span> <span class="at">wait</span>() <span class="op">{</span> available <span class="op">=</span> <span class="kw">true</span><span class="op">;</span> <span class="op">};</span>
+  <span class="cf">return</span> <span class="kw">function</span> <span class="at">throttled</span>() <span class="op">{</span>
+    <span class="cf">if</span> (available) <span class="op">{</span>
+      available <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+      <span class="at">setTimeout</span>(wait<span class="op">,</span> interval)<span class="op">;</span>
+      <span class="va">f</span>.<span class="at">apply</span>(<span class="kw">this</span><span class="op">,</span> arguments)<span class="op">;</span>
+    <span class="op">}</span>
+  <span class="op">};</span>
+<span class="op">}</span>
 
 <span class="co">// Sample run:</span>
-<span class="kw">var</span> g = <span class="fu">throttle</span>(<span class="ot">console</span>.<span class="fu">log</span>, <span class="dv">5000</span>);
-<span class="ot">g</span>.<span class="fu">call</span>(console, <span class="st">&quot;Prints right away&quot;</span>); <span class="ot">g</span>.<span class="fu">call</span>(console, <span class="st">&quot;gets lost&quot;</span>);</code></pre>
+<span class="kw">var</span> g <span class="op">=</span> <span class="at">throttle</span>(<span class="va">console</span>.<span class="at">log</span><span class="op">,</span> <span class="dv">5000</span>)<span class="op">;</span>
+<span class="va">g</span>.<span class="at">call</span>(console<span class="op">,</span> <span class="st">&quot;Prints right away&quot;</span>)<span class="op">;</span> <span class="va">g</span>.<span class="at">call</span>(console<span class="op">,</span> <span class="st">&quot;gets lost&quot;</span>)<span class="op">;</span></code></pre></div>
 <h4 id="debounce">Debounce</h4>
 <p>Given a function and an interval, it will only run the function after that amount of time has passed since the last time the function was invoked. So if you call the function it will start waiting for that amount of time, and if it is called again it will reset the timer and start waiting again.</p>
 <p>Essentially this function will not run as long as it is getting called.</p>
 <p>Useful when we have incoming input, and we only want the function to execute once that input is completed (say once someone has stopped moving their mouse or stopped typing).</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">debounce</span>(f, wait) {
-  <span class="kw">var</span> timeout, context, args, lastCalled;
-  <span class="kw">function</span> <span class="fu">later</span>() {
-    <span class="kw">var</span> sinceLast = <span class="kw">new</span> <span class="fu">Date</span>() - lastCalled;
-    <span class="kw">if</span> (sinceLast &lt; wait) {
-      timeout = <span class="fu">setTimeout</span>(later, wait - sinceLast);
-    } <span class="kw">else</span> {
-      timeout = <span class="kw">null</span>;
-      <span class="ot">f</span>.<span class="fu">apply</span>(context, args);
-      context = <span class="kw">null</span>;
-      args = <span class="kw">null</span>;
-    }
-  }
-  <span class="kw">return</span> <span class="kw">function</span> <span class="fu">debounced</span>() {
-    context = <span class="kw">this</span>;
-    args = arguments;
-    lastCalled = <span class="kw">new</span> <span class="fu">Date</span>();
-    <span class="kw">if</span> (!timeout) {
-      timeout = <span class="fu">setTimeout</span>(later, wait);
-    }
-  };
-}
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">debounce</span>(f<span class="op">,</span> wait) <span class="op">{</span>
+  <span class="kw">var</span> timeout<span class="op">,</span> context<span class="op">,</span> args<span class="op">,</span> lastCalled<span class="op">;</span>
+  <span class="kw">function</span> <span class="at">later</span>() <span class="op">{</span>
+    <span class="kw">var</span> sinceLast <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>() <span class="op">-</span> lastCalled<span class="op">;</span>
+    <span class="cf">if</span> (sinceLast <span class="op">&lt;</span> wait) <span class="op">{</span>
+      timeout <span class="op">=</span> <span class="at">setTimeout</span>(later<span class="op">,</span> wait <span class="op">-</span> sinceLast)<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+      timeout <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+      <span class="va">f</span>.<span class="at">apply</span>(context<span class="op">,</span> args)<span class="op">;</span>
+      context <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+      args <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+  <span class="cf">return</span> <span class="kw">function</span> <span class="at">debounced</span>() <span class="op">{</span>
+    context <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
+    args <span class="op">=</span> arguments<span class="op">;</span>
+    lastCalled <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span>
+    <span class="cf">if</span> (<span class="op">!</span>timeout) <span class="op">{</span>
+      timeout <span class="op">=</span> <span class="at">setTimeout</span>(later<span class="op">,</span> wait)<span class="op">;</span>
+    <span class="op">}</span>
+  <span class="op">};</span>
+<span class="op">}</span>
 
 <span class="co">// Sample run</span>
-<span class="ot">document</span>.<span class="fu">onmousemove</span> = <span class="kw">function</span>() { <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;All the time!&quot;</span>); };
-<span class="ot">document</span>.<span class="fu">onmousemove</span> = <span class="fu">debounce</span>(<span class="kw">function</span>() { <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;only when I stop!&quot;</span>); }, <span class="dv">3000</span>);</code></pre>
+<span class="va">document</span>.<span class="at">onmousemove</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;All the time!&quot;</span>)<span class="op">;</span> <span class="op">};</span>
+<span class="va">document</span>.<span class="at">onmousemove</span> <span class="op">=</span> <span class="at">debounce</span>(<span class="kw">function</span>() <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;only when I stop!&quot;</span>)<span class="op">;</span> <span class="op">},</span> <span class="dv">3000</span>)<span class="op">;</span></code></pre></div>
 </body>
 </html>

@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -43,8 +61,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="classification">Classification</h3>
 <p>The Command Pattern is a Behavioral Pattern.</p>
 <h3 id="motivation">Motivation</h3>
-<p>Some times we need to issue requests to objects without knowing anything about the requested operation or the request's receiver. For instance in a web application, clicking on a button or many item should trigger some operations in the background, like downloading a new resource or something of the kind. The specific code that is responding to the button click does not need to know exactly what that operation is, or what object it is a part of. It just needs to know that it is supposed to execute it.</p>
-<p>Similarly, a &quot;history&quot; component in a text-editing application, that keeps track of changes so they can be reverted, does not need to know exactly what these changes are, it just needs to have a way to undo or redo them.</p>
+<p>Some times we need to issue requests to objects without knowing anything about the requested operation or the request’s receiver. For instance in a web application, clicking on a button or many item should trigger some operations in the background, like downloading a new resource or something of the kind. The specific code that is responding to the button click does not need to know exactly what that operation is, or what object it is a part of. It just needs to know that it is supposed to execute it.</p>
+<p>Similarly, a “history” component in a text-editing application, that keeps track of changes so they can be reverted, does not need to know exactly what these changes are, it just needs to have a way to undo or redo them.</p>
 <h3 id="intent">Intent</h3>
 <p>The Command Pattern encapsulates a request as an object, thereby allowing us to parametrize clients with different requests, log requests, or support undoable operations.</p>
 <p>The Command Pattern decouples the object that invokes the operation from the one that knows how to perform it.</p>
@@ -57,14 +75,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>an interface containing a single <code>execute</code> method, or optionally an <code>unexecute</code> method if we want to include undoable commands. We will extend it a bit to also include an <code>isUndoable</code> boolean.
 </dd>
 <dt>ConcreteCommand</dt>
-<dd><p>a concrete class that implements the Command interface and has a specific functionality in mind (e.g. copying, pasting, opening a file etc).</p>
+<dd><p>a concrete class that implements the Command interface and has a specific functionality in mind (e.g. copying, pasting, opening a file etc).</p>
 <p>ConcreteCommand defines a binding between a receiver object and an action to be performed, and implements execute by performing the necessary actions on the receiver.</p>
 </dd>
 <dt>Client</dt>
 <dd>(usually the application) creates the specific ConcreteCommand object and sets its receiver.
 </dd>
 <dt>Invoker</dt>
-<dd>(e.g. the UI element) is the one asking the command to call execute. This could be a menu item or its handler, etc.
+<dd>(e.g. the UI element) is the one asking the command to call execute. This could be a menu item or its handler, etc.
 </dd>
 <dt>Receiver</dt>
 <dd>knows how to handle the operations included in the request.
@@ -72,61 +90,61 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dl>
 <p>We can also assemble commands into a composite command (strictly speaking an example of the Composite pattern).</p>
 <h4 id="javascript-implementation">Javascript implementation</h4>
-<p>In Javascript this could be implemented as a simple function, that gets called as a means of &quot;execute&quot;. If more functionality is needed, then a simple object with an execute method, and possibly an unexecute method, would do.</p>
+<p>In Javascript this could be implemented as a simple function, that gets called as a means of “execute”. If more functionality is needed, then a simple object with an execute method, and possibly an unexecute method, would do.</p>
 <h4 id="example">Example</h4>
 <p>Here is a simple example that creates a menu list with actions bound to each element.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeList</span>(items) {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeList</span>(items) <span class="op">{</span>
     <span class="co">// Each item has &quot;title&quot; and &quot;command&quot;.</span>
-    <span class="kw">var</span> ul = <span class="ot">document</span>.<span class="fu">createElement</span>(<span class="st">&quot;ul&quot;</span>);
-    <span class="ot">items</span>.<span class="fu">forEach</span>(<span class="kw">function</span>(item) {
-        <span class="kw">var</span> li = <span class="ot">document</span>.<span class="fu">createElement</span>(<span class="st">&quot;li&quot;</span>);
-        <span class="ot">li</span>.<span class="fu">innerHTML</span> = <span class="ot">item</span>.<span class="fu">title</span>;
-        <span class="ot">li</span>.<span class="fu">addEventListener</span>(<span class="st">&#39;click&#39;</span>, <span class="ot">items</span>.<span class="ot">command</span>.<span class="fu">execute</span>);
-        <span class="ot">ul</span>.<span class="fu">appendChild</span>(li);
-    });
-    <span class="kw">return</span> ul;
-}</code></pre>
+    <span class="kw">var</span> ul <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;ul&quot;</span>)<span class="op">;</span>
+    <span class="va">items</span>.<span class="at">forEach</span>(<span class="kw">function</span>(item) <span class="op">{</span>
+        <span class="kw">var</span> li <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;li&quot;</span>)<span class="op">;</span>
+        <span class="va">li</span>.<span class="at">innerHTML</span> <span class="op">=</span> <span class="va">item</span>.<span class="at">title</span><span class="op">;</span>
+        <span class="va">li</span>.<span class="at">addEventListener</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> <span class="va">items</span>.<span class="va">command</span>.<span class="at">execute</span>)<span class="op">;</span>
+        <span class="va">ul</span>.<span class="at">appendChild</span>(li)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="cf">return</span> ul<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>Here is how we could build a simple macro command that is meant to execute a series of commands:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeMacro</span>(commands) {
-    <span class="kw">var</span> o = {};
-    <span class="ot">o</span>.<span class="fu">commands</span> = commands || [];
-    <span class="ot">o</span>.<span class="fu">addCommand</span> = <span class="kw">function</span>(command) { <span class="ot">commands</span>.<span class="fu">push</span>(command); }
-    <span class="ot">o</span>.<span class="fu">execute</span> = <span class="kw">function</span>() {
-        <span class="ot">commands</span>.<span class="fu">forEach</span>(<span class="kw">function</span>(cmd) { <span class="ot">cmd</span>.<span class="fu">execute</span>(); });
-    }
-    <span class="kw">return</span> o;
-}</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeMacro</span>(commands) <span class="op">{</span>
+    <span class="kw">var</span> o <span class="op">=</span> <span class="op">{};</span>
+    <span class="va">o</span>.<span class="at">commands</span> <span class="op">=</span> commands <span class="op">||</span> []<span class="op">;</span>
+    <span class="va">o</span>.<span class="at">addCommand</span> <span class="op">=</span> <span class="kw">function</span>(command) <span class="op">{</span> <span class="va">commands</span>.<span class="at">push</span>(command)<span class="op">;</span> <span class="op">}</span>
+    <span class="va">o</span>.<span class="at">execute</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="va">commands</span>.<span class="at">forEach</span>(<span class="kw">function</span>(cmd) <span class="op">{</span> <span class="va">cmd</span>.<span class="at">execute</span>()<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="cf">return</span> o<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>We will do an example that combines observer and command to manage a list of items.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> List = <span class="fu">newClass</span>(<span class="kw">function</span> <span class="fu">init</span>() { <span class="kw">this</span>.<span class="fu">values</span> = []; });
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> List <span class="op">=</span> <span class="at">newClass</span>(<span class="kw">function</span> <span class="at">init</span>() <span class="op">{</span> <span class="kw">this</span>.<span class="at">values</span> <span class="op">=</span> []<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
 
-<span class="ot">Event</span>.<span class="fu">mixin</span>(<span class="ot">List</span>.<span class="fu">prototype</span>);
+<span class="va">Event</span>.<span class="at">mixin</span>(<span class="va">List</span>.<span class="at">prototype</span>)<span class="op">;</span>
 
-<span class="ot">List</span>.<span class="ot">prototype</span>.<span class="fu">add</span> = <span class="kw">function</span>(v) {
-    <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(v);
-    <span class="kw">this</span>.<span class="fu">trigger</span>(<span class="st">&#39;add&#39;</span>, v);
-    <span class="kw">return</span> <span class="kw">this</span>;
-};
+<span class="va">List</span>.<span class="va">prototype</span>.<span class="at">add</span> <span class="op">=</span> <span class="kw">function</span>(v) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="va">values</span>.<span class="at">push</span>(v)<span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">trigger</span>(<span class="st">&#39;add&#39;</span><span class="op">,</span> v)<span class="op">;</span>
+    <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+<span class="op">};</span>
 
-<span class="kw">var</span> lst = <span class="ot">List</span>.<span class="fu">new</span>();
-<span class="kw">var</span> ul = <span class="ot">document</span>.<span class="fu">createElement</span>(<span class="st">&quot;ul&quot;</span>);
-<span class="kw">var</span> input = <span class="ot">document</span>.<span class="fu">createElement</span>(<span class="st">&quot;input&quot;</span>);
+<span class="kw">var</span> lst <span class="op">=</span> <span class="va">List</span>.<span class="at">new</span>()<span class="op">;</span>
+<span class="kw">var</span> ul <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;ul&quot;</span>)<span class="op">;</span>
+<span class="kw">var</span> input <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;input&quot;</span>)<span class="op">;</span>
 
-<span class="ot">lst</span>.<span class="fu">on</span>(<span class="st">&#39;add&#39;</span>, <span class="kw">function</span>(v) { <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Added: &quot;</span>, v); });
+<span class="va">lst</span>.<span class="at">on</span>(<span class="st">&#39;add&#39;</span><span class="op">,</span> <span class="kw">function</span>(v) <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Added: &quot;</span><span class="op">,</span> v)<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
 
-<span class="ot">document</span>.<span class="ot">body</span>.<span class="fu">innerHTML</span> = <span class="st">&quot;&quot;</span>;
-<span class="ot">document</span>.<span class="ot">body</span>.<span class="fu">appendChild</span>(ul);
-<span class="ot">document</span>.<span class="ot">body</span>.<span class="fu">appendChild</span>(input);
+<span class="va">document</span>.<span class="va">body</span>.<span class="at">innerHTML</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span>
+<span class="va">document</span>.<span class="va">body</span>.<span class="at">appendChild</span>(ul)<span class="op">;</span>
+<span class="va">document</span>.<span class="va">body</span>.<span class="at">appendChild</span>(input)<span class="op">;</span>
 
 <span class="co">// Command that adds list element based on input contents</span>
-<span class="kw">var</span> cmd = {
-    <span class="dt">execute</span>: <span class="kw">function</span> <span class="fu">addElement</span>() { <span class="ot">lst</span>.<span class="fu">add</span>(<span class="ot">input</span>.<span class="fu">value</span>); }
-};
+<span class="kw">var</span> cmd <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">execute</span><span class="op">:</span> <span class="kw">function</span> <span class="at">addElement</span>() <span class="op">{</span> <span class="va">lst</span>.<span class="at">add</span>(<span class="va">input</span>.<span class="at">value</span>)<span class="op">;</span> <span class="op">}</span>
+<span class="op">};</span>
 
-<span class="ot">input</span>.<span class="fu">addEventListener</span>(<span class="st">&#39;change&#39;</span>, <span class="ot">cmd</span>.<span class="fu">execute</span>);
-<span class="ot">lst</span>.<span class="fu">on</span>(<span class="st">&#39;add&#39;</span>, <span class="kw">function</span>(v) {
-    <span class="kw">var</span> li = <span class="ot">document</span>.<span class="fu">createElement</span>(<span class="st">&quot;li&quot;</span>);
-    <span class="ot">li</span>.<span class="fu">innerHTML</span> = v;
-    <span class="ot">ul</span>.<span class="fu">appendChild</span>(li);
-});</code></pre>
+<span class="va">input</span>.<span class="at">addEventListener</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="va">cmd</span>.<span class="at">execute</span>)<span class="op">;</span>
+<span class="va">lst</span>.<span class="at">on</span>(<span class="st">&#39;add&#39;</span><span class="op">,</span> <span class="kw">function</span>(v) <span class="op">{</span>
+    <span class="kw">var</span> li <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;li&quot;</span>)<span class="op">;</span>
+    <span class="va">li</span>.<span class="at">innerHTML</span> <span class="op">=</span> v<span class="op">;</span>
+    <span class="va">ul</span>.<span class="at">appendChild</span>(li)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 </body>
 </html>

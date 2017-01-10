@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -44,10 +62,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>The Visitor Pattern is a Behavioral Pattern.</p>
 <h3 id="intent">Intent</h3>
 <p>The Visitor Pattern is used to represent an operation to be performed on the elements of an object structure. The pattern lets you define new operations without changing the classes and elements on which it operates.</p>
-<p>This is an example of the &quot;open-closed&quot; principle: Classes should be open for extension but closed for modification. The Visitor Pattern allows us to extend the behavior of our class structure by later adding new functionality.</p>
+<p>This is an example of the “open-closed” principle: Classes should be open for extension but closed for modification. The Visitor Pattern allows us to extend the behavior of our class structure by later adding new functionality.</p>
 <h3 id="motivation">Motivation</h3>
-<p>Imagine a &quot;calculator&quot; program that takes a series of arithmetic expressions and evaluates them. Each such arithmetic expression would be a tree of sorts. For instance the expression <code>2 + (3 * 4)</code> can be represented with a node that stands for the addition, with a &quot;left&quot; child which is itself a &quot;number node&quot; with value 2, and a &quot;right&quot; child which is a multiplication node with children being number nodes.</p>
-<p>So we have a tree structure made out of &quot;nodes&quot; of various types. We have number nodes, binary operator nodes, function nodes (log, exponential etc), maybe variable nodes etc. These will tend not to change much.</p>
+<p>Imagine a “calculator” program that takes a series of arithmetic expressions and evaluates them. Each such arithmetic expression would be a tree of sorts. For instance the expression <code>2 + (3 * 4)</code> can be represented with a node that stands for the addition, with a “left” child which is itself a “number node” with value 2, and a “right” child which is a multiplication node with children being number nodes.</p>
+<p>So we have a tree structure made out of “nodes” of various types. We have number nodes, binary operator nodes, function nodes (log, exponential etc), maybe variable nodes etc. These will tend not to change much.</p>
 <p>We also have various operations we might want to perform in such a structure: Evaluate it, do some type-checking in more complicated cases, print it, determine the set of variables used in it, check if any variable is used without a value assigned to it etc.</p>
 <p>Now we could put the code for these operations into the node class. But then in the future every time we want to add new operations, we would need to change all the node class implementations. This is the problem that the visitor pattern solves:</p>
 <blockquote>
@@ -59,11 +77,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="participants-implementation">Participants / Implementation</h3>
 <dl>
 <dt>Visitor</dt>
-<dd><p>The visitor interface declares a <code>visit</code> operation for each concrete class in the object structure (i.e. each type of node in our example).</p>
+<dd><p>The visitor interface declares a <code>visit</code> operation for each concrete class in the object structure (i.e. each type of node in our example).</p>
 <p>It may also contain a generic <code>visit</code> operation that takes an Element as argument and calls its <code>accept</code> method. Typically however this belongs on the Object structure.</p>
 </dd>
 <dt>ConcreteVisitor</dt>
-<dd>Implements the specific visit operations to perform the needed task (e.g. evaluate the nodes). Each operation holds the fragment of the algorithm that is relevant for the given class structure. The ConcreteVisitor instance provides the context and local state storage for the algorithm (e.g. if variables can be &quot;stored&quot; in memory, this is where that would happen).
+<dd>Implements the specific visit operations to perform the needed task (e.g. evaluate the nodes). Each operation holds the fragment of the algorithm that is relevant for the given class structure. The ConcreteVisitor instance provides the context and local state storage for the algorithm (e.g. if variables can be “stored” in memory, this is where that would happen).
 </dd>
 <dt>Element</dt>
 <dd>The interface of the elements. They need to implement an <code>accept</code> operation that takes an object of type <code>visitor</code> as input.
@@ -75,11 +93,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>The object structure can enumerate its elements and provides some high-level interface to allow the visitor to visit its elements. May be a composite or a collection.
 </dd>
 </dl>
-<p>Here are the typical steps involved in a &quot;visit&quot;:</p>
+<p>Here are the typical steps involved in a “visit”:</p>
 <ul>
-<li>The object structure's <code>visit</code> method is called with a provided visitor.</li>
+<li>The object structure’s <code>visit</code> method is called with a provided visitor.</li>
 <li>The structure starts traversing its elements. For each element, it calls its <code>accept</code> method, passing it the visitor.</li>
-<li>The element, which is from some concrete class, calls the visitor's specific &quot;visit&quot; method that corresponds to that class, passing itself as an argument so the visitor can use it. This is often called <em>double-dispatch</em>.</li>
+<li>The element, which is from some concrete class, calls the visitor’s specific “visit” method that corresponds to that class, passing itself as an argument so the visitor can use it. This is often called <em>double-dispatch</em>.</li>
 </ul>
 <h4 id="javascript-implementation">Javascript implementation</h4>
 <p>A detailed example of a Javascript implementation can be seen in <a href="../../testPages/expressions.js">this file</a>, which describes a small language for algebraic expressions. It contains the following:</p>
@@ -92,13 +110,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Sequence Nodes (allow a series of assignments for example)</li>
 </ul>
 <p>Each of these nodes will support a <code>accept</code> function. Those all look like this:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">VariableExp</span>.<span class="ot">prototype</span>.<span class="fu">accept</span> = <span class="kw">function</span> <span class="fu">accept</span>(visitor) {
-   <span class="kw">return</span> <span class="ot">visitor</span>.<span class="fu">visitVariable</span>(<span class="kw">this</span>);
-};
-<span class="ot">FuncExp</span>.<span class="ot">prototype</span>.<span class="fu">accept</span> = <span class="kw">function</span> <span class="fu">accept</span>(visitor) {
-   <span class="kw">return</span> <span class="ot">visitor</span>.<span class="fu">visitFunc</span>(<span class="kw">this</span>);
-};
-...</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">VariableExp</span>.<span class="va">prototype</span>.<span class="at">accept</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">accept</span>(visitor) <span class="op">{</span>
+   <span class="cf">return</span> <span class="va">visitor</span>.<span class="at">visitVariable</span>(<span class="kw">this</span>)<span class="op">;</span>
+<span class="op">};</span>
+<span class="va">FuncExp</span>.<span class="va">prototype</span>.<span class="at">accept</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">accept</span>(visitor) <span class="op">{</span>
+   <span class="cf">return</span> <span class="va">visitor</span>.<span class="at">visitFunc</span>(<span class="kw">this</span>)<span class="op">;</span>
+<span class="op">};</span>
+...</code></pre></div>
 <p>So each different type of node calls a different function of the visitor. The visitor must implement all these different methods, 6 in total.</p>
 <p>We implement three visitors: One that evaluates an expression, one that prints an expression, and one that determines if any variables are used before they have values assigned to them.</p>
 </body>

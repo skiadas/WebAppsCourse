@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -24,11 +24,11 @@
 <h3 id="classification">Classification</h3>
 <p>The Composite is a Structural Pattern.</p>
 <h3 id="intent">Intent</h3>
-<p>The Composite Pattern's intent is to compose objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly.</p>
+<p>The Composite Pattern’s intent is to compose objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly.</p>
 <h3 id="motivation">Motivation</h3>
 <p>Imagine a graphics application. We would have primitives like Line, Rectangle, Text etc, but we also want to compose them together to form more complicated shapes, like a Picture.</p>
-<p>These composed elements must contain some extra methods like a way to access their &quot;children&quot;. But at the same time clients need to be able to access &quot;graphical elements&quot; without needing to know if they are primitives or composites.</p>
-<p>This is done by having both primitives and composites implement the same <em>interface</em> or <em>abstract class</em>, say a &quot;Graphic&quot; interface. That interface will contain the methods that are shared by both primitive and composite elements. On top of that, the composite elements need to have operations for managing their children.</p>
+<p>These composed elements must contain some extra methods like a way to access their “children”. But at the same time clients need to be able to access “graphical elements” without needing to know if they are primitives or composites.</p>
+<p>This is done by having both primitives and composites implement the same <em>interface</em> or <em>abstract class</em>, say a “Graphic” interface. That interface will contain the methods that are shared by both primitive and composite elements. On top of that, the composite elements need to have operations for managing their children.</p>
 <h3 id="participants-implementation">Participants / Implementation</h3>
 <dl>
 <dt>Component</dt>

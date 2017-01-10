@@ -7,25 +7,25 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="basics-on-functions">Basics on functions</h1>
 <h2 id="relevant-links">Relevant links</h2>
 <ul>
-<li>Flanagan's book, section 4.3, 8.1, 8.2.1, 8.3.1</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">MDN's reference for function statements</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function">MDN's reference for function expressions</a></li>
+<li>Flanagan’s book, section 4.3, 8.1, 8.2.1, 8.3.1</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">MDN’s reference for function statements</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function">MDN’s reference for function expressions</a></li>
 </ul>
 <h2 id="functions-in-javascript">Functions in Javascript</h2>
 <ul>
 <li>Functions are first class objects in Javascript. While we will explore later what that means in more detail, for now it means that functions can be defined anywhere in the code, even within other functions, or in the value field of an object property, and so on.</li>
 <li>The basic syntax for a function definition is: <code>function f(arg1, arg2) { ... }</code>.</li>
 <li>You can often have anonymous functions: <code>function(args) { ... }</code>. These can be stored as local variables via a <code>var</code> statement.</li>
-<li>Function declarations use the same &quot;variable hoisting&quot; system we discussed in the <a href="local_vs_global.html">variable section</a>. In practice this means that functions can be used <em>before</em> the code that defines them.</li>
+<li>Function declarations use the same “variable hoisting” system we discussed in the <a href="local_vs_global.html">variable section</a>. In practice this means that functions can be used <em>before</em> the code that defines them.</li>
 <li>Unlike some other languages, the value of the last statement is not used as the return value of the function. Your function must use explicit <code>return</code> statements if it wants to return a result.</li>
 <li>The function stops execution the moment a <code>return</code> statement is encountered. Any lines following that <code>return</code> statement will be ignored.</li>
 <li>There are various ways of calling functions with some subtle semantics that we will discuss later. But for now, the name of the function followed by values for the arguments will suffice: <code>f(val1, val2)</code></li>

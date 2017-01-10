@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -37,7 +55,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>There are three main ways to create objects in Javascript. We mention them now but will discuss their particulars a bit later:</p>
 <dl>
 <dt>Object literal</dt>
-<dd>What we've been using: <code>{ foo: bar, foo2: baz }</code>
+<dd>What we’ve been using: <code>{ foo: bar, foo2: baz }</code>
 </dd>
 <dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create"><code>Object.create</code></a></dt>
 <dd>Introduced in ES5.
@@ -50,28 +68,28 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="prototypes">Prototypes</h3>
 <p>Every object has another object called its <strong>prototype</strong>.</p>
 <p>The object <em>inherits</em> properties of its prototype.</p>
-<p>A simple way to set an object's prototype, is via <code>Object.create</code> as the first argument.</p>
+<p>A simple way to set an object’s prototype, is via <code>Object.create</code> as the first argument.</p>
 <p>Here is a simple example of that:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> pete = { <span class="dt">name</span>: <span class="st">&quot;Pete&quot;</span>, <span class="dt">sayHi</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="st">&quot;Hi! I am &quot;</span> + <span class="kw">this</span>.<span class="fu">name</span>; } };
-<span class="ot">pete</span>.<span class="fu">sayHi</span>();
-<span class="kw">var</span> myka = <span class="ot">Object</span>.<span class="fu">create</span>(pete);
-<span class="ot">myka</span>.<span class="fu">name</span> = <span class="st">&quot;Myka&quot;</span>;
-<span class="ot">myka</span>.<span class="fu">sayHi</span>();</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> pete <span class="op">=</span> <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;Pete&quot;</span><span class="op">,</span> <span class="dt">sayHi</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span> <span class="cf">return</span> <span class="st">&quot;Hi! I am &quot;</span> <span class="op">+</span> <span class="kw">this</span>.<span class="at">name</span><span class="op">;</span> <span class="op">}</span> <span class="op">};</span>
+<span class="va">pete</span>.<span class="at">sayHi</span>()<span class="op">;</span>
+<span class="kw">var</span> myka <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(pete)<span class="op">;</span>
+<span class="va">myka</span>.<span class="at">name</span> <span class="op">=</span> <span class="st">&quot;Myka&quot;</span><span class="op">;</span>
+<span class="va">myka</span>.<span class="at">sayHi</span>()<span class="op">;</span></code></pre></div>
 <p>Notice the use of <code>this</code> to refer to the object currently calling the function.</p>
-<p>Let's think about what happens here:</p>
+<p>Let’s think about what happens here:</p>
 <ul>
 <li>The <code>myka</code> object is asked to find and call a function <code>sayHi</code>.</li>
-<li>It only has a property called <code>name</code>, so it asks its &quot;prototype&quot;, <code>pete</code>, to see if <em>it</em> has a <code>sayHi</code> property.</li>
+<li>It only has a property called <code>name</code>, so it asks its “prototype”, <code>pete</code>, to see if <em>it</em> has a <code>sayHi</code> property.</li>
 <li><code>pete</code> says that it does (if it did not, it would delegate the question to its prototype and so on and so forth). It returns its <code>sayHi</code> function, and <code>myka</code> invokes it.</li>
 <li>This is a method invocation, so <code>this</code> is set to <code>myka</code>. Therefore when that functions looks for <code>this.name</code>, it finds <code>&quot;Myka&quot;</code>.</li>
 </ul>
-<p>There is a secret property of all objects, called <code>__proto__</code> (that's two underscores on each side), that points to this prototype object. It is generally advisable not to mess with that property. So we could do:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">myka</span>.<span class="fu">__proto__</span>
-<span class="ot">myka</span>.<span class="fu">__proto__</span> === pete</code></pre>
+<p>There is a secret property of all objects, called <code>__proto__</code> (that’s two underscores on each side), that points to this prototype object. It is generally advisable not to mess with that property. So we could do:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">myka</span>.<span class="at">__proto__</span>
+<span class="va">myka</span>.<span class="at">__proto__</span> <span class="op">===</span> pete</code></pre></div>
 <blockquote>
 <p>Object methods and properties are looked up the prototype chain, which eventuallly ends in the <code>null</code> object.</p>
 </blockquote>
-<p>Prototypes are a good place to put shared methods and values, that all objects of a certain &quot;type/class&quot; should have access to. With the use of <code>this</code>, these functions can have access to the object that they are meant to represent. We will see examples of this in the stack examples of the next segment.</p>
+<p>Prototypes are a good place to put shared methods and values, that all objects of a certain “type/class” should have access to. With the use of <code>this</code>, these functions can have access to the object that they are meant to represent. We will see examples of this in the stack examples of the next segment.</p>
 <h3 id="constructors-and-prototypes">Constructors and Prototypes</h3>
 <p>Constructors are special functions that are meant to be used for creating objects. They are meant to always be called with the keyword <code>new</code>, and by convention are always capitalized. You have already seen a number of these constructors, but did not know they were that:</p>
 <ul>
@@ -82,27 +100,27 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"><code>RegExp</code></a></li>
 <li>ADD YOUR CLASS HERE!</li>
 </ul>
-<p>All of these are actually &quot;constructors&quot;. You can think of them a little bit like the analog of a class in other languages. And you can create your own: All you need is a function, with a couple of considerations:</p>
+<p>All of these are actually “constructors”. You can think of them a little bit like the analog of a class in other languages. And you can create your own: All you need is a function, with a couple of considerations:</p>
 <ul>
-<li>You should capitalize your function's name as reminder to those calling it that they must prepend it with <code>new</code>.</li>
+<li>You should capitalize your function’s name as reminder to those calling it that they must prepend it with <code>new</code>.</li>
 <li>In the body of the function, <code>this</code> will refer to a newly created object.</li>
 <li>The function will implicitly return <code>this</code>, unless you return another object instead.</li>
-<li>The new object's <code>__proto__</code> will be set to the <code>prototype</code> property of your function (functions are regular objects, you can add properties to them).</li>
+<li>The new object’s <code>__proto__</code> will be set to the <code>prototype</code> property of your function (functions are regular objects, you can add properties to them).</li>
 </ul>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">Foo</span>(v) {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Proto set to: &quot;</span>, <span class="kw">this</span>.<span class="fu">__proto__</span>);
-    <span class="kw">this</span>.<span class="fu">v</span> = v;
-}
-<span class="ot">Foo</span>.<span class="fu">prototype</span> = {
-    <span class="dt">bar</span>: <span class="st">&quot;I am a Foo&quot;</span>
-};
-<span class="kw">var</span> a = <span class="kw">new</span> <span class="fu">Foo</span>(<span class="dv">5</span>);
-<span class="ot">a</span>.<span class="fu">v</span>;
-<span class="ot">a</span>.<span class="fu">bar</span>;
-<span class="ot">Foo</span>.<span class="ot">prototype</span>.<span class="fu">baz</span> = <span class="st">&quot;Method added after creation, woohoo!&quot;</span>;
-<span class="ot">a</span>.<span class="fu">baz</span>;
-<span class="kw">var</span> b = <span class="kw">new</span> <span class="fu">Foo</span>(<span class="dv">10</span>);
-<span class="ot">a</span>.<span class="fu">baz</span> = <span class="st">&quot;What did I change?&quot;</span>;
-<span class="ot">b</span>.<span class="fu">baz</span>;</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">Foo</span>(v) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Proto set to: &quot;</span><span class="op">,</span> <span class="kw">this</span>.<span class="at">__proto__</span>)<span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">v</span> <span class="op">=</span> v<span class="op">;</span>
+<span class="op">}</span>
+<span class="va">Foo</span>.<span class="at">prototype</span> <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">bar</span><span class="op">:</span> <span class="st">&quot;I am a Foo&quot;</span>
+<span class="op">};</span>
+<span class="kw">var</span> a <span class="op">=</span> <span class="kw">new</span> <span class="at">Foo</span>(<span class="dv">5</span>)<span class="op">;</span>
+<span class="va">a</span>.<span class="at">v</span><span class="op">;</span>
+<span class="va">a</span>.<span class="at">bar</span><span class="op">;</span>
+<span class="va">Foo</span>.<span class="va">prototype</span>.<span class="at">baz</span> <span class="op">=</span> <span class="st">&quot;Method added after creation, woohoo!&quot;</span><span class="op">;</span>
+<span class="va">a</span>.<span class="at">baz</span><span class="op">;</span>
+<span class="kw">var</span> b <span class="op">=</span> <span class="kw">new</span> <span class="at">Foo</span>(<span class="dv">10</span>)<span class="op">;</span>
+<span class="va">a</span>.<span class="at">baz</span> <span class="op">=</span> <span class="st">&quot;What did I change?&quot;</span><span class="op">;</span>
+<span class="va">b</span>.<span class="at">baz</span><span class="op">;</span></code></pre></div>
 </body>
 </html>

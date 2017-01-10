@@ -13,7 +13,7 @@
 Optional:
 
 - [http://dailyjs.com/2010/05/24/history-of-javascript-1/](http://dailyjs.com/2010/05/24/history-of-javascript-1/)
-- [http://dailyjs.com/2010/05/24/history-of-javascript-1/](https://www.w3.org/community/webed/wiki/A_Short_History_of_JavaScript)
+- [A short history of Javascript](https://www.w3.org/community/webed/wiki/A_Short_History_of_JavaScript)
 - [http://en.wikipedia.org/wiki/JavaScript#History](http://dailyjs.com/2010/05/24/history-of-javascript-1/)
 
 ## History of Javascript
@@ -51,3 +51,6 @@ Optional:
     - ES5 has "default" and "strict" mode.
     - Node is released. Server-side Javascript.
 - Work on ES6, codenamed Harmony, ongoing.
+    - Brings classes, and components
+    - Many "transpilers" exist that turn ES6 code into ES5
+    - So we can use ES6 now

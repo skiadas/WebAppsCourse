@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -23,40 +23,40 @@
 <h2 id="notes">Notes</h2>
 <p>First of all, you should have already forked the <a href="https://github.com/skiadas/WebAppsLabs">WebAppsLabs</a> project over to your account. Make sure you have that open in your browser.</p>
 <h3 id="cloning">Cloning</h3>
-<p>The first thing we need to do is &quot;clone&quot; this project on your computer. To do that, find the &quot;clone URL&quot; section on the right side of your project webpage, and click on &quot;Copy to clipboard&quot; next to it. Now open up the Terminal, and navigate to the location where you want to store this project. The Desktop or some sort of Documents folders would be good places. The cloning process will create a folder itself, so you do not need to create the project's folder, you just need to be in the location where you want it created. Then you would type:</p>
+<p>The first thing we need to do is “clone” this project on your computer. To do that, find the “clone URL” section on the right side of your project webpage, and click on “Copy to clipboard” next to it. Now open up the Terminal, and navigate to the location where you want to store this project. The Desktop or some sort of Documents folders would be good places. The cloning process will create a folder itself, so you do not need to create the project’s folder, you just need to be in the location where you want it created. Then you would type:</p>
 <pre><code>git clone pasteTheLinkHere</code></pre>
-<p>The link should look something like: &quot;<code>https://github.com/yourNameHere/WebAppsLabs.git</code>&quot;.</p>
+<p>The link should look something like: “<code>https://github.com/yourNameHere/WebAppsLabs.git</code>”.</p>
 <p>If you do a <code>ls</code> listing in the directory you should now see this new folder, called WebAppsLabs. Switch to it with <code>cd WebAppsLabs</code>. You should find a <code>README.md</code> file in there.</p>
 <h3 id="learning-about-remotes">Learning about Remotes</h3>
-<p>The repository that GitHub has of your code is called the &quot;remote&quot;. You also just cloned a full version of it locally on your computer. We will see how to interact between the two.</p>
+<p>The repository that GitHub has of your code is called the “remote”. You also just cloned a full version of it locally on your computer. We will see how to interact between the two.</p>
 <p>Type the following to see the remotes you have:</p>
 <pre><code>git remote -v</code></pre>
-<p>You should see &quot;two&quot; remotes, one for <strong>fetch</strong> and one for <strong>push</strong>. Fetch is what happens when we download changes from GitHub to our computer, Push is the opposite.</p>
-<p>If you have collaborators, you can create extra &quot;remotes&quot; linking to their versions of the project, so that you can fetch changes they make. In our case, we will create such a remote that would access my main version of the project, so that you can get updates when I add new labs (your forked project won't update directly). Do the following:</p>
+<p>You should see “two” remotes, one for <strong>fetch</strong> and one for <strong>push</strong>. Fetch is what happens when we download changes from GitHub to our computer, Push is the opposite.</p>
+<p>If you have collaborators, you can create extra “remotes” linking to their versions of the project, so that you can fetch changes they make. In our case, we will create such a remote that would access my main version of the project, so that you can get updates when I add new labs (your forked project won’t update directly). Do the following:</p>
 <pre><code>git remote add mainSource https://github.com/skiadas/WebAppsLabs.git</code></pre>
 <p>Now if you look for all the remotes you should be seeing two new remotes (well really one remote with fetch and push). We will use this much later.</p>
 <p>Adding remotes is not something you have to do often, usually only when you set up your project.</p>
 <h3 id="fetching-data">Fetching data</h3>
 <p>When you want to get updates from the remote, you use fetch:</p>
 <pre><code>git fetch origin</code></pre>
-<p>Probably not much will happen, since we just cloned the project, so we already have the newest state. Oftentimes you can skip the &quot;origin&quot; part and just say <code>git fetch</code>. We will also often use a variant, <code>git pull</code>. You can read about the difference in the book. With the workflow we will follow, there won't be a difference.</p>
-<p>When you want to submit updates, you would do (don't need to do it now):</p>
+<p>Probably not much will happen, since we just cloned the project, so we already have the newest state. Oftentimes you can skip the “origin” part and just say <code>git fetch</code>. We will also often use a variant, <code>git pull</code>. You can read about the difference in the book. With the workflow we will follow, there won’t be a difference.</p>
+<p>When you want to submit updates, you would do (don’t need to do it now):</p>
 <pre><code>git push origin master</code></pre>
-<p>Or something of the kind, we will discuss &quot;master&quot; later. A simple <code>git push</code> often works as well.</p>
+<p>Or something of the kind, we will discuss “master” later. A simple <code>git push</code> often works as well.</p>
 <p>You can find info about a remote with (try now):</p>
 <pre><code>git remote show origin</code></pre>
 <p>What you should notice there is that there are (at least) two remote branches tracked, Lab1 and master.</p>
 <h3 id="branches">Branches</h3>
-<p>Branches are &quot;paths of development&quot; of your code. Each branch has a base commit that it springs from, and commits you make become part of this new branch, rather than the &quot;main&quot; branch you were on. But you can also merge one branch into another, which can complicate matters a bit. We won't worry about that for a while.</p>
-<p>For now we will just learn how to &quot;switch&quot; to a new branch. The command for that is &quot;checkout&quot;. In this case, we will check out the Lab1 branch:</p>
+<p>Branches are “paths of development” of your code. Each branch has a base commit that it springs from, and commits you make become part of this new branch, rather than the “main” branch you were on. But you can also merge one branch into another, which can complicate matters a bit. We won’t worry about that for a while.</p>
+<p>For now we will just learn how to “switch” to a new branch. The command for that is “checkout”. In this case, we will check out the Lab1 branch:</p>
 <pre><code>git checkout Lab1</code></pre>
-<p>This might seem like an innocent little sentence, but in fact it completely changed what is in your working directory right now. To see this, do an <code>ls</code> listing. You should see a bunch of files there. Go back and forth between the two &quot;branches&quot; and look at each time what your directory looks like:</p>
+<p>This might seem like an innocent little sentence, but in fact it completely changed what is in your working directory right now. To see this, do an <code>ls</code> listing. You should see a bunch of files there. Go back and forth between the two “branches” and look at each time what your directory looks like:</p>
 <pre><code>ls
 git checkout master
 ls
 git checkout Lab1
 ls</code></pre>
-<p>Take a moment to ponder this! The same directory in your computer can look completely different depending on which branch or which commit you are looking at. Later on in class we will do a checkout of Lab2, Lab3 etc. It will always be the same &quot;directory&quot;, but it looks very different each time.</p>
+<p>Take a moment to ponder this! The same directory in your computer can look completely different depending on which branch or which commit you are looking at. Later on in class we will do a checkout of Lab2, Lab3 etc. It will always be the same “directory”, but it looks very different each time.</p>
 <p>Before starting any new work, you need to always make sure you are in the correct branch.</p>
 </body>
 </html>

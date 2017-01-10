@@ -15,13 +15,18 @@
 - Certain operations (e.g. bitwise) are performed treating the numbers as 32-bit integers instead.
 - Number literals are much like in other languages. You can use `0x` for hexadecimals.
 - Avoid using octal literals (those starting with a 0).
-- The `Math` object contains a number of useful functions. Refer to the MDN documentation for these functions for details. You should make sure you become familiar with the functions for the following (avoid "experimental" functions):
-    - Raising to a power
-    - Maximum/Minimum
+- The `Math` object contains a number of useful functions. Refer to the MDN documentation for these functions for details. As practice, learn how to do the following: (avoid functions tagged as "experimental"):
+    - Raising to a power (so compute for example $3^{2.2}$. Should get about $11.2$)
+    - Maximum/Minimum (compute for example the maximum between 2, -3 and 1e2)
     - Random numbers
-    - Various rounding
-    - Logarithm and exponential
-    - Trigonometric functions
+        - Ask the system to generate a random number between 0 and 1
+        - Obtain a random integer between 0 and 4 as follows:
+            - Start with a random number between 0 and 1
+            - Multiply it by 5
+            - Use the floor function to round it down
+    - Learn how to round numbers up, and also what the normal round would do
+    - Logarithm and exponentials if you have time
+    - Trigonometric functions if you have time
 - The `Math` object also contains a number of mathematical constants (pi, e).
 - The `Number` object contains constants for the largest integer, as well as `Infinity` and `NaN` (not a number).
 - Arithmetic operations never raise errors, instead producing either `Infinity`, `-Infinity` or `NaN`.

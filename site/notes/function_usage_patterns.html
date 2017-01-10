@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -36,49 +54,49 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>We describe here a variety of usage patterns that involve functions and closures. We have already seen powerful usages in terms of creating new scopes. These are just more examples.</p>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
-<li>Flanagan's book, section 8.8.4</li>
+<li>Flanagan’s book, section 8.8.4</li>
 </ul>
 <h2 id="notes">Notes</h2>
 <h3 id="memoize">Memoize</h3>
 <p>The idea here is that we would effectively cache results of function calls. If the function is later called with the same arguments, we would return the cached result directly.</p>
 <p>This assumes a couple of things:</p>
 <ul>
-<li>That the function is what we would call &quot;pure&quot;: It would do the exact same thing given the same inputs. In particular it cannot have any side-effects like printing something or setting an external value to something. It should just do a computation.</li>
-<li>That the arguments can be &quot;stringified&quot;. We will store them as keys in a &quot;cache&quot; object, and if they cannot be properly converted to strings we will have problems. For instance objects all get converted to the string <code>'[object Object]'</code>, so if our arguments are objects then we're in trouble, as all objects will be seen as the exact same argument.</li>
+<li>That the function is what we would call “pure”: It would do the exact same thing given the same inputs. In particular it cannot have any side-effects like printing something or setting an external value to something. It should just do a computation.</li>
+<li>That the arguments can be “stringified”. We will store them as keys in a “cache” object, and if they cannot be properly converted to strings we will have problems. For instance objects all get converted to the string <code>'[object Object]'</code>, so if our arguments are objects then we’re in trouble, as all objects will be seen as the exact same argument.</li>
 </ul>
 <p>Here is a simple version of this idea, which assumes only one argument:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">memoize</span>(f) {
-    <span class="kw">var</span> cache = {};
-    <span class="kw">return</span> <span class="kw">function</span>(v) {
-        <span class="kw">if</span> (!<span class="ot">cache</span>.<span class="fu">hasOwnProperty</span>(v)) { cache[v] = <span class="fu">f</span>(v); }
-        <span class="kw">return</span> cache[v];
-    };
-}</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">memoize</span>(f) <span class="op">{</span>
+    <span class="kw">var</span> cache <span class="op">=</span> <span class="op">{};</span>
+    <span class="cf">return</span> <span class="kw">function</span>(v) <span class="op">{</span>
+        <span class="cf">if</span> (<span class="op">!</span><span class="va">cache</span>.<span class="at">hasOwnProperty</span>(v)) <span class="op">{</span> cache[v] <span class="op">=</span> <span class="at">f</span>(v)<span class="op">;</span> <span class="op">}</span>
+        <span class="cf">return</span> cache[v]<span class="op">;</span>
+    <span class="op">};</span>
+<span class="op">}</span></code></pre></div>
 <p>You can expand on it to limit the cache size or to allow multiple arguments, but we will not do so here.</p>
 <h3 id="call-once">Call Once</h3>
-<p>In this example, we want to make sure a specific function is only called once, and any subsequent &quot;calls&quot; just return the same value. This mostly makes sense for functions that take no arguments.</p>
-<p>This is often used for &quot;lazy loading&quot;, where you have some module that would require a lot of work to initialize, and you only want to do it if and when it is actually needed. But once it is initialized once, there is no need to initialize it a second time, so subsequent &quot;initialization calls&quot; can simply recall the stored value.</p>
+<p>In this example, we want to make sure a specific function is only called once, and any subsequent “calls” just return the same value. This mostly makes sense for functions that take no arguments.</p>
+<p>This is often used for “lazy loading”, where you have some module that would require a lot of work to initialize, and you only want to do it if and when it is actually needed. But once it is initialized once, there is no need to initialize it a second time, so subsequent “initialization calls” can simply recall the stored value.</p>
 <p>You can also imagine a variant that allows a specific number of calls before it defaults to just returning the last computed value.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">once</span>(f) {
-    <span class="kw">var</span> called = <span class="kw">false</span>;
-    <span class="kw">var</span> value;
-    <span class="kw">return</span> <span class="kw">function</span>() {
-        <span class="kw">if</span> (!called) {
-            value = <span class="fu">f</span>();
-            called = <span class="kw">true</span>;
-        }
-        <span class="kw">return</span> value;
-    };
-}</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">once</span>(f) <span class="op">{</span>
+    <span class="kw">var</span> called <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+    <span class="kw">var</span> value<span class="op">;</span>
+    <span class="cf">return</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="cf">if</span> (<span class="op">!</span>called) <span class="op">{</span>
+            value <span class="op">=</span> <span class="at">f</span>()<span class="op">;</span>
+            called <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+        <span class="op">}</span>
+        <span class="cf">return</span> value<span class="op">;</span>
+    <span class="op">};</span>
+<span class="op">}</span></code></pre></div>
 <p>Here is an interesting variation:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">once</span>(f) {
-    <span class="kw">var</span> wrapper = <span class="kw">function</span>() {
-        <span class="kw">var</span> value = <span class="fu">f</span>();
-        wrapper = <span class="kw">function</span>() { <span class="kw">return</span> value; };
-        <span class="kw">return</span> value;
-    };
-    <span class="kw">return</span> <span class="kw">function</span>() { <span class="kw">return</span> <span class="fu">wrapper</span>(); };
-}</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">once</span>(f) <span class="op">{</span>
+    <span class="kw">var</span> wrapper <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="kw">var</span> value <span class="op">=</span> <span class="at">f</span>()<span class="op">;</span>
+        wrapper <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span> <span class="cf">return</span> value<span class="op">;</span> <span class="op">};</span>
+        <span class="cf">return</span> value<span class="op">;</span>
+    <span class="op">};</span>
+    <span class="cf">return</span> <span class="kw">function</span>() <span class="op">{</span> <span class="cf">return</span> <span class="at">wrapper</span>()<span class="op">;</span> <span class="op">};</span>
+<span class="op">}</span></code></pre></div>
 <p>Food for thought: What would happen if we just return <code>wrapper</code>, instead of a function calling <code>wrapper</code>?</p>
 </body>
 </html>

@@ -7,16 +7,16 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="introduction-to-design-patterns">Introduction to Design Patterns</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
-<li><a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book/#summarytabledesignpatterns">Osmani's book up to summary table</a></li>
+<li><a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book/#summarytabledesignpatterns">Osmani’s book up to summary table</a></li>
 <li><a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612">Design Patterns (Gang of Four)</a> optional but great read</li>
 <li><a href="http://shop.oreilly.com/product/9780596007126.do">Head First Design Patterns</a> optional, also great book on design patterns</li>
 <li><a href="http://www.oodesign.com/">OO Design</a></li>
@@ -27,7 +27,7 @@
 <p>A <strong>Design Pattern</strong> describe a problem that appears frequently in the open, followed by a solution to that problem, that describes the structure of the objects needed to implement the pattern. In general a pattern consists of various parts:</p>
 <dl>
 <dt>pattern name</dt>
-<dd>A short memorable name that is used to describe the problem and solution in one word. Once you are familiar with the patterns, these names become the language we can use to communicate an appication's design at a higher level.
+<dd>A short memorable name that is used to describe the problem and solution in one word. Once you are familiar with the patterns, these names become the language we can use to communicate an appication’s design at a higher level.
 </dd>
 <dt>problem</dt>
 <dd>A description of the problem that this pattern is meant to address.
@@ -54,9 +54,9 @@
 <p>Design patterns are closely related with a set of programming principles that have evolved over time. Here is just a partial list of these principles:</p>
 <ul>
 <li><strong>Program to interfaces (types), not to implementations</strong>. Your code should rely on what objects can do, not on how they were implemented.</li>
-<li><strong>Document your interfaces</strong>. In a dynamically typed language like Javascript, there is no explicit notion of an &quot;interface&quot;: When describing a class you have to describe what methods it offers, what inputs they take and what outputs they produce.</li>
+<li><strong>Document your interfaces</strong>. In a dynamically typed language like Javascript, there is no explicit notion of an “interface”: When describing a class you have to describe what methods it offers, what inputs they take and what outputs they produce.</li>
 <li><strong>Aim for a single point of entry</strong>. When creating objects of a class, there should be at the end of the day a single constructor that everything else gets funnelled through. Makes maintenance easier down the line.</li>
-<li><strong>Classes should only try to do one thing</strong>. This is a version of the &quot;keep it simple&quot; principle. Classes should do one thing, and they should do it well.</li>
+<li><strong>Classes should only try to do one thing</strong>. This is a version of the “keep it simple” principle. Classes should do one thing, and they should do it well.</li>
 <li><strong>Favor composition over inheritance</strong>. Inheritance makes your subclass depend on the implementation of the superclass, something that is best avoided.</li>
 <li><strong>Aim for loosely coupled designs</strong>. The less your components know about each other, the better you can adapt to future changes in your application.</li>
 <li><strong>Encapsulate what varies</strong>. If there is part of your design that might change in the future, it should be encapsulated and the rest of your application should be protected from knowing too much about it.</li>

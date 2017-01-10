@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -20,8 +20,8 @@
 <li><a href="http://devdocs.io/">devdocs</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">List of CSS properties</a></li>
 <li><a href="http://learn.shayhowe.com/html-css/">Learn HTML&amp;CSS</a></li>
-<li><a href="https://developer.mozilla.org/en-US/learn/css">MDN's links for learning CSS</a></li>
-<li><a href="http://caniuse.com/">&quot;Can I use&quot; site</a></li>
+<li><a href="https://developer.mozilla.org/en-US/learn/css">MDN’s links for learning CSS</a></li>
+<li><a href="http://caniuse.com/">“Can I use” site</a></li>
 <li><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md#html--css">Free online books</a></li>
 </ul>
 <h2 id="notes">Notes</h2>
@@ -30,16 +30,16 @@
 <p>Here are some key notions, before we look at some examples:</p>
 <dl>
 <dt>rules</dt>
-<dd>A rule consists of a &quot;selector&quot; and series of property-value specifications. It indicates that those elements that match the selector should have those properties set to those values.
+<dd>A rule consists of a “selector” and series of property-value specifications. It indicates that those elements that match the selector should have those properties set to those values.
 </dd>
 <dt>selectors</dt>
-<dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Selectors">Selectors</a> &quot;target&quot; certain elements in the page. For instance a selector could say: &quot;I want to look at the <code>li</code> elements that have a class of <code>todo</code> and are contained inside an element with and id of <code>main</code>.&quot;
+<dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Selectors">Selectors</a> “target” certain elements in the page. For instance a selector could say: “I want to look at the <code>li</code> elements that have a class of <code>todo</code> and are contained inside an element with and id of <code>main</code>.”
 </dd>
 <dt>properties and values</dt>
 <dd>CSS properties specify the appearance of elements. There is a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">long list of properties</a>, and each property accepts a specific set of values. Each property-value pair must end with a semicolon.
 </dd>
 <dt>specificity</dt>
-<dd><p>Each selector has a <em><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity">specificity</a></em> value, indicating how &quot;precisely&quot; it is pinpointing the elements. For instance, targetting a specific id is more &quot;specific&quot; than targetting a specific class, which is more &quot;specific&quot; than targetting a specific HTML tag.</p>
+<dd><p>Each selector has a <em><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity">specificity</a></em> value, indicating how “precisely” it is pinpointing the elements. For instance, targetting a specific id is more “specific” than targetting a specific class, which is more “specific” than targetting a specific HTML tag.</p>
 <p>If two rules try to apply the same property to an element, the rule with higher specificity wins. If they have equal specificity, the rule that appears later in the file wins.</p>
 </dd>
 <dt>inheritance</dt>
@@ -52,7 +52,7 @@
 <dd>At any given time, depending on the element and its settings, the browser is in one of four main <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_mode"><em>layout modes</em></a>: <em>block</em>, <em>inline</em>, <em>table</em> and <em>positioned</em>.
 </dd>
 <dt>floats</dt>
-<dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">Floats</a> are a difficult concept to work with at first. A &quot;floating&quot; element is taken out of the normal flow and placed along the left or right side of the page, while other elements wrap around it.
+<dd><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">Floats</a> are a difficult concept to work with at first. A “floating” element is taken out of the normal flow and placed along the left or right side of the page, while other elements wrap around it.
 </dd>
 </dl>
 <p>There are too many properties to list here, but we will list the <strong>various selectors</strong>:</p>
@@ -70,7 +70,7 @@
 <dd>Putting selectors right next to each other indicates that they should all apply to an element for it to be targetted. For example <code>div#main</code> targets only a div element with an id of main, and nothing else.
 </dd>
 <dt>sel1 sel2</dt>
-<dd>A space between two selectors indicates that the second selector should target descendants of elements matched by the first selector. For instance <code>.todo p</code> targets paragraph elements only when they appear within an element with class &quot;todo&quot;.
+<dd>A space between two selectors indicates that the second selector should target descendants of elements matched by the first selector. For instance <code>.todo p</code> targets paragraph elements only when they appear within an element with class “todo”.
 </dd>
 <dt>sel1, sel2</dt>
 <dd>A comma between two selectors indicates that this rule should apply if either selector applies.
@@ -85,7 +85,7 @@
 <dd>Targets elements that match the second selector, that are adjacent siblings (immediately follow) of elements that match the first selector.
 </dd>
 <dt>[attr=value]</dt>
-<dd>Attribute selectors target elements with a specific value for a specific attribute. There are a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors">number of variants</a> depending on the relation between the specified value and the element's value.
+<dd>Attribute selectors target elements with a specific value for a specific attribute. There are a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors">number of variants</a> depending on the relation between the specified value and the element’s value.
 </dd>
 <dt>::pseudo</dt>
 <dd>There are a few <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements">pseudo-elements</a> that can be targetted this way, for instance the first line in a paragraph or the first letter in a paragraph.

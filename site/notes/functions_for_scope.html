@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -36,62 +54,62 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>In this section we discuss how functions are used to create a new scope in which to hide information that we do not want to share with the world.</p>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
-<li>Flanagan's book, section 8.5</li>
+<li>Flanagan’s book, section 8.5</li>
 </ul>
 <h2 id="notes">Notes</h2>
-<p>An integral part of programming is deciding what to share with whom and what to protect from others. A good example of this was our counter function that we saw earlier. We will look at a variant of that system here, around the idea of a &quot;timer&quot;.</p>
-<p>A &quot;timer&quot; has the following components</p>
+<p>An integral part of programming is deciding what to share with whom and what to protect from others. A good example of this was our counter function that we saw earlier. We will look at a variant of that system here, around the idea of a “timer”.</p>
+<p>A “timer” has the following components</p>
 <ul>
 <li>A method to <code>fire</code> the timer.</li>
-<li>A method to <code>observe</code> the timer. This method is given a function to call when the timer &quot;fires&quot;, and adds it to a list of such previously given functions. This way lots of parties can &quot;subscribe&quot; to be called when the timer fires.</li>
+<li>A method to <code>observe</code> the timer. This method is given a function to call when the timer “fires”, and adds it to a list of such previously given functions. This way lots of parties can “subscribe” to be called when the timer fires.</li>
 <li>A count of how many times the timer has fired.</li>
 </ul>
 <p>For now we will manually be firing the timers, but later on we will add a way to fire them at regular intervals.</p>
 <p>Here is how the timer code skeleton might look like:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeTimer</span>() {
-    <span class="kw">var</span> times = <span class="dv">0</span>;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeTimer</span>() <span class="op">{</span>
+    <span class="kw">var</span> times <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
 
     <span class="co">// Array holding functions waiting for the timer to fire</span>
-    <span class="kw">var</span> observers = [];
+    <span class="kw">var</span> observers <span class="op">=</span> []<span class="op">;</span>
 
-    <span class="kw">function</span> <span class="fu">observe</span>(f) {
+    <span class="kw">function</span> <span class="at">observe</span>(f) <span class="op">{</span>
         <span class="co">// ... Add f to the observers ...</span>
-    }
-    <span class="kw">function</span> <span class="fu">fire</span>() {
+    <span class="op">}</span>
+    <span class="kw">function</span> <span class="at">fire</span>() <span class="op">{</span>
         <span class="co">// Increment times</span>
         <span class="co">// Notify all observers</span>
-    }
-    <span class="kw">function</span> <span class="fu">notify</span>() {
+    <span class="op">}</span>
+    <span class="kw">function</span> <span class="at">notify</span>() <span class="op">{</span>
         <span class="co">// private method that does the calling of the observers</span>
-    }
+    <span class="op">}</span>
     <span class="co">// We only return the methods we want to expose:</span>
-    <span class="kw">return</span> {
-        <span class="dt">observe</span>: observe,
-        <span class="dt">fire</span>: fire
-    };
-}</code></pre>
+    <span class="cf">return</span> <span class="op">{</span>
+        <span class="dt">observe</span><span class="op">:</span> observe<span class="op">,</span>
+        <span class="dt">fire</span><span class="op">:</span> fire
+    <span class="op">};</span>
+<span class="op">}</span></code></pre></div>
 <p>So, within the function makeTimer, we define some local variables and some local functions. None of these methods are seen by anyone outside the function. But we can choose to share some of them by including them in the returned object. In this case, we keep <code>notify</code> private, and return the two methods that are part of the interface. All three methods have access to each other, as well as the two local variables. Here is how a full implementation might look like. Notice how <code>fire</code> calls <code>notify</code>.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeTimer</span>() {
-    <span class="kw">var</span> times = <span class="dv">0</span>;
-    <span class="kw">var</span> observers = [];
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeTimer</span>() <span class="op">{</span>
+    <span class="kw">var</span> times <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+    <span class="kw">var</span> observers <span class="op">=</span> []<span class="op">;</span>
 
-    <span class="kw">function</span> <span class="fu">observe</span>(f) {
-        <span class="ot">observers</span>.<span class="fu">push</span>(f);
-    }
-    <span class="kw">function</span> <span class="fu">fire</span>() {
-        times += <span class="dv">1</span>;
-        <span class="fu">notify</span>();
-    }
-    <span class="kw">function</span> <span class="fu">notify</span>() {
-        <span class="kw">for</span> (<span class="kw">var</span> i = <span class="dv">0</span>; i &lt; <span class="ot">observers</span>.<span class="fu">length</span>; i += <span class="dv">1</span>) {
-            observers[i](times);
-        }
-    }
-    <span class="kw">return</span> {
-        <span class="dt">observe</span>: observe,
-        <span class="dt">fire</span>: fire
-    };
-}</code></pre>
+    <span class="kw">function</span> <span class="at">observe</span>(f) <span class="op">{</span>
+        <span class="va">observers</span>.<span class="at">push</span>(f)<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="kw">function</span> <span class="at">fire</span>() <span class="op">{</span>
+        times <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span>
+        <span class="at">notify</span>()<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="kw">function</span> <span class="at">notify</span>() <span class="op">{</span>
+        <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">observers</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+            observers[i](times)<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">}</span>
+    <span class="cf">return</span> <span class="op">{</span>
+        <span class="dt">observe</span><span class="op">:</span> observe<span class="op">,</span>
+        <span class="dt">fire</span><span class="op">:</span> fire
+    <span class="op">};</span>
+<span class="op">}</span></code></pre></div>
 <p>So far so good, a perfectly fine implementation. But let us take it to the next step:</p>
 <p>We want a way to manage a single main list of timers. We should be able to:</p>
 <ul>
@@ -99,15 +117,15 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Have a method to fire all timers.</li>
 <li>We would also like to take the <code>notify</code> method out of <code>makeTimer</code>. Maybe we can have a single <code>notify</code>, that takes as input the <code>observers</code> list and the <code>times</code> value, and calls those observers with that value.</li>
 </ul>
-<p>So let us think about this for a minute. we want to create a new object, let's call it <code>timers</code>, that has basically just two methods, one for a new timer and one to fire all timers. But we also need to store a lot of intermediate stuff, like the whole <code>makeTimer</code> function above, the list of timers, the shared <code>notify</code> function, and so on. These are all private. In order to protect them, we use a pattern called <strong>immediate function invocation</strong>. In this instance it looks like this:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> timers = (<span class="kw">function</span>() {
+<p>So let us think about this for a minute. we want to create a new object, let’s call it <code>timers</code>, that has basically just two methods, one for a new timer and one to fire all timers. But we also need to store a lot of intermediate stuff, like the whole <code>makeTimer</code> function above, the list of timers, the shared <code>notify</code> function, and so on. These are all private. In order to protect them, we use a pattern called <strong>immediate function invocation</strong>. In this instance it looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> timers <span class="op">=</span> (<span class="kw">function</span>() <span class="op">{</span>
     <span class="co">// We put here all the private stuff</span>
     ...
-    <span class="kw">return</span> {
+    <span class="cf">return</span> <span class="op">{</span>
         <span class="co">// We return the stuff we want people to access</span>
         ...
-    };
-}());     <span class="co">// And immediately invoke this function.</span></code></pre>
+    <span class="op">};</span>
+<span class="op">}</span>())<span class="op">;</span>     <span class="co">// And immediately invoke this function.</span></code></pre></div>
 <p>The idea is this:</p>
 <ul>
 <li>We use an anonymous function, and immediately after its declaration ends at the closing brace we call it.</li>
@@ -115,64 +133,64 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Whatever we return from the anonymous function can be captured as the return value of the immediate invocation, and forms the public part of our object.</li>
 </ul>
 <p>Let us look at the full implementation:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> timers = (<span class="kw">function</span>() {
-    <span class="kw">var</span> allTimers = [];
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> timers <span class="op">=</span> (<span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> allTimers <span class="op">=</span> []<span class="op">;</span>
 
     <span class="co">// private method</span>
-    <span class="kw">function</span> <span class="fu">notify</span>(observers, times) {
-        <span class="kw">for</span> (<span class="kw">var</span> i = <span class="dv">0</span>; i &lt; <span class="ot">observers</span>.<span class="fu">length</span>; i += <span class="dv">1</span>) {
-            observers[i](times);
-        }
-    }
+    <span class="kw">function</span> <span class="at">notify</span>(observers<span class="op">,</span> times) <span class="op">{</span>
+        <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">observers</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+            observers[i](times)<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">}</span>
 
     <span class="co">// private method</span>
-    <span class="kw">function</span> <span class="fu">makeTimer</span>() {
-        <span class="kw">var</span> times = <span class="dv">0</span>;
-        <span class="kw">var</span> observers = [];
+    <span class="kw">function</span> <span class="at">makeTimer</span>() <span class="op">{</span>
+        <span class="kw">var</span> times <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+        <span class="kw">var</span> observers <span class="op">=</span> []<span class="op">;</span>
 
-        <span class="kw">function</span> <span class="fu">observe</span>(f) {
-            <span class="ot">observers</span>.<span class="fu">push</span>(f);
-        }
-        <span class="kw">function</span> <span class="fu">fire</span>() {
-            times += <span class="dv">1</span>;
-            <span class="fu">notify</span>(observers, times);
-        }
-        <span class="kw">return</span> {
-            <span class="dt">observe</span>: observe,
-            <span class="dt">fire</span>: fire
-        };
-    }
+        <span class="kw">function</span> <span class="at">observe</span>(f) <span class="op">{</span>
+            <span class="va">observers</span>.<span class="at">push</span>(f)<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="kw">function</span> <span class="at">fire</span>() <span class="op">{</span>
+            times <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span>
+            <span class="at">notify</span>(observers<span class="op">,</span> times)<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="cf">return</span> <span class="op">{</span>
+            <span class="dt">observe</span><span class="op">:</span> observe<span class="op">,</span>
+            <span class="dt">fire</span><span class="op">:</span> fire
+        <span class="op">};</span>
+    <span class="op">}</span>
 
-    <span class="kw">function</span> <span class="fu">addTimer</span>() {
-        <span class="kw">var</span> newTimer = <span class="fu">makeTimer</span>();
-        <span class="ot">allTimers</span>.<span class="fu">push</span>(newTimer);
-        <span class="kw">return</span> newTimer;
-    }
+    <span class="kw">function</span> <span class="at">addTimer</span>() <span class="op">{</span>
+        <span class="kw">var</span> newTimer <span class="op">=</span> <span class="at">makeTimer</span>()<span class="op">;</span>
+        <span class="va">allTimers</span>.<span class="at">push</span>(newTimer)<span class="op">;</span>
+        <span class="cf">return</span> newTimer<span class="op">;</span>
+    <span class="op">}</span>
 
-    <span class="kw">function</span> <span class="fu">fireAll</span>() {
-        <span class="kw">for</span> (<span class="kw">var</span> i = <span class="dv">0</span>; i &lt; <span class="ot">allTimers</span>.<span class="fu">length</span>; i += <span class="dv">1</span>) {
-            allTimers[i].<span class="fu">fire</span>();
-        }
-    }
+    <span class="kw">function</span> <span class="at">fireAll</span>() <span class="op">{</span>
+        <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">allTimers</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+            allTimers[i].<span class="at">fire</span>()<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">}</span>
 
     <span class="co">// We expose the two methods we want to share</span>
-    <span class="kw">return</span> {
-        <span class="dt">make</span>: addTimer,
-        <span class="dt">fireAll</span>: fireAll
-    };
-}());</code></pre>
+    <span class="cf">return</span> <span class="op">{</span>
+        <span class="dt">make</span><span class="op">:</span> addTimer<span class="op">,</span>
+        <span class="dt">fireAll</span><span class="op">:</span> fireAll
+    <span class="op">};</span>
+<span class="op">}</span>())<span class="op">;</span></code></pre></div>
 <p>Here is a sample run, make sure you understand what is going on.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> t1 = <span class="ot">timers</span>.<span class="fu">make</span>();
-<span class="kw">var</span> t2 = <span class="ot">timers</span>.<span class="fu">make</span>();
-<span class="kw">function</span> <span class="fu">log</span>(i) { <span class="ot">console</span>.<span class="fu">log</span>(i); }
-<span class="ot">t1</span>.<span class="fu">observe</span>(log);
-<span class="ot">t2</span>.<span class="fu">observe</span>(log);
-<span class="ot">t1</span>.<span class="fu">observe</span>(log);
-<span class="ot">t1</span>.<span class="fu">fire</span>();
-<span class="ot">t1</span>.<span class="fu">fire</span>();
-<span class="ot">t1</span>.<span class="fu">fire</span>();
-<span class="ot">t2</span>.<span class="fu">fire</span>();
-<span class="ot">timers</span>.<span class="fu">fireAll</span>();</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> t1 <span class="op">=</span> <span class="va">timers</span>.<span class="at">make</span>()<span class="op">;</span>
+<span class="kw">var</span> t2 <span class="op">=</span> <span class="va">timers</span>.<span class="at">make</span>()<span class="op">;</span>
+<span class="kw">function</span> <span class="at">log</span>(i) <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(i)<span class="op">;</span> <span class="op">}</span>
+<span class="va">t1</span>.<span class="at">observe</span>(log)<span class="op">;</span>
+<span class="va">t2</span>.<span class="at">observe</span>(log)<span class="op">;</span>
+<span class="va">t1</span>.<span class="at">observe</span>(log)<span class="op">;</span>
+<span class="va">t1</span>.<span class="at">fire</span>()<span class="op">;</span>
+<span class="va">t1</span>.<span class="at">fire</span>()<span class="op">;</span>
+<span class="va">t1</span>.<span class="at">fire</span>()<span class="op">;</span>
+<span class="va">t2</span>.<span class="at">fire</span>()<span class="op">;</span>
+<span class="va">timers</span>.<span class="at">fireAll</span>()<span class="op">;</span></code></pre></div>
 <p>There is a lot going on in the above code, so take some time digesting it all.</p>
 <p>Later on we will discuss modules and make some of these ideas more precise.</p>
 </body>

@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -40,18 +58,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <h2 id="notes">Notes</h2>
 <h3 id="templates-in-general">Templates in General</h3>
-<p>HTML Templates are used to create an outline for the kind of HTML you want, with placeholders to fill in based on an object's parameters.</p>
+<p>HTML Templates are used to create an outline for the kind of HTML you want, with placeholders to fill in based on an object’s parameters.</p>
 <p>So here is a simple example of a template:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;todo&quot;</span><span class="ot"> data-id=</span><span class="st">&quot;{{id}}&quot;</span><span class="kw">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;todo&quot;</span><span class="ot"> data-id=</span><span class="st">&quot;{{id}}&quot;</span><span class="kw">&gt;</span>
   <span class="kw">&lt;h3&gt;</span>{{title}}<span class="kw">&lt;h3&gt;</span>
   <span class="kw">&lt;p&gt;</span>{{text}}<span class="kw">&lt;/p&gt;</span>
-<span class="kw">&lt;/div&gt;</span></code></pre>
-<p>So in this template there are three placeholders, one for a todo's title and another for todo's text. And a third placeholder inside the &quot;data-id&quot; attribute. Overall using this template would go as follows:</p>
+<span class="kw">&lt;/div&gt;</span></code></pre></div>
+<p>So in this template there are three placeholders, one for a todo’s title and another for todo’s text. And a third placeholder inside the “data-id” attribute. Overall using this template would go as follows:</p>
 <ol style="list-style-type: decimal">
 <li>Load the template into a string <code>templString</code>.</li>
-<li>&quot;Compile&quot; that template string: <code>templFunc = Handlebars.compile(templString)</code>. This gives us back a function.</li>
-<li>Call that function with an object to a get a &quot;filled in&quot; string: <code>templFunc({ id: 2, title: &quot;yey!&quot;, text: &quot;booooring&quot; })</code></li>
-<li>Use that string with jquery's <code>html</code>-type methods to insert this string as HTML.</li>
+<li>“Compile” that template string: <code>templFunc = Handlebars.compile(templString)</code>. This gives us back a function.</li>
+<li>Call that function with an object to a get a “filled in” string: <code>templFunc({ id: 2, title: &quot;yey!&quot;, text: &quot;booooring&quot; })</code></li>
+<li>Use that string with jquery’s <code>html</code>-type methods to insert this string as HTML.</li>
 </ol>
 <p>This is in general the idea: You separate the structure of the HTML from the creation of the data that is to be used to fill it in. This makes it very easy to completely change the look and feel of the program without having to change the code that generates it, by simply editing the template instead.</p>
 <p>The power of templates stems from the functionalities they provide:</p>
@@ -59,12 +77,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Ways to iterate over a list of items</li>
 <li>Ways to conditionally insert a component based on a condition</li>
 <li>Ways to control whether something will go through HTML escaping or not</li>
-<li>Ways to provide your own &quot;builder&quot; methods for performing smart tasks</li>
+<li>Ways to provide your own “builder” methods for performing smart tasks</li>
 <li>Ways to delve deeper into an object via nested paths</li>
 </ul>
 <p>Different template libraries offer more or fewer of these features. We will focus on the Handlebars library.</p>
 <h3 id="templates-via-handlebars">Templates via Handlebars</h3>
-<p>The Handlebars library defines a Handlebars global, or you can use is as part of an AMD loading system. There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at <a href="https://github.com/wycats/handlebars.js/">the project's GitHub page</a>.</p>
+<p>The Handlebars library defines a Handlebars global, or you can use is as part of an AMD loading system. There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at <a href="https://github.com/wycats/handlebars.js/">the project’s GitHub page</a>.</p>
 <p>For now we focus on the kind of functionality it offers:</p>
 <dl>
 <dt>{{aKey}}</dt>
@@ -74,15 +92,15 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>Inserts the value stored in the key <code>aKey</code> <em>as is</em>. Any HTML present will result in HTML inserted.
 </dd>
 <dt>{{aKey.withinAKey}}</dt>
-<dd>This will access a property within the object defined by a property of the main passed object. You can also use &quot;<code>../</code>&quot; to evaluate something relative to the &quot;parent&quot; context.
+<dd>This will access a property within the object defined by a property of the main passed object. You can also use “<code>../</code>” to evaluate something relative to the “parent” context.
 </dd>
-<dt>{{#each aKey}}...{{/each}}</dt>
+<dt>{{#each aKey}}…{{/each}}</dt>
 <dd>Meant to be used with a key that returns an array of values. Will repeat the contained block once for each value in the array, using that value as the context.
 </dd>
-<dt>{{#if aKey}}...{{/if}}</dt>
-<dd>Only conditionally include that block depending on <code>aKey</code>'s value.
+<dt>{{#if aKey}}…{{/if}}</dt>
+<dd>Only conditionally include that block depending on <code>aKey</code>’s value.
 </dd>
-<dt>{{! ...}} / {{!-- --}}</dt>
+<dt>{{! …}} / {{!– –}}</dt>
 <dd>Comments.
 </dd>
 <dt>{{helper arg1 arg2}}</dt>
@@ -91,10 +109,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Some <a href="http://handlebarsjs.com/builtin_helpers.html">built-in helpers</a> are provided.</p>
 </dd>
 <dt>{{&gt; partialName}}</dt>
-<dd>Can be used to insert other &quot;partial&quot; templates. So you can break your template into smaller reusable chunks.
+<dd>Can be used to insert other “partial” templates. So you can break your template into smaller reusable chunks.
 </dd>
 </dl>
-<p>Here's a reference to the complete <a href="http://handlebarsjs.com/reference.html">Handlebars API</a>. Study it!</p>
+<p>Here’s a reference to the complete <a href="http://handlebarsjs.com/reference.html">Handlebars API</a>. Study it!</p>
 <p>You can see an <a href="https://github.com/skiadas/WebAppsTodo/tree/master/app/template.handlebars">example of using a Handlebars template</a> in our TodoApp. It is <a href="https://github.com/skiadas/WebAppsTodo/tree/master/app/template.js">loaded via a helper javascript file</a>.</p>
 </body>
 </html>

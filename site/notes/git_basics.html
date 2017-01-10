@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -48,54 +66,54 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <h3 id="recording-changes">Recording changes</h3>
 <p>Look at this <a href="http://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository">picture</a> for a good idea of the different stages that files can be in.</p>
-<p>The main command used to get information about the status of your files is <code>git status</code>. If we try this on our empty directory, we get a nice clean message that there's nothing to do. Let's get something in there. Open the folder in Sublime Text. You can do it by typing &quot;<code>subl .</code>&quot;</p>
-<p>Let's create a new HTML file, call it <code>testFile.html</code>. Try these contents:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<p>The main command used to get information about the status of your files is <code>git status</code>. If we try this on our empty directory, we get a nice clean message that there’s nothing to do. Let’s get something in there. Open the folder in Sublime Text. You can do it by typing “<code>subl .</code>”</p>
+<p>Let’s create a new HTML file, call it <code>testFile.html</code>. Try these contents:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
 <span class="kw">&lt;html&gt;</span>
    <span class="kw">&lt;body&gt;</span>
       <span class="kw">&lt;p&gt;</span>Hello world!<span class="kw">&lt;/p&gt;</span>
    <span class="kw">&lt;/body&gt;</span>
-<span class="kw">&lt;/html&gt;</span></code></pre>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
 <p>Save the file, and back on the terminal type <code>git status</code>. It should tell you that you now have one untracked file.</p>
 <p>To start tracking this file, you need to add it:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add testFile.html
-<span class="kw">git</span> status</code></pre>
-<p>You should see that the file now is staged to be committed when we make the next commit. Git also tells you what to do if you want to unstage it. Let's try it:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> rm --cached testFile.html
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add testFile.html
+<span class="kw">git</span> status</code></pre></div>
+<p>You should see that the file now is staged to be committed when we make the next commit. Git also tells you what to do if you want to unstage it. Let’s try it:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> rm --cached testFile.html
 <span class="kw">git</span> status
-<span class="kw">git</span> add testFile.html</code></pre>
+<span class="kw">git</span> add testFile.html</code></pre></div>
 <p>Let us go ahead and commit this file:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> commit</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> commit</code></pre></div>
 <p>This should open a window in your chosen editor, allowing you to type in a comment to go with the commit. Type in a comment, save and close the window. Git will get back to you with an somewhat informative message. Try <code>git status</code> again.</p>
 <p>Let us go back and edit our file:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
 <span class="kw">&lt;html&gt;</span>
    <span class="kw">&lt;body&gt;</span>
       <span class="kw">&lt;p&gt;</span>Goodbye cruel world!<span class="kw">&lt;/p&gt;</span>
    <span class="kw">&lt;/body&gt;</span>
-<span class="kw">&lt;/html&gt;</span></code></pre>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
 <p>Try <code>git status</code> again. It will now tell you that there is a modified file, but that it is not staged for commit. To get more information, we can use :</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff</code></pre>
-<p>Try that now. It should show you that there is one line removed, and one line inserted. Go ahead and do an &quot;git add&quot; to stage that change.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff</code></pre></div>
+<p>Try that now. It should show you that there is one line removed, and one line inserted. Go ahead and do an “git add” to stage that change.</p>
 <p>It is typical that you might want to review the changes that you are about to commit before you do so. you can do this as follows:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff --staged</code></pre>
-<p>Now do a &quot;commit&quot;. If you want to skip the &quot;message in the editor&quot; part, you can instead do this:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> commit -m <span class="st">&quot;Hello becomes goodbye&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff --staged</code></pre></div>
+<p>Now do a “commit”. If you want to skip the “message in the editor” part, you can instead do this:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> commit -m <span class="st">&quot;Hello becomes goodbye&quot;</span></code></pre></div>
 <p>Congratulations, you have now made your first two commits! We will see a bit later how to view previous commits and other cool stuff.</p>
 <p>And these are the basics of the commit system. Here are some other useful commands:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> reset HEAD filename    <span class="co"># unstages the filename. Useful if you did not mean to add that file to the changes</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> reset HEAD filename    <span class="co"># unstages the filename. Useful if you did not mean to add that file to the changes</span>
 <span class="kw">git</span> commit --amend         <span class="co"># amends the previous commit instead of creating a new one</span>
-<span class="kw">git</span> checkout -- filename   <span class="co"># discards modifications to the filename, restoring it to its previous state. DANGEROUS! You lose all changes to the file.</span></code></pre>
+<span class="kw">git</span> checkout -- filename   <span class="co"># discards modifications to the filename, restoring it to its previous state. DANGEROUS! You lose all changes to the file.</span></code></pre></div>
 <h3 id="managing-commits-and-their-history">Managing commits and their history</h3>
-<p>All these commits wouldn't do us any good if we couldn't go back and interact with previous commits. Let's see how we can do that. The basic command is:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log</code></pre>
-<p>try it out now. You should see two commits, each with a hash number next to the word &quot;commit&quot;. This hash number is in fact the commit's &quot;name&quot;, it's how the system refers to that commit. It also shows you the name of the committer, as well as the message.</p>
+<p>All these commits wouldn’t do us any good if we couldn’t go back and interact with previous commits. Let’s see how we can do that. The basic command is:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log</code></pre></div>
+<p>try it out now. You should see two commits, each with a hash number next to the word “commit”. This hash number is in fact the commit’s “name”, it’s how the system refers to that commit. It also shows you the name of the committer, as well as the message.</p>
 <p>Some times you want a shorter view:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --pretty=oneline</code></pre>
-<p>There are lots of other options. Note that these &quot;hashlike&quot; commit names may look weird, but are in many ways awesome. For now, know that it is usually enough to copy/paste just the first 6 numbers/letters, they are usually enough to uniquely determine the commit.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log --pretty=oneline</code></pre></div>
+<p>There are lots of other options. Note that these “hashlike” commit names may look weird, but are in many ways awesome. For now, know that it is usually enough to copy/paste just the first 6 numbers/letters, they are usually enough to uniquely determine the commit.</p>
 <p>Here are some other useful versions of <code>git log</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log -p -2
-<span class="kw">git</span> log --stat</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> log -p -2
+<span class="kw">git</span> log --stat</code></pre></div>
 <p>The first one will show you, along with each commit, a diff of the changes that commit introduced. The <code>-2</code> limits it to the last two commits. The second will show you some statistics of each commit.</p>
 </body>
 </html>

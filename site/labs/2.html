@@ -8,39 +8,57 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
-<h1 id="lab-2">Lab 2<span class="small"> (<a href="2.pdf" title="2">pdf</a>)</span></h1>
+<h1 id="lab-2">Lab 2<span class="small"> (<a href="2.pdf" class="small" title="2">pdf</a>)</span></h1>
 <p>In this lab you will learn how to write tests, and practice some of the structure-building concepts we have learned so far.</p>
 <h2 id="testing-basics">Testing Basics</h2>
 <p>When we refer to tests, we typically mean automated tests. Those tests fall into various categories:</p>
 <dl>
 <dt>Unit Tests</dt>
-<dd><p>Unit tests test a single tiny individual component of your application. You typically want to have unit tests for every bit of your code that is part of your application's <em>interface</em>.</p>
+<dd><p>Unit tests test a single tiny individual component of your application. You typically want to have unit tests for every bit of your code that is part of your application’s <em>interface</em>.</p>
 <p>You should avoid testing for things that are too implementation-dependent.</p>
-<p>Unit tests are a crucial part of the refactoring process, whose goal is to rearrange and rewrite sections of your code. A solid suite of unit tests can allow you to do this freely without worrying about breaking code. &quot;Your tests will catch that&quot;. And revision control allows you to recover if you've messed things up too much.</p>
+<p>Unit tests are a crucial part of the refactoring process, whose goal is to rearrange and rewrite sections of your code. A solid suite of unit tests can allow you to do this freely without worrying about breaking code. “Your tests will catch that”. And revision control allows you to recover if you’ve messed things up too much.</p>
 </dd>
 <dt>Integration Tests</dt>
 <dd><p>Integration tests test bigger parts of your application, making sure that different parts come together naturally.</p>
@@ -61,17 +79,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Decide on a small piece of functionality you want to add.</li>
 <li>Make a GitHub issue about it.
 <ul>
-<li>If you prefer, you can create one bigger more &quot;logical&quot; issue, and create a &quot;task list&quot; in it, following the <a href="https://github.com/blog/1375%0A-task-lists-in-gfm-issues-pulls-comments">example at this blog post</a>. Then check those items off as you implement them.</li>
+<li>If you prefer, you can create one bigger more “logical” issue, and create a “task list” in it, following the <a href="https://github.com/blog/1375%0A-task-lists-in-gfm-issues-pulls-comments">example at this blog post</a>. Then check those items off as you implement them.</li>
 </ul></li>
 <li>Write a test for the code you want to introduce.</li>
 <li>Run your tests, and watch this new test fail. This makes us more certain that the test does indeed detect the feature we want to add.</li>
-<li>Optionally, make a git commit of the test, using &quot;#...&quot; to reference the issue you created.
+<li>Optionally, make a git commit of the test, using “#…” to reference the issue you created.
 <ul>
 <li>This is a bit of a style decision, whether to commit the tests separately or whether to do one commit containing both test and new code.</li>
 </ul></li>
 <li>Write a minimal set of code that would make the test pass.</li>
 <li>Check that all your tests pass.</li>
-<li>Make a commit, using &quot;#...&quot; to reference the issue you created. Say &quot;close #...&quot; if it was a &quot;single-problem issue&quot;.
+<li>Make a commit, using “#…” to reference the issue you created. Say “close #…” if it was a “single-problem issue”.
 <ul>
 <li>This gives you a safe backup point to revert to.</li>
 </ul></li>
@@ -82,7 +100,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>This is some of the general theory behind testing. The lab readme will have more specific instructions.</p>
 <h2 id="testing-in-javascript">Testing in Javascript</h2>
 <p>We will be using <a href="http://mochajs.org/">mocha</a> in combination with <a href="http://chaijs.com/">chai</a> for our unit tests. Here is a basic html file:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
 <span class="kw">&lt;html&gt;</span>
 <span class="kw">&lt;head&gt;</span>
    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;mocha.css&quot;</span> <span class="kw">/&gt;</span>
@@ -92,52 +110,52 @@ code > span.er { color: #ff0000; font-weight: bold; }
    <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;chai.js&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
    <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;mocha.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
    <span class="kw">&lt;script&gt;</span>
-      <span class="ot">mocha</span>.<span class="fu">setup</span>(<span class="st">&#39;bdd&#39;</span>);
-      <span class="kw">var</span> expect = <span class="ot">chai</span>.<span class="fu">expect</span>;
-   &lt;<span class="ot">/script&gt;</span>
-<span class="ot">   &lt;script src=&quot;yourCode.js&quot;&gt;&lt;/script</span>&gt;
-   &lt;script src=<span class="st">&quot;tests.spec.js&quot;</span>&gt;&lt;<span class="ot">/script&gt;</span>
-<span class="ot">   &lt;script&gt;</span>
-<span class="ot">      mocha.checkLeaks</span><span class="fl">()</span><span class="ot">;</span>
-<span class="ot">      mocha.globals</span><span class="fl">(</span><span class="bn">[&#39;chai&#39;]</span><span class="fl">)</span><span class="ot">;</span>
-<span class="ot">      mocha.run</span><span class="fl">()</span><span class="ot">;</span>
-<span class="ot">  &lt;/script</span>&gt;
-&lt;<span class="ot">/body&gt;</span>
-<span class="ot">&lt;/html</span>&gt;</code></pre>
+      <span class="va">mocha</span>.<span class="at">setup</span>(<span class="st">&#39;bdd&#39;</span>)<span class="op">;</span>
+      <span class="kw">var</span> expect <span class="op">=</span> <span class="va">chai</span>.<span class="at">expect</span><span class="op">;</span>
+   <span class="op">&lt;</span><span class="ss">/script&gt;</span>
+<span class="ss">   &lt;script src=&quot;yourCode.js&quot;&gt;&lt;/script</span><span class="op">&gt;</span>
+   <span class="op">&lt;</span>script src<span class="op">=</span><span class="st">&quot;tests.spec.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
+<span class="ss">   &lt;script&gt;</span>
+<span class="ss">      mocha.checkLeaks</span><span class="sc">()</span><span class="ss">;</span>
+<span class="ss">      mocha.globals</span><span class="sc">([&#39;chai&#39;])</span><span class="ss">;</span>
+<span class="ss">      mocha.run</span><span class="sc">()</span><span class="ss">;</span>
+<span class="ss">  &lt;/script</span><span class="op">&gt;</span>
+<span class="op">&lt;</span><span class="ss">/body&gt;</span>
+<span class="ss">&lt;/html</span><span class="op">&gt;</span></code></pre></div>
 <p>All the tests go into <code>tests.spec.js</code> (or a similarly named file). You can also use multiple test files, just put them after each other. Use the rest as a template on every project.</p>
 <p>mocha and chai together offer all the primitives we need for testing. We will describe them briefly in the following section. Refer to their homepages for more info.</p>
 <h3 id="mocha-and-chai">Mocha and Chai</h3>
 <p>Mocha provides a couple of basic functions for us. We use them to structure our test suites.</p>
 <dl>
 <dt><code>describe</code></dt>
-<dd><p>Starts a new test suite. First argument is a string &quot;title&quot;. Second is an anonymous argumentless function that contains the tests.</p>
-<p>The string titles together with the titles from the &quot;it&quot; sections should form sentences asserting what the test does.</p>
-<p>You can have nested &quot;describe&quot;s.</p>
+<dd><p>Starts a new test suite. First argument is a string “title”. Second is an anonymous argumentless function that contains the tests.</p>
+<p>The string titles together with the titles from the “it” sections should form sentences asserting what the test does.</p>
+<p>You can have nested “describe”s.</p>
 </dd>
 <dt><code>it</code></dt>
-<dd><p>Starts a new unit test. Should only appear within the function in a &quot;describe&quot;. First argument is a string &quot;test title&quot;. Together with the &quot;describe&quot;'s string, it should form a sentence.</p>
+<dd><p>Starts a new unit test. Should only appear within the function in a “describe”. First argument is a string “test title”. Together with the “describe”’s string, it should form a sentence.</p>
 <p>Second argument is an anonymous argumentless function. It will contain the statements that comprise the test.</p>
 </dd>
 <dt><code>before</code>/<code>after</code></dt>
-<dd>They go in a &quot;describe&quot; and they take as argument an anonymous argumentless function. They will run this function before starting (respectively after completing) the tests. Look for &quot;hooks&quot; in mocha doc.
+<dd>They go in a “describe” and they take as argument an anonymous argumentless function. They will run this function before starting (respectively after completing) the tests. Look for “hooks” in mocha doc.
 </dd>
 <dt><code>beforeEach</code>/<code>afterEach</code></dt>
-<dd>Similar, except that they run before/after <em>each</em> test in the describe, rather than only once. Look for &quot;hooks&quot; in mocha doc.
+<dd>Similar, except that they run before/after <em>each</em> test in the describe, rather than only once. Look for “hooks” in mocha doc.
 </dd>
 <dt><code>only</code></dt>
-<dd>You can force the running of a single test, or test suite, by using this. Look for &quot;exclusive tests&quot; in mocha doc.
+<dd>You can force the running of a single test, or test suite, by using this. Look for “exclusive tests” in mocha doc.
 </dd>
 <dt><code>skip</code></dt>
-<dd>Can be used to tell it to skip the specific test. Look for &quot;inclusive tests&quot; in mocha doc.
+<dd>Can be used to tell it to skip the specific test. Look for “inclusive tests” in mocha doc.
 </dd>
 </dl>
-<p>Chai is used to write tests. We will be using its &quot;expect&quot; interface, <a href="http://chaijs.com/api/bdd/">whose API is here</a>.</p>
+<p>Chai is used to write tests. We will be using its “expect” interface, <a href="http://chaijs.com/api/bdd/">whose API is here</a>.</p>
 <dl>
 <dt><code>expect(...)</code></dt>
-<dd>The start point. <code>expect(something).to..</code> is the basic structure. Everything else is &quot;chained&quot; at the end of the expect.
+<dd>The start point. <code>expect(something).to..</code> is the basic structure. Everything else is “chained” at the end of the expect.
 </dd>
 <dt>chainable words</dt>
-<dd>a series of &quot;words&quot; that have no meaning but are used to form something that looks more like a sentence: &quot;to&quot;, &quot;be&quot;, &quot;is&quot;, &quot;that&quot;, &quot;have&quot;, &quot;has&quot;, some more.
+<dd>a series of “words” that have no meaning but are used to form something that looks more like a sentence: “to”, “be”, “is”, “that”, “have”, “has”, some more.
 </dd>
 <dt><code>.not</code></dt>
 <dd>negates the test.
@@ -160,22 +178,22 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dl>
 <h2 id="basic-steps">Basic steps</h2>
 <ol style="list-style-type: decimal">
-<li>You should have already decided which of the two partner's GitHub account to use.</li>
+<li>You should have already decided which of the two partner’s GitHub account to use.</li>
 <li>If you have not switched roles with your partner so far, this is a good time to do so.</li>
 <li>You need to first bring your version of the lab up-to-date by fetching from the remote that is linked to MY project. This is a bit tedious.
 <ul>
-<li>Use &quot;<code>git remote -v</code>&quot; to see the remote branches. There should be one named <code>mainSource</code> and pointing to <code>skiadas/WebAppsLabs</code>.</li>
-<li>We will start by fetching the newest version of that, with: &quot;<code>git fetch mainSource</code>&quot;. It should tell you about a new branch, Lab2.</li>
-<li>Create a new branch with &quot;<code>git checkout -b Lab2 --track mainSource/Lab2</code>&quot;.</li>
-<li>Push this repository to your fork, by &quot;<code>git push origin Lab2</code>&quot;.</li>
-<li>Set your local branch to in the future update your repository by: &quot;<code>git branch --set-upstream Lab2 origin/Lab2</code>&quot;.</li>
-<li>To make sure this is set up properly, do &quot;<code>git branch -vv</code>&quot;. You should see <code>[origin/Lab2]</code> next to the Lab2 branch line.</li>
+<li>Use “<code>git remote -v</code>” to see the remote branches. There should be one named <code>mainSource</code> and pointing to <code>skiadas/WebAppsLabs</code>.</li>
+<li>We will start by fetching the newest version of that, with: “<code>git fetch mainSource</code>”. It should tell you about a new branch, Lab2.</li>
+<li>Create a new branch with “<code>git checkout -b Lab2 --track mainSource/Lab2</code>”.</li>
+<li>Push this repository to your fork, by “<code>git push origin Lab2</code>”.</li>
+<li>Set your local branch to in the future update your repository by: “<code>git branch --set-upstream Lab2 origin/Lab2</code>”.</li>
+<li>To make sure this is set up properly, do “<code>git branch -vv</code>”. You should see <code>[origin/Lab2]</code> next to the Lab2 branch line.</li>
 </ul></li>
 <li>Check out the correct branch, via <code>git checkout Lab2</code>.</li>
 <li>Open the <code>README.md</code> file there, it will contain the instructions on what you need to do.</li>
 <li>When you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>
-<li>You should use the issues page to track your progress. Create a new label called &quot;Lab2&quot; and use it to tag all issues related to this lab. I will review those issues to look at your work.</li>
-<li>Needless to say it, but you are NOT allowed to look at other people's forks of the project and their issues/solutions.</li>
+<li>You should use the issues page to track your progress. Create a new label called “Lab2” and use it to tag all issues related to this lab. I will review those issues to look at your work.</li>
+<li>Needless to say it, but you are NOT allowed to look at other people’s forks of the project and their issues/solutions.</li>
 <li>I expect you to do the coding using pair programming.</li>
 </ol>
 </body>

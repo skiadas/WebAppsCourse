@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -41,7 +59,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <h2 id="components-of-a-web-application-1">Components of a Web Application</h2>
 <p>A web application starts with an HTTP request, which the browser performs when you go to a URL. The response to this request is an HTML document:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
 <span class="kw">&lt;html&gt;</span>
     <span class="kw">&lt;head&gt;</span>
         ... meta information about the page here ...
@@ -51,11 +69,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
     <span class="kw">&lt;body&gt;</span>
         ... content ...
         <span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="kw">&gt;</span>
-           ... <span class="fu">javascript</span> <span class="fu">code</span> <span class="fu">can</span> <span class="fu">go</span> <span class="ot">here</span> ...
+           ... <span class="at">javascript</span> <span class="at">code</span> <span class="at">can</span> <span class="at">go</span> <span class="va">here</span> ...
         <span class="kw">&lt;/script&gt;</span>
         <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;aFilename.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>  ... This line loads a Javascript file.
     <span class="kw">&lt;/body&gt;</span>
-<span class="kw">&lt;/html&gt;</span></code></pre>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
 <p>There are essentially 3 components to every page:</p>
 <dl>
 <dt>Structure</dt>
@@ -72,9 +90,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Processing of the information in this HTML file happens sequentially. As tags are encountered, they are <em>rendered</em> on the page.</li>
 <li>When a <code>link</code> to a CSS file is encountered, that file is downloaded in the background, while the rest of the page is rendered. When it has been downloaded, its effects are applied to the current document.</li>
 <li>When a <code>script</code> tag is encountered, page rendering stops until that tag has been fully processed. This is important to keep in mind.</li>
-<li>As a consequence, the practice is that we put &quot;css links at the top of the file, scripts at the bottom&quot;.</li>
+<li>As a consequence, the practice is that we put “css links at the top of the file, scripts at the bottom”.</li>
 <li><code>script</code> tags are the only way to get Javascript code to run.</li>
-<li>Scripts are all loaded in a &quot;global scope&quot;, there is no distinction between the different tags.</li>
+<li>Scripts are all loaded in a “global scope”, there is no distinction between the different tags.</li>
 <li>Internally, the structure of the page is a tree. You can examine this tree using the developer tools (Elements tag in Chrome).</li>
 </ul>
 <h2 id="working-with-the-elements-tag-in-chrome">Working with the Elements tag in Chrome</h2>

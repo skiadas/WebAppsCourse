@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -41,89 +59,89 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><strong>mixin</strong></li>
 </ul>
 <h3 id="inheritance">Inheritance</h3>
-<p>Class inheritance is a fundamental component of object-oriented programming, but must be used with care and when appropriate. The key notion is that of a <em>subclass</em>, whereupon a class can inherit all of another class's properties and methods, and override those that it needs to or add new methods. The subclassing relation is often called an &quot;is a&quot; relation.</p>
-<p>We will take a look at an example in a minute, but first of all, let us discuss a &quot;newClass&quot; method we will start using, which &quot;creates&quot; a new class.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">newClass</span>(init, superclass) {
-   <span class="kw">var</span> cls, proto;
+<p>Class inheritance is a fundamental component of object-oriented programming, but must be used with care and when appropriate. The key notion is that of a <em>subclass</em>, whereupon a class can inherit all of another class’s properties and methods, and override those that it needs to or add new methods. The subclassing relation is often called an “is a” relation.</p>
+<p>We will take a look at an example in a minute, but first of all, let us discuss a “newClass” method we will start using, which “creates” a new class.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">newClass</span>(init<span class="op">,</span> superclass) <span class="op">{</span>
+   <span class="kw">var</span> cls<span class="op">,</span> proto<span class="op">;</span>
 
-   init = init || <span class="kw">function</span>() {};
-   superclass = superclass || Object;
-   proto = <span class="ot">Object</span>.<span class="fu">create</span>(<span class="ot">superclass</span>.<span class="fu">prototype</span>);
-   cls = <span class="ot">Object</span>.<span class="fu">create</span>({}, {
-      <span class="st">&quot;prototype&quot;</span>: { <span class="dt">value</span>: proto },
-      <span class="st">&quot;super&quot;</span>: { <span class="dt">value</span>: superclass }
-   });
-   <span class="ot">Object</span>.<span class="fu">defineProperty</span>(<span class="ot">cls</span>.<span class="fu">prototype</span>, <span class="st">&quot;class&quot;</span>, { <span class="dt">value</span>: cls });
-   <span class="ot">cls</span>.<span class="fu">initialize</span> = init;
-   <span class="ot">cls</span>.<span class="fu">new</span> = <span class="kw">function</span> <span class="fu">newObj</span>() {
-      <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(proto);
-      <span class="ot">cls</span>.<span class="ot">initialize</span>.<span class="fu">apply</span>(o, arguments);
-      <span class="kw">return</span> o;
-   };
+   init <span class="op">=</span> init <span class="op">||</span> <span class="kw">function</span>() <span class="op">{};</span>
+   superclass <span class="op">=</span> superclass <span class="op">||</span> Object<span class="op">;</span>
+   proto <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(<span class="va">superclass</span>.<span class="at">prototype</span>)<span class="op">;</span>
+   cls <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(<span class="op">{},</span> <span class="op">{</span>
+      <span class="st">&quot;prototype&quot;</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> proto <span class="op">},</span>
+      <span class="st">&quot;super&quot;</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> superclass <span class="op">}</span>
+   <span class="op">}</span>)<span class="op">;</span>
+   <span class="va">Object</span>.<span class="at">defineProperty</span>(<span class="va">cls</span>.<span class="at">prototype</span><span class="op">,</span> <span class="st">&quot;class&quot;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> cls <span class="op">}</span>)<span class="op">;</span>
+   <span class="va">cls</span>.<span class="at">initialize</span> <span class="op">=</span> init<span class="op">;</span>
+   <span class="va">cls</span>.<span class="at">new</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">newObj</span>() <span class="op">{</span>
+      <span class="kw">var</span> o <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(proto)<span class="op">;</span>
+      <span class="va">cls</span>.<span class="va">initialize</span>.<span class="at">apply</span>(o<span class="op">,</span> arguments)<span class="op">;</span>
+      <span class="cf">return</span> o<span class="op">;</span>
+   <span class="op">};</span>
 
-   <span class="kw">return</span> cls;
-}</code></pre>
+   <span class="cf">return</span> cls<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>This allows us to create classes and have them inherit from other classes.</p>
 <p>The basic construction for inheritance would go something like this:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Point = <span class="fu">newClass</span>(<span class="kw">function</span> <span class="fu">init</span>(x, y) {
-   <span class="kw">this</span>.<span class="fu">x</span> = x;
-   <span class="kw">this</span>.<span class="fu">y</span> = y;
-});
-<span class="ot">Point</span>.<span class="ot">prototype</span>.<span class="fu">r</span> = <span class="kw">function</span>() {
-   <span class="kw">return</span> <span class="ot">Math</span>.<span class="fu">sqrt</span>(<span class="kw">this</span>.<span class="fu">x</span> * <span class="kw">this</span>.<span class="fu">x</span> + <span class="kw">this</span>.<span class="fu">y</span> * <span class="kw">this</span>.<span class="fu">y</span>);
-};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Point <span class="op">=</span> <span class="at">newClass</span>(<span class="kw">function</span> <span class="at">init</span>(x<span class="op">,</span> y) <span class="op">{</span>
+   <span class="kw">this</span>.<span class="at">x</span> <span class="op">=</span> x<span class="op">;</span>
+   <span class="kw">this</span>.<span class="at">y</span> <span class="op">=</span> y<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+<span class="va">Point</span>.<span class="va">prototype</span>.<span class="at">r</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+   <span class="cf">return</span> <span class="va">Math</span>.<span class="at">sqrt</span>(<span class="kw">this</span>.<span class="at">x</span> <span class="op">*</span> <span class="kw">this</span>.<span class="at">x</span> <span class="op">+</span> <span class="kw">this</span>.<span class="at">y</span> <span class="op">*</span> <span class="kw">this</span>.<span class="at">y</span>)<span class="op">;</span>
+<span class="op">};</span>
 
-<span class="kw">var</span> ColorPoint = <span class="fu">newClass</span>(
-   <span class="kw">function</span> <span class="fu">init</span>(x, y, color) {
-      <span class="ot">Point</span>.<span class="ot">initialize</span>.<span class="fu">call</span>(<span class="kw">this</span>, x, y);
-      <span class="kw">this</span>.<span class="fu">color</span> = color;
-   },
+<span class="kw">var</span> ColorPoint <span class="op">=</span> <span class="at">newClass</span>(
+   <span class="kw">function</span> <span class="at">init</span>(x<span class="op">,</span> y<span class="op">,</span> color) <span class="op">{</span>
+      <span class="va">Point</span>.<span class="va">initialize</span>.<span class="at">call</span>(<span class="kw">this</span><span class="op">,</span> x<span class="op">,</span> y)<span class="op">;</span>
+      <span class="kw">this</span>.<span class="at">color</span> <span class="op">=</span> color<span class="op">;</span>
+   <span class="op">},</span>
    Point  <span class="co">// &lt;---- ColorPoint inherits from Point</span>
-);
-<span class="ot">ColorPoint</span>.<span class="ot">prototype</span>.<span class="fu">getColor</span> = <span class="kw">function</span>() {
-      <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">color</span>;
-};
+)<span class="op">;</span>
+<span class="va">ColorPoint</span>.<span class="va">prototype</span>.<span class="at">getColor</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+      <span class="cf">return</span> <span class="kw">this</span>.<span class="at">color</span><span class="op">;</span>
+<span class="op">};</span>
 
-<span class="kw">var</span> p1 = <span class="ot">Point</span>.<span class="fu">new</span>(<span class="dv">2</span>,<span class="dv">3</span>);
-<span class="ot">p1</span>.<span class="fu">x</span>;
-<span class="ot">p1</span>.<span class="fu">y</span>;
-<span class="ot">p1</span>.<span class="fu">r</span>();
+<span class="kw">var</span> p1 <span class="op">=</span> <span class="va">Point</span>.<span class="at">new</span>(<span class="dv">2</span><span class="op">,</span><span class="dv">3</span>)<span class="op">;</span>
+<span class="va">p1</span>.<span class="at">x</span><span class="op">;</span>
+<span class="va">p1</span>.<span class="at">y</span><span class="op">;</span>
+<span class="va">p1</span>.<span class="at">r</span>()<span class="op">;</span>
 
-<span class="kw">var</span> p2 = <span class="ot">ColorPoint</span>.<span class="fu">new</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="st">&quot;blue&quot;</span>);
-<span class="ot">p2</span>.<span class="fu">x</span>;
-<span class="ot">p2</span>.<span class="fu">y</span>;
-<span class="ot">p2</span>.<span class="fu">r</span>();
-<span class="ot">p2</span>.<span class="fu">getColor</span>();</code></pre>
-<p>We set a class to inherit from another by passing the superclass as the second argument in newClass. Effectively this makes our subclass's prototype inherit from the superclass' prototype. So in our example, the ColorPoint class inherits all methods of the Point class.</p>
-<p>This is then one way to &quot;reuse code&quot;: The subclass' objects can reuse the methods of the superclass', provided the don't override them.</p>
+<span class="kw">var</span> p2 <span class="op">=</span> <span class="va">ColorPoint</span>.<span class="at">new</span>(<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="st">&quot;blue&quot;</span>)<span class="op">;</span>
+<span class="va">p2</span>.<span class="at">x</span><span class="op">;</span>
+<span class="va">p2</span>.<span class="at">y</span><span class="op">;</span>
+<span class="va">p2</span>.<span class="at">r</span>()<span class="op">;</span>
+<span class="va">p2</span>.<span class="at">getColor</span>()<span class="op">;</span></code></pre></div>
+<p>We set a class to inherit from another by passing the superclass as the second argument in newClass. Effectively this makes our subclass’s prototype inherit from the superclass’ prototype. So in our example, the ColorPoint class inherits all methods of the Point class.</p>
+<p>This is then one way to “reuse code”: The subclass’ objects can reuse the methods of the superclass’, provided the don’t override them.</p>
 <p>Disadvantages:</p>
 <ul>
 <li>The subclass now becomes dependent on the internals of the superclass. instance variables are shared, you have to be careful with method names, etc. Inheritance requires a very tight relationship between the class and its superclass.</li>
-<li>On deep inheritance chains, it might be hard to figure out for a given method which code will actually get executed. Looking at your code does not make that immediately clear, you have to find the &quot;newest&quot; superclass that implemented the method. Avoid long complicated inheritance chains.</li>
+<li>On deep inheritance chains, it might be hard to figure out for a given method which code will actually get executed. Looking at your code does not make that immediately clear, you have to find the “newest” superclass that implemented the method. Avoid long complicated inheritance chains.</li>
 <li>Cannot easily inherit from multiple classes.</li>
 </ul>
 <h3 id="composition-and-delegation">Composition and Delegation</h3>
 <p>In object composition one object holds in its instance variables a reference to another object, and accesses it that way. It might optionally create methods that turn around and call methods of the composed object:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ColorPoint = <span class="fu">newClass</span>(<span class="kw">function</span> <span class="fu">init</span>(x, y, color) {
-      <span class="kw">this</span>.<span class="fu">point</span> = <span class="ot">Point</span>.<span class="fu">new</span>(x, y);
-      <span class="kw">this</span>.<span class="fu">color</span> = color;
-});
-<span class="ot">ColorPoint</span>.<span class="ot">prototype</span>.<span class="fu">setPoint</span> = <span class="kw">function</span>(p) {
-   <span class="kw">this</span>.<span class="fu">point</span> = p;
-   <span class="kw">return</span> <span class="kw">this</span>;
-};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ColorPoint <span class="op">=</span> <span class="at">newClass</span>(<span class="kw">function</span> <span class="at">init</span>(x<span class="op">,</span> y<span class="op">,</span> color) <span class="op">{</span>
+      <span class="kw">this</span>.<span class="at">point</span> <span class="op">=</span> <span class="va">Point</span>.<span class="at">new</span>(x<span class="op">,</span> y)<span class="op">;</span>
+      <span class="kw">this</span>.<span class="at">color</span> <span class="op">=</span> color<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+<span class="va">ColorPoint</span>.<span class="va">prototype</span>.<span class="at">setPoint</span> <span class="op">=</span> <span class="kw">function</span>(p) <span class="op">{</span>
+   <span class="kw">this</span>.<span class="at">point</span> <span class="op">=</span> p<span class="op">;</span>
+   <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+<span class="op">};</span>
 <span class="co">// delegate calls to point</span>
-<span class="ot">ColorPoint</span>.<span class="ot">prototype</span>.<span class="fu">getx</span> = <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">x</span>; };
+<span class="va">ColorPoint</span>.<span class="va">prototype</span>.<span class="at">getx</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span> <span class="cf">return</span> <span class="kw">this</span>.<span class="va">point</span>.<span class="at">x</span><span class="op">;</span> <span class="op">};</span>
 <span class="co">// Or even transparently</span>
-<span class="ot">Object</span>.<span class="fu">defineProperty</span>(<span class="ot">ColorPoint</span>.<span class="fu">prototype</span>, <span class="st">&quot;x&quot;</span>, {
-   <span class="dt">enumerable</span>: <span class="kw">true</span>,
-   <span class="dt">get</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">x</span>; },
-   <span class="dt">set</span>: <span class="kw">function</span>(v) { <span class="kw">this</span>.<span class="ot">point</span>.<span class="fu">x</span> = v; <span class="kw">return</span> <span class="kw">this</span>; }
-});</code></pre>
+<span class="va">Object</span>.<span class="at">defineProperty</span>(<span class="va">ColorPoint</span>.<span class="at">prototype</span><span class="op">,</span> <span class="st">&quot;x&quot;</span><span class="op">,</span> <span class="op">{</span>
+   <span class="dt">enumerable</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span>
+   <span class="dt">get</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span> <span class="cf">return</span> <span class="kw">this</span>.<span class="va">point</span>.<span class="at">x</span><span class="op">;</span> <span class="op">},</span>
+   <span class="dt">set</span><span class="op">:</span> <span class="kw">function</span>(v) <span class="op">{</span> <span class="kw">this</span>.<span class="va">point</span>.<span class="at">x</span> <span class="op">=</span> v<span class="op">;</span> <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span> <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>Advantages:</p>
 <ul>
-<li>The internals of the composed object are kept private; the object that included it just uses its interface. For instance in the above example, the Point class could have been implemented any old way and our ColorPoint wouldn't care. This leads to more loosely coupled designs.</li>
-<li>The class of the composed object can be selected dynamically at run time, as long as it still provides the interface needed. Inheritance on the other hand is more of a &quot;compile-time&quot; consideration.</li>
+<li>The internals of the composed object are kept private; the object that included it just uses its interface. For instance in the above example, the Point class could have been implemented any old way and our ColorPoint wouldn’t care. This leads to more loosely coupled designs.</li>
+<li>The class of the composed object can be selected dynamically at run time, as long as it still provides the interface needed. Inheritance on the other hand is more of a “compile-time” consideration.</li>
 </ul>
 <p>Disadvantages:</p>
 <ul>
@@ -131,18 +149,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p>One of our design principles is to favor composition over inheritance, as it tends to create more flexible designs.</p>
 <h3 id="mixins">Mixins</h3>
-<p>There is another possibility that can be helpful some times, called a mixin. It is typically used when you want to reuse some functionality. For instance, we can &quot;mix in&quot; the iterator prototype methods into an object with &quot;next&quot; and &quot;hasNext&quot; methods.</p>
+<p>There is another possibility that can be helpful some times, called a mixin. It is typically used when you want to reuse some functionality. For instance, we can “mix in” the iterator prototype methods into an object with “next” and “hasNext” methods.</p>
 <p>Mixing in involves directly copying all the methods from one or more objects into another, with something like this:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">mixin</span>(target) {
-   <span class="ot">Array</span>.<span class="ot">prototype</span>.<span class="ot">slice</span>.<span class="fu">call</span>(arguments, <span class="dv">1</span>)
-      .<span class="fu">forEach</span>(<span class="kw">function</span>(source) {
-         <span class="ot">Object</span>.<span class="fu">keys</span>(source).<span class="fu">forEach</span>(<span class="kw">function</span>(key) {
-            target[key] = source[key];
-         });
-      });
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">mixin</span>(target) <span class="op">{</span>
+   <span class="va">Array</span>.<span class="va">prototype</span>.<span class="va">slice</span>.<span class="at">call</span>(arguments<span class="op">,</span> <span class="dv">1</span>)
+      .<span class="at">forEach</span>(<span class="kw">function</span>(source) <span class="op">{</span>
+         <span class="va">Object</span>.<span class="at">keys</span>(source).<span class="at">forEach</span>(<span class="kw">function</span>(key) <span class="op">{</span>
+            target[key] <span class="op">=</span> source[key]<span class="op">;</span>
+         <span class="op">}</span>)<span class="op">;</span>
+      <span class="op">}</span>)<span class="op">;</span>
 
-   <span class="kw">return</span> target;
-}</code></pre>
+   <span class="cf">return</span> target<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>Disadvantages:</p>
 <ul>
 <li>The link between the new methods and the old ones is broken. If something dynamically changes the old methods, the mixed in ones will not change.</li>

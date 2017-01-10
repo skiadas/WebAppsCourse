@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -44,100 +62,100 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>This is an important separation of responsibilities: The collection is responsible for maintaining it elements, adding new elements or removing them when appropriate, and so on. It needs to provide access to the elements in some fashion, but it does <em>not</em> need to know about how its clients will use those elements.</p>
 <p>The iterator pattern consists of two parts:</p>
 <ol style="list-style-type: decimal">
-<li>The collection needs to have a method <code>iterator</code> that returns an &quot;iterator object&quot;. In a statically typed language, this would be enforced with an interface.</li>
+<li>The collection needs to have a method <code>iterator</code> that returns an “iterator object”. In a statically typed language, this would be enforced with an interface.</li>
 <li>The <code>Iterator</code> class consists of objects that have two methods:
 <ul>
 <li><code>hasNext</code>: Returns a boolean telling us whether there is a next element or not.</li>
 <li><code>next</code>: Returns the next element (behavior undefined if hasNext has returned <code>false</code>).</li>
-<li>The &quot;contract&quot;, &quot;promise&quot;, that the iterator class will make is that if <code>hasNext</code> returns true then calling <code>next</code> will return the next number in the collection. No guarantees are made in the event that you call <code>next</code> before calling <code>hasNext</code>, or if you call <code>next</code> when <code>hasNext</code> has returned false. We will see towards the end how to add a &quot;forceContract&quot; method. After this method is in place, it should prevent you from calling <code>next</code> unless it is after a successful <code>hasNext</code>.</li>
+<li>The “contract”, “promise”, that the iterator class will make is that if <code>hasNext</code> returns true then calling <code>next</code> will return the next number in the collection. No guarantees are made in the event that you call <code>next</code> before calling <code>hasNext</code>, or if you call <code>next</code> when <code>hasNext</code> has returned false. We will see towards the end how to add a “forceContract” method. After this method is in place, it should prevent you from calling <code>next</code> unless it is after a successful <code>hasNext</code>.</li>
 </ul></li>
 </ol>
 <p>Let us start implementing the iterator class. If you are following this on your own, you should try to implement each step on your own before reading the solution.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Iterator = (<span class="kw">function</span>() {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Iterator <span class="op">=</span> (<span class="kw">function</span>() <span class="op">{</span>
 
-    <span class="kw">var</span> Iterator, proto;
+    <span class="kw">var</span> Iterator<span class="op">,</span> proto<span class="op">;</span>
 
-    Iterator = {};
-    proto = {};
-    <span class="ot">Iterator</span>.<span class="fu">prototype</span> = proto;
+    Iterator <span class="op">=</span> <span class="op">{};</span>
+    proto <span class="op">=</span> <span class="op">{};</span>
+    <span class="va">Iterator</span>.<span class="at">prototype</span> <span class="op">=</span> proto<span class="op">;</span>
 
     <span class="co">// Basic constructor</span>
-    <span class="ot">Iterator</span>.<span class="fu">new</span> = <span class="kw">function</span> <span class="fu">newIterator</span>(next, hasNext) {
-        <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(proto);
-        <span class="ot">o</span>.<span class="fu">next</span> = next;
-        <span class="ot">o</span>.<span class="fu">hasNext</span> = hasNext;
-        <span class="kw">return</span> o;
-    };
+    <span class="va">Iterator</span>.<span class="at">new</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">newIterator</span>(next<span class="op">,</span> hasNext) <span class="op">{</span>
+        <span class="kw">var</span> o <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(proto)<span class="op">;</span>
+        <span class="va">o</span>.<span class="at">next</span> <span class="op">=</span> next<span class="op">;</span>
+        <span class="va">o</span>.<span class="at">hasNext</span> <span class="op">=</span> hasNext<span class="op">;</span>
+        <span class="cf">return</span> o<span class="op">;</span>
+    <span class="op">};</span>
 
     <span class="co">// Class method</span>
-    <span class="ot">Iterator</span>.<span class="fu">fromArray</span> = <span class="kw">function</span>(arr) {
-      <span class="kw">var</span> i = -<span class="dv">1</span>;
-      <span class="kw">return</span> <span class="ot">Iterator</span>.<span class="fu">new</span>(
-         <span class="kw">function</span> <span class="fu">next</span>() { i += <span class="dv">1</span>; <span class="kw">return</span> arr[i]; },
-         <span class="kw">function</span> <span class="fu">hasNext</span>() { <span class="kw">return</span> i + <span class="dv">1</span> &lt; <span class="ot">arr</span>.<span class="fu">length</span>; }
-      );
-    };
+    <span class="va">Iterator</span>.<span class="at">fromArray</span> <span class="op">=</span> <span class="kw">function</span>(arr) <span class="op">{</span>
+      <span class="kw">var</span> i <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span>
+      <span class="cf">return</span> <span class="va">Iterator</span>.<span class="at">new</span>(
+         <span class="kw">function</span> <span class="at">next</span>() <span class="op">{</span> i <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> <span class="cf">return</span> arr[i]<span class="op">;</span> <span class="op">},</span>
+         <span class="kw">function</span> <span class="at">hasNext</span>() <span class="op">{</span> <span class="cf">return</span> i <span class="op">+</span> <span class="dv">1</span> <span class="op">&lt;</span> <span class="va">arr</span>.<span class="at">length</span><span class="op">;</span> <span class="op">}</span>
+      )<span class="op">;</span>
+    <span class="op">};</span>
 
-    <span class="kw">return</span> Iterator;
-}());</code></pre>
+    <span class="cf">return</span> Iterator<span class="op">;</span>
+<span class="op">}</span>())<span class="op">;</span></code></pre></div>
 <p>This will be a very barebones implementation. Let us use it:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> it = <span class="ot">Iterator</span>.<span class="fu">fromArray</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]);
-<span class="kw">var</span> sum = <span class="dv">0</span>;
-<span class="kw">while</span> (<span class="ot">it</span>.<span class="fu">hasNext</span>()) { sum += <span class="ot">it</span>.<span class="fu">next</span>(); }
-sum;</code></pre>
-<p>That's cool! We still sort of need to know we had an array to begin with, which is not create. We would need to add an &quot;iterator&quot; method to the Array prototype, and any other collection we want to traverse this way. But at least our main logic only cares about the &quot;it&quot; object, and can forget about the array. We can freely change how we represent our data, and the only code we might need to change is the definition of &quot;it&quot;.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> it <span class="op">=</span> <span class="va">Iterator</span>.<span class="at">fromArray</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span>])<span class="op">;</span>
+<span class="kw">var</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+<span class="cf">while</span> (<span class="va">it</span>.<span class="at">hasNext</span>()) <span class="op">{</span> sum <span class="op">+=</span> <span class="va">it</span>.<span class="at">next</span>()<span class="op">;</span> <span class="op">}</span>
+sum<span class="op">;</span></code></pre></div>
+<p>That’s cool! We still sort of need to know we had an array to begin with, which is not create. We would need to add an “iterator” method to the Array prototype, and any other collection we want to traverse this way. But at least our main logic only cares about the “it” object, and can forget about the array. We can freely change how we represent our data, and the only code we might need to change is the definition of “it”.</p>
 <p>The basic implementation of iterators more or less ends here. However, we can enrich our iterators with many useful methods. <code>forEach</code> and <code>reduce</code> would be two very straightforward ones. These methods would go to the prototype object:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">proto</span>.<span class="fu">forEach</span> = <span class="kw">function</span>(f) {
-    <span class="kw">while</span> (<span class="kw">this</span>.<span class="fu">hasNext</span>()) { <span class="fu">f</span>(<span class="kw">this</span>.<span class="fu">next</span>()); }
-    <span class="kw">return</span> <span class="kw">this</span>;
-};
-<span class="ot">proto</span>.<span class="fu">reduce</span> = <span class="kw">function</span>(f, init) {
-    <span class="kw">while</span> (<span class="kw">this</span>.<span class="fu">hasNext</span>()) { init = <span class="fu">f</span>(init, <span class="kw">this</span>.<span class="fu">next</span>()); }
-    <span class="kw">return</span> init;
-};</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">proto</span>.<span class="at">forEach</span> <span class="op">=</span> <span class="kw">function</span>(f) <span class="op">{</span>
+    <span class="cf">while</span> (<span class="kw">this</span>.<span class="at">hasNext</span>()) <span class="op">{</span> <span class="at">f</span>(<span class="kw">this</span>.<span class="at">next</span>())<span class="op">;</span> <span class="op">}</span>
+    <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+<span class="op">};</span>
+<span class="va">proto</span>.<span class="at">reduce</span> <span class="op">=</span> <span class="kw">function</span>(f<span class="op">,</span> init) <span class="op">{</span>
+    <span class="cf">while</span> (<span class="kw">this</span>.<span class="at">hasNext</span>()) <span class="op">{</span> init <span class="op">=</span> <span class="at">f</span>(init<span class="op">,</span> <span class="kw">this</span>.<span class="at">next</span>())<span class="op">;</span> <span class="op">}</span>
+    <span class="cf">return</span> init<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
 <p>So now we can do:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> it = <span class="ot">Iterator</span>.<span class="fu">fromArray</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]);
-<span class="ot">it</span>.<span class="fu">reduce</span>(<span class="kw">function</span>(acc, v) { <span class="kw">return</span> acc + v; }, <span class="dv">0</span>);
-it = <span class="ot">Iterator</span>.<span class="fu">fromArray</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]);
-<span class="kw">var</span> sum = <span class="dv">0</span>; <span class="ot">it</span>.<span class="fu">forEach</span>(<span class="kw">function</span>(v) { sum += v; }); sum;</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> it <span class="op">=</span> <span class="va">Iterator</span>.<span class="at">fromArray</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span>])<span class="op">;</span>
+<span class="va">it</span>.<span class="at">reduce</span>(<span class="kw">function</span>(acc<span class="op">,</span> v) <span class="op">{</span> <span class="cf">return</span> acc <span class="op">+</span> v<span class="op">;</span> <span class="op">},</span> <span class="dv">0</span>)<span class="op">;</span>
+it <span class="op">=</span> <span class="va">Iterator</span>.<span class="at">fromArray</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span>])<span class="op">;</span>
+<span class="kw">var</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="va">it</span>.<span class="at">forEach</span>(<span class="kw">function</span>(v) <span class="op">{</span> sum <span class="op">+=</span> v<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span> sum<span class="op">;</span></code></pre></div>
 <p>Now let us discuss two trickier methods: <code>map</code> and <code>filter</code>. These need to return iterators that transform/skip values.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">proto</span>.<span class="fu">map</span> = <span class="kw">function</span>(f) {
-    <span class="kw">var</span> that = <span class="kw">this</span>;
-    <span class="kw">return</span> <span class="ot">Iterator</span>.<span class="fu">new</span>(
-        <span class="dt">next</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="fu">f</span>(<span class="ot">that</span>.<span class="fu">next</span>()); },
-        <span class="dt">hasNext</span>: <span class="kw">function</span>() { <span class="kw">return</span> <span class="ot">that</span>.<span class="fu">hasNext</span>(); }
-    );
-};
-<span class="ot">proto</span>.<span class="fu">filter</span> = <span class="kw">function</span>(pred) {
-    <span class="kw">var</span> that = <span class="kw">this</span>;
-    <span class="kw">var</span> nextValue;
-    <span class="kw">return</span> <span class="ot">Iterator</span>.<span class="fu">new</span>(
-        <span class="kw">function</span> <span class="fu">next</span>() { <span class="kw">return</span> nextValue; },
-        <span class="kw">function</span> <span class="fu">hasNext</span>() {
-            <span class="kw">while</span> (<span class="ot">that</span>.<span class="fu">hasNext</span>()) {
-                nextValue = <span class="ot">that</span>.<span class="fu">next</span>();
-                <span class="kw">if</span> (<span class="fu">pred</span>(nextValue)) { <span class="kw">return</span> <span class="kw">true</span>; }
-            }
-            <span class="kw">return</span> <span class="kw">false</span>;
-        }
-    );
-};</code></pre>
-<p>Let's take these for a spin:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript">it = <span class="ot">Iterator</span>.<span class="fu">fromArray</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>])
-        .<span class="fu">filter</span>(<span class="kw">function</span>(v) { <span class="kw">return</span> v % <span class="dv">2</span> == <span class="dv">1</span>; })
-        .<span class="fu">map</span>(<span class="kw">function</span>(v) { <span class="kw">return</span> v * v; });
-<span class="kw">while</span> (<span class="ot">it</span>.<span class="fu">hasNext</span>()) { <span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">it</span>.<span class="fu">next</span>()); }</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">proto</span>.<span class="at">map</span> <span class="op">=</span> <span class="kw">function</span>(f) <span class="op">{</span>
+    <span class="kw">var</span> that <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="cf">return</span> <span class="va">Iterator</span>.<span class="at">new</span>(
+        <span class="dt">next</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span> <span class="cf">return</span> <span class="at">f</span>(<span class="va">that</span>.<span class="at">next</span>())<span class="op">;</span> <span class="op">},</span>
+        <span class="dt">hasNext</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span> <span class="cf">return</span> <span class="va">that</span>.<span class="at">hasNext</span>()<span class="op">;</span> <span class="op">}</span>
+    )<span class="op">;</span>
+<span class="op">};</span>
+<span class="va">proto</span>.<span class="at">filter</span> <span class="op">=</span> <span class="kw">function</span>(pred) <span class="op">{</span>
+    <span class="kw">var</span> that <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="kw">var</span> nextValue<span class="op">;</span>
+    <span class="cf">return</span> <span class="va">Iterator</span>.<span class="at">new</span>(
+        <span class="kw">function</span> <span class="at">next</span>() <span class="op">{</span> <span class="cf">return</span> nextValue<span class="op">;</span> <span class="op">},</span>
+        <span class="kw">function</span> <span class="at">hasNext</span>() <span class="op">{</span>
+            <span class="cf">while</span> (<span class="va">that</span>.<span class="at">hasNext</span>()) <span class="op">{</span>
+                nextValue <span class="op">=</span> <span class="va">that</span>.<span class="at">next</span>()<span class="op">;</span>
+                <span class="cf">if</span> (<span class="at">pred</span>(nextValue)) <span class="op">{</span> <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span> <span class="op">}</span>
+            <span class="op">}</span>
+            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span>
+        <span class="op">}</span>
+    )<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>Let’s take these for a spin:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">it <span class="op">=</span> <span class="va">Iterator</span>.<span class="at">fromArray</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">6</span>])
+        .<span class="at">filter</span>(<span class="kw">function</span>(v) <span class="op">{</span> <span class="cf">return</span> v <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">1</span><span class="op">;</span> <span class="op">}</span>)
+        .<span class="at">map</span>(<span class="kw">function</span>(v) <span class="op">{</span> <span class="cf">return</span> v <span class="op">*</span> v<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="cf">while</span> (<span class="va">it</span>.<span class="at">hasNext</span>()) <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(<span class="va">it</span>.<span class="at">next</span>())<span class="op">;</span> <span class="op">}</span></code></pre></div>
 <p>Hm it should would be nice to have some way to be able to just get an array of the results. Sounds like our prototype should have a <code>toArray</code> method.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">proto</span>.<span class="fu">toArray</span> = <span class="kw">function</span>() {
-    <span class="kw">var</span> arr = [];
-    <span class="kw">while</span> (<span class="kw">this</span>.<span class="fu">hasNext</span>()) { <span class="ot">arr</span>.<span class="fu">push</span>(<span class="kw">this</span>.<span class="fu">next</span>()); }
-    <span class="kw">return</span> arr;
-};</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">proto</span>.<span class="at">toArray</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> arr <span class="op">=</span> []<span class="op">;</span>
+    <span class="cf">while</span> (<span class="kw">this</span>.<span class="at">hasNext</span>()) <span class="op">{</span> <span class="va">arr</span>.<span class="at">push</span>(<span class="kw">this</span>.<span class="at">next</span>())<span class="op">;</span> <span class="op">}</span>
+    <span class="cf">return</span> arr<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
 <p>Now we can do:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">Iterator</span>.<span class="fu">fromArray</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>])
-    .<span class="fu">filter</span>(<span class="kw">function</span>(v) { <span class="kw">return</span> v % <span class="dv">2</span> == <span class="dv">1</span>; })
-    .<span class="fu">map</span>(<span class="kw">function</span>(v) { <span class="kw">return</span> v * v; })
-    .<span class="fu">toArray</span>();</code></pre>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Iterator</span>.<span class="at">fromArray</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">6</span>])
+    .<span class="at">filter</span>(<span class="kw">function</span>(v) <span class="op">{</span> <span class="cf">return</span> v <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">1</span><span class="op">;</span> <span class="op">}</span>)
+    .<span class="at">map</span>(<span class="kw">function</span>(v) <span class="op">{</span> <span class="cf">return</span> v <span class="op">*</span> v<span class="op">;</span> <span class="op">}</span>)
+    .<span class="at">toArray</span>()<span class="op">;</span></code></pre></div>
 <p>Let us now add a couple more convenience methods to our prototype:</p>
 <ul>
 <li><code>find</code>: Return the first element that matches the predicate</li>
@@ -147,7 +165,7 @@ it = <span class="ot">Iterator</span>.<span class="fu">fromArray</span>([<span c
 <li><code>take</code>: Return an iterable that only keeps the first n elements</li>
 <li><code>dropWhile</code>: Return an iterable that skips all elements at first until it finds one that passes the predicate</li>
 <li><code>drop</code>: Return a predicate that skips the first n elements</li>
-<li><code>concat</code>: Takes any number of iterators. Returns an iterator that &quot;concatenates them&quot;, moving to the second iterator when the first is done and so on.</li>
+<li><code>concat</code>: Takes any number of iterators. Returns an iterator that “concatenates them”, moving to the second iterator when the first is done and so on.</li>
 <li><code>alternate</code>: Given any number of iterators, returns an iterator that returns one element from each iterator until they are all exhausted.</li>
 <li><code>repeat</code>: Repeats an iterator indefinitely</li>
 <li><code>partition</code>: Given predicate, returns a pair of iterators for the true/false values respectively.</li>
@@ -167,41 +185,41 @@ it = <span class="ot">Iterator</span>.<span class="fu">fromArray</span>([<span c
 <li>fromFunction: Given a function, creates an iterator that keeps calling that function.</li>
 </ul>
 <p>For instance, to create an array of length 100 filled with random numbers, we could do:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript">Iterator
-    .<span class="fu">constant</span>(<span class="dv">0</span>)
-    .<span class="fu">map</span>(<span class="ot">Math</span>.<span class="fu">random</span>)
-    .<span class="fu">take</span>(<span class="dv">100</span>)
-    .<span class="fu">toArray</span>();
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">Iterator
+    .<span class="at">constant</span>(<span class="dv">0</span>)
+    .<span class="at">map</span>(<span class="va">Math</span>.<span class="at">random</span>)
+    .<span class="at">take</span>(<span class="dv">100</span>)
+    .<span class="at">toArray</span>()<span class="op">;</span>
 <span class="co">// Or simpler:</span>
 Iterator
-    .<span class="fu">fromFunction</span>(<span class="ot">Math</span>.<span class="fu">random</span>)
-    .<span class="fu">take</span>(<span class="dv">100</span>)
-    .<span class="fu">toArray</span>();</code></pre>
+    .<span class="at">fromFunction</span>(<span class="va">Math</span>.<span class="at">random</span>)
+    .<span class="at">take</span>(<span class="dv">100</span>)
+    .<span class="at">toArray</span>()<span class="op">;</span></code></pre></div>
 <p>Look at the <a href="../testPages/iterators.js">complete file</a> for the implementation of these methods after you try to do them on our own.</p>
-<p>Before we close, we will discuss the idea of &quot;enforcing the contract&quot;. We want to give clients of our iterator the option to &quot;force&quot; the iteration process, so that a <code>next</code> only precedes a successful <code>hasNext</code>. We can do this in a prototype method: What this method does is simple:</p>
+<p>Before we close, we will discuss the idea of “enforcing the contract”. We want to give clients of our iterator the option to “force” the iteration process, so that a <code>next</code> only precedes a successful <code>hasNext</code>. We can do this in a prototype method: What this method does is simple:</p>
 <ol style="list-style-type: decimal">
 <li>Keeps a variable <code>hasNextSuccessful</code> that is true if <code>hasNext</code> has been called and was positive, and a <code>next</code> has not been called yet.</li>
 <li>Keeps variables <code>oldNext</code> and <code>oldHasNext</code> that hold the actual <code>next</code> and <code>hasNext</code> methods.</li>
-<li>Implements its own <code>next</code> and <code>hasNext</code> to do the appropriate checks before calling the old methods, and replaces the iterator's methods with these.</li>
+<li>Implements its own <code>next</code> and <code>hasNext</code> to do the appropriate checks before calling the old methods, and replaces the iterator’s methods with these.</li>
 <li>Returns the iterator.</li>
 </ol>
-<p>Let's see how this might look:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">proto</span>.<span class="fu">forceContract</span> = <span class="kw">function</span>() {
-    <span class="kw">var</span> hasNextSuccessful = <span class="kw">false</span>,
-        oldNext = <span class="kw">this</span>.<span class="fu">next</span>,
-        oldHasNext = <span class="kw">this</span>.<span class="fu">hasNext</span>;
-    <span class="kw">this</span>.<span class="fu">next</span> = <span class="kw">function</span>() {
-        <span class="kw">if</span> (hasNextSuccessful) {
-            hasNextSuccessful = <span class="kw">false</span>;
-            <span class="kw">return</span> <span class="ot">oldNext</span>.<span class="fu">call</span>(<span class="kw">this</span>);
-        }
-        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;&#39;Next&#39; called without successful &#39;hasNext&#39;&quot;</span>);
-    };
-    <span class="kw">this</span>.<span class="fu">hasNext</span> = <span class="kw">function</span>() {
-        hasNextSuccessful = <span class="ot">oldHasNext</span>.<span class="fu">call</span>(<span class="kw">this</span>);
-        <span class="kw">return</span> hasNextSuccessful;
-    };
-    <span class="kw">return</span> <span class="kw">this</span>;
-};</code></pre>
+<p>Let’s see how this might look:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">proto</span>.<span class="at">forceContract</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> hasNextSuccessful <span class="op">=</span> <span class="kw">false</span><span class="op">,</span>
+        oldNext <span class="op">=</span> <span class="kw">this</span>.<span class="at">next</span><span class="op">,</span>
+        oldHasNext <span class="op">=</span> <span class="kw">this</span>.<span class="at">hasNext</span><span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">next</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="cf">if</span> (hasNextSuccessful) <span class="op">{</span>
+            hasNextSuccessful <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+            <span class="cf">return</span> <span class="va">oldNext</span>.<span class="at">call</span>(<span class="kw">this</span>)<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;&#39;Next&#39; called without successful &#39;hasNext&#39;&quot;</span>)<span class="op">;</span>
+    <span class="op">};</span>
+    <span class="kw">this</span>.<span class="at">hasNext</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        hasNextSuccessful <span class="op">=</span> <span class="va">oldHasNext</span>.<span class="at">call</span>(<span class="kw">this</span>)<span class="op">;</span>
+        <span class="cf">return</span> hasNextSuccessful<span class="op">;</span>
+    <span class="op">};</span>
+    <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+<span class="op">};</span></code></pre></div>
 </body>
 </html>

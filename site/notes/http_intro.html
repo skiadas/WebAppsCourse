@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -23,13 +23,13 @@
 </ul>
 <h2 id="notes">Notes</h2>
 <h3 id="http">HTTP</h3>
-<p>HTTP stands for HyperText Transfer Protocol. It is what is known as an &quot;Application Layer Networking protocol&quot;. This means that it does not concern itself with how network packets will traverse the internet, but instead aims at a higher-level description of the information in those packets. It is the primary mode of communication between web browsers and web servers.</p>
+<p>HTTP stands for HyperText Transfer Protocol. It is what is known as an “Application Layer Networking protocol”. This means that it does not concern itself with how network packets will traverse the internet, but instead aims at a higher-level description of the information in those packets. It is the primary mode of communication between web browsers and web servers.</p>
 <p>Here are its main characteristics.</p>
 <dl>
 <dt>stateless</dt>
-<dd><p>The protocol is &quot;stateless&quot;. In other words, each request that the browser sends to the server has no memory of prior requests and replies.</p>
+<dd><p>The protocol is “stateless”. In other words, each request that the browser sends to the server has no memory of prior requests and replies.</p>
 <p>This is an important feature of the protocol, and something that actually lent to its popularity. It makes the implementation of it on both the server and browser side easier, and makes the overall protocol simpler, as neither side needs to maintain any information from previous requests. Other protocols had been proposed around the same time, but HTTP won in the end as the standard, in large part due to its simplicity.</p>
-<p>One of the consequences of course is that in situations where we need to maintain the history of what has occured, both browser and server need to agree on a way to do that (e.g. keeping someone &quot;logged in&quot;).</p>
+<p>One of the consequences of course is that in situations where we need to maintain the history of what has occured, both browser and server need to agree on a way to do that (e.g. keeping someone “logged in”).</p>
 </dd>
 <dt>client/server</dt>
 <dd>The HTTP protocol is characterized by the uneven description of the two parties involved. One party is the <em>client</em> (typically your web browser) and the other is the <em>server</em>. The client sends <strong>requests</strong> to the server, and the server sends back <strong>responses</strong>.
@@ -46,7 +46,7 @@
 <p>Clients and servers specify themselves via their IP addresses (and port numbers). This is taken care of at the TCP/IP layer.</p>
 </dd>
 <dt>request</dt>
-<dd><p>The client sends an &quot;HTTP request&quot; to the server over the network. That request includes the <strong>request method</strong>, followed by the <strong>resource path</strong> as well as the protocol version, typically HTTP/1.1.</p>
+<dd><p>The client sends an “HTTP request” to the server over the network. That request includes the <strong>request method</strong>, followed by the <strong>resource path</strong> as well as the protocol version, typically HTTP/1.1.</p>
 <p>It will be followed a series of <strong>headers</strong>, that can identify various aspects of the request, like the content type, the host name, the content length, the accepted languages for the reply and so on.</p>
 <p>Some request methods allow content, which can be found following the headers. Here is an example from the MDN page:</p>
 <pre><code>POST /contact_form.php HTTP/1.1
@@ -97,18 +97,18 @@ Content-Type: text/html
 <dd><em>Moved Permanently</em>. The resource has been moved to a different location. A location header gives the new location.
 </dd>
 <dt>304</dt>
-<dd><em>Not Modified</em>. The resource hasn't been modified since the last time we asked for it. Our cached version will do just fine.
+<dd><em>Not Modified</em>. The resource hasn’t been modified since the last time we asked for it. Our cached version will do just fine.
 </dd>
 <dt>404</dt>
 <dd><em>Not Found</em>. The requested resource cannot be found. Typically the result of typos in the request.
 </dd>
 <dt>500</dt>
-<dd><em>Internal Server Error</em>. Usually indicates problems with the server's configuration/availability.
+<dd><em>Internal Server Error</em>. Usually indicates problems with the server’s configuration/availability.
 </dd>
 </dl>
 </dd>
 </dl>
-<p>You typically don't have to directly create these requests and responses as text, there are libraries that do that for you and allow you to talk about these responses on the level of objects. We will see some examples when we discuss XMLHttpRequest next. For now, you can use your browser to look at the requests and responses for this page.</p>
+<p>You typically don’t have to directly create these requests and responses as text, there are libraries that do that for you and allow you to talk about these responses on the level of objects. We will see some examples when we discuss XMLHttpRequest next. For now, you can use your browser to look at the requests and responses for this page.</p>
 <p>Open up the developer tools and find the Network tab. Reload the page and you should see multiple network requests present, one of them is for an html page. Notice the method, content type and status. Then click further in one of those requests to see more details.</p>
 </body>
 </html>

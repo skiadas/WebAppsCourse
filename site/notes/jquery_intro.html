@@ -8,35 +8,53 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="introduction-to-jquery">Introduction to jQuery</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
-<li>Flanagan's book, Chapter 19</li>
-<li>Flanagan's book, Part IV (jQuery summary around page 945)</li>
+<li>Flanagan’s book, Chapter 19</li>
+<li>Flanagan’s book, Part IV (jQuery summary around page 945)</li>
 <li><a href="http://devdocs.io/jquery/">devdocs on jQuery</a></li>
 <li><a href="http://jquery.com/">jQuery front page</a></li>
 <li><a href="http://api.jquery.com/">jQuery API</a></li>
@@ -56,17 +74,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>The global <code>$</code> is a swiss-army knife, it is a function that sort of does everything. It has three main forms, depending on what the first argument is:</p>
 <dl>
 <dt>$(sel)</dt>
-<dd>If the first argument is a string that is a selector, it will return a &quot;jQuery object&quot; that represents the collection of all elements that match the selector. If a second &quot;context&quot; argument is passed, representing an element or elements, it will search for the elements <em>relative to that context</em>.
+<dd>If the first argument is a string that is a selector, it will return a “jQuery object” that represents the collection of all elements that match the selector. If a second “context” argument is passed, representing an element or elements, it will search for the elements <em>relative to that context</em>.
 </dd>
 <dt>$(domEls)</dt>
-<dd>If the first argument is a dom element or array of dom elements, it will return a &quot;jQuery object&quot; that represents that same array of elements, but now as jQuery objects.
+<dd>If the first argument is a dom element or array of dom elements, it will return a “jQuery object” that represents that same array of elements, but now as jQuery objects.
 </dd>
 <dt>$(f)</dt>
 <dd>If the first argument is a function, then this function will be called when the document has finished loading. This is a good place to do page initialization.
 </dd>
 </dl>
 <h3 id="jquery-object-methods">jQuery object methods</h3>
-<p>All jQuery objects respond to a similar set of methods. You can explore the whole <a href="http://api.jquery.com/">API online</a>, and in Part IV of Flanagan's book.</p>
+<p>All jQuery objects respond to a similar set of methods. You can explore the whole <a href="http://api.jquery.com/">API online</a>, and in Part IV of Flanagan’s book.</p>
 <p>First we have collection methods.</p>
 <dl>
 <dt><a href="http://api.jquery.com/each/">each(f)</a></dt>
@@ -107,7 +125,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>Get or set data attributes.
 </dd>
 <dt><a href="http://api.jquery.com/val/">val</a></dt>
-<dd>Get or set the &quot;value&quot; associated with the element.
+<dd>Get or set the “value” associated with the element.
 </dd>
 </dl>
 <p>Next we have methods for inserting/removing elements from the dom.</p>
@@ -134,7 +152,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>There are a lot of other methods, mostly related to events, that we will revisit later.</p>
 <h3 id="examples">Examples</h3>
 <p>We will run some examples on a barebones page. Save this page in an HTML file, open it in the browser, then fire up the console, to follow along.</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
 <span class="kw">&lt;html&gt;</span>
 <span class="kw">&lt;head&gt;</span>
   <span class="kw">&lt;title&gt;</span>A basic page<span class="kw">&lt;/title&gt;</span>
@@ -145,21 +163,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <span class="kw">&lt;/div&gt;</span>
   <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://code.jquery.com/jquery-1.11.2.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
 <span class="kw">&lt;/body&gt;</span>
-<span class="kw">&lt;/html&gt;</span></code></pre>
-<p>Okay, now first off, let's type <code>$</code> in the console. We should see that it exists and is a function.</p>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
+<p>Okay, now first off, let’s type <code>$</code> in the console. We should see that it exists and is a function.</p>
 <p>Try each of these lines in order.</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> mainDiv = <span class="fu">$</span>(<span class="st">&quot;#mainDiv&quot;</span>);
-<span class="ot">mainDiv</span>.<span class="fu">addClass</span>(<span class="st">&quot;foo&quot;</span>).<span class="fu">append</span>(<span class="st">&quot;&lt;p&gt;Hi! I&#39;m new!&lt;/p&gt;&quot;</span>);
-<span class="ot">mainDiv</span>.<span class="fu">text</span>();                        <span class="co">// Text in mainDiv</span>
-<span class="ot">mainDiv</span>.<span class="fu">html</span>();                        <span class="co">// HTML in mainDiv</span>
-<span class="ot">mainDiv</span>.<span class="fu">html</span>(<span class="st">&quot;Oops it&#39;s all gone!&quot;</span>);   <span class="co">// Replacing the html</span>
-<span class="fu">$</span>([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]).<span class="fu">map</span>(<span class="kw">function</span>(i) { <span class="kw">return</span> <span class="fu">$</span>(<span class="st">&#39;&lt;p&gt;&lt;/p&gt;&#39;</span>).<span class="fu">html</span>(<span class="st">&quot;Hi! I&#39;m &quot;</span> + i)[<span class="dv">0</span>]; })
-          .<span class="fu">appendTo</span>(mainDiv).<span class="fu">wrap</span>(<span class="st">&#39;&lt;li&gt;&lt;/li&gt;&#39;</span>);
-<span class="fu">$</span>(<span class="st">&#39;&lt;input type=&quot;input&quot; /&gt;&#39;</span>).<span class="fu">appendTo</span>(<span class="st">&#39;li&#39;</span>).<span class="fu">val</span>(<span class="dv">20</span>);
-<span class="fu">$</span>(<span class="st">&#39;&lt;input type=&quot;input&quot; /&gt;&#39;</span>).<span class="fu">appendTo</span>(<span class="st">&#39;li&#39;</span>).<span class="fu">val</span>(<span class="kw">function</span>(i) { <span class="kw">return</span> i; });
-<span class="fu">$</span>(<span class="st">&#39;li&#39;</span>).<span class="fu">first</span>().<span class="fu">css</span>(<span class="st">&#39;background-color&#39;</span>, <span class="st">&#39;blue&#39;</span>)</code></pre>
-<p>Let's look at a longer example of a page.</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> mainDiv <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;#mainDiv&quot;</span>)<span class="op">;</span>
+<span class="va">mainDiv</span>.<span class="at">addClass</span>(<span class="st">&quot;foo&quot;</span>).<span class="at">append</span>(<span class="st">&quot;&lt;p&gt;Hi! I&#39;m new!&lt;/p&gt;&quot;</span>)<span class="op">;</span>
+<span class="va">mainDiv</span>.<span class="at">text</span>()<span class="op">;</span>                        <span class="co">// Text in mainDiv</span>
+<span class="va">mainDiv</span>.<span class="at">html</span>()<span class="op">;</span>                        <span class="co">// HTML in mainDiv</span>
+<span class="va">mainDiv</span>.<span class="at">html</span>(<span class="st">&quot;Oops it&#39;s all gone!&quot;</span>)<span class="op">;</span>   <span class="co">// Replacing the html</span>
+<span class="at">$</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span>]).<span class="at">map</span>(<span class="kw">function</span>(i) <span class="op">{</span> <span class="cf">return</span> <span class="at">$</span>(<span class="st">&#39;&lt;p&gt;&lt;/p&gt;&#39;</span>).<span class="at">html</span>(<span class="st">&quot;Hi! I&#39;m &quot;</span> <span class="op">+</span> i)[<span class="dv">0</span>]<span class="op">;</span> <span class="op">}</span>)
+          .<span class="at">appendTo</span>(mainDiv).<span class="at">wrap</span>(<span class="st">&#39;&lt;li&gt;&lt;/li&gt;&#39;</span>)<span class="op">;</span>
+<span class="at">$</span>(<span class="st">&#39;&lt;input type=&quot;input&quot; /&gt;&#39;</span>).<span class="at">appendTo</span>(<span class="st">&#39;li&#39;</span>).<span class="at">val</span>(<span class="dv">20</span>)<span class="op">;</span>
+<span class="at">$</span>(<span class="st">&#39;&lt;input type=&quot;input&quot; /&gt;&#39;</span>).<span class="at">appendTo</span>(<span class="st">&#39;li&#39;</span>).<span class="at">val</span>(<span class="kw">function</span>(i) <span class="op">{</span> <span class="cf">return</span> i<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="at">$</span>(<span class="st">&#39;li&#39;</span>).<span class="at">first</span>().<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span><span class="op">,</span> <span class="st">&#39;blue&#39;</span>)</code></pre></div>
+<p>Let’s look at a longer example of a page.</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
 <span class="kw">&lt;html&gt;</span>
 <span class="kw">&lt;head&gt;</span>
   <span class="kw">&lt;title&gt;</span>A basic page<span class="kw">&lt;/title&gt;</span>
@@ -173,22 +191,22 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;mainDiv&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>
   <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://code.jquery.com/jquery-latest.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
   <span class="kw">&lt;script&gt;</span>
-  <span class="fu">$</span>(<span class="kw">function</span>() { <span class="co">// Code here runs once page has loaded.</span>
-    <span class="kw">var</span> ul = <span class="fu">$</span>(<span class="st">&quot;&lt;ul&gt;&lt;/ul&gt;&quot;</span>).<span class="fu">appendTo</span>(<span class="st">&quot;#mainDiv&quot;</span>), v;
-    <span class="kw">for</span> (<span class="kw">var</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10</span>; i += <span class="dv">1</span>) {
-      v = <span class="ot">Math</span>.<span class="fu">random</span>();
-      <span class="fu">$</span>(<span class="st">&quot;&lt;li&gt;&quot;</span> + v + <span class="st">&quot;&lt;/li&gt;&quot;</span>)
-        .<span class="fu">addClass</span>(v &gt; <span class="fl">0.5</span> ? <span class="st">&quot;big&quot;</span> : <span class="st">&quot;small&quot;</span>)
-        .<span class="fu">appendTo</span>(ul);
-    }
-    <span class="fu">$</span>(<span class="st">&#39;li&#39;</span>).<span class="fu">each</span>(<span class="kw">function</span>(i, v) {
-      <span class="fu">$</span>(v).<span class="fu">fadeOut</span>(<span class="ot">Math</span>.<span class="fu">random</span>() * <span class="dv">5000</span>, <span class="kw">function</span>() {
-        <span class="fu">$</span>(v).<span class="fu">fadeIn</span>(<span class="ot">Math</span>.<span class="fu">random</span>() * <span class="dv">5000</span>);
-      });
-    });
-  });
-  &lt;<span class="ot">/script&gt;</span>
-<span class="ot">&lt;/body</span>&gt;
-&lt;<span class="ot">/html&gt;</span></code></pre>
+  <span class="at">$</span>(<span class="kw">function</span>() <span class="op">{</span> <span class="co">// Code here runs once page has loaded.</span>
+    <span class="kw">var</span> ul <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;&lt;ul&gt;&lt;/ul&gt;&quot;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#mainDiv&quot;</span>)<span class="op">,</span> v<span class="op">;</span>
+    <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+      v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>
+      <span class="at">$</span>(<span class="st">&quot;&lt;li&gt;&quot;</span> <span class="op">+</span> v <span class="op">+</span> <span class="st">&quot;&lt;/li&gt;&quot;</span>)
+        .<span class="at">addClass</span>(v <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="op">?</span> <span class="st">&quot;big&quot;</span> : <span class="st">&quot;small&quot;</span>)
+        .<span class="at">appendTo</span>(ul)<span class="op">;</span>
+    <span class="op">}</span>
+    <span class="at">$</span>(<span class="st">&#39;li&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>(i<span class="op">,</span> v) <span class="op">{</span>
+      <span class="at">$</span>(v).<span class="at">fadeOut</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="at">$</span>(v).<span class="at">fadeIn</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span>)<span class="op">;</span>
+      <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+  <span class="op">&lt;</span><span class="ss">/script&gt;</span>
+<span class="ss">&lt;/body</span><span class="op">&gt;</span>
+<span class="op">&lt;</span><span class="ss">/html&gt;</span></code></pre></div>
 </body>
 </html>

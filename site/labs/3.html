@@ -7,13 +7,13 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
-<h1 id="lab-3">Lab 3<span class="small"> (<a href="3.pdf" title="3">pdf</a>)</span></h1>
+<h1 id="lab-3">Lab 3<span class="small"> (<a href="3.pdf" class="small" title="3">pdf</a>)</span></h1>
 <p>In this lab you will learn how to set up some coding standards and use linting to enforce them, and practice more of our class-construction knowledge to start building the pieces of our TODO application.</p>
 <h2 id="resources">Resources</h2>
 <ul>
@@ -24,15 +24,15 @@
 <h2 id="linting-basics">Linting Basics</h2>
 <p>Code debugging is hard enough as it is, having ambiguous code just makes it harder. Coding standards enforce some practices. Some are pure formatting issues, others affect how you use the code.</p>
 <p>If you are looking for a good book on the subject, <a href="http://shop.oreilly.com/product/0636920025245.do">Maintainable Javascript</a> is a very good book (alas, not free, and completely optional).</p>
-<p>Here are some examples of &quot;coding style&quot;:</p>
+<p>Here are some examples of “coding style”:</p>
 <ul>
 <li>Always use 4 spaces for each level of indentation.</li>
-<li>Do not use tabs for indentation. (tab settings might be different on someone else's computer, so your code might not look like you intend it to)</li>
+<li>Do not use tabs for indentation. (tab settings might be different on someone else’s computer, so your code might not look like you intend it to)</li>
 <li>Always use braces for if/else/for etc, even if they contain only one statement.</li>
 <li>Put open braces on the same line as the construct that precedes them.</li>
 <li>Always put a space before the open brace in function definitions.</li>
-<li>Never put a non-boolean result as the test in an &quot;if&quot;.</li>
-<li>Do not do assignments in the test part of an &quot;if&quot;.</li>
+<li>Never put a non-boolean result as the test in an “if”.</li>
+<li>Do not do assignments in the test part of an “if”.</li>
 <li>Use semicolons at the end of all statements except for function declarations and conditionals.</li>
 <li>Always declare variables before using them.</li>
 <li>Declare all variables at the top of the function that marks their scope.</li>
@@ -41,7 +41,7 @@
 <li>Camel-case variable names. Do not use underscores.</li>
 <li>Use appropriate verbs in the name to descrite what methods do (has/is for booleans, get/set for setters, new for constructors etc)</li>
 <li>Always capitalize constructors and class objects.</li>
-<li>Never use <code>==</code> (except when comparing to <code>null</code>, and that's only if you want to capture the case of <code>undefined</code>). Use <code>===</code> instead.</li>
+<li>Never use <code>==</code> (except when comparing to <code>null</code>, and that’s only if you want to capture the case of <code>undefined</code>). Use <code>===</code> instead.</li>
 <li>Use blank lines to separate code in contextual blocks
 <ul>
 <li>inbetween methods</li>
@@ -50,13 +50,13 @@
 </ul></li>
 <li>Keep the complexity of your methods below a limit (complexity is how many different branches your code can take within the method, based on conditionals)</li>
 <li>Use double-quotes for strings (or single quotes, but fix one convention)</li>
-<li>Code should not exceed &quot;this many&quot; characters per line.</li>
-<li>Use &quot;proto&quot; as the name for the prototype object when using the <code>Object.create</code> form.</li>
-<li>Use &quot;double-slash&quot; comments for single line inline comments.</li>
-<li>Use &quot;slash star&quot; comments for multi-line inline comments.</li>
+<li>Code should not exceed “this many” characters per line.</li>
+<li>Use “proto” as the name for the prototype object when using the <code>Object.create</code> form.</li>
+<li>Use “double-slash” comments for single line inline comments.</li>
+<li>Use “slash star” comments for multi-line inline comments.</li>
 <li>Indent inline comments the same way as surrounding code.</li>
 <li>Add inline comments only where they clarify the code.</li>
-<li>Use &quot;slash star star&quot; comments for documentation comments before each function.</li>
+<li>Use “slash star star” comments for documentation comments before each function.</li>
 <li>Never use <code>++</code> or <code>--</code>. Use <code>+= 1</code> instead.</li>
 <li>Avoid using <code>continue</code>, using a condition instead.</li>
 <li>Avoid <code>for-in</code> loop in favor of <code>Object.keys</code>.</li>
@@ -70,27 +70,27 @@
 <p>We will be using <a href="http://eslint.org/">ESLint</a>, which can automatically check your code for many of the above types of things, and it is fairly customizable. You can see a list of all the <a href="http://eslint.org/docs/rules/">rules</a> it will look for, and how you can set them up. Clicking through each rule will tell you more about it.</p>
 <p>You can even add your own rules, but we will not do so here.</p>
 <p>When you check out Lab3, you will find in the root directory a file <code>.eslintrc</code>. This contains directives for ESLint, take a moment to look through it and <a href="http://eslint.org/docs/rules/">look the corresponding rules up</a>.</p>
-<p>The provided files in Lab3 already contain some &quot;errors&quot; in there. You should be able to see a report of those errors by running &quot;<code>eslint fileName</code>&quot;. Make sure to fix those errors before continuing with the rest of the assignment.</p>
+<p>The provided files in Lab3 already contain some “errors” in there. You should be able to see a report of those errors by running “<code>eslint fileName</code>”. Make sure to fix those errors before continuing with the rest of the assignment.</p>
 <h2 id="basic-steps">Basic steps</h2>
 <ol style="list-style-type: decimal">
-<li>You should have already decided which of the two partner's GitHub account to use.</li>
+<li>You should have already decided which of the two partner’s GitHub account to use.</li>
 <li>If you have not switched roles with your partner for a while, this is a good time to do so.</li>
 <li>You need to first bring your version of the lab up-to-date by fetching from the remote that is linked to MY project. This is a bit tedious.
 <ul>
-<li>Use &quot;<code>git remote -v</code>&quot; to see the remote branches. There should be one named <code>mainSource</code> and pointing to <code>skiadas/WebAppsLabs</code>.</li>
-<li>We will start by fetching the newest version of that, with: &quot;<code>git fetch mainSource</code>&quot;. It should tell you about a new branch, Lab3.</li>
-<li>Create a new branch with &quot;<code>git checkout -b Lab3 --track mainSource/Lab3</code>&quot;.</li>
-<li>Push this repository to your fork, by &quot;<code>git push origin Lab3</code>&quot;.</li>
-<li>Set your local branch to in the future update your repository by: &quot;<code>git branch --set-upstream Lab3 origin/Lab3</code>&quot;.</li>
-<li>To make sure this is set up properly, do &quot;<code>git branch -vv</code>&quot;. You should see <code>[origin/Lab3]</code> next to the Lab3 branch line.</li>
+<li>Use “<code>git remote -v</code>” to see the remote branches. There should be one named <code>mainSource</code> and pointing to <code>skiadas/WebAppsLabs</code>.</li>
+<li>We will start by fetching the newest version of that, with: “<code>git fetch mainSource</code>”. It should tell you about a new branch, Lab3.</li>
+<li>Create a new branch with “<code>git checkout -b Lab3 --track mainSource/Lab3</code>”.</li>
+<li>Push this repository to your fork, by “<code>git push origin Lab3</code>”.</li>
+<li>Set your local branch to in the future update your repository by: “<code>git branch --set-upstream Lab3 origin/Lab3</code>”.</li>
+<li>To make sure this is set up properly, do “<code>git branch -vv</code>”. You should see <code>[origin/Lab3]</code> next to the Lab3 branch line.</li>
 </ul></li>
 <li>Check out the correct branch, via <code>git checkout Lab3</code>.</li>
 <li>In the GitHub issues page for your project, switch to the Milestones tab and create a Lab3 milestone. Use that instead of a label for all issues you create related to Lab3.</li>
-<li>In the Settings page you can set the &quot;Default branch&quot; for the application. Set this to the Lab3 branch. This should make it so that your pushed commits close any issues that they mention via &quot;Close #n&quot;.</li>
+<li>In the Settings page you can set the “Default branch” for the application. Set this to the Lab3 branch. This should make it so that your pushed commits close any issues that they mention via “Close #n”.</li>
 <li>Open the <code>README.md</code> file there, it will contain the instructions on what you need to do.</li>
 <li>When you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>
-<li>You should use the issues page to track your progress. Create a new label called &quot;Lab3&quot; and use it to tag all issues related to this lab. I will review those issues to look at your work.</li>
-<li>Needless to say it, but you are NOT allowed to look at other people's forks of the project and their issues/solutions.</li>
+<li>You should use the issues page to track your progress. Create a new label called “Lab3” and use it to tag all issues related to this lab. I will review those issues to look at your work.</li>
+<li>Needless to say it, but you are NOT allowed to look at other people’s forks of the project and their issues/solutions.</li>
 <li>I expect you to do the coding using pair programming.</li>
 </ol>
 </body>

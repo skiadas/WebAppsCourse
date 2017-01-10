@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -42,137 +60,137 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <h3 id="a-using-local-object">(A) Using Local Object</h3>
 <p>This is the implementation we saw previously, here it is reproduced with a slight variation to avoid code duplication:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeStack</span>() {
-    <span class="kw">var</span> values = [];
-    <span class="kw">var</span> stack = {
-        <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
-            <span class="ot">values</span>.<span class="fu">push</span>(el);
-            <span class="kw">return</span> stack;
-        },
-        <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
-            <span class="kw">if</span> (<span class="ot">stack</span>.<span class="fu">isEmpty</span>()) {
-                <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
-            } <span class="kw">else</span> {
-                <span class="kw">return</span> <span class="ot">values</span>.<span class="fu">pop</span>();
-            }
-        },
-        <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-            <span class="kw">return</span> <span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
-        }
-    };
-    <span class="kw">return</span> stack;
-}
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeStack</span>() <span class="op">{</span>
+    <span class="kw">var</span> values <span class="op">=</span> []<span class="op">;</span>
+    <span class="kw">var</span> stack <span class="op">=</span> <span class="op">{</span>
+        <span class="dt">push</span><span class="op">:</span> <span class="kw">function</span> <span class="at">push</span>(el) <span class="op">{</span>
+            <span class="va">values</span>.<span class="at">push</span>(el)<span class="op">;</span>
+            <span class="cf">return</span> stack<span class="op">;</span>
+        <span class="op">},</span>
+        <span class="dt">pop</span><span class="op">:</span> <span class="kw">function</span> <span class="at">pop</span>() <span class="op">{</span>
+            <span class="cf">if</span> (<span class="va">stack</span>.<span class="at">isEmpty</span>()) <span class="op">{</span>
+                <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>)<span class="op">;</span>
+            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+                <span class="cf">return</span> <span class="va">values</span>.<span class="at">pop</span>()<span class="op">;</span>
+            <span class="op">}</span>
+        <span class="op">},</span>
+        <span class="dt">isEmpty</span><span class="op">:</span> <span class="kw">function</span> <span class="at">isEmpty</span>() <span class="op">{</span>
+            <span class="cf">return</span> <span class="va">values</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">};</span>
+    <span class="cf">return</span> stack<span class="op">;</span>
+<span class="op">}</span>
 <span class="co">// Usage</span>
-<span class="kw">var</span> s1 = <span class="fu">makeStack</span>();
-<span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">5</span>).<span class="fu">push</span>(<span class="dv">1</span>);</code></pre>
+<span class="kw">var</span> s1 <span class="op">=</span> <span class="at">makeStack</span>()<span class="op">;</span>
+<span class="va">s1</span>.<span class="at">push</span>(<span class="dv">2</span>).<span class="at">push</span>(<span class="dv">5</span>).<span class="at">push</span>(<span class="dv">1</span>)<span class="op">;</span></code></pre></div>
 <p>Notice that we give a name to the object containing the 3 methods.</p>
 <h3 id="b-using-local-functions">(B) Using local functions</h3>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">makeStack</span>() {
-    <span class="kw">var</span> values = [];
-    <span class="kw">function</span> <span class="fu">push</span>(el) {
-        <span class="ot">values</span>.<span class="fu">push</span>(el);
-        <span class="kw">return</span> stack;
-    };
-    <span class="kw">function</span> <span class="fu">pop</span>() {
-        <span class="kw">if</span> (<span class="fu">isEmpty</span>()) {
-            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
-        } <span class="kw">else</span> {
-            <span class="kw">return</span> <span class="ot">values</span>.<span class="fu">pop</span>();
-        }
-    };
-    <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-        <span class="kw">return</span> <span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
-    };
-    <span class="kw">return</span> {
-        <span class="dt">push</span>: push,
-        <span class="dt">pop</span>: pop,
-        <span class="dt">isEmpty</span>: isEmpty
-    };
-}
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeStack</span>() <span class="op">{</span>
+    <span class="kw">var</span> values <span class="op">=</span> []<span class="op">;</span>
+    <span class="kw">function</span> <span class="at">push</span>(el) <span class="op">{</span>
+        <span class="va">values</span>.<span class="at">push</span>(el)<span class="op">;</span>
+        <span class="cf">return</span> stack<span class="op">;</span>
+    <span class="op">};</span>
+    <span class="kw">function</span> <span class="at">pop</span>() <span class="op">{</span>
+        <span class="cf">if</span> (<span class="at">isEmpty</span>()) <span class="op">{</span>
+            <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">return</span> <span class="va">values</span>.<span class="at">pop</span>()<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">};</span>
+    <span class="kw">function</span> <span class="at">isEmpty</span>() <span class="op">{</span>
+        <span class="cf">return</span> <span class="va">values</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span>
+    <span class="op">};</span>
+    <span class="cf">return</span> <span class="op">{</span>
+        <span class="dt">push</span><span class="op">:</span> push<span class="op">,</span>
+        <span class="dt">pop</span><span class="op">:</span> pop<span class="op">,</span>
+        <span class="dt">isEmpty</span><span class="op">:</span> isEmpty
+    <span class="op">};</span>
+<span class="op">}</span>
 <span class="co">// Usage</span>
-<span class="kw">var</span> s1 = <span class="fu">makeStack</span>();
-<span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">5</span>).<span class="fu">push</span>(<span class="dv">1</span>);</code></pre>
+<span class="kw">var</span> s1 <span class="op">=</span> <span class="at">makeStack</span>()<span class="op">;</span>
+<span class="va">s1</span>.<span class="at">push</span>(<span class="dv">2</span>).<span class="at">push</span>(<span class="dv">5</span>).<span class="at">push</span>(<span class="dv">1</span>)<span class="op">;</span></code></pre></div>
 <h3 id="c-using-object.create">(C) Using <code>Object.create</code></h3>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> makeStack = (<span class="kw">function</span>() {
-    <span class="kw">var</span> proto = {
-        <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
-            <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(el);
-            <span class="kw">return</span> <span class="kw">this</span>;
-        },
-        <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
-            <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
-                <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
-            } <span class="kw">else</span> {
-                <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">pop</span>();
-            }
-        },
-        <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
-        }
-    };
-    <span class="kw">return</span> <span class="kw">function</span> <span class="fu">makeStack</span>() {
-        <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(proto);
-        <span class="ot">o</span>.<span class="fu">values</span> = [];
-        <span class="kw">return</span> o;
-    };
-}()); <span class="co">// Immediate function invocation</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> makeStack <span class="op">=</span> (<span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> proto <span class="op">=</span> <span class="op">{</span>
+        <span class="dt">push</span><span class="op">:</span> <span class="kw">function</span> <span class="at">push</span>(el) <span class="op">{</span>
+            <span class="kw">this</span>.<span class="va">values</span>.<span class="at">push</span>(el)<span class="op">;</span>
+            <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+        <span class="op">},</span>
+        <span class="dt">pop</span><span class="op">:</span> <span class="kw">function</span> <span class="at">pop</span>() <span class="op">{</span>
+            <span class="cf">if</span> (<span class="kw">this</span>.<span class="at">isEmpty</span>()) <span class="op">{</span>
+                <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>)<span class="op">;</span>
+            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+                <span class="cf">return</span> <span class="kw">this</span>.<span class="va">values</span>.<span class="at">pop</span>()<span class="op">;</span>
+            <span class="op">}</span>
+        <span class="op">},</span>
+        <span class="dt">isEmpty</span><span class="op">:</span> <span class="kw">function</span> <span class="at">isEmpty</span>() <span class="op">{</span>
+            <span class="cf">return</span> <span class="kw">this</span>.<span class="va">values</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">};</span>
+    <span class="cf">return</span> <span class="kw">function</span> <span class="at">makeStack</span>() <span class="op">{</span>
+        <span class="kw">var</span> o <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(proto)<span class="op">;</span>
+        <span class="va">o</span>.<span class="at">values</span> <span class="op">=</span> []<span class="op">;</span>
+        <span class="cf">return</span> o<span class="op">;</span>
+    <span class="op">};</span>
+<span class="op">}</span>())<span class="op">;</span> <span class="co">// Immediate function invocation</span>
 <span class="co">// Usage</span>
-<span class="kw">var</span> s1 = <span class="fu">makeStack</span>();
-<span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">5</span>).<span class="fu">push</span>(<span class="dv">1</span>);</code></pre>
+<span class="kw">var</span> s1 <span class="op">=</span> <span class="at">makeStack</span>()<span class="op">;</span>
+<span class="va">s1</span>.<span class="at">push</span>(<span class="dv">2</span>).<span class="at">push</span>(<span class="dv">5</span>).<span class="at">push</span>(<span class="dv">1</span>)<span class="op">;</span></code></pre></div>
 <p>Here is a variant of this that I personally prefer. It exposes the prototype object:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Stack = {};
-<span class="ot">Stack</span>.<span class="fu">new</span> = <span class="kw">function</span> <span class="fu">makeStack</span>() {
-    <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(<span class="ot">Stack</span>.<span class="fu">_proto</span>);
-    <span class="ot">o</span>.<span class="fu">values</span> = [];
-    <span class="kw">return</span> o;
-};
-<span class="ot">Stack</span>.<span class="fu">_proto</span> = {
-    <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
-        <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(el);
-        <span class="kw">return</span> <span class="kw">this</span>;
-    },
-    <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
-        <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
-            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
-        } <span class="kw">else</span> {
-            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">pop</span>();
-        }
-    },
-    <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-        <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
-    }
-};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Stack <span class="op">=</span> <span class="op">{};</span>
+<span class="va">Stack</span>.<span class="at">new</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">makeStack</span>() <span class="op">{</span>
+    <span class="kw">var</span> o <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(<span class="va">Stack</span>.<span class="at">_proto</span>)<span class="op">;</span>
+    <span class="va">o</span>.<span class="at">values</span> <span class="op">=</span> []<span class="op">;</span>
+    <span class="cf">return</span> o<span class="op">;</span>
+<span class="op">};</span>
+<span class="va">Stack</span>.<span class="at">_proto</span> <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">push</span><span class="op">:</span> <span class="kw">function</span> <span class="at">push</span>(el) <span class="op">{</span>
+        <span class="kw">this</span>.<span class="va">values</span>.<span class="at">push</span>(el)<span class="op">;</span>
+        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">pop</span><span class="op">:</span> <span class="kw">function</span> <span class="at">pop</span>() <span class="op">{</span>
+        <span class="cf">if</span> (<span class="kw">this</span>.<span class="at">isEmpty</span>()) <span class="op">{</span>
+            <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">return</span> <span class="kw">this</span>.<span class="va">values</span>.<span class="at">pop</span>()<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">},</span>
+    <span class="dt">isEmpty</span><span class="op">:</span> <span class="kw">function</span> <span class="at">isEmpty</span>() <span class="op">{</span>
+        <span class="cf">return</span> <span class="kw">this</span>.<span class="va">values</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">};</span>
 
 <span class="co">// Usage</span>
-<span class="kw">var</span> s1 = <span class="ot">Stack</span>.<span class="fu">new</span>();
-<span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">5</span>).<span class="fu">push</span>(<span class="dv">1</span>);</code></pre>
+<span class="kw">var</span> s1 <span class="op">=</span> <span class="va">Stack</span>.<span class="at">new</span>()<span class="op">;</span>
+<span class="va">s1</span>.<span class="at">push</span>(<span class="dv">2</span>).<span class="at">push</span>(<span class="dv">5</span>).<span class="at">push</span>(<span class="dv">1</span>)<span class="op">;</span></code></pre></div>
 <h3 id="d-using-constructor">(D) Using constructor</h3>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">Stack</span>() {
-    <span class="kw">this</span>.<span class="fu">values</span> = [];
-}
-<span class="ot">Stack</span>.<span class="fu">prototype</span> = {
-    <span class="dt">push</span>: <span class="kw">function</span> <span class="fu">push</span>(el) {
-        <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">push</span>(el);
-        <span class="kw">return</span> <span class="kw">this</span>;
-    },
-    <span class="dt">pop</span>: <span class="kw">function</span> <span class="fu">pop</span>() {
-        <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">isEmpty</span>()) {
-            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>);
-        } <span class="kw">else</span> {
-            <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">pop</span>();
-        }
-    },
-    <span class="dt">isEmpty</span>: <span class="kw">function</span> <span class="fu">isEmpty</span>() {
-        <span class="kw">return</span> <span class="kw">this</span>.<span class="ot">values</span>.<span class="fu">length</span> === <span class="dv">0</span>;
-    }
-};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">Stack</span>() <span class="op">{</span>
+    <span class="kw">this</span>.<span class="at">values</span> <span class="op">=</span> []<span class="op">;</span>
+<span class="op">}</span>
+<span class="va">Stack</span>.<span class="at">prototype</span> <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">push</span><span class="op">:</span> <span class="kw">function</span> <span class="at">push</span>(el) <span class="op">{</span>
+        <span class="kw">this</span>.<span class="va">values</span>.<span class="at">push</span>(el)<span class="op">;</span>
+        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">pop</span><span class="op">:</span> <span class="kw">function</span> <span class="at">pop</span>() <span class="op">{</span>
+        <span class="cf">if</span> (<span class="kw">this</span>.<span class="at">isEmpty</span>()) <span class="op">{</span>
+            <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Attempt to pop from empty stack&quot;</span>)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">return</span> <span class="kw">this</span>.<span class="va">values</span>.<span class="at">pop</span>()<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">},</span>
+    <span class="dt">isEmpty</span><span class="op">:</span> <span class="kw">function</span> <span class="at">isEmpty</span>() <span class="op">{</span>
+        <span class="cf">return</span> <span class="kw">this</span>.<span class="va">values</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">};</span>
 <span class="co">// Usage</span>
-<span class="kw">var</span> s1 = <span class="kw">new</span> <span class="fu">Stack</span>();
-<span class="ot">s1</span>.<span class="fu">push</span>(<span class="dv">2</span>).<span class="fu">push</span>(<span class="dv">5</span>).<span class="fu">push</span>(<span class="dv">1</span>);</code></pre>
+<span class="kw">var</span> s1 <span class="op">=</span> <span class="kw">new</span> <span class="at">Stack</span>()<span class="op">;</span>
+<span class="va">s1</span>.<span class="at">push</span>(<span class="dv">2</span>).<span class="at">push</span>(<span class="dv">5</span>).<span class="at">push</span>(<span class="dv">1</span>)<span class="op">;</span></code></pre></div>
 <h3 id="main-differences">Main differences</h3>
 <p>The prototype-based methods (C) and (D) expose the local variable that holds the array.</p>
 <p>There is really no easy way around this: If the functions are to be defined in the prototype object, then they can only have access to the same set of variables, so they cannot behave differently for each object other than by using the <code>this</code> construct. But all properties of <code>this</code> are accessible from the outside.</p>
-<p>We will see how you can at least &quot;hide&quot; the properties if it is critical, so that they are not easily visible, but if the prototype methods have access to them, then so does the rest of the world.</p>
-<p>The advantage is that it is easier to extend the &quot;class&quot; later by adding new methods. If the local variable is not exposed, then these new methods will have no way to access it.</p>
+<p>We will see how you can at least “hide” the properties if it is critical, so that they are not easily visible, but if the prototype methods have access to them, then so does the rest of the world.</p>
+<p>The advantage is that it is easier to extend the “class” later by adding new methods. If the local variable is not exposed, then these new methods will have no way to access it.</p>
 </body>
 </html>

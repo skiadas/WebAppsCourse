@@ -7,24 +7,24 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="strings-and-regular-expressions">Strings and Regular Expressions</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
-<li>Flanagan's book, sections 3.2, 10.1, 10.2, (10.3 optional)</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">MDN's guide on RegExps</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">MDN's RegExp reference</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">MDN's String object reference</a></li>
+<li>Flanagan’s book, sections 3.2, 10.1, 10.2, (10.3 optional)</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">MDN’s guide on RegExps</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">MDN’s RegExp reference</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">MDN’s String object reference</a></li>
 </ul>
 <h2 id="strings-in-javascript">Strings in Javascript</h2>
 <ul>
 <li>String literals are formed by surrounding the text in single or double quotes: <code>&quot;a string&quot;</code>, <code>'another string'</code>.</li>
-<li>Escape characters are combinations that hold special meaning. Refer to table 3.1 in the book, or in MDN's String reference.</li>
+<li>Escape characters are combinations that hold special meaning. Refer to table 3.1 in the book, or in MDN’s String reference.</li>
 <li>The plus operator is overloaded to cause string concatenation. Other values will be coersed to strings if necessary.</li>
 <li>Strings can be accessed via array indexing: <code>&quot;hi there&quot;[4] == &quot;h&quot;</code>, <code>&quot;hello&quot;.length == 5</code>. There is no separate type for single characters.</li>
 <li>Strings are immutable: You cannot change their value, you can only create a new string.</li>
@@ -66,13 +66,13 @@
 <ul>
 <li>Regular expressions are patterns that allow us to express very intelligent searches in strings.</li>
 <li>The full language of regular expressions is quite rich and will take some time to fully digest. We will only scratch the surface here.</li>
-<li><p>A regular expression literal is marked by two forward slashes: <code>/stuffHere/</code>. The second slash may optionally be followed by the letters &quot;i&quot;, &quot;g&quot;, and/or &quot;m&quot;, which affect how the expression behaves.</p>
+<li><p>A regular expression literal is marked by two forward slashes: <code>/stuffHere/</code>. The second slash may optionally be followed by the letters “i”, “g”, and/or “m”, which affect how the expression behaves.</p>
 <dl>
 <dt>i</dt>
-<dd>the regular expression ignores case, so an &quot;a&quot; would much both lower case and upper case A's.
+<dd>the regular expression ignores case, so an “a” would much both lower case and upper case A’s.
 </dd>
 <dt>g</dt>
-<dd>the regular expression becomes &quot;global&quot;, so it will keep on searching for more matches after the first one.
+<dd>the regular expression becomes “global”, so it will keep on searching for more matches after the first one.
 </dd>
 <dt>m</dt>
 <dd>the regular expression possibly matches across multiple lines.
@@ -126,21 +126,21 @@
 <dd>Matches anything BUT what follows the caret.
 </dd>
 <dt>^</dt>
-<dd>Doesn't match an actual character, but it must match the beginning of a line.
+<dd>Doesn’t match an actual character, but it must match the beginning of a line.
 </dd>
 <dt>$</dt>
-<dd>Doesn't match an actual character, but it must match the end of a line.
+<dd>Doesn’t match an actual character, but it must match the end of a line.
 </dd>
 <dt>\b</dt>
-<dd>Doesn't match an actual character, but it must match a word boundary. Useful for matching whole words. For instance <code>/\\bcat\\b/</code> will match in &quot;12cat &quot; but not in &quot;cats&quot;.
+<dd>Doesn’t match an actual character, but it must match a word boundary. Useful for matching whole words. For instance <code>/\\bcat\\b/</code> will match in “12cat” but not in “cats”.
 </dd>
-<dt>(...)</dt>
+<dt>(…)</dt>
 <dd>Treats the contents as a group. In many regular expression searches, you would be able to access the matched pieces. Also called <em>capturing parentheses</em>.
 </dd>
 <dt>\n</dt>
 <dd>where n is a number. Matches a previously matched group.
 </dd>
-<dt>(?:...)</dt>
+<dt>(?:…)</dt>
 <dd><em>Non-capturing parentheses</em>. Useful when you simply want to group some elements together, but do not care for capturing the result separately.
 </dd>
 <dt>x*</dt>
@@ -153,7 +153,7 @@
 <dd>Matches the expression zero or one time.
 </dd>
 <dt>x*?</dt>
-<dd>Matches zero or more times, but in a &quot;non-greedy&quot; fashion, meaning it will try to match the smallest possible number of times.
+<dd>Matches zero or more times, but in a “non-greedy” fashion, meaning it will try to match the smallest possible number of times.
 </dd>
 <dt>x|y</dt>
 <dd>Matches either x or y.
@@ -161,17 +161,17 @@
 </dl></li>
 <li><p>Some examples would be in order:</p>
 <pre><code>/([\w\-]+\d+)@hanover\.edu/</code></pre>
-<p>This will match all student emails at Hanover (faculty/staff emails don't end in digits). It looks for a word character or dash, one or more times, followed by one or more digits, then a literal at sign, &quot;hanover&quot;, then a literal dot, then &quot;edu&quot;.</p>
+<p>This will match all student emails at Hanover (faculty/staff emails don’t end in digits). It looks for a word character or dash, one or more times, followed by one or more digits, then a literal at sign, “hanover”, then a literal dot, then “edu”.</p>
 <pre><code>/(.)(.)(.)\3\2\1/</code></pre>
-<p>This regular expression will match palindromes with total length 6, e.g. something like &quot;abccba&quot;. The parenthesized dots match one arbitrary element each, then the backticked numbers refer to those matches in reverse order.</p>
+<p>This regular expression will match palindromes with total length 6, e.g. something like “abccba”. The parenthesized dots match one arbitrary element each, then the backticked numbers refer to those matches in reverse order.</p>
 <pre><code>/^\s*[+-]?(?:\d+\.?|\.\d+)\d*(?:[eE][+-]?\d+)?\s*$/</code></pre>
 <p>This is a fairly complicated regular expression that matches numbers in decimal or scientific format. It starts with a caret, and ends in a dollar sign, meaning that the contents much match the entire line/string. It allows for an arbitrary number of whitespace characters on either end. After that, it has an optional sign, followed by: either at least one digit followed by an optional dot, or a dot following by at least one digit, these form a non-capturing group, and they are followed by zero or more digits. Finally, there is another optional non-capturing group, that matches an optional exponent. It consists of an uppercase or lowercase e, followed by an optional sign, followed by at least one digit.</p>
 <pre><code>/&quot;((?:\\\\|\\&quot;|[^&quot;])*)&quot;/</code></pre>
-<p>This is a complicated regular expression used to capture a &quot;double-quoted string&quot; within a string. If you read in a data file or some javascript code, you may find in it some quoted strings. The quoted string ends when we find the next unescaped quote. A quote can be escaped by using a backslash, unless that backslash itself was escaped by another backslash. That is why the above pattern has 3 parts separated by vertical lines to indicate any of the 3 alternatives at any given time. The first part matches two backslashes back to back, the next matches a backslash followed by a quote, the third part matches any character except for a quote. Make sure you think about this and understand why it is necessary to do it this way.</p></li>
+<p>This is a complicated regular expression used to capture a “double-quoted string” within a string. If you read in a data file or some javascript code, you may find in it some quoted strings. The quoted string ends when we find the next unescaped quote. A quote can be escaped by using a backslash, unless that backslash itself was escaped by another backslash. That is why the above pattern has 3 parts separated by vertical lines to indicate any of the 3 alternatives at any given time. The first part matches two backslashes back to back, the next matches a backslash followed by a quote, the third part matches any character except for a quote. Make sure you think about this and understand why it is necessary to do it this way.</p></li>
 </ul>
 <h3 id="using-regular-expressions">Using regular expressions</h3>
 <ul>
-<li><p>If <code>s</code> is a string and <code>r</code> is a regular expression, there are a number of different ways we can try to &quot;apply&quot; the regular expression to the string to see if it matches:</p>
+<li><p>If <code>s</code> is a string and <code>r</code> is a regular expression, there are a number of different ways we can try to “apply” the regular expression to the string to see if it matches:</p>
 <dl>
 <dt><a href="https://developer.mozilla.org/en-%20US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec"><code>r.exec(s)</code></a></dt>
 <dd>Returns a result array or null.
@@ -192,7 +192,7 @@
 <dd>Use the matches of <code>r</code> as separators to split the string at.
 </dd>
 </dl></li>
-<li>Most of these methods operate on one item at a time, unless the &quot;g&quot; flag has been added to the regular expression.</li>
+<li>Most of these methods operate on one item at a time, unless the “g” flag has been added to the regular expression.</li>
 <li>The array returned by these methods varies by method, and often contains extra properties. Consult the documentation for details.</li>
 <li><p>When working with regular expressions, it is always a good idea to create a list of test strings first, then see how the regular expression behaves on those strings.</p></li>
 </ul>

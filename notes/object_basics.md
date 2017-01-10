@@ -10,11 +10,11 @@ We will start with simple object literals for now.
 
 ## Basics of Javascript Objects
 
-- For the time being, we will be working with objects as simply key-value pairs.
+- For the time being, we will be working with objects as simply key-value pairs. So think of them more like Python's *dictionaries*.
 - An object is a dynamic collection of key-value pairs. The keys are usually called *properties*.
 - Almost everything in Javascript is an object.
 - Object literals are enclosed in curly braces:
-    ```
+    ```js
     var a = {
         foo: 123,
         "bar": "hello",
@@ -22,10 +22,10 @@ We will start with simple object literals for now.
         even: { other: "objects" }
     };
     ```
-The keys can be written without quotes around them if there is no ambiguity in doing so.
+    The keys can be written without quotes around them if there is no ambiguity in doing so.
 - Accessing a property: `a["foo"]`, `a.foo`.
 - You can also access a property if you have it as a variable value:
-    ```
+    ```js
     var b = "foo";
     a[b];              // same as a["foo"]
     ```
@@ -39,4 +39,4 @@ The keys can be written without quotes around them if there is no ambiguity in d
     typeof undefined;
     ```
 - If you try to access a non-existent property, the result is `undefined`.
-- You can also set the value of a property to equal `undefined`.
+- You can also set the value of a property to equal `undefined`. This is different from not having that property.

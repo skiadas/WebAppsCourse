@@ -7,18 +7,18 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="numbers-in-javascript">Numbers in Javascript</h1>
 <h2 id="relevant-links">Relevant links</h2>
 <ul>
-<li>Flanagan's book, section 3.1.</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">MDN's reference for Numbers</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math">MDN's reference for the Math object</a></li>
+<li>Flanagan’s book, section 3.1.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">MDN’s reference for Numbers</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math">MDN’s reference for the Math object</a></li>
 <li><a href="http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=4610933">IEEE 754 standard</a> (optional)</li>
 <li><a href="http://grouper.ieee.org/groups/754/">The group working on the standard</a> (optional)</li>
 <li><a href="http://en.wikipedia.org/wiki/IEEE_floating_point">Wikipedia page on IEEE 754 standard</a> (optional)</li>
@@ -26,24 +26,33 @@
 <h2 id="numbers-in-javascript-1">Numbers in Javascript</h2>
 <ul>
 <li>Unlike most languages, in Javascript there is only one type of numbers, namely 64-bit floating point numbers defined in the IEEE 754 standard.</li>
-<li>Certain operations (e.g. bitwise) are performed treating the numbers as 32-bit integers instead.</li>
+<li>Certain operations (e.g. bitwise) are performed treating the numbers as 32-bit integers instead.</li>
 <li>Number literals are much like in other languages. You can use <code>0x</code> for hexadecimals.</li>
 <li>Avoid using octal literals (those starting with a 0).</li>
-<li>The <code>Math</code> object contains a number of useful functions. Refer to the MDN documentation for these functions for details. You should make sure you become familiar with the functions for the following (avoid &quot;experimental&quot; functions):
+<li>The <code>Math</code> object contains a number of useful functions. Refer to the MDN documentation for these functions for details. As practice, learn how to do the following: (avoid functions tagged as “experimental”):
 <ul>
-<li>Raising to a power</li>
-<li>Maximum/Minimum</li>
-<li>Random numbers</li>
-<li>Various rounding</li>
-<li>Logarithm and exponential</li>
-<li>Trigonometric functions</li>
+<li>Raising to a power (so compute for example <span class="math inline">\(3^{2.2}\)</span>. Should get about <span class="math inline">\(11.2\)</span>)</li>
+<li>Maximum/Minimum (compute for example the maximum between 2, -3 and 1e2)</li>
+<li>Random numbers
+<ul>
+<li>Ask the system to generate a random number between 0 and 1</li>
+<li>Obtain a random integer between 0 and 4 as follows:
+<ul>
+<li>Start with a random number between 0 and 1</li>
+<li>Multiply it by 5</li>
+<li>Use the floor function to round it down</li>
+</ul></li>
+</ul></li>
+<li>Learn how to round numbers up, and also what the normal round would do</li>
+<li>Logarithm and exponentials if you have time</li>
+<li>Trigonometric functions if you have time</li>
 </ul></li>
 <li>The <code>Math</code> object also contains a number of mathematical constants (pi, e).</li>
 <li>The <code>Number</code> object contains constants for the largest integer, as well as <code>Infinity</code> and <code>NaN</code> (not a number).</li>
 <li>Arithmetic operations never raise errors, instead producing either <code>Infinity</code>, <code>-Infinity</code> or <code>NaN</code>.</li>
 <li><code>NaN</code> in particular is a very unusual value. It represents a numeric value that is indeterminate.
 <ul>
-<li>So it <em>is</em> a number, even though it stands for &quot;not a number&quot;.</li>
+<li>So it <em>is</em> a number, even though it stands for “not a number”.</li>
 <li>You can see that by typing <code>typeof NaN</code>.</li>
 <li><code>NaN</code> is not equal to any value, including itself.</li>
 <li>You can see that by trying <code>NaN == NaN</code>.</li>

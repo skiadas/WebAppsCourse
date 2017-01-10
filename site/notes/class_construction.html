@@ -8,66 +8,84 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="class-construction-examples">Class construction examples</h1>
 <h2 id="notes">Notes</h2>
-<p>In this section we'll describe in general terms the different ways you would use to &quot;create&quot; a &quot;class&quot;.</p>
+<p>In this section we’ll describe in general terms the different ways you would use to “create” a “class”.</p>
 <h3 id="prototype-approach">Prototype approach</h3>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Foo = (<span class="kw">function</span>() {
-    <span class="kw">var</span> _proto, Foo;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Foo <span class="op">=</span> (<span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> _proto<span class="op">,</span> Foo<span class="op">;</span>
 
     <span class="co">// class-level methods and variables go here</span>
     <span class="co">// Accessible by all other class and instance methods</span>
 
 
     <span class="co">// The constructor.</span>
-    <span class="kw">function</span> <span class="fu">makeNew</span>(initials) {
-        <span class="kw">var</span> o = <span class="ot">Object</span>.<span class="fu">create</span>(_proto);
+    <span class="kw">function</span> <span class="at">makeNew</span>(initials) <span class="op">{</span>
+        <span class="kw">var</span> o <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(_proto)<span class="op">;</span>
         <span class="co">// Initialize object o;</span>
-        <span class="kw">return</span> o;
-    }
+        <span class="cf">return</span> o<span class="op">;</span>
+    <span class="op">}</span>
     <span class="co">// Could have other constructors as well</span>
 
 
     <span class="co">// prototype object. Could also use Object.create(...)</span>
-    _proto = {
+    _proto <span class="op">=</span> <span class="op">{</span>
         <span class="co">// Your instance methods go here</span>
-    };
+    <span class="op">};</span>
 
     <span class="co">// The returned object. This is what your users see.</span>
-    Foo = {
-        <span class="kw">new</span>: makeNew,    <span class="co">// Could name it something other than &quot;new&quot;</span>
+    Foo <span class="op">=</span> <span class="op">{</span>
+        <span class="kw">new</span><span class="op">:</span> makeNew<span class="op">,</span>    <span class="co">// Could name it something other than &quot;new&quot;</span>
         .....    <span class="co">// Exported class methods and constructors</span>
-    };
+    <span class="op">};</span>
 
-    <span class="kw">return</span> Foo;
-}());
+    <span class="cf">return</span> Foo<span class="op">;</span>
+<span class="op">}</span>())<span class="op">;</span>
 
 <span class="co">// Call with</span>
-<span class="kw">var</span> foo = <span class="ot">Foo</span>.<span class="fu">new</span>(...);</code></pre>
+<span class="kw">var</span> foo <span class="op">=</span> <span class="va">Foo</span>.<span class="at">new</span>(...)<span class="op">;</span></code></pre></div>
 <p>So let us see what goes on:</p>
 <dl>
 <dt>anonymous function</dt>
@@ -83,37 +101,37 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>Define class methods and constructors as properties of the returned object.
 </dd>
 <dt>return</dt>
-<dd>We return an object with those &quot;class methods&quot; we want the world to be able to use, in particular the constructor(s).
+<dd>We return an object with those “class methods” we want the world to be able to use, in particular the constructor(s).
 </dd>
 </dl>
 <h3 id="constructor-approach">Constructor approach</h3>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Foo = (<span class="kw">function</span>() {
-    <span class="kw">var</span> Foo;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Foo <span class="op">=</span> (<span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> Foo<span class="op">;</span>
 
     <span class="co">// class-level methods and variables go here</span>
     <span class="co">// Accessible by all other class and instance methods</span>
 
 
     <span class="co">// The constructor.</span>
-    <span class="kw">function</span> <span class="fu">Foo</span>(initials) {
+    <span class="kw">function</span> <span class="at">Foo</span>(initials) <span class="op">{</span>
         <span class="co">// Initialize object this;</span>
-        <span class="kw">return</span> <span class="kw">this</span>;    <span class="co">// Optional, done automatically</span>
-    }
+        <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>    <span class="co">// Optional, done automatically</span>
+    <span class="op">}</span>
 
     <span class="co">// Put class methods and variables here</span>
-    <span class="ot">Foo</span>.<span class="fu">aClassMethod</span> = <span class="kw">function</span>() { ... }
-    <span class="ot">Foo</span>.<span class="fu">aClassVariable</span> = <span class="dv">5</span>;
+    <span class="va">Foo</span>.<span class="at">aClassMethod</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span> ... <span class="op">}</span>
+    <span class="va">Foo</span>.<span class="at">aClassVariable</span> <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>
 
     <span class="co">// prototype object.</span>
-    <span class="ot">Foo</span>.<span class="fu">prototype</span> = {
+    <span class="va">Foo</span>.<span class="at">prototype</span> <span class="op">=</span> <span class="op">{</span>
         <span class="co">// Your instance methods go here</span>
-    };
+    <span class="op">};</span>
 
-    <span class="kw">return</span> Foo;
-}());
+    <span class="cf">return</span> Foo<span class="op">;</span>
+<span class="op">}</span>())<span class="op">;</span>
 
 <span class="co">// Call with</span>
-<span class="kw">var</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>(...);</code></pre>
+<span class="kw">var</span> foo <span class="op">=</span> <span class="kw">new</span> <span class="at">Foo</span>(...)<span class="op">;</span></code></pre></div>
 <p>So let us see what goes on:</p>
 <dl>
 <dt>anonymous function</dt>

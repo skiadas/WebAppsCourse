@@ -8,35 +8,53 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="dom-events">DOM Events</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
-<li>Flanagan's book, Chapter 17</li>
-<li>Flanagan's book, Part IV (Event section)</li>
+<li>Flanagan’s book, Chapter 17</li>
+<li>Flanagan’s book, Part IV (Event section)</li>
 <li><a href="http://devdocs.io/dom_events/">devdocs on DOM Events</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/Events">MDN event reference</a></li>
 <li><a href="http://api.jquery.com/category/events/">jQuery events section</a></li>
@@ -44,7 +62,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 id="notes">Notes</h2>
 <h3 id="events">Events</h3>
 <p>Web Applications are interactive: The user needs to take an action, and the application needs to act and perform a task in response to that action. This is done through <em>Events</em>.</p>
-<p>Event-based programming is the most standard of asynchronous behaviors: Our page is ready, and our application does nothing for a while, waiting for a user to interact with the page. When the user clicks a button or types something in, the application does something in response, then goes back to &quot;sleep&quot; until the next event.</p>
+<p>Event-based programming is the most standard of asynchronous behaviors: Our page is ready, and our application does nothing for a while, waiting for a user to interact with the page. When the user clicks a button or types something in, the application does something in response, then goes back to “sleep” until the next event.</p>
 <p>There are a number of different types of events:</p>
 <ul>
 <li>Mouse Events</li>
@@ -62,16 +80,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>Triggered when the user double-clicks something
 </dd>
 <dt>focus</dt>
-<dd>Triggered when an element gets &quot;focus&quot;, either by being selected or by being activated via the keyboard.
+<dd>Triggered when an element gets “focus”, either by being selected or by being activated via the keyboard.
 </dd>
 <dt>change</dt>
-<dd>Triggered when an element loses focus, and had changes done to it while it had focus (e.g. someone typed something in an input box, then navigated out of the box).
+<dd>Triggered when an element loses focus, and had changes done to it while it had focus (e.g. someone typed something in an input box, then navigated out of the box).
 </dd>
 <dt>hashchange</dt>
-<dd>The fragment portion of the URL has changed (This is the #... bit at the end.)
+<dd>The fragment portion of the URL has changed (This is the #… bit at the end.)
 </dd>
 <dt>input</dt>
-<dd>The value of an element changes (e.g. when typing into a text field).
+<dd>The value of an element changes (e.g. when typing into a text field).
 </dd>
 <dt>keydown</dt>
 <dd>A key is pressed down.
@@ -89,7 +107,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd>Mouse button is released.
 </dd>
 <dt>mouseenter / mouseleave</dt>
-<dd>The mouse has entered / left an element's area.
+<dd>The mouse has entered / left an element’s area.
 </dd>
 <dt>more mouse events</dt>
 <dd>There are a couple more mouse events. Look at documentation.
@@ -109,23 +127,23 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>You register for events via a <code>handler</code>. Essentially, a function is attached to a specific element for a specific event name, and if that event occurs within that element, the function will get to run, being passed appropriate information about the event and the element on which it occured.</p>
 <h3 id="bubbling-of-events-and-default-behavior">Bubbling of Events and default behavior</h3>
 <p><em>Event Bubbling</em>, also called <em>propagation</em>, is the process by which events on an element are propagated up the DOM to all ancestors of that element. Registered handlers along the way are called, and they have the option to stop the further propagation of the event.</p>
-<p>This is very useful, especially when we want to handle a variable list of items. If we want something to occur whenever a list item is clicked, we can instead attach a handle on the enclosing &quot;ul&quot; or &quot;ol&quot; element. This way one handler can handle all the list items, and we do not have to worry about registering / deregistering the handlers as the items change.</p>
+<p>This is very useful, especially when we want to handle a variable list of items. If we want something to occur whenever a list item is clicked, we can instead attach a handle on the enclosing “ul” or “ol” element. This way one handler can handle all the list items, and we do not have to worry about registering / deregistering the handlers as the items change.</p>
 <p>Events also tend to have a default behavior. For instance clicking on a link is meant to send the browser to a new location. Handlers also have the option of preventing that default behavior from occuring.</p>
 <h3 id="events-in-jquery">Events in jQuery</h3>
-<p>jQuery offers a variety of methods for registering for events. We will cover some aspects of it, but you can get a more complete view in <a href="http://api.jquery.com/category/events/">jQuery's Event API</a>.</p>
+<p>jQuery offers a variety of methods for registering for events. We will cover some aspects of it, but you can get a more complete view in <a href="http://api.jquery.com/category/events/">jQuery’s Event API</a>.</p>
 <p>The main jQuery function is <a href="http://api.jquery.com/on/"><code>on</code></a>:</p>
-<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// The second argument (selector) is optional</span>
-<span class="fu">$</span>(<span class="st">&quot;ul&quot;</span>).<span class="fu">on</span>(<span class="st">&quot;click&quot;</span>, <span class="st">&quot;li.big&quot;</span>, <span class="kw">function</span>(ev) {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// The second argument (selector) is optional</span>
+<span class="at">$</span>(<span class="st">&quot;ul&quot;</span>).<span class="at">on</span>(<span class="st">&quot;click&quot;</span><span class="op">,</span> <span class="st">&quot;li.big&quot;</span><span class="op">,</span> <span class="kw">function</span>(ev) <span class="op">{</span>
   <span class="co">// The ev object contains info on the event</span>
   <span class="co">// &quot;this&quot; is set to the DOM element on which the handler is attached</span>
-  <span class="ot">console</span>.<span class="fu">log</span>(ev);
-});
+  <span class="va">console</span>.<span class="at">log</span>(ev)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
 <span class="co">// Bubbling, yey!</span>
-<span class="fu">$</span>(document).<span class="fu">on</span>(<span class="st">&quot;click&quot;</span>, <span class="st">&quot;li.big&quot;</span>, <span class="kw">function</span>() { <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;hi there!&quot;</span>); });
+<span class="at">$</span>(document).<span class="at">on</span>(<span class="st">&quot;click&quot;</span><span class="op">,</span> <span class="st">&quot;li.big&quot;</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;hi there!&quot;</span>)<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
 <span class="co">// Oops, no more bubbling</span>
-<span class="fu">$</span>(<span class="st">&quot;li&quot;</span>).<span class="fu">on</span>(<span class="st">&quot;click&quot;</span>, <span class="kw">function</span>(ev) {
-  <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Stop it!&quot;</span>);
-  <span class="ot">ev</span>.<span class="fu">stopPropagation</span>();
-});</code></pre>
+<span class="at">$</span>(<span class="st">&quot;li&quot;</span>).<span class="at">on</span>(<span class="st">&quot;click&quot;</span><span class="op">,</span> <span class="kw">function</span>(ev) <span class="op">{</span>
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Stop it!&quot;</span>)<span class="op">;</span>
+  <span class="va">ev</span>.<span class="at">stopPropagation</span>()<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 </body>
 </html>

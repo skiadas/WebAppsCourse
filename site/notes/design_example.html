@@ -7,14 +7,14 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="design-example-a-chess-application">Design Example: A chess application</h1>
-<p>We'll be designing a chess application's model.</p>
+<p>We’ll be designing a chess application’s model.</p>
 <h2 id="models">Models</h2>
 <dl>
 <dt>Board</dt>
@@ -24,7 +24,7 @@
 <dd>A piece of the board. It knows what board it is in, and what its coordinates are.
 </dd>
 <dt>Move</dt>
-<dd>Identifies a &quot;move&quot;. It should contain information about &quot;color&quot;, i.e. whose move it is, as well as what the move is, in the form of a piece object to move, and where to move it to.
+<dd>Identifies a “move”. It should contain information about “color”, i.e. whose move it is, as well as what the move is, in the form of a piece object to move, and where to move it to.
 </dd>
 <dt>Game</dt>
 <dd>The model representing an overall game. It must have a board associated with it, and keep track of a series of moves and whose turn it is.
@@ -37,11 +37,11 @@
 <li><code>Piece</code> class, as it is responsible for creating and managing the pieces.</li>
 </ul>
 <h4 id="instance-variables">Instance variables</h4>
-<p>These are meant to be private, but we probably won't enforce it. Users should not access these directly</p>
+<p>These are meant to be private, but we probably won’t enforce it. Users should not access these directly</p>
 <ul>
-<li><p><code>locations</code>: Stores the locations of pieces. We will treat it as an array of arrays, where <code>locations[i][j]</code> would return the piece at the <code>i,j</code> location, if there is one, or null if there isn't a piece there.</p>
+<li><p><code>locations</code>: Stores the locations of pieces. We will treat it as an array of arrays, where <code>locations[i][j]</code> would return the piece at the <code>i,j</code> location, if there is one, or null if there isn’t a piece there.</p>
 Indexing on locations starts at 1 (so the arrays we will be using will have an empty entry at 0).</li>
-<li><p><code>detached</code>: An array that stores all the pieces that have been &quot;detached&quot; i.e. captured, and are technically no longer part of the board.</p></li>
+<li><p><code>detached</code>: An array that stores all the pieces that have been “detached” i.e. captured, and are technically no longer part of the board.</p></li>
 </ul>
 <h4 id="class-methods">Class Methods</h4>
 <ul>
@@ -50,8 +50,8 @@ Indexing on locations starts at 1 (so the arrays we will be using will have an e
 <h4 id="instance-methods">Instance Methods</h4>
 <ul>
 <li><code>initialize</code>: Creates a set of pieces and initializes their position.</li>
-<li><code>set(piece, i, j)</code>: Places the piece at the i,j location. If the piece had a location prior to that, it &quot;removes&quot; it from that location.</li>
-<li><code>get(i, j)</code>: Returns the &quot;contents&quot; of the i,j location, namely a <code>Piece</code> or <code>null</code>.</li>
+<li><code>set(piece, i, j)</code>: Places the piece at the i,j location. If the piece had a location prior to that, it “removes” it from that location.</li>
+<li><code>get(i, j)</code>: Returns the “contents” of the i,j location, namely a <code>Piece</code> or <code>null</code>.</li>
 <li><code>isClear(i, j)</code>: Simply <code>get(i,j)===null</code>.</li>
 <li><code>pieceIterator</code>: Returns an iterator that traverses the pieces that are <em>on the board</em> one at a time.</li>
 </ul>
@@ -62,8 +62,8 @@ Indexing on locations starts at 1 (so the arrays we will be using will have an e
 <ul>
 <li><code>board</code>: A piece maintains a link back to the board that created it. (Needed?)</li>
 <li><code>i</code>, <code>j</code>: The current location of the piece. Valid numbers in the range 1 to 8, with 0 representing the idea that the piece is not placed yet.</li>
-<li><code>type</code>: What type the piece is. Available types: &quot;king&quot;, &quot;queen&quot;, &quot;rook&quot;, &quot;bishop&quot;, &quot;knight&quot;, &quot;pawn&quot;.</li>
-<li><code>color</code>: Whether it's a white or black piece.</li>
+<li><code>type</code>: What type the piece is. Available types: “king”, “queen”, “rook”, “bishop”, “knight”, “pawn”.</li>
+<li><code>color</code>: Whether it’s a white or black piece.</li>
 </ul>
 <h4 id="class-methods-1">Class Methods</h4>
 <ul>
@@ -71,12 +71,12 @@ Indexing on locations starts at 1 (so the arrays we will be using will have an e
 </ul>
 <h4 id="instance-methods-1">Instance Methods</h4>
 <ul>
-<li><code>moveTo(i, j)</code>: Sets a piece's location.</li>
+<li><code>moveTo(i, j)</code>: Sets a piece’s location.</li>
 <li><code>detach</code>: Detaches the piece (sets location to 0,0).</li>
-<li><code>isDetached</code>: Whether the piece is &quot;detached&quot; from the board.</li>
+<li><code>isDetached</code>: Whether the piece is “detached” from the board.</li>
 <li><p><code>canMoveTo(i, j)</code>: Determines if the piece can move from its current location to the destination location (i, j).</p>
-<p>This method only determines if this is a valid move for this kind of piece, and not whether there are other considerations that might prevent the move. For instance it will check that there are no obstacles along the way, but it will not check whether it is that color's turn to move, whether the king is in check and so on.</p>
-<p>This method is the reason pieces need to have access to their board, so they can ask it about the squares they would need to &quot;go through&quot;.</p>
+<p>This method only determines if this is a valid move for this kind of piece, and not whether there are other considerations that might prevent the move. For instance it will check that there are no obstacles along the way, but it will not check whether it is that color’s turn to move, whether the king is in check and so on.</p>
+<p>This method is the reason pieces need to have access to their board, so they can ask it about the squares they would need to “go through”.</p>
 This is also essentially the only method that depends on what type the piece is. We can either have a separate subclass for each piece, or we can dynamically set this method upon creation of the piece, based on what its type is. We will opt for this second approach.</li>
 <li><p><code>validDestinations()</code>: Returns an array of all destinations of valid moves for that piece, in the form of objects <code>{ i: i, j: j }</code>.</p></li>
 </ul>
@@ -87,19 +87,19 @@ This is also essentially the only method that depends on what type the piece is.
 <h4 id="instance-variables-2">Instance Variables</h4>
 <ul>
 <li><code>piece</code>: Which piece is meant to be moved.</li>
-<li><code>i</code>, <code>j</code>: Location of destination for the piece's move.</li>
-<li><code>capturedPiece</code>: Some moves include a piece that will be &quot;captured&quot; by the move. It is stored here.</li>
+<li><code>i</code>, <code>j</code>: Location of destination for the piece’s move.</li>
+<li><code>capturedPiece</code>: Some moves include a piece that will be “captured” by the move. It is stored here.</li>
 </ul>
 <h4 id="class-methods-2">Class Methods</h4>
 <ul>
-<li><code>new(piece, i, j, capturedPiece)</code>: Creates a new &quot;move&quot; for the piece to move to the location (i,j).</li>
+<li><code>new(piece, i, j, capturedPiece)</code>: Creates a new “move” for the piece to move to the location (i,j).</li>
 <li><code>castleShort</code>, <code>castleLong</code>: Creates the special moves for castling.</li>
 </ul>
 <h4 id="instance-methods-2">Instance Methods</h4>
 <ul>
-<li><code>isValid()</code>: True if this is a &quot;valid&quot; move from the point of view of the piece under consideration.</li>
-<li><code>execute</code>: &quot;Perform&quot; the move. Special consideration will need to be given to moves like &quot;castling&quot;, which involve the movement of two pieces.</li>
-<li><code>unexecute</code>: Reverses the move. The move needs to have enough information to reverse itself (provided it was the &quot;last&quot; move to be executed, or if we've already unexecuted all the moves that followed it).</li>
+<li><code>isValid()</code>: True if this is a “valid” move from the point of view of the piece under consideration.</li>
+<li><code>execute</code>: “Perform” the move. Special consideration will need to be given to moves like “castling”, which involve the movement of two pieces.</li>
+<li><code>unexecute</code>: Reverses the move. The move needs to have enough information to reverse itself (provided it was the “last” move to be executed, or if we’ve already unexecuted all the moves that followed it).</li>
 </ul>
 <h3 id="game">Game</h3>
 <h4 id="needs-to-know-about-3">Needs to know about</h4>
@@ -109,25 +109,25 @@ This is also essentially the only method that depends on what type the piece is.
 </ul>
 <h4 id="instance-variables-3">Instance Variables</h4>
 <ul>
-<li><code>whiteTurn</code>: True if it is white's turn.</li>
+<li><code>whiteTurn</code>: True if it is white’s turn.</li>
 <li><code>moves</code>: A <code>MovesList</code> instance.</li>
 <li><code>board</code>: The board for the game.</li>
 </ul>
 <h4 id="class-methods-3">Class Methods</h4>
 <ul>
-<li><code>new</code>: Creates a new game, initializing a new board and an empty set of moves, and setting it to be white's turn.</li>
+<li><code>new</code>: Creates a new game, initializing a new board and an empty set of moves, and setting it to be white’s turn.</li>
 </ul>
 <h4 id="instance-methods-3">Instance Methods</h4>
 <ul>
 <li><code>isValid(move)</code>: Determines if the suggested move would be a valid move for the current player.</li>
-<li><code>addMove(move)</code>: Adds the corresponding move to the moves list. Does not yet perform it. Should only happen after a <code>isValid</code>. Will remove any moves that are the &quot;current&quot; or following it.</li>
-<li><code>redo</code>: Performs the &quot;current&quot; move (which may be a recently added move).</li>
+<li><code>addMove(move)</code>: Adds the corresponding move to the moves list. Does not yet perform it. Should only happen after a <code>isValid</code>. Will remove any moves that are the “current” or following it.</li>
+<li><code>redo</code>: Performs the “current” move (which may be a recently added move).</li>
 <li><code>undo</code>: Undoes the lastly performed move.</li>
 <li><code>canRedo</code>, <code>canUndo</code>: Whether those are possible steps.</li>
 <li><code>isInCheck</code>: Determines if the player up next is currently in check or not.</li>
 </ul>
 <h3 id="moveslist">MovesList</h3>
-<p>Maintains a list of &quot;moves&quot; with undo-redo functionality built in.</p>
+<p>Maintains a list of “moves” with undo-redo functionality built in.</p>
 <h4 id="needs-to-know-about-4">Needs to know about</h4>
 <p>Nothing. If desired, we could use a separate <code>DoubleLinkedList</code> implementation, and adjust its interface. Or we could bake the idea of a double-linked list in it.</p>
 <h4 id="instance-variables-4">Instance Variables</h4>
@@ -142,7 +142,7 @@ This is also essentially the only method that depends on what type the piece is.
 <h4 id="instance-methods-4">Instance Methods</h4>
 <ul>
 <li><code>addMove(move)</code>: Adds a move at <code>current</code>, removing any moves that were following it.</li>
-<li><code>redo</code>: Performs the &quot;current&quot; move (which may be a recently added move).</li>
+<li><code>redo</code>: Performs the “current” move (which may be a recently added move).</li>
 <li><code>undo</code>: Undoes the lastly performed move.</li>
 <li><code>canRedo</code>, <code>canUndo</code>: Whether those are possible steps.</li>
 <li><code>nextMove</code>: The move that would be performed next (essentially <code>current</code>).</li>
@@ -153,9 +153,9 @@ This is also essentially the only method that depends on what type the piece is.
 </ul>
 <h2 id="unresolved-issues">Unresolved Issues</h2>
 <ul>
-<li>How to determine if a castle move is allowed (e.g. if king or rook have moved at any point prior to now, move's not allowed). Should some information be kept somewhere, or should it be computed when needed?</li>
+<li>How to determine if a castle move is allowed (e.g. if king or rook have moved at any point prior to now, move’s not allowed). Should some information be kept somewhere, or should it be computed when needed?</li>
 <li>There is a special <code>en passant</code> move. It needs to be treated specially. How and where would that happen?</li>
-<li>Would our design allow us to change the &quot;rules&quot;, board arrangement, etc? What modifications would I need to do to allow for that?</li>
+<li>Would our design allow us to change the “rules”, board arrangement, etc? What modifications would I need to do to allow for that?</li>
 <li>We would like to generate moves from the standard chess notation, as well as produce that notation from moves (to say print a game). How and where would that go?</li>
 </ul>
 </body>

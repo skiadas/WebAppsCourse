@@ -38,7 +38,12 @@
     window.b = 4; // Can define global variables as properties of the global object
     b;            // Returns 4
     ```
-- Here is a gotcha to watch out for, there are no other scopes than those introduced by functions:
+
+    > Note: Very few things in Javascript are protected. For instance this line overwrites the Math object:
+    > ```js
+    > Math = {}
+    > ```
+- Here is a gotcha to watch out for, there are no other scopes than those introduced by functions. For example a `for` loop does NOT introduce a new scope.
     ```
     for (var i = 0; i < 10; i += 1) {
         i;
@@ -48,3 +53,5 @@
 - Pay particular attention to the example at the top of page 54.
 - Make a point to **always declare variables at the top of functions/files**.
 - Here is an example of what can go horribly wrong if you are not careful: [local_global.html](../testPages/local_global.html) and [local_global.js](../testPages/local_global.js)
+
+    > Note: Files loaded via `<script>` tags all share the same global space. Whatever you do in one file can impact the other files.
