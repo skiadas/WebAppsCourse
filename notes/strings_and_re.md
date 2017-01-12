@@ -12,6 +12,12 @@
 - String literals are formed by surrounding the text in single or double quotes: `"a string"`, `'another string'`.
 - Escape characters are combinations that hold special meaning. Refer to table 3.1 in the book, or in MDN's String reference.
 - The plus operator is overloaded to cause string concatenation. Other values will be coersed to strings if necessary.
+    ```js
+    "hi" + 0;     // "hi0"
+    0 + "hi";     // "0hi"
+    "1" + 0;      // "10"
+    ```
+    > Note: Oftentimes you read numeric input from a text field. You must convert it into a number first, to avoid examples like the above.
 - Strings can be accessed via array indexing: `"hi there"[4] == "h"`, `"hello".length == 5`. There is no separate type for single characters.
 - Strings are immutable: You cannot change their value, you can only create a new string.
 

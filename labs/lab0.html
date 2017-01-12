@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Lab 0</title>
+   <style type="text/css">
+   .error {
+      background-color: rgba(255,0,0,0.3);
+   }
+   .ok {
+      background-color: rgba(0,255,0,0.3);
+   }
+   .chart div {
+     font: 14px sans-serif;
+     background-color: steelblue;
+     text-align: right;
+     padding: 8px;
+     margin: 2px;
+     color: white;
+   }
+   </style>
+</head>
+<body>
+   <script>
+   // Exercise 1
+   // Add your code here:
+
+
+
+
+
+   // Exercise 2
+   // Add your code here:
+
+
+
+
+   // Exercise 3
+   // Add your code here:
+
+
+
+
+   // Exercise 4
+   // Add your code here
+
+
+
+
+
+   // Exercise 5
+   // Add your code here
+
+
+
+
+
+   // Nothing to do below this line. All your work should be above
+   </script>
+   <h1>Exercise 1 Test</h1>
+   <div id="ex1"></div>
+   <h1>Exercise 2 Test</h1>
+   <div id="ex2"></div>
+   <h1>Exercise 3 Test</h1>
+   <div id="ex3"></div>
+   <h1>Exercise 4 Test</h1>
+   <div id="ex4" class="chart"></div>
+   <h1>Exercise 5 Test</h1>
+   <div id="ex5"></div>
+
+   <!-- Below this line are tests. DO NOT CHANGE ANYTHING BELOW THIS LINE. -->
+   <script src="https://code.jquery.com/jquery-3.1.1.slim.js" integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA=" crossorigin="anonymous"></script>
+   <script src="https://d3js.org/d3.v4.min.js"></script>
+   <script>
+   function insertError(msg, el) {
+      $('<p>' + msg + '</p>').appendTo(el).addClass("error");
+   }
+   function insertOK(msg, el) {
+      $('<p>' + msg + '</p>').appendTo(el).addClass("ok");
+   }
+   // Ex1
+   if (!window.hasOwnProperty("myself") || typeof myself !== "object") {
+      insertError("There is no object named myself", $("#ex1"));
+   } else if (!myself.hasOwnProperty("name") || typeof myself.name !== "string") {
+      insertError("The myself object must have a string property called 'name'", $("#ex1"));
+   } else if (!myself.hasOwnProperty("age") || typeof myself.age !== "number") {
+      insertError("The myself object must have a numeric property called 'age'", $("#ex1"));
+   } else if (!myself.hasOwnProperty("likes") || myself.likes.length === undefined) {
+      insertError("The myself object must have an array property called 'likes'", $("#ex1"));
+   } else {
+      insertOK("Hello! My name is " + myself.name + ", I am " + myself.age + " years old, and I like " + (myself.likes.length === 0 ? "nothing" : myself.likes.join(', ')), "#ex1");
+   }
+
+   // Ex2
+   if (!window.hasOwnProperty("findMax") || typeof findMax !== "function") {
+      insertError("There is no function named findMax", $("#ex2"));
+   } else {
+      if (findMax([]) === -Infinity && findMax(["hi!"]) === -Infinity) {
+         insertOK("Result is -Infinity if there are no numbers", $("#ex2"));
+      } else {
+         insertError("Result should be -Infinity if there are no numbers", $("#ex2"));
+      }
+      if (findMax([1, 5, 4]) === 5 && findMax([1, "no", , "way"]) === 1) {
+         insertOK("Function computes max correctly", $("#ex2"));
+      } else {
+         insertError("Function does not compute max correctly", $("#ex2"));
+      }
+
+   }
+
+   // Ex3
+   if (!window.hasOwnProperty("countWords") || typeof countWords !== "function") {
+      insertError("There is no function named countWords", $("#ex3"));
+   } else {
+      if (countWords("Hi there you!") === 3 && countWords("hi!there!") === 2) {
+         insertOK("Appears to count words properly", $("#ex3"));
+      } else {
+         insertError("Doesn't appear to count words properly", $("#ex3"));
+      }
+      try {
+         if (countWords("") === 0 && countWords("%$#^23#") === 0) {
+            insertOK("Works with empty string or all-non-letters string", $("#ex3"));
+         } else {
+            insertError("Doesn't handle empty string and non-letter string correctly", $("#ex3"));
+         }
+      } catch (e) {
+         insertError("Did not handle properly the case of empty string or non-letter string", $("#ex3"));
+      }
+
+   }
+
+   // Ex4
+   var anArray = [];
+   for (var i = 0; i < 10; i += 1) {
+      anArray[i] = 200 * Math.random();
+      $("<div></div>").css("width", anArray[i] + "px").appendTo($("#ex4"));
+   }
+   if (!window.hasOwnProperty("fix2") || typeof fix2 !== "function") {
+      insertError("There is no function named fix2", $("#ex4"));
+   } else {
+      function adjust() {
+         var divs = $("div", $("#ex4"));
+         for (var i = 0; i < 10; i += 1) {
+            $(divs[i]).css("width", anArray[i] + "px");
+         }
+      }
+      var timer = setInterval(function() {
+         if (fix2(anArray)) {
+            adjust();
+         } else {
+            clearInterval(timer);
+            for (var i = 1; i < anArray.length; i += 1) {
+               if (anArray[i] < anArray[i - 1]) {
+                  insertError("fix2 didn't work!", $("#ex4"));
+                  return;
+               }
+            }
+            insertOK("fix2 works!", $("#ex4"));
+         }
+      }, 200);
+   }
+
+   // Ex5
+   var items = [
+      { name: "Boots", quantity: 3, price: 25 },
+      { name: "Pants", quantity: 2, price: 35 },
+      { name: "Jackets", quantity: 1, price: 40 }
+   ];
+   var table = $("<table><thead><tr><th>Item</th><th>Quantity</th><th>Price</th></tr></thead><tbody></tbody></table>").appendTo($("#ex5"));
+   items.forEach(function(item) {
+      $("<tr><td>" + item.name + "</td><td><input data-key='quantity' value='" + item.quantity + "'></input></td><td><input data-key='price' value='" + item.price + "'></input></td></tr>")
+      .data("item", item).appendTo($("tbody", $(table)));
+   });
+   var totalLine = $("<tr><td>Total</td><td></td><td id='total'>" + (window.hasOwnProperty("computeTotal") ? computeTotal(items) : NaN)  + "</td></tr>").appendTo($("tbody", $(table)));
+
+   $("input").on("change", table, function(ev) {
+      var key = $(this).data("key");
+      var item = $(this).closest("tr").data("item");
+      var value = $(this).val();
+      item[key] = value;
+      $('#total').text(computeTotal(items));
+   });
+   </script>
+</body>
+</html>

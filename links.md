@@ -29,6 +29,8 @@
 
 ## Non-free books worth considering
 
+Some of these are accessible via your ACM membership. Search for their titles.
+
 - [Programming JavaScript Applications](http://shop.oreilly.com/product/0636920033141.do).
 - [JavaScript: The Good Parts](http://shop.oreilly.com/product/9780596517748.do), a must have.
 - [Functional JavaScript](http://shop.oreilly.com/product/0636920028857.do).

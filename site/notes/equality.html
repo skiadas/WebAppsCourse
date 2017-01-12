@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="equality-in-javascript">Equality in Javascript</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li>Flanagan’s book, “Relational Expressions” section of chapter 4</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness">MDN’s description of equality rules</a>. In particular check the table for loose equality cases.</li>
+<li><a href="http://ecma-international.org/ecma-262/5.1/#sec-11.9.6">The official description of strict equality, from the standard</a></li>
+</ul>
+<h2 id="equality">Equality</h2>
+<ul>
+<li>Javascript has two different “equality” operations, <code>==</code> (loose equality) and <code>===</code> (strict equality).</li>
+<li>You should almost never use <code>==</code>.</li>
+<li>Stick to <code>===</code>, which is a more strict equality test.</li>
+<li><p>Essentially <code>==</code> does a “type conversion” before comparing. This leads to some weird behavior (for instance it is no longer transitive). Some examples:</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="dv">0</span> <span class="op">==</span> <span class="st">&quot;0&quot;</span>          <span class="co">// true</span>
+<span class="dv">0</span> <span class="op">==</span> <span class="st">&quot;&quot;</span>           <span class="co">// true</span>
+<span class="st">&quot;&quot;</span> <span class="op">==</span> <span class="st">&quot;0&quot;</span>         <span class="co">// false</span>
+<span class="dv">0</span> <span class="op">===</span> <span class="st">&quot;0&quot;</span>         <span class="co">// false</span>
+<span class="kw">false</span> <span class="op">==</span> <span class="st">&quot;false&quot;</span>  <span class="co">// false</span>
+<span class="dv">0</span> <span class="op">==</span> <span class="kw">false</span>        <span class="co">// true</span></code></pre></div></li>
+<li><p>Two objects are only equal if they are literally the same object:</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> o <span class="op">=</span> <span class="op">{</span> <span class="dt">foo</span><span class="op">:</span> <span class="dv">2</span> <span class="op">};</span> <span class="kw">var</span> o2 <span class="op">=</span> <span class="op">{</span> <span class="dt">foo</span><span class="op">:</span> <span class="dv">2</span> <span class="op">};</span>
+o <span class="op">==</span> o2<span class="op">;</span>          <span class="co">// false</span>
+o <span class="op">==</span> o<span class="op">;</span>           <span class="co">// true</span></code></pre></div></li>
+</ul>
+<blockquote>
+<p>Exception: There is one case where using loose equality works well: If you want to capture both “undefined” and “null”. So <code>o == null</code> is going be true both when <code>o</code> is undefined and when it is null.</p>
+</blockquote>
+</body>
+</html>

@@ -50,7 +50,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </script>
 </head>
 <body>
-<h1 id="basics-of-javascript-objects">Basics of Javascript Objects</h1>
+<h1 id="basics-of-javascript-objects-dictionaries">Basics of Javascript Objects (Dictionaries)</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
 <li>Flanagan’s book, sections 4.2, 4.4, 6.1.1, 6.2.1</li>
@@ -58,10 +58,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">MDN’s reference on objects</a></li>
 </ul>
 <p>We will start with simple object literals for now.</p>
-<h2 id="basics-of-javascript-objects-1">Basics of Javascript Objects</h2>
+<h2 id="basics-of-javascript-objects">Basics of Javascript Objects</h2>
 <ul>
 <li>For the time being, we will be working with objects as simply key-value pairs. So think of them more like Python’s <em>dictionaries</em>.</li>
-<li>An object is a dynamic collection of key-value pairs. The keys are usually called <em>properties</em>.</li>
+<li>An <strong>object</strong> is a <em>dynamic collection of key-value pairs</em>. The keys are usually called <em>properties</em>.</li>
+<li>There are no restrictions on what the values can be. The keys however are <em>strings</em>.</li>
 <li>Almost everything in Javascript is an object.</li>
 <li><p>Object literals are enclosed in curly braces:</p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> a <span class="op">=</span> <span class="op">{</span>
@@ -71,7 +72,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="dt">even</span><span class="op">:</span> <span class="op">{</span> <span class="dt">other</span><span class="op">:</span> <span class="st">&quot;objects&quot;</span> <span class="op">}</span>
 <span class="op">};</span></code></pre></div>
 The keys can be written without quotes around them if there is no ambiguity in doing so.</li>
-<li>Accessing a property: <code>a[&quot;foo&quot;]</code>, <code>a.foo</code>.</li>
+<li>Two ways to access a property:
+<ul>
+<li>“Dictionary” access, using a string: <code>a[&quot;foo&quot;]</code></li>
+<li>“Object” access, using dot notation: <code>a.foo</code></li>
+</ul></li>
 <li><p>You can also access a property if you have it as a variable value:</p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> b <span class="op">=</span> <span class="st">&quot;foo&quot;</span><span class="op">;</span>
 a[b]<span class="op">;</span>              <span class="co">// same as a[&quot;foo&quot;]</span></code></pre></div></li>
@@ -83,7 +88,10 @@ a[b]<span class="op">;</span>              <span class="co">// same as a[&quot;f
 <pre><code>typeof null;
 typeof undefined;</code></pre></li>
 <li>If you try to access a non-existent property, the result is <code>undefined</code>.</li>
-<li><p>You can also set the value of a property to equal <code>undefined</code>. This is different from not having that property.</p></li>
+<li><p>You can also set the value of a property to equal <code>undefined</code>. This is different from not having that property:</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> a <span class="op">=</span> <span class="op">{</span> <span class="dt">foo</span><span class="op">:</span> <span class="dv">5</span> <span class="op">};</span>
+<span class="va">a</span>.<span class="at">bar</span> <span class="op">=</span> <span class="kw">undefined</span><span class="op">;</span>
+<span class="va">a</span>.<span class="at">hasOwnProperty</span>(<span class="st">&quot;bar&quot;</span>)<span class="op">;</span>    <span class="co">// returns true</span></code></pre></div></li>
 </ul>
 </body>
 </html>

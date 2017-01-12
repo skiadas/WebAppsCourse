@@ -15,7 +15,7 @@ Office
   ~ LYN 109 and SCH 121C
 
 Office Hours
-  ~ MWF 3pm-3:30pm, WRF 9am-10am, T 10am-12am
+  ~ MWF 1pm-2:30pm, and by appointment
 
 Book
   ~ [ACM-provided books and other online sources](http://skiadas.github.io/WebAppsCourse/site/links.html)

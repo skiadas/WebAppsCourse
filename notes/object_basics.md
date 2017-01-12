@@ -1,4 +1,4 @@
-# Basics of Javascript Objects
+# Basics of Javascript Objects (Dictionaries)
 
 ## Relevant Links
 
@@ -11,7 +11,8 @@ We will start with simple object literals for now.
 ## Basics of Javascript Objects
 
 - For the time being, we will be working with objects as simply key-value pairs. So think of them more like Python's *dictionaries*.
-- An object is a dynamic collection of key-value pairs. The keys are usually called *properties*.
+- An **object** is a *dynamic collection of key-value pairs*. The keys are usually called *properties*.
+- There are no restrictions on what the values can be. The keys however are *strings*.
 - Almost everything in Javascript is an object.
 - Object literals are enclosed in curly braces:
     ```js
@@ -23,7 +24,9 @@ We will start with simple object literals for now.
     };
     ```
     The keys can be written without quotes around them if there is no ambiguity in doing so.
-- Accessing a property: `a["foo"]`, `a.foo`.
+- Two ways to access a property:
+    - "Dictionary" access, using a string: `a["foo"]`
+    - "Object" access, using dot notation: `a.foo`
 - You can also access a property if you have it as a variable value:
     ```js
     var b = "foo";
@@ -39,4 +42,9 @@ We will start with simple object literals for now.
     typeof undefined;
     ```
 - If you try to access a non-existent property, the result is `undefined`.
-- You can also set the value of a property to equal `undefined`. This is different from not having that property.
+- You can also set the value of a property to equal `undefined`. This is different from not having that property:
+    ```js
+    var a = { foo: 5 };
+    a.bar = undefined;
+    a.hasOwnProperty("bar");    // returns true
+    ```

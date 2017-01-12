@@ -11,20 +11,20 @@ A week-by-week breakdown of the material.
     - [Numbers in Javascript](notes/numbers.md)
     - [Local and Global Variables](notes/local_vs_global.md)
     - [Basics of Arrays](notes/array_basics.md)
-    - [Assignment 1](assignments/1.md)
-    - [Assignment 2](assignments/2.md)
 - Day 2
-    - [Basics of Objects](notes/object_basics.md)
+    - [Basics of Objects: Dictionaries](notes/object_basics.md)
+    - [Equality in Javascript](notes/equality.md)
     - [Strings and Regular Expressions](notes/strings_and_re.md)
     - [Function basics](notes/functions_basic.md)
-    - [Assignment 3](assignments/3.md)
-    - [Basics of Version Control](notes/git_version_control.md)
-    - [Git basics](notes/git_basics.md)
-    - [Review of Git commands](notes/git_commands_review.md)
+    - [Lab 0](labs/0.md)
 
 ## Week  2 (01/12-01/16)
 
 - Day 1
+    - [Assignment 3](assignments/3.md)
+    - [Basics of Version Control](notes/git_version_control.md)
+    - [Git basics](notes/git_basics.md)
+    - [Review of Git commands](notes/git_commands_review.md)
     - [GitHub basics](notes/github_basics.md)
     - [Remotes and Branches](notes/git_remotes_branches.md)
     - [GitHub Workflow](notes/github_workflow.md)
