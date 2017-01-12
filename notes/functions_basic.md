@@ -21,13 +21,24 @@
 - Here is an example of a function that each time it is called with an argument `n` returns a new array of `n` random values:
     ```
     function makeRandomArray(n) {
-        var newArray = [];
-        var i;
+        var newArray, i;
+
+        newArray = [];
+
         for (i = 0; i < n; i += 1) {
             newArray[i] = Math.random();
         }
+
         return newArray;
     }
     makeRandomArray(4);
     makeRandomArray(2);
     ```
+
+## Practice Functions
+
+1. Write a function `indexOf` that is given an array and an element, and it searches through the array for that element (using strict equality). If it finds the element then it returns the index where it found it. Otherwise it returns -1. Do NOT use the built-in array function that does this, just build a for-loop.
+2. Write a function `isOrdered` that takes as argument an array of numbers and returns `true` if the array elements are in ascending order, `false` otherwise. Do NOT change the elements in the array, and do NOT use any sort method.
+3. Write a function `isOrdered2` that behaves like `isOrdered` except that it takes a second optional argument, called `asc`. If that argument is `false`, then it should check to see that the array is ordered in *descending* order, in all other cases it should check for *ascending* order.
+4. Write a function `takeNames` that takes as input an array of objects. It then goes through the array, and for any object that has a property called "name" it takes that value and puts it in a new array. It then returns that array.
+5. Write a function `takeNames2` which takes a second optional argument. If that argument is specified and is a string, then it uses that string as the key/property it looks for, instead of using "name".

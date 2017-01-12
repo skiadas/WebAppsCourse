@@ -17,6 +17,7 @@ A week-by-week breakdown of the material.
     - [Strings and Regular Expressions](notes/strings_and_re.md)
     - [Function basics](notes/functions_basic.md)
     - [Lab 0](labs/0.md)
+    - [Quiz 1](https://moodle.hanover.edu/mod/quiz/view.php?id=32970)
 
 ## Week  2 (01/12-01/16)
 
