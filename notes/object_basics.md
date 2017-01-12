@@ -41,7 +41,7 @@ We will start with simple object literals for now.
     typeof null;
     typeof undefined;
     ```
-- If you try to access a non-existent property, the result is `undefined`.
+- If you try to access a non-existent property, the result is `undefined`. This is very different behavior than in Python.
 - You can also set the value of a property to equal `undefined`. This is different from not having that property:
     ```js
     var a = { foo: 5 };

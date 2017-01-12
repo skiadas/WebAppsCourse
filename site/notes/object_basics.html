@@ -87,7 +87,7 @@ a[b]<span class="op">;</span>              <span class="co">// same as a[&quot;f
 <li><p>Two special values of importance: <code>null</code>, <code>undefined</code>. Both tend to indicate the absence of a value. The difference is that the former of those is an object:</p>
 <pre><code>typeof null;
 typeof undefined;</code></pre></li>
-<li>If you try to access a non-existent property, the result is <code>undefined</code>.</li>
+<li>If you try to access a non-existent property, the result is <code>undefined</code>. This is very different behavior than in Python.</li>
 <li><p>You can also set the value of a property to equal <code>undefined</code>. This is different from not having that property:</p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> a <span class="op">=</span> <span class="op">{</span> <span class="dt">foo</span><span class="op">:</span> <span class="dv">5</span> <span class="op">};</span>
 <span class="va">a</span>.<span class="at">bar</span> <span class="op">=</span> <span class="kw">undefined</span><span class="op">;</span>
