@@ -36,15 +36,21 @@ We discuss more extensively one of the key features of Javascript, namely that f
     arr.forEach(printIt);
     ```
 
-    So what happens here is that `forEach` expects a function as an argument. It then calls the function once for each element of the array, passing that element as an argument. This form of iteration is something you should get used to, and we will spend some more time going over it in a future segment.
+    So what happens here is that `forEach` expects a function as an argument. It then calls the function once for each element of the array, passing that element as an argument. This form of iteration is something you should get used to, and we will spend some more time going over it in a future segment. We could even enter the function directly, without giving it a name:
+    ```javascript
+    [8, 3, 2, 4].forEach(function(v) {
+        console.log("You are looking at:", v);
+    });
+    ```
 
-    But the thing to take from this is that you can have a function that takes as argument another function. These are called higher-order functions and they are a cornerstone of what is known as "functional programming".
+    But the thing to take from this is that *you can have a function that takes as argument another function*. These are called **higher-order functions** and they are a cornerstone of what is known as "functional programming".
 - Here is a different example: In this case, our function actually returns a function:
     ```javascript
     function makeGreeter(name) {
         var greeter = function() {
             console.log("Greetings, " + name + "!");
         };
+
         return greeter;
     }
     var greet = makeGreeter("John");
@@ -52,9 +58,9 @@ We discuss more extensively one of the key features of Javascript, namely that f
     greet();
     ```
 
-    So our function `makeGreeter` takes as argument a name string, and returns a function. When that function called, it does a console.log. Notice that nothing happens until we actually call `greet`.
+    So our function `makeGreeter` takes as argument a `name` string, and returns a function. When that function called, it does a console.log. Notice that nothing happens until we actually call `greet`.
 
-    Some times when we define a local variable only to immediately return it, it is often customary to skip that step:
+    Some times when we define a local variable only to immediately return it, it is often customary to skip the "defining" step:
     ```javascript
     function makeGreeter(name) {
         return function() {
@@ -62,3 +68,8 @@ We discuss more extensively one of the key features of Javascript, namely that f
         };
     }
     ```
+
+### Practice
+
+1. Write a function `loving` that takes a `name` string as input, and returns a function. That function takes a `language` string as input, and *returns* the string `"<name> loves <language>"`. So for instance if `var f = loving('Skiadas');` then `f('Javascript')` would result in the string `"Skiadas loves Javascript"`.
+2. Write a function `map` that takes as input a function `f`. It then returns a function that takes as input an array `arr`, and proceeds to create a new array by applying `f` to each element of `arr` and collecting the results.

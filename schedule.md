@@ -22,6 +22,10 @@ A week-by-week breakdown of the material.
 ## Week  2 (01/12-01/16)
 
 - Day 1
+    - [Functions as values](notes/function_values.md)
+    - [Functions as closures](notes/function_closures.md)
+- Day 2
+    - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
     - [Assignment 3](assignments/3.md)
     - [Basics of Version Control](notes/git_version_control.md)
     - [Git basics](notes/git_basics.md)
@@ -31,11 +35,7 @@ A week-by-week breakdown of the material.
     - [GitHub Workflow](notes/github_workflow.md)
     - [Overall Project Workflow](notes/project_workflow.md)
     - [Lab 1: Getting used to the basics](labs/1.md)
-    - [Functions as values](notes/function_values.md)
-    - [Functions as closures](notes/function_closures.md)
     - [Assignment 4](assignments/4.md)
-- Day 2
-    - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
     - [Array Collection methods](notes/array_collection_methods.md)
     - [Function Usage Patterns](notes/function_usage_patterns.md)
     - [Assignment 5](assignments/5.md)

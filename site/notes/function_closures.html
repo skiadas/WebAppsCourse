@@ -63,28 +63,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </blockquote>
 <p>Here’s a code example:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> c <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>
+<span class="kw">var</span> d <span class="op">=</span> <span class="dv">3</span><span class="op">;</span>
 <span class="kw">var</span> v <span class="op">=</span> <span class="dv">10</span><span class="op">;</span>
 <span class="kw">function</span> <span class="at">storeMe</span>(v) <span class="op">{</span>
    <span class="kw">var</span> c <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>
+
    <span class="cf">return</span> <span class="kw">function</span> <span class="at">printStuff</span>() <span class="op">{</span>
       <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;In f&#39;s call, v is:&quot;</span><span class="op">,</span> v)<span class="op">;</span>
       <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;In f&#39;s call, c is:&quot;</span><span class="op">,</span> c)<span class="op">;</span>
+      <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;In f&#39;s call, d is:&quot;</span><span class="op">,</span> d)<span class="op">;</span>
    <span class="op">}</span>
 <span class="op">}</span>
 <span class="kw">var</span> f <span class="op">=</span> <span class="at">storeMe</span>(<span class="dv">20</span>)<span class="op">;</span>
 <span class="at">f</span>()<span class="op">;</span>
 <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Out here, v is:&quot;</span><span class="op">,</span> v)<span class="op">;</span>
-<span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Out here, c is:&quot;</span><span class="op">,</span> c)<span class="op">;</span></code></pre></div>
+<span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Out here, c is:&quot;</span><span class="op">,</span> c)<span class="op">;</span>
+<span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Out here, d is:&quot;</span><span class="op">,</span> d)<span class="op">;</span></code></pre></div>
 Let us see what is going on:
 <ul>
-<li>First of all, the two variables <code>c</code> and <code>v</code> are defined, with values <code>2</code> and <code>10</code>.</li>
+<li>First of all, the three variables <code>c</code>, <code>d</code> and <code>v</code> are defined, with values <code>2</code>, <code>3</code> and <code>10</code>.</li>
 <li>Then a function <code>storeMe</code> is defined, and later on is called with value <code>20</code>.</li>
-<li>When that call is executed, a new scope is created, on which <code>v</code> has the passed value <code>20</code>, and after the first line is executed a variable <code>c</code> is defined with value <code>5</code>.</li>
-<li>We then return a function. This function will need a <code>v</code> and a <code>c</code> when it is called.</li>
+<li>When that call is executed, a new scope is created, on which <code>v</code> has the passed value <code>20</code>, and after the first line is executed a variable <code>c</code> is defined with value <code>5</code>. The <code>d</code> that was defined outside the function is still visible.</li>
+<li>We then return a function. This function will need a <code>v</code>, a <code>c</code> and a <code>d</code> when it is called.</li>
 <li>These are determined by what values they have <em>where</em> the function was defined, namely inside the execution of <code>storeMe</code>.</li>
 </ul></li>
 <li>So when <code>storeMe(20)</code> returns a function, and we store it at the variable named <code>f</code>, we in fact store more than just a function. We store the “environment”, the “scope”, in which that function was defined.</li>
-<li>This is called a “function closure”, or just “closure” for short. It is the basis for some extremely interesting patterns that we will study in the days to come.</li>
+<li><p>This is called a “function closure”, or just “closure” for short. It is the basis for some extremely interesting patterns that we will study in the days to come.</p>
+<blockquote>
+<p>A <strong>function closure</strong> is a function together with the scope/environment in which the function was <em>defined</em>.</p>
+</blockquote></li>
 <li><p>The most standard example of this idea is a counter function:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeCounter</span>() <span class="op">{</span>
    <span class="kw">var</span> c <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
@@ -105,7 +112,32 @@ Let us see what is going on:
 <li>When that function <code>count</code> is called, it first increments that variable <code>c</code>. It then returns the new value. Every time it is called, it will increment once more.</li>
 <li>If <code>makeCounter</code> is called a second time, to create <code>c2</code>, then a new different scope is created, in which a variable <code>c</code> is declared, completely different from the one used in <code>c1</code>.</li>
 <li>In fact, noone else has access to that variable <code>c</code> belonging to the function <code>c1</code>. The counter function <code>c1</code> can count (if you pardon the pun) on the fact that noone can mess with its counter variable <code>c</code>. We have effectively created a “private variable”.</li>
+<li>Another important consequence is the following:</li>
+</ul>
+<blockquote>
+<p>Variables local to a function can survive for a long time past the function’s execution, if they are part of the scope/environment of the function closures created within the function and returned with the return value.</p>
+</blockquote></li>
+<li><strong>Practice</strong>:
+<ol style="list-style-type: decimal">
+<li>Write a version of <code>makeCounter</code> that takes an argument <code>a</code>, and uses that as a starting point for the increment. Make it so that if no argument is provided, it defaults to starting at 1.</li>
+<li>Write a version of <code>makeCounter</code> that takes up to two arguments, <code>a</code> and <code>b</code>. If <code>b</code> is not provided, it should behave like the previous example. If <code>b</code> (and <code>a</code>) is provided, it should start incrementing from <code>a</code>, but whenever the current count is <code>b</code> or more it should reset to <code>a</code>.</li>
+<li>In this problem the goal is to be able to keep track of how many counters we created. Write a function <code>makeCounterMaker</code>, which takes no input, and will return the <code>makeCounter</code> function.
+<ul>
+<li>It should have a variable that counts how many counters have been created so far.</li>
+<li>Each time a new counter is created by calling the returned <code>makeCounter</code> function, this variable should be incremented.</li>
+<li>Each created counter should also store in it its index/number, i.e. the first counter that was created would have index 1, the second should have index 2 etc.</li>
+<li>When a counter is called, it should console log the message: “Counter #…, now at count …” where the first number is the counter’s index, and the second is the counter’s current number.</li>
+<li><p>Yes there is a 3-level nesting of functions: The <code>makeCounterMaker</code> function returns a function <code>makeCounter</code> which in turn when called makes a new counter which is itself a function that we call and increment.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Example run</span>
+<span class="kw">var</span> maker <span class="op">=</span> <span class="at">makeCounterMaker</span>()<span class="op">;</span>
+<span class="kw">var</span> c1 <span class="op">=</span> <span class="at">maker</span>(<span class="dv">3</span>)<span class="op">;</span>   <span class="co">// Counter #1, starting at 3</span>
+<span class="kw">var</span> c2 <span class="op">=</span> <span class="at">maker</span>()<span class="op">;</span>    <span class="co">// Counter #2, starting at 1</span>
+<span class="at">c1</span>()<span class="op">;</span>       <span class="co">// Prints: &quot;Counter #1, now at count 3&quot;  and returns 3</span>
+<span class="at">c2</span>()<span class="op">;</span>       <span class="co">// Prints: &quot;Counter #2, now at count 1&quot;  and returns 1</span>
+<span class="at">c1</span>()<span class="op">;</span>       <span class="co">// Prints: &quot;Counter #1, now at count 4&quot;  and returns 4</span>
+<span class="at">c2</span>()<span class="op">;</span>       <span class="co">// Prints: &quot;Counter #2, now at count 2&quot;  and returns 2</span></code></pre></div></li>
 </ul></li>
+</ol></li>
 <li>As a final and more extended example, here is an implementation of a stack. Of course we could use an array instead, but arrays have many more methods. We want to provide a system, so that users should only be able to do the following, and nothing else:
 <ul>
 <li>Create a new empty stack</li>
@@ -132,8 +164,26 @@ Let us see what is going on:
 <span class="kw">var</span> s2 <span class="op">=</span> <span class="at">makeStack</span>()<span class="op">;</span>
 <span class="va">s1</span>.<span class="at">push</span>(<span class="dv">1</span>)<span class="op">;</span> <span class="va">s1</span>.<span class="at">push</span>(<span class="dv">2</span>)<span class="op">;</span> <span class="va">s1</span>.<span class="at">push</span>(<span class="dv">3</span>)<span class="op">;</span>
 <span class="cf">while</span> (<span class="op">!</span><span class="va">s1</span>.<span class="at">isEmpty</span>()) <span class="op">{</span> <span class="va">s2</span>.<span class="at">push</span>(<span class="va">s1</span>.<span class="at">pop</span>())<span class="op">;</span> <span class="op">}</span></code></pre></div>
-<p>When the function <code>makeStack</code> is called, it creates a new array empty, <code>arr</code>, to hold the values. But it keeps that array secret. Instead, it returns an object with three properties, whose values implement the three operations we require of a stack.</p>
-<p>This is important. We only expose to the user the functions they are supposed to call, and hide everything else. This way we can me sure our structure is used in a predictable way.</p></li>
+<p>When the function <code>makeStack</code> is called, it creates a new empty array, <code>arr</code>, to hold the values. But it keeps that array secret. Instead, it returns an object with three properties, whose values implement the three operations we require of a stack.</p>
+<p>This is important. We only expose to the user the functions they are supposed to call, and hide everything else. This way we can be sure our structure is used in a predictable way.</p>
+<p>The other important element is that noone from the outside world has direct access to the array <code>arr</code>. The array was created within the function <code>makeStack</code>, so the functions that were defined within <code>makeStack</code> can see it, but when <code>makeStack</code> returns this array is no longer visible (it was local to the function).</p></li>
+</ul>
+<h3 id="practice">Practice</h3>
+<p>Implement a simple “single linked-list” structure, as follows:</p>
+<ul>
+<li>A <code>makeList</code> structure should be called when you want to create a new linked list. It should create a local <code>head</code> variable, and it should return an object consisting of the methods described below.</li>
+<li>Each new “node” will consist of an object with two properties: <code>value</code>, and <code>next</code>. <code>next</code> would be the next node (or null if we are at the end).</li>
+<li>You should implement the following methods:
+<ul>
+<li><code>prepend(value)</code> adds a new node at the beginning of the list.</li>
+<li><code>append(value)</code> adds a new node at the end of the list.</li>
+<li><code>first()</code> returns the value at the beginning of the list.</li>
+<li><code>last()</code> returns the value at the end of the list.</li>
+<li><code>length()</code> returns the length of the list.</li>
+<li><code>popFront()</code> removes the node from the front of the list, and returns its value.</li>
+<li><code>popEnd()</code> removes the node at the end of the list, and returns its value.</li>
+<li><code>toArray()</code> returns a (possibly empty) array of the values in the list.</li>
+</ul></li>
 </ul>
 </body>
 </html>
