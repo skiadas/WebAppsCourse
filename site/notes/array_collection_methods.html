@@ -135,5 +135,15 @@ times <span class="op">=</span> []<span class="op">;</span>
 <p><code>every</code> will return <code>false</code> the moment it encounters a value that the predicate evaluates to <code>false</code>, and otherwise (if it makes it to the end of the array) it will return <code>true</code>.</p>
 <p><code>some</code> is sort of the opposite. It will return <code>true</code> the moment if finds a value that the predicate evaluates to <code>true</code>, and otherwise (if it makes it to the end of the array) it will return <code>false</code>.</p>
 <p>Makes sure you understand how these two methods will behave on an empty array.</p>
+<h3 id="practice">Practice</h3>
+<ol style="list-style-type: decimal">
+<li>Using <code>every</code>, write a call that will tell us if all numbers in an array of numbers are even.</li>
+<li>Using <code>filter</code>, keep from an array of strings only those with length no more than 20.</li>
+<li>Using <code>reduce</code>, compute given an array of numbers the sum of squares of those numbers.</li>
+<li>Using <code>map</code>, given an array of strings produce an array of the corresponding lengths of those strings.</li>
+<li><p>Using a combination of <code>filter</code> and map, produce from an array of numbers a corresponding array of the squares of only those numbers that are positive. You can “chain” the two calls like so:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">arr</span>.<span class="at">filter</span>(<span class="kw">function</span>(v) <span class="op">{</span> ... <span class="op">}</span>)
+  .<span class="at">map</span>(<span class="kw">function</span>(v) <span class="op">{</span> ... <span class="op">}</span>)<span class="op">;</span></code></pre></div></li>
+</ol>
 </body>
 </html>

@@ -125,3 +125,16 @@ These methods take the same argument as `filter`, and apply it to the array valu
 `some` is sort of the opposite. It will return `true` the moment if finds a value that the predicate evaluates to `true`, and otherwise (if it makes it to the end of the array) it will return `false`.
 
 Makes sure you understand how these two methods will behave on an empty array.
+
+### Practice
+
+1. Using `every`, write a call that will tell us if all numbers in an array of numbers are even.
+2. Using `filter`, keep from an array of strings only those with length no more than 20.
+3. Using `reduce`, compute given an array of numbers the sum of squares of those numbers.
+4. Using `map`, given an array of strings produce an array of the corresponding lengths of those strings.
+5. Using a combination of `filter` and map, produce from an array of numbers a corresponding array of the squares of only those numbers that are positive. You can "chain" the two calls like so:
+
+    ```javascript
+    arr.filter(function(v) { ... })
+      .map(function(v) { ... });
+    ```
