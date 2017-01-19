@@ -168,3 +168,14 @@ timers.fireAll();
 There is a lot going on in the above code, so take some time digesting it all.
 
 Later on we will discuss modules and make some of these ideas more precise.
+
+### Practice
+
+Create a similar object (via immediate function invocation) called "population" that is meant to manage a list of all our people.
+
+1. It should contain in its private information an `allPeople` variable, which will be an object/dictionary whose keys will be people's names, and whose values are going to be the person objects that the function `newPerson` returns.
+2. Your `population` object should provide a "newPerson(name)" function that adds a new "person", with age 0. This "person" will contain two private variables, the name and age. It should export a `getName()` method and a `getAge()` method. It should only do so if a person with that name does not exist yet. It should return the newly created person, or else return the existing person.
+3. The objects created by `newPerson` should also have two more methods: `incrAge` which increments the age by 1 (and returns the new age) and `retire` which removes the person from the list of people.
+4. Your `population` object should also provide a `getPerson(name)` function that attempts to recover the person with a given name, and returns `null` if there is no such person.
+5. Your `population` object should also provide a `incrAll` function that increments the ages of all persons by 1 (ideally by calling `incrAge` on all of them).
+6. Your `population` object should also provide a `printAll` function that prints one at a time the name plus age of each person. Bonus points for making it so the ages all line up (i.e. the correct number of spaces is added to the names, to make the ages line up).

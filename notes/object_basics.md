@@ -48,3 +48,52 @@ We will start with simple object literals for now.
     a.bar = undefined;
     a.hasOwnProperty("bar");    // returns true
     ```
+
+### Basic object/dictionary tasks
+
+Here are some key tasks with dictionaries and how to carry them out:
+
+Creating an object
+  ~ ```javascript
+    var o = { key1: val1, key2: val2, ... };
+    ```
+
+Setting an object key
+  ~ ```javascript
+    o[keyString] = newValue;
+    o.key = newValue;
+    ```
+
+Accessing a key value
+  ~ ```javascript
+    o[keyString];
+    o.key;
+    ```
+
+Checking if a key exists
+  ~ ```javascript
+    o.hasOwnProperty(keyString);
+    ```
+
+Traversing all keys-value pairs
+  ~ ```javascript
+    // Approach 1
+    for (var key in o) {
+        if (o.hasOwnProperty(key)) {      // <--- Must do this check!
+          var value = o[key];             // Declaration should be earlier
+          // Do things with key, value
+        }
+    }
+    // Approach 2
+    var keys = Object.keys(o);     // <-- Returns array of keys
+    for (var i = 0; i < keys.length; i += 1) {
+      var key = keys[i];          // Declaration should be earlier
+      var value = o[key];         // Declaration should be earlier
+      // Do things with key, value
+    }
+    // Approach 3
+    Object.keys.forEach(function(key) {
+      var value = o[key];         // Declaration is OK, inside a function
+      // do things with key, value
+    });
+    ```

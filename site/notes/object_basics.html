@@ -93,5 +93,44 @@ typeof undefined;</code></pre></li>
 <span class="va">a</span>.<span class="at">bar</span> <span class="op">=</span> <span class="kw">undefined</span><span class="op">;</span>
 <span class="va">a</span>.<span class="at">hasOwnProperty</span>(<span class="st">&quot;bar&quot;</span>)<span class="op">;</span>    <span class="co">// returns true</span></code></pre></div></li>
 </ul>
+<h3 id="basic-objectdictionary-tasks">Basic object/dictionary tasks</h3>
+<p>Here are some key tasks with dictionaries and how to carry them out:</p>
+<dl>
+<dt>Creating an object</dt>
+<dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> o <span class="op">=</span> <span class="op">{</span> <span class="dt">key1</span><span class="op">:</span> val1<span class="op">,</span> <span class="dt">key2</span><span class="op">:</span> val2<span class="op">,</span> ... <span class="op">};</span></code></pre></div>
+</dd>
+<dt>Setting an object key</dt>
+<dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">o[keyString] <span class="op">=</span> newValue<span class="op">;</span>
+<span class="va">o</span>.<span class="at">key</span> <span class="op">=</span> newValue<span class="op">;</span></code></pre></div>
+</dd>
+<dt>Accessing a key value</dt>
+<dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">o[keyString]<span class="op">;</span>
+<span class="va">o</span>.<span class="at">key</span><span class="op">;</span></code></pre></div>
+</dd>
+<dt>Checking if a key exists</dt>
+<dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">o</span>.<span class="at">hasOwnProperty</span>(keyString)<span class="op">;</span></code></pre></div>
+</dd>
+<dt>Traversing all keys-value pairs</dt>
+<dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Approach 1</span>
+<span class="cf">for</span> (<span class="kw">var</span> key <span class="kw">in</span> o) <span class="op">{</span>
+    <span class="cf">if</span> (<span class="va">o</span>.<span class="at">hasOwnProperty</span>(key)) <span class="op">{</span>      <span class="co">// &lt;--- Must do this check!</span>
+      <span class="kw">var</span> value <span class="op">=</span> o[key]<span class="op">;</span>             <span class="co">// Declaration should be earlier</span>
+      <span class="co">// Do things with key, value</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+<span class="co">// Approach 2</span>
+<span class="kw">var</span> keys <span class="op">=</span> <span class="va">Object</span>.<span class="at">keys</span>(o)<span class="op">;</span>     <span class="co">// &lt;-- Returns array of keys</span>
+<span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">keys</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+  <span class="kw">var</span> key <span class="op">=</span> keys[i]<span class="op">;</span>          <span class="co">// Declaration should be earlier</span>
+  <span class="kw">var</span> value <span class="op">=</span> o[key]<span class="op">;</span>         <span class="co">// Declaration should be earlier</span>
+  <span class="co">// Do things with key, value</span>
+<span class="op">}</span>
+<span class="co">// Approach 3</span>
+<span class="va">Object</span>.<span class="va">keys</span>.<span class="at">forEach</span>(<span class="kw">function</span>(key) <span class="op">{</span>
+  <span class="kw">var</span> value <span class="op">=</span> o[key]<span class="op">;</span>         <span class="co">// Declaration is OK, inside a function</span>
+  <span class="co">// do things with key, value</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+</dd>
+</dl>
 </body>
 </html>
