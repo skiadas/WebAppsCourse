@@ -28,6 +28,8 @@ A week-by-week breakdown of the material.
     - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
     - [Array Collection methods](notes/array_collection_methods.md)
     - [Function Usage Patterns](notes/function_usage_patterns.md)
+    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
+    - [Lab 1](labs/1.md)
 
 ## Week  3 (01/19-01/23)
 
@@ -40,7 +42,6 @@ A week-by-week breakdown of the material.
     - [Remotes and Branches](notes/git_remotes_branches.md)
     - [GitHub Workflow](notes/github_workflow.md)
     - [Overall Project Workflow](notes/project_workflow.md)
-    - [Lab 1: Getting used to the basics](labs/1.md)
     - [Assignment 4](assignments/4.md)
     - [Assignment 5](assignments/5.md)
     - [Lab 2: Writing Tests](labs/2.md)

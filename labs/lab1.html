@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Lab 0</title>
+   <style type="text/css">
+   .error {
+      background-color: rgba(255,0,0,0.3);
+   }
+   .ok {
+      background-color: rgba(0,255,0,0.3);
+   }
+   table {
+      margin: 2em;
+      margin-left: 70%;
+      border-collapse: collapse;
+   }
+   table td {
+      padding: 8px;
+      margin: 0;
+      width: 1em;
+      height: 1em;
+      border: 2px solid gray;
+      font-size: 200%;
+      text-align: center;
+   }
+
+   table td.winning {
+      background-color: green;
+   }
+
+   </style>
+</head>
+<body>
+   <script>
+   // Exercise 1
+   // Fill in this function
+   function checkLine(v1, v2, v3) {
+
+   }
+
+   // This function builds a 3x3 tic-tac-toe "board"
+   function makeBoard() {
+      var board;
+
+      // Exercise 2
+      // Fill in this function
+      function initBoard() {
+
+      }
+
+      // Exercise 3
+      // Fill in this function
+      function set(row, col, value) {
+
+      }
+
+      // Exercise 4
+      // Fill in this function
+      function get(row, col) {
+
+      }
+
+      // Exercise 5
+      // Fill in this function
+      function winner() {
+
+      }
+
+      // We initialize the board, before returning.
+      initBoard();
+
+      return {
+         reset: initBoard,
+         set: set,
+         get: get,
+         winner: winner
+      };
+   }
+
+
+
+
+   // Nothing to do below this line. All your work should be above
+   </script>
+   <div style="width: 40%;  float: left;">
+      <h1>Exercise 1 Test</h1>
+      <div id="ex1"></div>
+      <h1>Exercise 2, 3, 4 Tests</h1>
+      <div id="ex3"></div>
+      <h1>Exercise 5 Test</h1>
+      <div id="ex5"></div>
+   </div>
+   <div style="width: 60%;">
+      <h1>Play! Turn: <span id="turn"></span></h1>
+      <button id="reset">Reset</button>
+      <table id="board">
+         <tr>
+            <td data-index="0" data-i="0" data-j="0"></td>
+            <td data-index="1" data-i="0" data-j="1"></td>
+            <td data-index="2" data-i="0" data-j="2"></td>
+         </tr>
+         <tr>
+            <td data-index="3" data-i="1" data-j="0"></td>
+            <td data-index="4" data-i="1" data-j="1"></td>
+            <td data-index="5" data-i="1" data-j="2"></td>
+         </tr>
+         <tr>
+            <td data-index="6" data-i="2" data-j="0"></td>
+            <td data-index="7" data-i="2" data-j="1"></td>
+            <td data-index="8" data-i="2" data-j="2"></td>
+         </tr>
+      </table>
+   </div>
+   <!-- Below this line are tests. DO NOT CHANGE ANYTHING BELOW THIS LINE. -->
+   <script src="https://code.jquery.com/jquery-3.1.1.slim.js" integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA=" crossorigin="anonymous"></script>
+   <script src="https://d3js.org/d3.v4.min.js"></script>
+   <script>
+   function insertError(msg, el) {
+      $('<p>' + msg + '</p>').appendTo(el).addClass("error");
+   }
+   function insertOK(msg, el) {
+      $('<p>' + msg + '</p>').appendTo(el).addClass("ok");
+   }
+   // Ex1 Tests
+   [
+      ["x", "x", "x", "x"],
+      ["o", "x", "o", null],
+      [null, null, null, null],
+      ["p", "p", "p", "p"]
+   ].forEach(function(args) {
+      if (checkLine(args[0], args[1], args[2]) !== args[3]) {
+         insertError("The triple: " + args[0] + "," + args[1] + "," + args[2] + " should have returned: " + args[3], $("#ex1"));
+      } else {
+         insertOK("The triple: "  + args[0] + "," + args[1] + "," + args[2] + " returned correctly.", $("#ex1"));
+      }
+   });
+   // Ex2, 3, 4 Tests
+   var board = makeBoard();
+   if (board.get(0, 0) !== null || board.get(0, 1) !== null || board.get(0, 2) !== null ||
+       board.get(1, 0) !== null || board.get(1, 1) !== null || board.get(1, 2) !== null ||
+       board.get(2, 0) !== null || board.get(2, 1) !== null || board.get(2, 2) !== null) {
+      insertError("Board values must be initialized to null.", $("#ex3"));
+   } else {
+      insertOK("Board values properly initialized to null.", $("#ex3"));
+   }
+   board.set(0, 2, "x");
+   if (board.get(0, 2) !== "x") {
+      insertError("Board value either not correctly set or not correctly read", $("#ex3"));
+   } else {
+      insertOK("Set value correctly read", $("#ex3"));
+   }
+   if (board.get(0, 0) !== null || board.get(0, 1) !== null ||
+       board.get(1, 0) !== null || board.get(1, 1) !== null || board.get(1, 2) !== null ||
+       board.get(2, 0) !== null || board.get(2, 1) !== null || board.get(2, 2) !== null) {
+      insertError("Setting a value has affected other values", $("#ex3"));
+   } else {
+      insertOK("Setting a value did not affect other values", $("#ex3"));
+   }
+   try {
+      board.set(0, 2, "o");
+      insertError("Should have thrown an error if the value is already set", $("#ex3"));
+   } catch (e) {
+      insertOK("Correctly threw an error when the value was already set", $("#ex3"));
+   }
+   board.set(0, 0, "o"); board.set(0, 1, "o");
+   board.set(1, 0, "x"); board.set(1, 1, "x"); board.set(1, 2, "x");
+   board.set(2, 0, "x"); board.set(2, 1, "x"); board.set(2, 2, "x");
+   board.reset();
+   if (board.get(0, 0) !== null || board.get(0, 1) !== null || board.get(0, 2) !== null ||
+       board.get(1, 0) !== null || board.get(1, 1) !== null || board.get(1, 2) !== null ||
+       board.get(2, 0) !== null || board.get(2, 1) !== null || board.get(2, 2) !== null) {
+      insertError("Board values did not reset properly.", $("#ex3"));
+   } else {
+      insertOK("Board values did reset properly.", $("#ex3"));
+   }
+   // Ex 5 Test
+   if (board.winner() !== null) {
+      insertError("There should be no winner initially.", $("#ex5"));
+   } else {
+      insertOK("No winner initially", $("#ex5"));
+   }
+   board.set(1,1, "x");
+   if (board.winner() != null) { insertError("Winner too soon.", $("#ex5")); }
+   board.set(1,2, "o");
+   if (board.winner() != null) { insertError("Winner too soon.", $("#ex5")); }
+   board.set(2,2, "x");
+   if (board.winner() != null) { insertError("Winner too soon.", $("#ex5")); }
+   board.set(0, 0, "x");
+   if (board.winner() == null) {
+      insertError("Did not declare a winner when it should have.", $("#ex5"));
+   } else if (board.winner().player !== "x") {
+      insertError("Did not declare the correct winner (or return value not correct).", $("#ex5"));
+   } else {
+      var entries = board.winner().entries;
+      if (entries.length !== 3 || entries[0] !== 0 || entries[1] !== 4 || entries[2] !== 8) {
+         insertError("Winning entries not correctly returned", $("#ex5"));
+      } else {
+         insertOK("Winning entries correctly returned", $("#ex5"));
+      }
+   }
+   [
+      [[0, 0, 0], [0, 1, 1], [0, 2, 2]],
+      [[1, 0, 3], [1, 1, 4], [1, 2, 5]],
+      [[2, 0, 6], [2, 1, 7], [2, 2, 8]],
+      [[0, 0, 0], [1, 0, 3], [2, 0, 6]],
+      [[0, 1, 1], [1, 1, 4], [2, 1, 7]],
+      [[0, 2, 2], [1, 2, 5], [2, 2, 8]],
+      [[0, 2, 2], [1, 1, 4], [2, 0, 6]]
+   ].forEach(function(points) {
+      board.reset();
+      board.set(points[0][0], points[0][1], "o");
+      board.set(points[1][0], points[1][1], "o");
+      board.set(points[2][0], points[2][1], "o");
+      var winner = board.winner();
+      if (winner == null) {
+         insertError("Did not recognize a winning direction", $("#ex5"));
+      } else {
+         if (winner.player !== "o") {
+            insertError("Did not recognize the correct winner", $("#ex5"));
+         } else if (winner.entries[0] !== points[0][2] ||
+             winner.entries[1] !== points[1][2] ||
+             winner.entries[2] !== points[2][2]) {
+            insertError("Did not report the correct triple", $("#ex5"));
+         } else {
+            insertOK("Did report the correct triple", $("#ex5"));
+         }
+      }
+   });
+
+   // Building the board
+   var board = makeBoard();
+   var turn;
+   function drawBoard() {
+      $("td").each(function(index) {
+         var i = $(this).data("i");
+         var j = $(this).data("j");
+         $(this).html(board.get(i, j) || "").removeClass("winning");
+      });
+      $("#turn").html(turn);
+      var winner = board.winner();
+      if (winner !== null) {
+         $("#turn").html(winner.player + " wins!");
+         $("td").each(function(index) {
+            var index = $(this).data("index");
+            if (winner.entries.indexOf(index) !== -1) {
+               $(this).addClass('winning');
+            }
+         });
+      }
+   }
+
+   function resetBoard() {
+      turn = "x";
+      board.reset();
+      drawBoard();
+   }
+
+   $("table").on("click", "td", function() {
+      var i = $(this).data("i");
+      var j = $(this).data("j");
+      try {
+         board.set(i, j, turn);
+         turn = turn === "x" ? "o" : "x";
+         drawBoard();
+      } catch(e) {
+         console.log("Already set!", e);
+      }
+   });
+   resetBoard();
+
+   $("#reset").on("click", function() {
+      resetBoard();
+   });
+
+   </script>
+</body>
+</html>
