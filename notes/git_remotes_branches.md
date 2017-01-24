@@ -1,6 +1,6 @@
 # Working with remote repositories and branches
 
-In this section we will learn how to clone a repository from GitHub, how to find information about that repository, how to push information back to the repository, and finally how to work with multiple branches.
+In this section we will learn how to clone a repository from GitLab, how to find information about that repository, how to push information back to the repository, and finally how to work with multiple branches.
 
 ## Relevant Links
 
@@ -9,23 +9,23 @@ In this section we will learn how to clone a repository from GitHub, how to find
 
 ## Notes
 
-First of all, you should have already forked the [WebAppsLabs](https://github.com/skiadas/WebAppsLabs) project over to your account. Make sure you have that open in your browser.
+First of all, you should have already forked the [WebAppsLabs](https://gitlab.com/skiadas/WebAppsLabs) project over to your account. Make sure you have that open in your browser.
 
 ### Cloning
 
-The first thing we need to do is "clone" this project on your computer. To do that, find the "clone URL" section on the right side of your project webpage, and click on "Copy to clipboard" next to it. Now open up the Terminal, and navigate to the location where you want to store this project. The Desktop or some sort of Documents folders would be good places. The cloning process will create a folder itself, so you do not need to create the project's folder, you just need to be in the location where you want it created. Then you would type:
+The first thing we need to do is "clone" this project on your computer. To do that, find the "clone URL" section on the middle of your project webpage, and click on "Copy to clipboard" next to it. Now open up the Terminal, and navigate to the location where you want to store this project. The Desktop or some sort of Documents folders would be good places. The cloning process will create a folder itself, so you do not need to create the project's folder, you just need to be in the location where you want it created. Then you would type:
 
 ```
 git clone pasteTheLinkHere
 ```
 
-The link should look something like: "`https://github.com/yourNameHere/WebAppsLabs.git`".
+The link should look something like: "`https://gitlab.com/yourNameHere/WebAppsLabs.git`".
 
 If you do a `ls` listing in the directory you should now see this new folder, called WebAppsLabs. Switch to it with `cd WebAppsLabs`. You should find a `README.md` file in there.
 
 ### Learning about Remotes
 
-The repository that GitHub has of your code is called the "remote". You also just cloned a full version of it locally on your computer. We will see how to interact between the two.
+The repository that GitLab has of your code is called the "remote". You also just cloned a full version of it locally on your computer. We will see how to interact between the two.
 
 Type the following to see the remotes you have:
 
@@ -33,12 +33,12 @@ Type the following to see the remotes you have:
 git remote -v
 ```
 
-You should see "two" remotes, one for **fetch** and one for **push**. Fetch is what happens when we download changes from GitHub to our computer, Push is the opposite.
+You should see "two" remotes, one for **fetch** and one for **push**. Fetch is what happens when we download changes from GitLab to our computer, Push is the opposite.
 
 If you have collaborators, you can create extra "remotes" linking to their versions of the project, so that you can fetch changes they make. In our case, we will create such a remote that would access my main version of the project, so that you can get updates when I add new labs (your forked project won't update directly). Do the following:
 
 ```
-git remote add mainSource https://github.com/skiadas/WebAppsLabs.git
+git remote add mainSource https://gitlab.com/skiadas/WebAppsLabs.git
 ```
 
 Now if you look for all the remotes you should be seeing two new remotes (well really one remote with fetch and push). We will use this much later.

@@ -19,6 +19,7 @@
 <li><a href="http://git-scm.com/book/en/v2">Pro git book</a></li>
 <li><a href="http://git-scm.com/docs">Git command reference</a></li>
 <li><a href="http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">Read this</a> Chapter 1 (at least skim through it)</li>
+<li><a href="https://hanover-cs.github.io/tutorial-version-control/">Hanover-CS tutorial on version control</a></li>
 </ul>
 <h2 id="notes">Notes</h2>
 <h3 id="general-information-about-version-control-and-git">General information about Version Control and git</h3>
@@ -32,9 +33,10 @@
 <li>seamlessly merge together changes implemented at the same time by different people</li>
 <li>share changes to someone’s code, that they can decide to use or not</li>
 <li>see a history of what has happened when in your code</li>
+<li>Keep various evolving versions of your codebase (stable, current, experimental etc)</li>
 </ul></li>
 <li>Your code history is stored in a <strong>repository</strong></li>
-<li>A specific version of your code is called a <strong>revision</strong></li>
+<li>A specific version of your code is called a <strong>revision</strong>. It is typically stored as a previous revision and the changes needed to obtain the new revision.</li>
 <li>Creating a new revision based on the current state of your code is called a <strong>commit</strong></li>
 <li>We will be using “git”, which is known as a <strong>distributed version control system</strong>
 <ul>
@@ -53,7 +55,7 @@
 <dt>working directory</dt>
 <dd>This is your current directory the way you have it set up, with all its files and things.
 </dd>
-<dt>staging area</dt>
+<dt>staging area (index)</dt>
 <dd>This sits between the repository and the working directory. When you decide that you want to keep some of the changes you made to your repository, you will “stage” them, and then they become part of the staging area. When you are certain that you have staged all the changes that “are logically together”, you can “commit” them, which moves these staged changes into the repository.
 </dd>
 </dl></li>

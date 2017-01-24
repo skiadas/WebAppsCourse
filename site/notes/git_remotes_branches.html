@@ -14,26 +14,26 @@
 </head>
 <body>
 <h1 id="working-with-remote-repositories-and-branches">Working with remote repositories and branches</h1>
-<p>In this section we will learn how to clone a repository from GitHub, how to find information about that repository, how to push information back to the repository, and finally how to work with multiple branches.</p>
+<p>In this section we will learn how to clone a repository from GitLab, how to find information about that repository, how to push information back to the repository, and finally how to work with multiple branches.</p>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
 <li><a href="http://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes">Remotes</a></li>
 <li><a href="http://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell">Branches</a></li>
 </ul>
 <h2 id="notes">Notes</h2>
-<p>First of all, you should have already forked the <a href="https://github.com/skiadas/WebAppsLabs">WebAppsLabs</a> project over to your account. Make sure you have that open in your browser.</p>
+<p>First of all, you should have already forked the <a href="https://gitlab.com/skiadas/WebAppsLabs">WebAppsLabs</a> project over to your account. Make sure you have that open in your browser.</p>
 <h3 id="cloning">Cloning</h3>
-<p>The first thing we need to do is “clone” this project on your computer. To do that, find the “clone URL” section on the right side of your project webpage, and click on “Copy to clipboard” next to it. Now open up the Terminal, and navigate to the location where you want to store this project. The Desktop or some sort of Documents folders would be good places. The cloning process will create a folder itself, so you do not need to create the project’s folder, you just need to be in the location where you want it created. Then you would type:</p>
+<p>The first thing we need to do is “clone” this project on your computer. To do that, find the “clone URL” section on the middle of your project webpage, and click on “Copy to clipboard” next to it. Now open up the Terminal, and navigate to the location where you want to store this project. The Desktop or some sort of Documents folders would be good places. The cloning process will create a folder itself, so you do not need to create the project’s folder, you just need to be in the location where you want it created. Then you would type:</p>
 <pre><code>git clone pasteTheLinkHere</code></pre>
-<p>The link should look something like: “<code>https://github.com/yourNameHere/WebAppsLabs.git</code>”.</p>
+<p>The link should look something like: “<code>https://gitlab.com/yourNameHere/WebAppsLabs.git</code>”.</p>
 <p>If you do a <code>ls</code> listing in the directory you should now see this new folder, called WebAppsLabs. Switch to it with <code>cd WebAppsLabs</code>. You should find a <code>README.md</code> file in there.</p>
 <h3 id="learning-about-remotes">Learning about Remotes</h3>
-<p>The repository that GitHub has of your code is called the “remote”. You also just cloned a full version of it locally on your computer. We will see how to interact between the two.</p>
+<p>The repository that GitLab has of your code is called the “remote”. You also just cloned a full version of it locally on your computer. We will see how to interact between the two.</p>
 <p>Type the following to see the remotes you have:</p>
 <pre><code>git remote -v</code></pre>
-<p>You should see “two” remotes, one for <strong>fetch</strong> and one for <strong>push</strong>. Fetch is what happens when we download changes from GitHub to our computer, Push is the opposite.</p>
+<p>You should see “two” remotes, one for <strong>fetch</strong> and one for <strong>push</strong>. Fetch is what happens when we download changes from GitLab to our computer, Push is the opposite.</p>
 <p>If you have collaborators, you can create extra “remotes” linking to their versions of the project, so that you can fetch changes they make. In our case, we will create such a remote that would access my main version of the project, so that you can get updates when I add new labs (your forked project won’t update directly). Do the following:</p>
-<pre><code>git remote add mainSource https://github.com/skiadas/WebAppsLabs.git</code></pre>
+<pre><code>git remote add mainSource https://gitlab.com/skiadas/WebAppsLabs.git</code></pre>
 <p>Now if you look for all the remotes you should be seeing two new remotes (well really one remote with fetch and push). We will use this much later.</p>
 <p>Adding remotes is not something you have to do often, usually only when you set up your project.</p>
 <h3 id="fetching-data">Fetching data</h3>

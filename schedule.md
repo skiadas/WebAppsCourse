@@ -34,20 +34,18 @@ A week-by-week breakdown of the material.
 ## Week  3 (01/19-01/23)
 
 - Day 1
-    - [Assignment 3](assignments/3.md)
+    - [Overview of Software Development Practices](notes/dev_overview.md)
     - [Basics of Version Control](notes/git_version_control.md)
     - [Git basics](notes/git_basics.md)
     - [Review of Git commands](notes/git_commands_review.md)
     - [GitHub basics](notes/github_basics.md)
     - [Remotes and Branches](notes/git_remotes_branches.md)
+- Day 2
     - [GitHub Workflow](notes/github_workflow.md)
     - [Overall Project Workflow](notes/project_workflow.md)
-    - [Assignment 4](assignments/4.md)
-    - [Assignment 5](assignments/5.md)
-    - [Lab 2: Writing Tests](labs/2.md)
     - [Methods in objects and the need for `this`](notes/object_methods.md)
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
-- Day 2
+    - [Lab 2: Writing Tests](labs/2.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
     - [Different stack implementations](notes/stack_various.md)
     - [Assignment 6](assignments/6.md)

@@ -5,6 +5,7 @@
 - [Pro git book](http://git-scm.com/book/en/v2)
 - [Git command reference](http://git-scm.com/docs)
 - [Read this](http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control) Chapter 1 (at least skim through it)
+- [Hanover-CS tutorial on version control](https://hanover-cs.github.io/tutorial-version-control/)
 
 ## Notes
 
@@ -18,8 +19,9 @@
     - seamlessly merge together changes implemented at the same time by different people
     - share changes to someone's code, that they can decide to use or not
     - see a history of what has happened when in your code
+    - Keep various evolving versions of your codebase (stable, current, experimental etc)
 - Your code history is stored in a **repository**
-- A specific version of your code is called a **revision**
+- A specific version of your code is called a **revision**. It is typically stored as a previous revision and the changes needed to obtain the new revision.
 - Creating a new revision based on the current state of your code is called a **commit**
 - We will be using "git", which is known as a **distributed version control system**
     - Essentially this means that each person holds in their local repository the entire history of the project
@@ -36,7 +38,7 @@
     working directory
       ~ This is your current directory the way you have it set up, with all its files and things.
 
-    staging area
+    staging area (index)
       ~ This sits between the repository and the working directory. When you decide that you want to keep some of the changes you made to your repository, you will "stage" them, and then they become part of the staging area. When you are certain that you have staged all the changes that "are logically together", you can "commit" them, which moves these staged changes into the repository.
 
 - Your files can be in 4 [different states](http://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository):
