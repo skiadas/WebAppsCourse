@@ -39,22 +39,22 @@ A week-by-week breakdown of the material.
     - [Git basics](notes/git_basics.md)
     - [Review of Git commands](notes/git_commands_review.md)
     - [GitHub basics](notes/github_basics.md)
-    - [Remotes and Branches](notes/git_remotes_branches.md)
 - Day 2
+    - [Remotes and Branches](notes/git_remotes_branches.md)
     - [GitHub Workflow](notes/github_workflow.md)
     - [Overall Project Workflow](notes/project_workflow.md)
     - [Methods in objects and the need for `this`](notes/object_methods.md)
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
+
+## Week  4 (01/26-01/30)
+
+- Day 1
     - [Lab 2: Writing Tests](labs/2.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
     - [Different stack implementations](notes/stack_various.md)
     - [Assignment 6](assignments/6.md)
     - ["Class" construction examples](notes/class_construction.md)
     - [Object properties](notes/object_properties.md)
-
-## Week  4 (01/26-01/30)
-
-- Day 1
     - [Lab 3: Linting, Tasks](labs/3.md)
     - [Survey of HTML](notes/html_survey.md)
 - Day 2
