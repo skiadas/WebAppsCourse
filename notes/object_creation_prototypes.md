@@ -89,3 +89,11 @@ a.baz = "What did I change?";
 b.baz;
 ```
 
+### Practice
+
+Creating a `Counter` constructor.
+
+- It should add to the `this` object a `counter` property initialized to the argument passed to the constructor. It should also have a property `init` that stores this same initial value (and never changes it, but you can't control that yet).
+- The prototype should have a property `incr` that increments the counter.
+- The prototype should have a property `reset` that resets the counter to the initial value.
+- Write some code that tests your new constructor.
