@@ -49,23 +49,24 @@ A week-by-week breakdown of the material.
 ## Week  4 (01/26-01/30)
 
 - Day 1
-    - [Lab 2: Writing Tests](labs/2.md)
+    - [The DRY principle](notes/dry.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
     - [Different stack implementations](notes/stack_various.md)
-    - [Assignment 6](assignments/6.md)
     - ["Class" construction examples](notes/class_construction.md)
     - [Object properties](notes/object_properties.md)
-    - [Lab 3: Linting, Tasks](labs/3.md)
-    - [Survey of HTML](notes/html_survey.md)
 - Day 2
+    - [Survey of HTML](notes/html_survey.md)
     - [Survey of CSS](notes/css_survey.md)
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Introduction to jQuery](notes/jquery_intro.md)
-    - [Assignment 7](assignments/7.md)
 
 ## Week  5 (02/02-02/06)
 
 - Day 1
+    - [Lab 2: Writing Tests](labs/2.md)
+    - [Assignment 6](assignments/6.md)
+    - [Lab 3: Linting, Tasks](labs/3.md)
+    - [Assignment 7](assignments/7.md)
     - [Introduction to DOM Events](notes/events_intro.md)
     - [Lab 4: Controllers, jQuery](labs/4.md)
     - [Timers](notes/events_timers.md)

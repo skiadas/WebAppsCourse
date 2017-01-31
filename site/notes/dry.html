@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="the-dry-principle">The DRY Principle</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Don&#39;t_repeat_yourself">Wikipedia page on DRY</a></li>
+<li><a href="http://deviq.com/don-t-repeat-yourself/">DevIQ link for DRY</a></li>
+</ul>
+<h2 id="dont-repeat-yourself">Don’t Repeat Yourself</h2>
+<p>DRY stands for “Don’t Repeat Yourself”. It is a principle that duplication should be avoided at all levels. This principle takes many guises:</p>
+<ul>
+<li>Creating automated tests prevent us from duplicating our testing efforts, manually recreating testing situations whenever a code changes.</li>
+<li>Code duplication should be avoided by introducing abstraction. This may mean creating a function that achieves the repeated tasks, creating an array of values and performing a loop over those values, or even introducing a whole new class.</li>
+<li>The duplication of “magic numbers” throughout the code can be avoided by the use of constants.</li>
+<li>Duplication of solutions to common problems when designing the program can be avoided by the use of design patterns, which are standardized solutions to these common problems.</li>
+</ul>
+<h3 id="case-study-tic-tac-toe">Case study: Tic-tac-toe</h3>
+<p>We will consider these topics in the context of a specific example, namely the tic-tac-toe board that was part of earlier labs. Let us recall the individual components of that assignment:</p>
+<ul>
+<li>A board is represented as a flat array of the correct size to fit one entry for each board square.</li>
+<li>An <code>initializeBoard</code> method initializes the board by setting all squares to <code>null</code>.</li>
+<li>A <code>get</code> method returns the value at a board location provided via <code>row</code> and <code>column</code> indices (rather than a flat index).</li>
+<li>A <code>set</code> method sets the value at a board loation if it is not already set. It throws an error if the value is previously set.</li>
+<li>A <code>winner</code> method looks through the possible winning configurations to see if any of them suggests a winner, and if so it returns both the winner and the configuration.</li>
+</ul>
+<h4 id="initial-design">Initial Design</h4>
+<p>Let’s look at a basic implementation, and then we will iterate over its design.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeBoard</span>() <span class="op">{</span>
+   <span class="kw">var</span> board<span class="op">;</span>
+
+   <span class="kw">function</span> <span class="at">initBoard</span>() <span class="op">{</span>
+      board <span class="op">=</span> [<span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">null</span>]<span class="op">;</span>
+   <span class="op">}</span>
+
+   <span class="kw">function</span> <span class="at">get</span>(row<span class="op">,</span> col) <span class="op">{</span>
+      <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">0</span> ) <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">0</span>]<span class="op">;</span>
+      <span class="op">}</span>
+      <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">1</span> ) <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">1</span>]<span class="op">;</span>
+      <span class="op">}</span>
+      <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">2</span> ) <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">2</span>]<span class="op">;</span>
+      <span class="op">}</span>
+      <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">0</span> ) <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">3</span>]<span class="op">;</span>
+      <span class="op">}</span>
+      <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">1</span> ) <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">4</span>]<span class="op">;</span>
+      <span class="op">}</span>
+      <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">2</span> ) <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">5</span>]<span class="op">;</span>
+      <span class="op">}</span>
+      <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">0</span> ) <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">6</span>]<span class="op">;</span>
+      <span class="op">}</span>
+      <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">1</span> ) <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">7</span>]<span class="op">;</span>
+      <span class="op">}</span>
+      <span class="cf">else</span> <span class="op">{</span>
+         <span class="cf">return</span> board[<span class="dv">8</span>]<span class="op">;</span>
+      <span class="op">}</span>
+   <span class="op">}</span>
+
+   <span class="kw">function</span> <span class="at">set</span>(row<span class="op">,</span> col<span class="op">,</span> value) <span class="op">{</span>
+      <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">0</span> ) <span class="op">{</span>
+         board[<span class="dv">0</span>] <span class="op">=</span> value<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">1</span> ) <span class="op">{</span>
+         <span class="cf">if</span> (board[<span class="dv">1</span>] <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            board[<span class="dv">1</span>] <span class="op">=</span> value<span class="op">;</span>
+         <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="st">&quot;error&quot;</span><span class="op">;</span>
+         <span class="op">}</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">2</span> ) <span class="op">{</span>
+         <span class="cf">if</span> (board[<span class="dv">2</span>] <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            board[<span class="dv">2</span>] <span class="op">=</span> value<span class="op">;</span>
+         <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="st">&quot;error&quot;</span><span class="op">;</span>
+         <span class="op">}</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">0</span> ) <span class="op">{</span>
+         <span class="cf">if</span> (board[<span class="dv">3</span>] <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            board[<span class="dv">3</span>] <span class="op">=</span> value<span class="op">;</span>
+         <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="st">&quot;error&quot;</span><span class="op">;</span>
+         <span class="op">}</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">1</span> ) <span class="op">{</span>
+         <span class="cf">if</span> (board[<span class="dv">4</span>] <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            board[<span class="dv">4</span>] <span class="op">=</span> value<span class="op">;</span>
+         <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="st">&quot;error&quot;</span><span class="op">;</span>
+         <span class="op">}</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">2</span> ) <span class="op">{</span>
+         <span class="cf">if</span> (board[<span class="dv">5</span>] <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            board[<span class="dv">5</span>] <span class="op">=</span> value<span class="op">;</span>
+         <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="st">&quot;error&quot;</span><span class="op">;</span>
+         <span class="op">}</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">0</span> ) <span class="op">{</span>
+         <span class="cf">if</span> (board[<span class="dv">6</span>] <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            board[<span class="dv">6</span>] <span class="op">=</span> value<span class="op">;</span>
+         <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="st">&quot;error&quot;</span><span class="op">;</span>
+         <span class="op">}</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> ( row <span class="op">===</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> col <span class="op">===</span> <span class="dv">1</span> ) <span class="op">{</span>
+         <span class="cf">if</span> (board[<span class="dv">7</span>] <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            board[<span class="dv">7</span>] <span class="op">=</span> value<span class="op">;</span>
+         <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="st">&quot;error&quot;</span><span class="op">;</span>
+         <span class="op">}</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+         <span class="cf">if</span> (board[<span class="dv">8</span>] <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+            board[<span class="dv">8</span>] <span class="op">=</span> value<span class="op">;</span>
+         <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="st">&quot;error&quot;</span><span class="op">;</span>
+         <span class="op">}</span>
+      <span class="op">}</span>
+   <span class="op">}</span>
+
+   <span class="kw">function</span> <span class="at">winner</span>() <span class="op">{</span>
+      <span class="kw">var</span> winner<span class="op">,</span> player<span class="op">,</span> values<span class="op">;</span>
+
+      <span class="cf">if</span> (<span class="at">checkLine</span>(board[<span class="dv">0</span>]<span class="op">,</span> board[<span class="dv">1</span>]<span class="op">,</span> board[<span class="dv">2</span>]) <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+         player <span class="op">=</span> board[<span class="dv">0</span>]<span class="op">;</span>
+         values <span class="op">=</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">;</span>
+         winner <span class="op">=</span> <span class="op">{</span> <span class="st">&quot;player&quot;</span><span class="op">:</span> player<span class="op">,</span> <span class="st">&quot;entries&quot;</span><span class="op">:</span> values<span class="op">}</span> <span class="op">;</span>
+         <span class="cf">return</span> winner<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> ( <span class="at">checkLine</span>(board[<span class="dv">3</span>]<span class="op">,</span> board[<span class="dv">4</span>]<span class="op">,</span> board[<span class="dv">5</span>]) <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+         player <span class="op">=</span> board[<span class="dv">3</span>]<span class="op">;</span>
+         values <span class="op">=</span> [<span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span>
+         winner <span class="op">=</span> <span class="op">{</span> <span class="st">&quot;player&quot;</span><span class="op">:</span> player<span class="op">,</span> <span class="st">&quot;entries&quot;</span><span class="op">:</span> values <span class="op">};</span>
+         <span class="cf">return</span> winner<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="at">checkLine</span>(board[<span class="dv">6</span>]<span class="op">,</span> board[<span class="dv">7</span>]<span class="op">,</span> board[<span class="dv">8</span>]) <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+         player <span class="op">=</span> board[<span class="dv">6</span>]<span class="op">;</span>
+         values <span class="op">=</span> [<span class="dv">6</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">8</span>]<span class="op">;</span>
+         winner <span class="op">=</span> <span class="op">{</span> <span class="st">&quot;player&quot;</span><span class="op">:</span> player<span class="op">,</span> <span class="st">&quot;entries&quot;</span><span class="op">:</span> values <span class="op">};</span>
+         <span class="cf">return</span> winner<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="at">checkLine</span>(board[<span class="dv">0</span>]<span class="op">,</span> board[<span class="dv">3</span>]<span class="op">,</span> board[<span class="dv">6</span>]) <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+         player <span class="op">=</span> board[<span class="dv">0</span>]<span class="op">;</span>
+         values <span class="op">=</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">;</span>
+         winner <span class="op">=</span> <span class="op">{</span> <span class="st">&quot;player&quot;</span><span class="op">:</span> player<span class="op">,</span> <span class="st">&quot;entries&quot;</span><span class="op">:</span> values <span class="op">};</span>
+         <span class="cf">return</span> winner<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="at">checkLine</span>(board[<span class="dv">1</span>]<span class="op">,</span> board[<span class="dv">4</span>]<span class="op">,</span> board[<span class="dv">7</span>]) <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+         player <span class="op">=</span> board[<span class="dv">1</span>]<span class="op">;</span>
+         values <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">;</span>
+         winner <span class="op">=</span> <span class="op">{</span> <span class="st">&quot;player&quot;</span><span class="op">:</span> player<span class="op">,</span> <span class="st">&quot;entries&quot;</span><span class="op">:</span> values <span class="op">};</span>
+         <span class="cf">return</span> winner<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="at">checkLine</span>(board[<span class="dv">2</span>]<span class="op">,</span> board[<span class="dv">5</span>]<span class="op">,</span> board[<span class="dv">8</span>]) <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+         player <span class="op">=</span> board[<span class="dv">2</span>]<span class="op">;</span>
+         values <span class="op">=</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">8</span>]<span class="op">;</span>
+         winner <span class="op">=</span> <span class="op">{</span> <span class="st">&quot;player&quot;</span><span class="op">:</span> player<span class="op">,</span> <span class="st">&quot;entries&quot;</span><span class="op">:</span> values <span class="op">};</span>
+         <span class="cf">return</span> winner<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="at">checkLine</span>(board[<span class="dv">0</span>]<span class="op">,</span> board[<span class="dv">4</span>]<span class="op">,</span> board[<span class="dv">8</span>]) <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+         player <span class="op">=</span> board[<span class="dv">0</span>]<span class="op">;</span>
+         values <span class="op">=</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">8</span>]<span class="op">;</span>
+         winner <span class="op">=</span> <span class="op">{</span> <span class="st">&quot;player&quot;</span><span class="op">:</span> player<span class="op">,</span> <span class="st">&quot;entries&quot;</span><span class="op">:</span> values <span class="op">};</span>
+         <span class="cf">return</span> winner<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="at">checkLine</span>(board[<span class="dv">2</span>]<span class="op">,</span> board[<span class="dv">4</span>]<span class="op">,</span> board[<span class="dv">6</span>]) <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+         player <span class="op">=</span> board[<span class="dv">2</span>]<span class="op">;</span>
+         values <span class="op">=</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">;</span>
+         winner <span class="op">=</span> <span class="op">{</span> <span class="st">&quot;player&quot;</span><span class="op">:</span> player<span class="op">,</span> <span class="st">&quot;entries&quot;</span><span class="op">:</span> values <span class="op">};</span>
+         <span class="cf">return</span> winner<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+         <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span>
+      <span class="op">}</span>
+   <span class="op">}</span>
+
+   <span class="co">// We initialize the board, before returning.</span>
+   <span class="at">initBoard</span>()<span class="op">;</span>
+
+   <span class="cf">return</span> <span class="op">{</span>
+      <span class="dt">reset</span><span class="op">:</span> initBoard<span class="op">,</span>
+      <span class="dt">set</span><span class="op">:</span> set<span class="op">,</span>
+      <span class="dt">get</span><span class="op">:</span> get<span class="op">,</span>
+      <span class="dt">winner</span><span class="op">:</span> winner
+   <span class="op">};</span>
+<span class="op">}</span></code></pre></div>
+<p>This solution has a number of problems.</p>
+<ol style="list-style-type: decimal">
+<li>Both <code>get</code> and <code>set</code> use the same logic to determine which array index corresponds to which combination of row and column. Having to keep these two pieces of logic in sync is a considerable addition to the reader’s cognitive load.</li>
+<li>To determine the correct index, a long chain of <code>if-then-else</code> statements is used. This is terribly repetitive, and also not easily extensible. What happens if the board size changes? Also testing the correctness of this code is considerably harder.</li>
+<li>The <code>board</code> initializer hard-codes the length of the array, as well as the value used to represent an empty square (<code>null</code>). If something changes in the specifications, this would require changes in multiple places (for instance all the <code>null</code> values instead of just one).</li>
+<li>The winner logic is very repetitive with a long chain of <code>if-then-else</code> statements. If we must change the format of the return value for example, we must now do so in multiple places. Or if the rules of the game change to allow different configurations as the winning configurations, this would also require considerable changes to the code.</li>
+</ol>
+<blockquote>
+<p>If you have multiple <code>if</code> clauses all performing similar steps, there is something wrong with the structure of your program.</p>
+</blockquote>
+<h4 id="improvements">Improvements</h4>
+<p>Let us now consider some improvements:</p>
+<ol style="list-style-type: decimal">
+<li>The logic for determining the index corresponding to a row-column pair should become its own function. (This could not be technically done in the constraints of the assignment).</li>
+<li>The dimensions of the board should be flexible, rather than hard-coded as 3. We could use local variables, but will instead add them as parameters to the initial function call, with defaults set to 3. The <code>initBoard</code> function should be adjusted to fill an array of a size determined by those dimensions. 3.The logic for determining the index, which is now its own function, should be able to account for the different possible dimensions. This requires some thinking to find a nice formula.</li>
+<li>The determination of which triples could constitute a winning combination (or if in fact they would be triples at all) should be separate from the process that checks each particular triple to see if it does form a winning combination. We will create a separate process for that (and for now hard-code it for the 3x3 game; the reader might think about ways to make that function more flexible). This is an important consideration however: The code generating the cases is <em>decoupled</em> from the code that checks the cases.</li>
+</ol>
+<p>Here’s how the code may look like with these improvements.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeBoard</span>(nrow<span class="op">,</span> ncol) <span class="op">{</span>
+   <span class="kw">var</span> board<span class="op">,</span> size<span class="op">,</span> emptyVal<span class="op">;</span>
+
+   emptyVal <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+
+   <span class="cf">if</span> (nrow <span class="op">==</span> <span class="kw">undefined</span>) <span class="op">{</span> nrow <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> <span class="op">}</span>
+   <span class="cf">if</span> (ncol <span class="op">==</span> <span class="kw">undefined</span>) <span class="op">{</span> ncol <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> <span class="op">}</span>
+
+   <span class="kw">function</span> <span class="at">initBoard</span>() <span class="op">{</span>
+      <span class="kw">var</span> i<span class="op">;</span>
+
+      board <span class="op">=</span> []<span class="op">;</span>
+      <span class="cf">for</span> (i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nrow <span class="op">*</span> ncol<span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+         board[i] <span class="op">=</span> emptyVal<span class="op">;</span>
+      <span class="op">}</span>
+   <span class="op">}</span>
+
+   <span class="co">// returns the index at which the specific row-col combination corresponds</span>
+   <span class="kw">function</span> <span class="at">getIndex</span>(row<span class="op">,</span> col) <span class="op">{</span>
+      <span class="cf">if</span> (row <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">||</span> row <span class="op">&gt;=</span> nrow <span class="op">||</span>
+          col <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">||</span> col <span class="op">&gt;=</span> ncol) <span class="op">{</span>
+         <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;Dimensions out of bounds: (&#39;</span> <span class="op">+</span> row <span class="op">+</span> <span class="st">&#39;, &#39;</span> <span class="op">+</span> col <span class="op">+</span> <span class="st">&#39;)&#39;</span>)<span class="op">;</span>
+      <span class="op">}</span>
+
+      <span class="cf">return</span> row <span class="op">*</span> ncol <span class="op">+</span> col<span class="op">;</span> <span class="co">// Each row adds ncol entries to the array</span>
+   <span class="op">}</span>
+
+   <span class="kw">function</span> <span class="at">get</span>(row<span class="op">,</span> col) <span class="op">{</span>
+      <span class="cf">return</span> board[<span class="at">getIndex</span>(row<span class="op">,</span> col)]<span class="op">;</span>
+   <span class="op">}</span>
+
+   <span class="kw">function</span> <span class="at">set</span>(row<span class="op">,</span> col<span class="op">,</span> value) <span class="op">{</span>
+      <span class="kw">var</span> index<span class="op">;</span>
+
+      index <span class="op">=</span> <span class="at">getIndex</span>(row<span class="op">,</span> col)<span class="op">;</span>
+      <span class="cf">if</span> (board[index] <span class="op">!==</span> emptyVal) <span class="op">{</span>
+         <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;Value already set at: &#39;</span> <span class="op">+</span> (<span class="st">&#39; + row + &#39;</span><span class="op">,</span> <span class="st">&#39; + col + &#39;</span>)<span class="st">&#39;);</span>
+      <span class="op">}</span>
+
+      board[index] <span class="op">=</span> value<span class="op">;</span>
+
+      <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+   <span class="op">}</span>
+
+   <span class="kw">function</span> <span class="at">getConfigs</span>() <span class="op">{</span>
+      <span class="cf">return</span> [
+         [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> [<span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> [<span class="dv">6</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">8</span>]<span class="op">,</span>    <span class="co">// rows</span>
+         [<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">,</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">8</span>]<span class="op">,</span>    <span class="co">// columns</span>
+         [<span class="dv">0</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">8</span>]<span class="op">,</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">6</span>]                <span class="co">// diagonals</span>
+      ]<span class="op">;</span>
+   <span class="op">}</span>
+
+   <span class="kw">function</span> <span class="at">winner</span>() <span class="op">{</span>
+      <span class="kw">var</span> winner<span class="op">,</span> player<span class="op">;</span>
+      <span class="kw">var</span> allConfigs<span class="op">,</span> config<span class="op">,</span> i<span class="op">;</span>
+      <span class="kw">var</span> values<span class="op">,</span> j<span class="op">;</span>
+
+      allConfigs <span class="op">=</span> <span class="at">getConfigs</span>()<span class="op">;</span>
+
+      <span class="cf">for</span> (i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">allConfigs</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+         config <span class="op">=</span> allConfigs[i]<span class="op">;</span>
+
+         values <span class="op">=</span> []<span class="op">;</span>
+         <span class="cf">for</span> (j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="va">config</span>.<span class="at">length</span><span class="op">;</span> j <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+            values[j] <span class="op">=</span> board[config[j]]<span class="op">;</span>
+         <span class="op">}</span>
+         <span class="co">// Will learn how to not hard-code this later.</span>
+         <span class="co">// Or change checkLine to take an array of values.</span>
+         player <span class="op">=</span> <span class="at">checkLine</span>(values[<span class="dv">0</span>]<span class="op">,</span> values[<span class="dv">1</span>]<span class="op">,</span> values[<span class="dv">2</span>])<span class="op">;</span>
+         <span class="cf">if</span> (player <span class="op">!==</span> <span class="kw">null</span>) <span class="op">{</span>
+            <span class="cf">return</span> <span class="op">{</span> <span class="dt">player</span><span class="op">:</span> player<span class="op">,</span> <span class="dt">entries</span><span class="op">:</span> config <span class="op">};</span>
+         <span class="op">}</span>
+      <span class="op">}</span>
+
+      <span class="co">// No winner</span>
+      <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span>
+   <span class="op">}</span>
+
+   <span class="co">// We initialize the board, before returning.</span>
+   <span class="at">initBoard</span>()<span class="op">;</span>
+
+   <span class="cf">return</span> <span class="op">{</span>
+      <span class="dt">reset</span><span class="op">:</span> initBoard<span class="op">,</span>
+      <span class="dt">set</span><span class="op">:</span> set<span class="op">,</span>
+      <span class="dt">get</span><span class="op">:</span> get<span class="op">,</span>
+      <span class="dt">winner</span><span class="op">:</span> winner
+   <span class="op">};</span>
+<span class="op">}</span></code></pre></div>
+</body>
+</html>
