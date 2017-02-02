@@ -51,26 +51,27 @@ A week-by-week breakdown of the material.
 - Day 1
     - [The DRY principle](notes/dry.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
+- Day 2
     - [Different stack implementations](notes/stack_various.md)
     - ["Class" construction examples](notes/class_construction.md)
-    - [Object properties](notes/object_properties.md)
-- Day 2
-    - [Survey of HTML](notes/html_survey.md)
-    - [Survey of CSS](notes/css_survey.md)
-    - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
-    - [Introduction to jQuery](notes/jquery_intro.md)
+    - [Setting up a second remote](notes/second_remote.md)
+    - [Testing Basics](notes/testing_basics.md)
 
 ## Week  5 (02/02-02/06)
 
 - Day 1
-    - [Lab 2: Writing Tests](labs/2.md)
+    - [Survey of HTML](notes/html_survey.md)
+    - [Survey of CSS](notes/css_survey.md)
+    - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
+    - [Introduction to jQuery](notes/jquery_intro.md)
+- Day 2
+    - [Object properties](notes/object_properties.md)
     - [Assignment 6](assignments/6.md)
     - [Lab 3: Linting, Tasks](labs/3.md)
     - [Assignment 7](assignments/7.md)
     - [Introduction to DOM Events](notes/events_intro.md)
     - [Lab 4: Controllers, jQuery](labs/4.md)
     - [Timers](notes/events_timers.md)
-- Day 2
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
     - [Intro to Patterns: Iterator (cont)](notes/patterns_iterator.md)
 
