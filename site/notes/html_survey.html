@@ -23,18 +23,35 @@
 <li><a href="http://caniuse.com/">“Can I use” site</a></li>
 <li><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md#html--css">Free online books</a></li>
 </ul>
+<h2 id="acm-learning-center-books">ACM Learning Center books</h2>
+<ul>
+<li><a href="http://learning.acm.org/books/book_detail.cfm?id=2830919&amp;type=24">HTML: A beginner’s tutorial</a>.</li>
+<li><a href="http://learning.acm.org/books/book_detail.cfm?id=2414773&amp;type=24">Beginning HTML5 and CSS3</a>.</li>
+<li><a href="http://learning.acm.org/books/book_detail.cfm?id=2663416&amp;type=safari">HTML and CSS Visual Quickstart</a>.</li>
+<li><a href="http://learning.acm.org/books/book_detail.cfm?id=2825957&amp;type=24">HTML5 Foundations</a></li>
+<li><a href="http://learning.acm.org/books/book_detail.cfm?id=2811310&amp;type=24">HTML5 Prorammer’s Reference</a></li>
+</ul>
 <h2 id="notes">Notes</h2>
 <p>An HTML document consists of nested “tags”, each tag representing a certain “structure” for its contents.</p>
 <p>For instance we will see tags for lists, tables, headings and so on.</p>
 <p>This is important:</p>
 <blockquote>
-<p>HTML describes structure, semantics, not appearance. It is used to describe “what something is”, not “how it should look”. CSS is responsible for appearance.</p>
+<p>HTML dictates the structure of the page’s content. It describes structure, semantics, not appearance. It is used to describe “what something is”, not “how it should look”. CSS is responsible for appearance.</p>
+<p>This semantic information is important, as it is all that visually impaired users or tools like search engines will see.</p>
 </blockquote>
-<p>There is entirely too much legacy information on HTML and various standards. We will be focusing on the current standard, usually termed HTML5. A number of all tags have been deprecated.</p>
+<p>There is entirely too much legacy information on HTML and various standards. We will be focusing on the current standard, usually termed HTML5. A number of old tags have been deprecated.</p>
 <blockquote>
 <p>HTML5 is actually a collection of standards, some with very varying levels of adoption. The <a href="http://caniuse.com/">can-i-use site</a> can tell you more information about the state of adoption of the particular technology you want to use.</p>
 </blockquote>
-<p>What we will cover in this class is standard and widely adopted.</p>
+<p>What we will cover in this class is standard and widely adopted. We start with an overview of some key features:</p>
+<blockquote>
+<ul>
+<li>An HTML document is a tree structure consisting of <strong>nodes</strong>. Each node is either an <strong>element</strong> node or a <strong>text</strong> node. Element nodes are identified by pairs of tags, an <strong>open tag</strong> like <code>&lt;html ...&gt;</code> and a corresponding <strong>close tag</strong> <code>&lt;/html&gt;</code>. The <strong>content</strong> of the node is all the children elements that are found between the open and close tags.</li>
+<li>The opening tag may also contain a number of <strong>attributes</strong>. These are key-value pairs where the value is always a string. Example: <code>&lt;div id=&quot;myDiv&quot; class=&quot;bold item&quot;&gt;</code>.</li>
+<li>There are a few elements that are self-closing: <code>&lt;hr /&gt;</code>. These are roughly equivalent to open-close tags back-to-back.</li>
+<li>Tags must be well-nested, namely this is not allowed: <code>&lt;tag1&gt;&lt;tag2&gt;&lt;/tag1&gt;&lt;/tag2&gt;</code>. In other words, if an open tag is contained in a node, the corresponding close tag must also be contained in that node.</li>
+</ul>
+</blockquote>
 <p>Let us define some key terms:</p>
 <dl>
 <dt>doctype</dt>
@@ -50,7 +67,7 @@
 <dd>The <code>body</code> tag follows the head tag, and contains all the actual elements in the page.
 </dd>
 <dt>attributes</dt>
-<dd>properties attached to tags. They are contained within the open tag like so <code>&lt;tag attr1=&quot;...&quot; attr2=&quot;...&quot;&gt;</code>.
+<dd>properties attached to tags. They are contained within the open tag like so <code>&lt;tag attr1=&quot;...&quot; attr2=&quot;...&quot;&gt;</code>. We will see examples later.
 </dd>
 <dt>block tags</dt>
 <dd>Some tags are meant to represent “block” elements. These tend to occupy space, as opposed to “inline” tags. Examples: <code>div</code>, <code>section</code>, <code>nav</code>, <code>table</code>.
@@ -65,7 +82,7 @@
 <dd>A string uniquely identifying an element. No two elements can have the same id.
 </dd>
 <dt>class</dt>
-<dd>A string containing space-separated “classes” for the element. These classes can be easily targetted by Javascript and CSS. For example <code>class=&quot;hidden cartItem&quot;</code> identifies this element as being a “cartItem” and also being “hidden”. (This does not actually mean it is hidden, it means that it appears however CSS has specified “hidden” elements should appear).
+<dd>A string containing space-separated “classes” for the element. These classes have no meaning on their own, but they can be targetted by Javascript and CSS. For example <code>class=&quot;hidden cartItem&quot;</code> identifies this element as being a “cartItem” and also being “hidden”. (This does not actually mean it is hidden, it means that it appears however CSS has specified “hidden” elements should appear). We might have some Javascript code that does something to all elements with a class “cartItem”, or we might have some CSS instructions that say how all elements of class “hidden” should appear.
 </dd>
 <dt>alt</dt>
 <dd>alternative text for images and inputs.
@@ -83,7 +100,7 @@
 <dd>Prevents rendering of the item.
 </dd>
 <dt>name</dt>
-<dd>Used in form elements.
+<dd>Used in form elements, to target labels to them or to group radio buttons together.
 </dd>
 <dt>value</dt>
 <dd>Used in form elements.
@@ -92,31 +109,31 @@
 <p>There are many more attributes, most more specialized to certain elements. You will encounter them as you find them.</p>
 <p>Here are some of the most important <strong>tags/elements</strong> from standard HTML:</p>
 <dl>
-<dt>h1,h2,h3</dt>
+<dt>h1, h2, h3</dt>
 <dd>6 tags for 6 different heading levels
 </dd>
-<dt>ol,ul,li</dt>
+<dt>ol, ul, li</dt>
 <dd>ordered and unordered lists, and list items
 </dd>
-<dt>dl,dt,dd</dt>
+<dt>dl, dt, dd</dt>
 <dd>definition lists, terms and definitions
 </dd>
 <dt>p</dt>
 <dd>paragraph
 </dd>
-<dt>form,fieldset,input</dt>
+<dt>form, fieldset, input</dt>
 <dd>controls for creating forms
 </dd>
-<dt>pre,code</dt>
+<dt>pre, code</dt>
 <dd>preformatted text and code
 </dd>
-<dt>blockquote,quote</dt>
+<dt>blockquote, quote</dt>
 <dd>quotes, block/inline
 </dd>
 <dt>a</dt>
 <dd>anchor links (to other documents, or within page)
 </dd>
-<dt>em,strong</dt>
+<dt>em, strong</dt>
 <dd>“emphasized” and strongly emphasized text
 </dd>
 <dt>hr</dt>
@@ -125,13 +142,16 @@
 <dt>img</dt>
 <dd>embedded image
 </dd>
-<dt>div,span</dt>
+<dt>div, span</dt>
 <dd>generic block-level/inline elements
 </dd>
-<dt>b,i</dt>
+<dt>b, i</dt>
 <dd>to denote text that would normally be shown as bold/italicized
 </dd>
-<dt>select,option</dt>
+<dt>pre, code</dt>
+<dd>Used for “preformatted” fixed-width blocks, and inline code snippets
+</dd>
+<dt>select, option</dt>
 <dd>for creating pull-down lists of items
 </dd>
 <dt>script</dt>
@@ -143,7 +163,7 @@
 </dl>
 <p>Here are some elements added in <strong>HTML5</strong>:</p>
 <dl>
-<dt>audio,video</dt>
+<dt>audio, video</dt>
 <dd>used to embed sound/video content
 </dd>
 <dt>canvas</dt>
@@ -155,10 +175,10 @@
 <dt>figure</dt>
 <dd>meant for self-contained content typically with a <code>figcaption</code>. Its position is meant to not be part of the normal flow.
 </dd>
-<dt>header,footer</dt>
+<dt>header, footer</dt>
 <dd>meant to identify the content at the header/footer of the page
 </dd>
-<dt>main,article,section</dt>
+<dt>main, article, section</dt>
 <dd>meant to identify key sections of the document
 </dd>
 <dt>nav</dt>
@@ -166,5 +186,6 @@
 </dd>
 </dl>
 <p>An example of an HTML document can be seen in the <a href="https://github.com/skiadas/WebAppsTodo/blob/master/index.html">WebAppsTODO application page</a>.</p>
+<p>In-class activity. Think of the elements that this page contains.</p>
 </body>
 </html>

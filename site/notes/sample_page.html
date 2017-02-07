@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="a-sample-page">A sample page</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://web.simmons.edu/~grabiner/comm244/weeknine/css-layouts.html">Some layout techniques</a></li>
+<li><a href="http://htmlcolorcodes.com/color-picker/">Color picker</a></li>
+<li><a href="http://paletton.com/">Color pallette generator</a></li>
+<li><a href="https://www.tutorialspoint.com/css/css_measurement_units.htm">CSS units</a></li>
+<li><a href="https://www.w3.org/Style/Examples/007/units.en.html">W3C’s section on CSS units</a></li>
+<li><a href="http://web.mit.edu/jmorzins/www/fonts.html">Safe web fonts</a></li>
+<li><a href="https://fonts.google.com/">Google fonts</a></li>
+<li><a href="http://type-scale.com/">Font scaling</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>In this section we will provide an example of a web page and some styling of it. We start with the HTML for the page.</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="er">&lt;</span>!doctype html&gt;
+<span class="kw">&lt;html&gt;</span>
+  <span class="kw">&lt;head&gt;</span>
+    <span class="kw">&lt;title&gt;</span>A sample page<span class="kw">&lt;/title&gt;</span>
+    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href=</span><span class="st">&quot;reset.css&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href=</span><span class="st">&quot;basics.css&quot;</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;/head&gt;</span>
+  <span class="kw">&lt;body&gt;</span>
+    <span class="kw">&lt;header&gt;</span>
+      <span class="kw">&lt;img</span><span class="ot"> id=</span><span class="st">&quot;logo&quot;</span><span class="ot"> src=</span><span class="st">&quot;https://www.hanover.edu/images/athletics/athletics-logo.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Our college&#39;s athletics logo&quot;</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;h1&gt;</span>An awesome sample page!<span class="kw">&lt;/h1&gt;</span>
+    <span class="kw">&lt;/header&gt;</span>
+    <span class="kw">&lt;main&gt;</span>
+      <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;sidebar&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;nav&gt;</span>
+          <span class="kw">&lt;h2&gt;</span>Navigation<span class="kw">&lt;/h2&gt;</span>
+          <span class="kw">&lt;ul&gt;</span>
+            <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;page1.html&quot;</span><span class="kw">&gt;</span>A link!<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;page2.pdf&quot;</span><span class="kw">&gt;</span>Another link!<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;page2.pdf&quot;</span><span class="kw">&gt;</span>A third link!<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+          <span class="kw">&lt;/ul&gt;</span>
+        <span class="kw">&lt;/nav&gt;</span>
+      <span class="kw">&lt;/section&gt;</span>
+      <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;content&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;h2&gt;</span>Our awesome content!<span class="kw">&lt;/h2&gt;</span>
+        <span class="kw">&lt;article&gt;</span>
+          <span class="kw">&lt;h3&gt;</span>First item<span class="kw">&lt;/h3&gt;</span>
+          <span class="kw">&lt;p&gt;</span>Cool content goes in this paragraph. A lot of stuff we can write here.<span class="kw">&lt;/p&gt;</span>
+          <span class="kw">&lt;p&gt;</span>Another paragraph within the same item.<span class="kw">&lt;/p&gt;</span>
+        <span class="kw">&lt;/article&gt;</span>
+        <span class="kw">&lt;article&gt;</span>
+          <span class="kw">&lt;h3&gt;</span>Second item<span class="kw">&lt;/h3&gt;</span>
+          <span class="kw">&lt;p&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra scelerisque varius. Nunc finibus sollicitudin tellus, ac dictum felis semper ut. Vivamus faucibus viverra velit in efficitur. Proin malesuada lectus sit amet diam dictum auctor. Maecenas ac neque non ligula suscipit elementum. Vestibulum a interdum mauris, ac rhoncus nisi. Donec vitae hendrerit diam. In vel metus vel ante posuere eleifend. Quisque vitae sapien convallis, cursus augue eget, congue mauris. Maecenas at sagittis lorem. Ut nec arcu id mi auctor dictum at in risus. Vestibulum pretium venenatis orci ac fermentum. Quisque sollicitudin lacinia sollicitudin. Ut laoreet dolor eget magna rutrum aliquam. Mauris quis luctus ex.<span class="kw">&lt;/p&gt;</span>
+          <span class="kw">&lt;p&gt;</span>Donec auctor tincidunt felis nec sollicitudin. Mauris scelerisque in mauris nec semper. Sed sed purus turpis. Nunc viverra, nulla eu ullamcorper euismod, sapien nulla maximus tortor, ac tempor justo nibh id ante. Curabitur sed purus quis lorem vulputate rutrum. Sed eleifend purus sit amet lectus aliquam, eu dictum tellus malesuada. Aliquam at imperdiet erat, quis lacinia velit.<span class="kw">&lt;/p&gt;</span>
+          <span class="kw">&lt;p&gt;</span>Morbi ac convallis dui. Cras sed leo ut dui tempus eleifend. Vivamus ac ipsum at nulla porta varius in pretium mi. Praesent sollicitudin congue interdum. Vivamus aliquam dignissim scelerisque. Fusce dapibus, mauris bibendum facilisis condimentum, elit lectus ornare ante, eget pretium sapien urna vel tortor. Etiam non odio vel nisi mollis consectetur. Etiam pharetra dolor at cursus pellentesque. Suspendisse nulla ex, tristique nec euismod vitae, commodo sed sem. Quisque accumsan accumsan justo, at tincidunt nibh vehicula in.<span class="kw">&lt;/p&gt;</span>
+        <span class="kw">&lt;/article&gt;</span>
+      <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;/main&gt;</span>
+    <span class="kw">&lt;footer&gt;</span>Thank you for visiting!<span class="kw">&lt;/footer&gt;</span>
+  <span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
+<p>We start by saving this into a file, and open it up a browser. It probably doesn’t show at all like we want it to, even though it has semantically described the content well. Let’s look at some of the problems:</p>
+<ul>
+<li>The header section is not visibly separated from the rest.</li>
+<li>The logo, which presumably was supposed to be much smaller and to a side, takes up a lot of space.</li>
+<li>The top heading was probably meant to be to the right of the logo, not below it.</li>
+<li>The navigation bar was meant to be to the left, with all other content to its right.</li>
+<li>The footer isn’t visibly distinct from the rest.</li>
+<li>The two “articles” kind of run into each other without much visible separation.</li>
+<li>The navigation links are somewhat boring normal links. We’ll change them into clickable blocks.</li>
+</ul>
+<h3 id="cleanup-css-reset">Cleanup / CSS reset</h3>
+<p>A common first step in any page design is eliminating all browser settings. This is often called a CSS-reset. This often ends up being somewhat lengthy. We put it into its own file that loads first.</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video <span class="kw">{</span>
+   <span class="kw">margin:</span> <span class="dt">0</span><span class="kw">;</span>
+   <span class="kw">padding:</span> <span class="dt">0</span><span class="kw">;</span>
+   <span class="kw">border:</span> <span class="dt">0</span><span class="kw">;</span>
+   <span class="kw">font-size:</span> <span class="dt">100%</span><span class="kw">;</span>
+   <span class="kw">font:</span> <span class="dt">inherit</span><span class="kw">;</span>
+   <span class="kw">vertical-align:</span> <span class="dt">baseline</span><span class="kw">;</span>
+<span class="kw">}</span>
+<span class="co">/* HTML5 display-role reset for older browsers */</span>
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section <span class="kw">{</span>
+   <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+<span class="kw">}</span>
+body <span class="kw">{</span>
+   <span class="kw">line-height:</span> <span class="dt">1</span><span class="kw">;</span>
+<span class="kw">}</span>
+ol, ul <span class="kw">{</span>
+   <span class="kw">list-style:</span> <span class="dt">none</span><span class="kw">;</span>
+<span class="kw">}</span>
+blockquote, q <span class="kw">{</span>
+   <span class="kw">quotes:</span> <span class="dt">none</span><span class="kw">;</span>
+<span class="kw">}</span>
+blockquote<span class="dv">:before</span>, blockquote<span class="dv">:after</span>,
+q<span class="dv">:before</span>, q<span class="dv">:after</span> <span class="kw">{</span>
+   <span class="kw">content:</span> <span class="st">&#39;&#39;</span><span class="kw">;</span>
+   <span class="kw">content:</span> <span class="dt">none</span><span class="kw">;</span>
+<span class="kw">}</span>
+table <span class="kw">{</span>
+   <span class="kw">border-collapse:</span> <span class="dt">collapse</span><span class="kw">;</span>
+   <span class="kw">border-spacing:</span> <span class="dt">0</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>Look at the page after this change. You will see it now looks a mess. But we’ll clean it up.</p>
+<p>The rest of the CSS changes will all go into our basics. css file. Though we could in theory have separated some of the changes into different files (for instance of some changes are to be shared with other websites or pages).</p>
+<h3 id="logo-adjusting">Logo adjusting</h3>
+<p>We start by taming in the logo a bit.</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="fl">#logo</span> <span class="kw">{</span>
+   <span class="kw">height:</span> <span class="dt">2em</span><span class="kw">;</span>
+   <span class="kw">width:</span> <span class="dt">auto</span><span class="kw">;</span>
+   <span class="kw">padding:</span> <span class="dt">1px</span><span class="kw">;</span>
+   <span class="kw">background-color:</span> <span class="dt">white</span><span class="kw">;</span>
+   <span class="kw">border:</span> <span class="dt">1px</span> <span class="dt">solid</span> <span class="dt">gray</span><span class="kw">;</span>
+   <span class="kw">float:</span> <span class="dt">left</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>So:</p>
+<ul>
+<li>We give it a fixed height, set to 2 “ems”. An <code>em</code> is a measurement unit representing the font size. Values specified in ems will scale if you zoom in/out of the page.</li>
+<li>We give it a width of <code>auto</code>, meaning that it will maintain the image’s width/height ratio. Otherwise the image would appear distorted.</li>
+<li>We add a 1px padding around the image.</li>
+<li>We set the background color of the image to be white (we will use a different background color for the rest of the header in a moment).</li>
+<li>We put a slight border to it. This is a “compound rule”, where we set multiple border properties at once (border-size, border-style, border-color).</li>
+<li>We have specified the color here by name. A number of colors can be specified that way. We can also specify colors via RGB values, and we will do so in the rest.</li>
+<li>Floating makes the image not occupy a whole line on its own. The heading will then be on the same line as the image.</li>
+</ul>
+<h3 id="basic-layout">Basic layout</h3>
+<p>The first big item is specifying the basic layout that will create the different page sections.</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">header <span class="kw">{</span>
+  <span class="kw">background-color:</span> <span class="dt">#D9ECC3</span><span class="kw">;</span>
+  <span class="kw">padding:</span> <span class="dt">10px</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+main <span class="kw">{</span>
+   <span class="kw">position:</span> <span class="dt">relative</span><span class="kw">;</span>
+   <span class="kw">height:</span> <span class="dt">100%</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">#sidebar</span>, <span class="fl">#content</span> <span class="kw">{</span>
+   <span class="kw">min-height:</span> <span class="dt">100%</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">#sidebar</span> <span class="kw">{</span>
+   <span class="kw">float:</span> <span class="dt">left</span><span class="kw">;</span>
+   <span class="kw">width:</span> <span class="dt">25%</span><span class="kw">;</span>
+   <span class="kw">background-color:</span> <span class="dt">#799657</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">#content</span> <span class="kw">{</span>
+   <span class="kw">float:</span> <span class="dt">right</span><span class="kw">;</span>
+   <span class="kw">width:</span> <span class="dt">75%</span><span class="kw">;</span>
+   <span class="kw">background-color:</span> <span class="dt">#EFF4E9</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+footer <span class="kw">{</span>
+   <span class="kw">border-top:</span> <span class="dt">1px</span> <span class="dt">solid</span> <span class="dt">#4A523F</span><span class="kw">;</span>
+   <span class="kw">padding:</span> <span class="dt">10px</span><span class="kw">;</span>
+   <span class="kw">clear:</span> <span class="dt">both</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>Some of this stuff is somewhat intuitive:</p>
+<ul>
+<li>The main regions are all given background colors.</li>
+<li>The header receives some padding, so that text does not hit the boundaries.</li>
+<li>The sidebar and content are both set to float opposite each other, and with widths totaling 100%.</li>
+</ul>
+<p>Then we get to some trickier stuff:</p>
+<ul>
+<li>The footer has a “clear: both” rule, that tells CSS to “clear all floats”. It means that it should stop positioning items relative to the previous two floats, and should instead start fresh after those two floats. This will make sure that the footer follows both the sidebar and the main content.</li>
+<li>There is a section that specifies that the <code>main</code> area should be relatively positioned (which doesn’t really change it in any way) and with 100% height. Then the sidebar and content areas, which were floating, have specified to have 100% min-height, meaning that they should occupy all the available vertical space from their parent. For floating elements this only works if their parent is relatively positioned. If we do not do it this way, the background colors to those sections won’t extend all the way to the footer.</li>
+</ul>
+<p>This is the reality of standard CSS, some somewhat simple stuff becomes very difficult/counter-intuitive to do.</p>
+<p>To see what can go wrong in CSS design, try adding padding to the sidebar and content items.</p>
+<h3 id="typography">Typography</h3>
+<p>We will now do some styling of the typography of the various sections.</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="co">/* Typography */</span>
+body <span class="kw">{</span>
+   <span class="kw">font-family:</span> Georgia, Palatino, <span class="st">&quot;Times New Roman&quot;</span>, <span class="dt">serif</span><span class="kw">;</span>
+   <span class="kw">font-size:</span> <span class="dt">16px</span><span class="kw">;</span>
+   <span class="kw">line-height:</span> <span class="dt">1.2</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+h1, h2, h3 <span class="kw">{</span>
+   <span class="kw">font-family:</span> Verdana, Tahoma, Helvetica, <span class="dt">sans-serif</span><span class="kw">;</span>
+   <span class="kw">font-weight:</span> <span class="dt">bold</span><span class="kw">;</span>
+<span class="kw">}</span>
+h1, h2 <span class="kw">{</span> <span class="kw">text-align:</span> <span class="dt">center</span><span class="kw">;</span> <span class="kw">}</span>
+h1 <span class="kw">{</span> <span class="kw">font-size:</span> <span class="dt">2em</span><span class="kw">;</span> <span class="kw">}</span>
+h2 <span class="kw">{</span> <span class="kw">font-size:</span> <span class="dt">1.414em</span><span class="kw">;</span> <span class="kw">}</span>
+h3 <span class="kw">{</span> <span class="kw">font-size:</span> <span class="dt">1em</span><span class="kw">;</span> <span class="kw">}</span></code></pre></div>
+<p>So here is what these lines do:</p>
+<ul>
+<li>We set a basic font family in the body, that will be inherited by other tags contained in the body. The font family value is a list of different choices. The browser will try to apply the left-most choice if it is present in the system. The last choice, <code>serif</code>, tells the browser to use its default serif font.</li>
+<li>You could also link to many other kinds of fonts, like the Google fonts linked to at the top of the page. You can then use those instead of the standard ones.</li>
+<li>We then set the base font size to be 16 pixels. Users can adjust that when they increase the font on a page (most browsers let you do that). This setting specifies the meaning of an “em” for the rest of the document.</li>
+<li>We overwrite the font family for header items, to be one of the <code>sans-serif</code> fonts.</li>
+<li>We set the text aligning for the top two headings to be centered.</li>
+<li>We specify the size of the heading fonts to be relative to the base setting.</li>
+<li>The <code>line-height</code> setting specifies that the distance between lines should be about 20% larger than the standard character height. This spaces the lines out a bit and makes them more readable.</li>
+</ul>
+<h3 id="spacing">Spacing</h3>
+<p>Let us work on spacing the items on the content section a bit, and learn some more tricks along the way:</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="co">/* Content area */</span>
+main section <span class="kw">{</span>
+   <span class="kw">padding-top:</span> <span class="dt">0.5em</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+article <span class="kw">{</span>
+   <span class="kw">margin:</span> <span class="dt">1em</span><span class="kw">;</span>
+   <span class="kw">padding:</span> <span class="dt">0.2em</span><span class="kw">;</span>
+   <span class="kw">border:</span> <span class="dt">1px</span> <span class="dt">solid</span> <span class="dt">#EFF4E9</span><span class="kw">;</span>
+   <span class="kw">border-radius:</span> <span class="dt">7px</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+article p <span class="kw">{</span>
+   <span class="kw">margin-bottom:</span> <span class="dt">0.3em</span><span class="kw">;</span>
+   <span class="kw">margin-top:</span> <span class="dt">0.3em</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+article p<span class="dv">:first-of-type::first-letter</span> <span class="kw">{</span>
+   <span class="kw">font-size:</span> <span class="dt">1.414em</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+article p<span class="dv">:last-of-type</span> <span class="kw">{</span>
+   <span class="kw">border-bottom:</span> <span class="dt">1px</span> <span class="dt">dashed</span> <span class="dt">#999998</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+article<span class="dv">:hover</span> <span class="kw">{</span>
+   <span class="kw">background-color:</span> <span class="dt">#E1E6DC</span><span class="kw">;</span>
+   <span class="kw">border-color:</span> <span class="dt">gray</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+article<span class="dv">:hover</span> h3<span class="dv">:after</span> <span class="kw">{</span>
+   <span class="kw">content:</span> <span class="st">&#39;\25ca&#39;</span><span class="kw">;</span>
+   <span class="kw">padding-left:</span> <span class="dt">0.2em</span><span class="kw">;</span>
+   <span class="kw">color:</span> <span class="dt">#A2EDF3</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>Let’s walk through what each of these settings does:</p>
+<ul>
+<li>We start by applying a top margin to all section elements that are within the main element. This applies to the sidebar and the content. We could also have targeted those two as <code>#sidebar, #content</code>. This moves the h2 headings a bit down so they don’t brush up against the header.</li>
+<li>We then style each article element. We add some margin around them so they can be clearly separated from each other, and some padding that together with a border will make a nice hover effect. We then do a bit of magic, setting a border with the same color as the background. We will change the color later, but this allocates space for the border and prevents weird movement later on. Lastly, we set the “border-radius” property, which controls how rounded the corners of the boundary will be.</li>
+<li>Next we add a bit of margin for the paragraphs within an article. Note that each element has its top margin as well as the bottom margin of its previous sibling, but only one of the margins applies. Padding would not have worked as well, leaving either too much gap inbetween paragraphs or too little spacing at the beginning.</li>
+<li>On the next item we apply some style to the “first letter of the first paragraph in any article”. That style makes that letter of bigger font size.</li>
+<li>The next item shows how we can add something to the last paragraph of each article.</li>
+<li>Next we add an effect when we hover over an article’s area. We change the background and add a border color (remember we already allocated space for the border earlier; if we hadn’t, then there would be more movement of elements when we hover over something).</li>
+<li>Finally, We set up an effect to happen to any h2 element within an article element that is being hovered. More specifically, we are defining something to go right <code>after</code> the h2 element, and the content to be added there is the string with a single character with unicode number 25ca. We also specify a color for this added content, and some spacing.</li>
+</ul>
+<h3 id="the-sidebar">The sidebar</h3>
+<p>The time has come for us to work on the sidebar. The sidebar contains an unnumbered list of list items, each of which is a link. We’ll create rectangular clickable areas for each of them.</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="co">/* sidebar */</span>
+<span class="fl">#sidebar</span> nav <span class="kw">{</span>
+   <span class="kw">margin:</span> <span class="dt">auto</span><span class="kw">;</span>
+   <span class="kw">width:</span> <span class="dt">80%</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">#sidebar</span> nav li <span class="kw">{</span>
+   <span class="kw">margin-top:</span> <span class="dt">0.2em</span><span class="kw">;</span>
+   <span class="kw">margin-bottom:</span> <span class="dt">0.2em</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">#sidebar</span> nav li a <span class="kw">{</span>
+   <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+   <span class="kw">text-align:</span> <span class="dt">center</span><span class="kw">;</span>
+   <span class="kw">text-decoration:</span> <span class="dt">none</span><span class="kw">;</span>
+   <span class="kw">color:</span> <span class="dt">black</span><span class="kw">;</span>
+   <span class="kw">border:</span> <span class="dt">1px</span> <span class="dt">solid</span> <span class="dt">#5E8251</span><span class="kw">;</span>
+   <span class="kw">border-radius:</span> <span class="dt">3px</span><span class="kw">;</span>
+   <span class="kw">background-color:</span> <span class="dt">#6DA52A</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">#sidebar</span> nav li a<span class="dv">:hover</span> <span class="kw">{</span>
+   <span class="kw">border-color:</span> <span class="dt">#4D6A42</span><span class="kw">;</span>
+   <span class="kw">background-color:</span> <span class="dt">#578322</span><span class="kw">;</span>
+<span class="kw">}</span>
+
+<span class="fl">#sidebar</span> nav li a<span class="ch">[href$=</span><span class="st">&quot;.pdf&quot;</span><span class="ch">]</span><span class="dv">:after</span> <span class="kw">{</span>
+   <span class="kw">background-image:</span> <span class="dt">url(</span><span class="st">&quot;http://iconbug.com/data/5b/507/52ff0e80b07d28b590bbc4b30befde52.png&quot;</span><span class="dt">)</span><span class="kw">;</span>
+   <span class="kw">background-size:</span> <span class="dt">1em</span> <span class="dt">1em</span><span class="kw">;</span>
+   <span class="kw">display:</span> <span class="dt">inline-block</span><span class="kw">;</span>
+   <span class="kw">width:</span> <span class="dt">1em</span><span class="kw">;</span>
+   <span class="kw">height:</span> <span class="dt">1em</span><span class="kw">;</span>
+   <span class="kw">content:</span> <span class="st">&quot;&quot;</span><span class="kw">;</span>
+<span class="kw">}</span></code></pre></div>
+<p>Let’s see what goes on here:</p>
+<ul>
+<li>We vertically align the nav element by giving it a fixed (computable) width and having it automatically arrange the margin.</li>
+<li>We add margins to the list items to space them out.</li>
+<li>The links within the list items turn into block elements, and we remove the normal link decoration (underline).</li>
+<li>On a hover over a link, the border and background colors change.</li>
+<li>The last bit of crazyness adds an image to the right of links that end in a “.pdf”. It does so in a weird way, by specifying a content of an empty string, but with given width and height and a background image that is a resized icon.</li>
+</ul>
+</body>
+</html>

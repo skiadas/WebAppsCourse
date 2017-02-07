@@ -62,10 +62,15 @@ A week-by-week breakdown of the material.
 - Day 1
     - [Survey of HTML](notes/html_survey.md)
     - [Survey of CSS](notes/css_survey.md)
+    - [A sample page](notes/sample_page.md)
+- Day 2
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Introduction to jQuery](notes/jquery_intro.md)
-- Day 2
     - [Object properties](notes/object_properties.md)
+
+## Week  6 (02/09-02/13)
+
+- Day 1
     - [Assignment 6](assignments/6.md)
     - [Lab 3: Linting, Tasks](labs/3.md)
     - [Assignment 7](assignments/7.md)
@@ -74,10 +79,6 @@ A week-by-week breakdown of the material.
     - [Timers](notes/events_timers.md)
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
     - [Intro to Patterns: Iterator (cont)](notes/patterns_iterator.md)
-
-## Week  6 (02/09-02/13)
-
-- Day 1
     - [Lab 5: Collections](labs/5.md)
     - [Design Patterns](notes/design_patterns.md)
     - [Patterns of code reuse](notes/code_reuse.md)
