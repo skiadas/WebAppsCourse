@@ -157,6 +157,10 @@ header {
   padding: 10px;
 }
 
+html, body {
+   height:100%;
+}
+
 main {
    position: relative;
    height: 100%;
