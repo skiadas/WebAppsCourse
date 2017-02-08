@@ -66,11 +66,11 @@ A week-by-week breakdown of the material.
 - Day 2
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Introduction to jQuery](notes/jquery_intro.md)
-    - [Object properties](notes/object_properties.md)
 
 ## Week  6 (02/09-02/13)
 
 - Day 1
+    - [Object properties](notes/object_properties.md)
     - [Assignment 6](assignments/6.md)
     - [Lab 3: Linting, Tasks](labs/3.md)
     - [Assignment 7](assignments/7.md)

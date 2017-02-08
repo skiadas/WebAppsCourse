@@ -18,9 +18,22 @@ jQuery has 3 main components that we will utilize in due course:
 - event-handling
 - asynchronous data loading
 
-Even if you do decide not to use it, you need to become familiar with it, as many others do use it.
+Even if you do decide not to use it, you need to become familiar with it, as many other libraries offer a similar interface.
 
-As an external library, jQuery needs to be first incorporated into your project via a script tag (or the AMD module methods we will learn about later). You can either download the version you want and link to it, or you can link to the [jQuery CDN](https://code.jquery.com/) (the [wikipedia page](http://en.wikipedia.org/wiki/Content_delivery_network) is a good place to start if you want to learn more about Content Delivery Networks and their advantages).
+As an external library, jQuery needs to be first incorporated into your project via a script tag (or the AMD module methods we will learn about later). You can either download the version you want and link to it, or you can link to the [jQuery CDN](https://code.jquery.com/) (the [wikipedia page](http://en.wikipedia.org/wiki/Content_delivery_network) is a good place to start if you want to learn more about Content Delivery Networks and their advantages). So the simplest way to get jQuery into your code is to include the following script tag:
+
+```html
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+```
+You can also load jQuery on a web page that doesn't have it loaded yet by doing something like the following on the console:
+
+```html
+var script = document.createElement('script');
+script.setAttribute('src', 'https://code.jquery.com/jquery-3.1.1.min.js');
+document.body.appendChild(script);
+```
+
+You can follow this along by using the sample [found here](../samplePage/test.html).
 
 jQuery defines two global objects, that you can use to access it. One is `jQuery`, the other is `$`. For all our purposes, they are synonyms and we will be using `$`.
 
@@ -31,11 +44,34 @@ The global `$` is a swiss-army knife, it is a function that sort of does everyth
 $(sel)
   ~ If the first argument is a string that is a selector, it will return a "jQuery object" that represents the collection of all elements that match the selector. If a second "context" argument is passed, representing an element or elements, it will search for the elements *relative to that context*.
 
+$(html)
+  ~ If the first argument is a string that is html text, then it will return a new object representing that html code. This object is currently detached (does not show up on the web page), but it can then be inserted into some point in the web page specified by future commands.
+
 $(domEls)
   ~ If the first argument is a dom element or array of dom elements, it will return a "jQuery object" that represents that same array of elements, but now as jQuery objects.
 
 $(f)
   ~ If the first argument is a function, then this function will be called when the document has finished loading. This is a good place to do page initialization.
+
+### Examples
+
+Let's assume that jQuery was loaded on the sample web page we were looking at last time. We start by locating the `ul` element on the sidebar that contains our navigation links:
+
+```javascript
+var linkList = $('#sidebar ul');
+```
+We will now create a new element and append it to that list:
+```javascript
+$('<li><a href="http://www.google.com">Google!</a></li>')
+  .appendTo(linkList);
+```
+Next we pick out the second `li` from within the list, and move it to the bottom of the list:
+```javascript
+var el2 = $('li', linkList)[1];
+linkList.append(el2);
+```
+
+We will learn about these methods in the rest of this section.
 
 ### jQuery object methods
 
