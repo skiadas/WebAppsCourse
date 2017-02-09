@@ -27,7 +27,7 @@ As an external library, jQuery needs to be first incorporated into your project 
 ```
 You can also load jQuery on a web page that doesn't have it loaded yet by doing something like the following on the console:
 
-```html
+```javascript
 var script = document.createElement('script');
 script.setAttribute('src', 'https://code.jquery.com/jquery-3.1.1.min.js');
 document.body.appendChild(script);
