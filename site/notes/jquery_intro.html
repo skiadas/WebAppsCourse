@@ -104,13 +104,15 @@ document.body.appendChild(script);</code></pre></div>
 <p>We will learn about these methods in the rest of this section.</p>
 <h3 id="jquery-object-methods">jQuery object methods</h3>
 <p>All jQuery objects respond to a similar set of methods. You can explore the whole <a href="http://api.jquery.com/">API online</a>, and in Part IV of Flanagan’s book.</p>
+<p>In general all jQuery methods operate on an “array/collection of jQuery objects”.</p>
+<h4 id="collection-methods">Collection methods</h4>
 <p>First we have collection methods.</p>
 <dl>
 <dt><a href="http://api.jquery.com/each/">each(f)</a></dt>
 <dd>Given a function <code>f(i, el)</code>, will call the function for each element (if a collection).
 </dd>
 <dt><a href="http://api.jquery.com/get/">get(i), el[i]</a></dt>
-<dd>gets the element at the i-th index. jQuery objects tend to be collections, this picks out a specific element from that collection.
+<dd>gets the element at the i-th index. jQuery objects tend to be collections, this picks out a specific element from that collection. The resulting object is not a jQuery object. If you want to carry out jQuery methods on it, you must wrap it in <code>$()</code>.
 </dd>
 <dt><a href="http://api.jquery.com/jQuery.map/">map(f)</a></dt>
 <dd>Translates all items of the array to a new array, via the function.
@@ -131,6 +133,7 @@ document.body.appendChild(script);</code></pre></div>
 <dd>Selects all descendants that match certain criteria.
 </dd>
 </dl>
+<h4 id="element-editing">Element editing</h4>
 <p>Next we have some element methods that read/write element properties.</p>
 <dl>
 <dt><a href="http://api.jquery.com/addClass/">addClass</a>, <a href="http://api.jquery.com/removeClass/">removeClass</a>, <a href="http://api.jquery.com/toggleClass/">toggleClass</a></dt>
@@ -147,6 +150,7 @@ document.body.appendChild(script);</code></pre></div>
 <dd>Get or set the “value” associated with the element.
 </dd>
 </dl>
+<h4 id="tree-manipulation">Tree manipulation</h4>
 <p>Next we have methods for inserting/removing elements from the dom.</p>
 <dl>
 <dt><a href="http://api.jquery.com/after/">after()</a>, <a href="http://api.jquery.com/before/">before()</a></dt>
@@ -170,62 +174,87 @@ document.body.appendChild(script);</code></pre></div>
 </dl>
 <p>There are a lot of other methods, mostly related to events, that we will revisit later.</p>
 <h3 id="examples-1">Examples</h3>
-<p>We will run some examples on a barebones page. Save this page in an HTML file, open it in the browser, then fire up the console, to follow along.</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
-<span class="kw">&lt;html&gt;</span>
-<span class="kw">&lt;head&gt;</span>
-  <span class="kw">&lt;title&gt;</span>A basic page<span class="kw">&lt;/title&gt;</span>
-<span class="kw">&lt;/head&gt;</span>
-<span class="kw">&lt;body&gt;</span>
-  <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;mainDiv&quot;</span><span class="kw">&gt;</span>
-    Basic content.
-  <span class="kw">&lt;/div&gt;</span>
-  <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://code.jquery.com/jquery-1.11.2.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
-<span class="kw">&lt;/body&gt;</span>
-<span class="kw">&lt;/html&gt;</span></code></pre></div>
+<p>We will run some examples on the sample page we created already. Remember to add jQuery to it as we described earlier.</p>
 <p>Okay, now first off, let’s type <code>$</code> in the console. We should see that it exists and is a function.</p>
 <p>Try each of these lines in order.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> mainDiv <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;#mainDiv&quot;</span>)<span class="op">;</span>
-<span class="va">mainDiv</span>.<span class="at">addClass</span>(<span class="st">&quot;foo&quot;</span>).<span class="at">append</span>(<span class="st">&quot;&lt;p&gt;Hi! I&#39;m new!&lt;/p&gt;&quot;</span>)<span class="op">;</span>
-<span class="va">mainDiv</span>.<span class="at">text</span>()<span class="op">;</span>                        <span class="co">// Text in mainDiv</span>
-<span class="va">mainDiv</span>.<span class="at">html</span>()<span class="op">;</span>                        <span class="co">// HTML in mainDiv</span>
-<span class="va">mainDiv</span>.<span class="at">html</span>(<span class="st">&quot;Oops it&#39;s all gone!&quot;</span>)<span class="op">;</span>   <span class="co">// Replacing the html</span>
-<span class="at">$</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span>]).<span class="at">map</span>(<span class="kw">function</span>(i) <span class="op">{</span> <span class="cf">return</span> <span class="at">$</span>(<span class="st">&#39;&lt;p&gt;&lt;/p&gt;&#39;</span>).<span class="at">html</span>(<span class="st">&quot;Hi! I&#39;m &quot;</span> <span class="op">+</span> i)[<span class="dv">0</span>]<span class="op">;</span> <span class="op">}</span>)
-          .<span class="at">appendTo</span>(mainDiv).<span class="at">wrap</span>(<span class="st">&#39;&lt;li&gt;&lt;/li&gt;&#39;</span>)<span class="op">;</span>
-<span class="at">$</span>(<span class="st">&#39;&lt;input type=&quot;input&quot; /&gt;&#39;</span>).<span class="at">appendTo</span>(<span class="st">&#39;li&#39;</span>).<span class="at">val</span>(<span class="dv">20</span>)<span class="op">;</span>
-<span class="at">$</span>(<span class="st">&#39;&lt;input type=&quot;input&quot; /&gt;&#39;</span>).<span class="at">appendTo</span>(<span class="st">&#39;li&#39;</span>).<span class="at">val</span>(<span class="kw">function</span>(i) <span class="op">{</span> <span class="cf">return</span> i<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
-<span class="at">$</span>(<span class="st">&#39;li&#39;</span>).<span class="at">first</span>().<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span><span class="op">,</span> <span class="st">&#39;blue&#39;</span>)</code></pre></div>
-<p>Let’s look at a longer example of a page.</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
-<span class="kw">&lt;html&gt;</span>
-<span class="kw">&lt;head&gt;</span>
-  <span class="kw">&lt;title&gt;</span>A basic page<span class="kw">&lt;/title&gt;</span>
-  <span class="kw">&lt;style&gt;</span>
-  * <span class="kw">{</span> <span class="kw">font-size:</span> <span class="dt">16pt</span><span class="kw">;</span> <span class="kw">}</span>
-  <span class="fl">.big</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">blue</span><span class="kw">;</span> <span class="kw">}</span>
-  <span class="fl">.small</span> <span class="kw">{</span> <span class="kw">color:</span> <span class="dt">red</span><span class="kw">;</span> <span class="kw">}</span>
-  <span class="kw">&lt;/style&gt;</span>
-<span class="kw">&lt;/head&gt;</span>
-<span class="kw">&lt;body&gt;</span>
-  <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;mainDiv&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>
-  <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://code.jquery.com/jquery-latest.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
-  <span class="kw">&lt;script&gt;</span>
-  <span class="at">$</span>(<span class="kw">function</span>() <span class="op">{</span> <span class="co">// Code here runs once page has loaded.</span>
-    <span class="kw">var</span> ul <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;&lt;ul&gt;&lt;/ul&gt;&quot;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#mainDiv&quot;</span>)<span class="op">,</span> v<span class="op">;</span>
-    <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
-      v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>
-      <span class="at">$</span>(<span class="st">&quot;&lt;li&gt;&quot;</span> <span class="op">+</span> v <span class="op">+</span> <span class="st">&quot;&lt;/li&gt;&quot;</span>)
-        .<span class="at">addClass</span>(v <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="op">?</span> <span class="st">&quot;big&quot;</span> : <span class="st">&quot;small&quot;</span>)
-        .<span class="at">appendTo</span>(ul)<span class="op">;</span>
-    <span class="op">}</span>
-    <span class="at">$</span>(<span class="st">&#39;li&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>(i<span class="op">,</span> v) <span class="op">{</span>
-      <span class="at">$</span>(v).<span class="at">fadeOut</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span>
-        <span class="at">$</span>(v).<span class="at">fadeIn</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span>)<span class="op">;</span>
-      <span class="op">}</span>)<span class="op">;</span>
-    <span class="op">}</span>)<span class="op">;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> mainContent <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">;</span>
+<span class="va">mainContent</span>.<span class="at">addClass</span>(<span class="st">&quot;foo&quot;</span>)<span class="op">;</span>               <span class="co">// Add a class to mainContent</span>
+<span class="kw">var</span> art <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;article&#39;</span><span class="op">,</span> mainContent).<span class="at">first</span>()<span class="op">;</span>   <span class="co">// The first article</span>
+<span class="va">art</span>.<span class="at">text</span>()<span class="op">;</span>                                <span class="co">// Text in art</span>
+<span class="va">art</span>.<span class="at">html</span>()<span class="op">;</span>                                <span class="co">// HTML in art</span>
+<span class="at">$</span>(<span class="st">&#39;&lt;p&gt;A new first paragraph!&lt;/p&gt;&#39;</span>)         <span class="co">// Create a new paragraph</span>
+  .<span class="at">hide</span>()                                  <span class="co">// Start it as hidden</span>
+  .<span class="at">insertBefore</span>(<span class="at">$</span>(<span class="st">&#39;p&#39;</span><span class="op">,</span> art).<span class="at">first</span>())       <span class="co">// Insert before 1st article&#39;s 1st par</span>
+  .<span class="at">show</span>(<span class="dv">2000</span>)<span class="op">;</span>                             <span class="co">// Slowly make it appear</span>
+<span class="kw">var</span> items <span class="op">=</span> [
+  <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;chair&quot;</span><span class="op">,</span> <span class="dt">quantity</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">price</span><span class="op">:</span> <span class="dv">5</span> <span class="op">},</span>
+  <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;table&quot;</span><span class="op">,</span> <span class="dt">quantity</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">price</span><span class="op">:</span> <span class="dv">15</span> <span class="op">},</span>
+  <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;lamp&quot;</span><span class="op">,</span> <span class="dt">quantity</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">price</span><span class="op">:</span> <span class="dv">15</span> <span class="op">}</span>
+]<span class="op">;</span>
+<span class="kw">var</span> rows <span class="op">=</span> <span class="va">items</span>.<span class="at">map</span>(<span class="kw">function</span>(item) <span class="op">{</span>
+  <span class="kw">var</span> entries <span class="op">=</span> [<span class="va">item</span>.<span class="at">name</span><span class="op">,</span> <span class="va">item</span>.<span class="at">quantity</span><span class="op">,</span> <span class="va">item</span>.<span class="at">price</span>]
+    .<span class="at">map</span>(<span class="kw">function</span>(txt) <span class="op">{</span> <span class="cf">return</span> <span class="st">&#39;&lt;td&gt;&#39;</span> <span class="op">+</span> txt <span class="op">+</span> <span class="st">&#39;&lt;/td&gt;&#39;</span><span class="op">;</span> <span class="op">}</span>)
+    .<span class="at">join</span>(<span class="st">&#39;&#39;</span>)<span class="op">;</span>
+  <span class="cf">return</span> <span class="st">&#39;&lt;tr&gt;&#39;</span> <span class="op">+</span> <span class="st">&#39;&lt;td&gt;&#39;</span> <span class="op">+</span> <span class="va">item</span>.<span class="at">name</span> <span class="op">+</span> <span class="st">&#39;&lt;/td&gt;&#39;</span> <span class="op">+</span>
+                  <span class="st">&#39;&lt;td&gt;&#39;</span> <span class="op">+</span> <span class="va">item</span>.<span class="at">quantity</span> <span class="op">+</span> <span class="st">&#39;&lt;/td&gt;&#39;</span> <span class="op">+</span>
+                  <span class="st">&#39;&lt;td&gt;&#39;</span> <span class="op">+</span> <span class="va">item</span>.<span class="at">price</span> <span class="op">+</span> <span class="st">&#39;&lt;/td&gt;&#39;</span> <span class="op">+</span>
+                  <span class="st">&#39;&lt;/tr&gt;&#39;</span><span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="kw">var</span> tbody <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Quantity&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;/tbody&gt;&lt;/tr&gt;&#39;</span>)
+  .<span class="at">appendTo</span>(<span class="at">$</span>(<span class="st">&#39;#content&#39;</span>))
+  .<span class="at">find</span>(<span class="st">&#39;tbody&#39;</span>)<span class="op">;</span>
+<span class="at">$</span>(tbody).<span class="at">append</span>(rows)<span class="op">;</span>
+<span class="co">// Now we find each td in the table, and replace the contents with an input field:</span>
+<span class="at">$</span>(<span class="st">&#39;td&#39;</span>).<span class="at">html</span>(<span class="kw">function</span>() <span class="op">{</span>
+  <span class="co">// &quot;this&quot; here refers to the element itself.</span>
+  <span class="va">console</span>.<span class="at">log</span>(<span class="at">$</span>(<span class="kw">this</span>).<span class="at">html</span>())<span class="op">;</span>
+  <span class="cf">return</span> <span class="st">&#39;&lt;input type=&quot;input&quot; value=&quot;&#39;</span> <span class="op">+</span> <span class="at">$</span>(<span class="kw">this</span>).<span class="at">html</span>() <span class="op">+</span> <span class="st">&#39;&quot; /&gt;&#39;</span><span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="co">// Prints out all the values from all inputs</span>
+<span class="at">$</span>(<span class="st">&#39;input&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>() <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(<span class="at">$</span>(<span class="kw">this</span>).<span class="at">val</span>())<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="at">$</span>(<span class="st">&#39;article&#39;</span>).<span class="at">last</span>()     <span class="co">// Find last article</span>
+  .<span class="at">find</span>(<span class="st">&#39;p&#39;</span>).<span class="at">last</span>()     <span class="co">// Grab its last paragraph</span>
+  .<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span><span class="op">,</span> <span class="st">&#39;red&#39;</span>)        <span class="co">// Set its background color</span>
+  .<span class="at">hide</span>(<span class="dv">2000</span>)
+  .<span class="at">show</span>(<span class="dv">2000</span>)<span class="op">;</span></code></pre></div>
+<p>Let’s look at a longer example. It adds 10 randomly generated numbers that fade out and back in at a rate proportional to their size.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ul <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;&lt;ul&gt;&lt;/ul&gt;&quot;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">,</span> v<span class="op">;</span>
+<span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+  v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>
+  <span class="at">$</span>(<span class="st">&quot;&lt;li&gt;&quot;</span> <span class="op">+</span> v <span class="op">+</span> <span class="st">&quot;&lt;/li&gt;&quot;</span>)
+    .<span class="at">addClass</span>(v <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="op">?</span> <span class="st">&quot;big&quot;</span> : <span class="st">&quot;small&quot;</span>)
+    .<span class="at">appendTo</span>(ul)<span class="op">;</span>
+<span class="op">}</span>
+<span class="at">$</span>(<span class="st">&#39;li&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>(i<span class="op">,</span> v) <span class="op">{</span>
+  <span class="at">$</span>(v).<span class="at">fadeOut</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="at">$</span>(v).<span class="at">fadeIn</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span>)<span class="op">;</span>
   <span class="op">}</span>)<span class="op">;</span>
-  <span class="op">&lt;</span><span class="ss">/script&gt;</span>
-<span class="ss">&lt;/body</span><span class="op">&gt;</span>
-<span class="op">&lt;</span><span class="ss">/html&gt;</span></code></pre></div>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>And another. This one adds a new div with “bar” divs in it, each of them with random lengths. This looks like a histogram. It then randomly changes those lengths in an animated process.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> parent <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;&lt;div id=&quot;bars&quot;&gt;&lt;/div&gt;&#39;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">,</span> v<span class="op">;</span>
+<span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+  v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>
+  <span class="at">$</span>(<span class="st">&quot;&lt;div&gt;&lt;/div&gt;&quot;</span>)
+    .<span class="at">css</span>(<span class="op">{</span>
+      <span class="st">&#39;background-color&#39;</span><span class="op">:</span> <span class="st">&#39;blue&#39;</span><span class="op">,</span>
+      <span class="dt">height</span><span class="op">:</span> <span class="st">&#39;10px&#39;</span><span class="op">,</span>
+      <span class="dt">width</span><span class="op">:</span> (<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">300</span>) <span class="op">+</span> <span class="st">&#39;px&#39;</span>
+    <span class="op">}</span>).<span class="at">appendTo</span>(parent)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="at">$</span>(<span class="st">&#39;#bars div&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>() <span class="op">{</span>
+  <span class="at">$</span>(<span class="kw">this</span>).<span class="at">animate</span>(<span class="op">{</span> <span class="dt">width</span><span class="op">:</span> (<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">300</span>) <span class="op">+</span> <span class="st">&#39;px&#39;</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<h3 id="practice-problems">Practice problems</h3>
+<ol style="list-style-type: decimal">
+<li>Find the second paragraph of the first article and set its color to red.</li>
+<li>Find all h2 elements, and insert right after each an <code>h3</code> element with the exact same text.</li>
+<li>Find all h2 elements, and add an explamation mark to the end of the text.</li>
+<li>Grab the text out of all paragraph elements, form an array of the texts.</li>
+<li>Find all paragraph texts, and if any of them have text longer than 50 characters: Hide the paragraph, and insert above it a paragraph with class “condensed” and with content those first 50 characters, followed by three dots (ellipsis).</li>
+<li>Find the first paragraph of the first article. Animate its top padding from its current value to 5ems, then back.</li>
+</ol>
 </body>
 </html>

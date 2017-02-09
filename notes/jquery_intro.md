@@ -77,13 +77,17 @@ We will learn about these methods in the rest of this section.
 
 All jQuery objects respond to a similar set of methods. You can explore the whole [API online](http://api.jquery.com/), and in Part IV of Flanagan's book.
 
+In general all jQuery methods operate on an "array/collection of jQuery objects".
+
+#### Collection methods
+
 First we have collection methods.
 
 [each(f)](http://api.jquery.com/each/)
   ~ Given a function `f(i, el)`, will call the function for each element (if a collection).
 
 [get(i), el[i]](http://api.jquery.com/get/)
-  ~ gets the element at the i-th index. jQuery objects tend to be collections, this picks out a specific element from that collection.
+  ~ gets the element at the i-th index. jQuery objects tend to be collections, this picks out a specific element from that collection. The resulting object is not a jQuery object. If you want to carry out jQuery methods on it, you must wrap it in `$()`.
 
 [map(f)](http://api.jquery.com/jQuery.map/)
   ~ Translates all items of the array to a new array, via the function.
@@ -103,6 +107,8 @@ First we have collection methods.
 [find()](http://api.jquery.com/find/)
   ~ Selects all descendants that match certain criteria.
 
+#### Element editing
+
 Next we have some element methods that read/write element properties.
 
 [addClass](http://api.jquery.com/addClass/), [removeClass](http://api.jquery.com/removeClass/), [toggleClass](http://api.jquery.com/toggleClass/)
@@ -118,6 +124,8 @@ Next we have some element methods that read/write element properties.
 
 [val](http://api.jquery.com/val/)
   ~ Get or set the "value" associated with the element.
+
+#### Tree manipulation
 
 Next we have methods for inserting/removing elements from the dom.
 
@@ -143,73 +151,98 @@ There are a lot of other methods, mostly related to events, that we will revisit
 
 ### Examples
 
-We will run some examples on a barebones page. Save this page in an HTML file, open it in the browser, then fire up the console, to follow along.
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>A basic page</title>
-</head>
-<body>
-  <div id="mainDiv">
-    Basic content.
-  </div>
-  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-</body>
-</html>
-```
+We will run some examples on the sample page we created already. Remember to add jQuery to it as we described earlier.
 
 Okay, now first off, let's type `$` in the console. We should see that it exists and is a function.
 
 Try each of these lines in order.
 
 ```javascript
-var mainDiv = $("#mainDiv");
-mainDiv.addClass("foo").append("<p>Hi! I'm new!</p>");
-mainDiv.text();                        // Text in mainDiv
-mainDiv.html();                        // HTML in mainDiv
-mainDiv.html("Oops it's all gone!");   // Replacing the html
-$([1,2,3]).map(function(i) { return $('<p></p>').html("Hi! I'm " + i)[0]; })
-          .appendTo(mainDiv).wrap('<li></li>');
-$('<input type="input" />').appendTo('li').val(20);
-$('<input type="input" />').appendTo('li').val(function(i) { return i; });
-$('li').first().css('background-color', 'blue')
+var mainContent = $("#content");
+mainContent.addClass("foo");               // Add a class to mainContent
+var art = $('article', mainContent).first();   // The first article
+art.text();                                // Text in art
+art.html();                                // HTML in art
+$('<p>A new first paragraph!</p>')         // Create a new paragraph
+  .hide()                                  // Start it as hidden
+  .insertBefore($('p', art).first())       // Insert before 1st article's 1st par
+  .show(2000);                             // Slowly make it appear
+var items = [
+  { name: "chair", quantity: 4, price: 5 },
+  { name: "table", quantity: 1, price: 15 },
+  { name: "lamp", quantity: 1, price: 15 }
+];
+var rows = items.map(function(item) {
+  var entries = [item.name, item.quantity, item.price]
+    .map(function(txt) { return '<td>' + txt + '</td>'; })
+    .join('');
+  return '<tr>' + '<td>' + item.name + '</td>' +
+                  '<td>' + item.quantity + '</td>' +
+                  '<td>' + item.price + '</td>' +
+                  '</tr>';
+});
+
+var tbody = $('<table><thead><tr><th>Name</th><th>Quantity</th><th>Price</th></tr></thead><tbody></tbody></tr>')
+  .appendTo($('#content'))
+  .find('tbody');
+$(tbody).append(rows);
+// Now we find each td in the table, and replace the contents with an input field:
+$('td').html(function() {
+  // "this" here refers to the element itself.
+  console.log($(this).html());
+  return '<input type="input" value="' + $(this).html() + '" />';
+});
+
+// Prints out all the values from all inputs
+$('input').each(function() { console.log($(this).val()); });
+$('article').last()     // Find last article
+  .find('p').last()     // Grab its last paragraph
+  .css('background-color', 'red')        // Set its background color
+  .hide(2000)
+  .show(2000);
 ```
 
-Let's look at a longer example of a page.
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>A basic page</title>
-  <style>
-  * { font-size: 16pt; }
-  .big { color: blue; }
-  .small { color: red; }
-  </style>
-</head>
-<body>
-  <div id="mainDiv"></div>
-  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-  <script>
-  $(function() { // Code here runs once page has loaded.
-    var ul = $("<ul></ul>").appendTo("#mainDiv"), v;
-    for (var i = 0; i < 10; i += 1) {
-      v = Math.random();
-      $("<li>" + v + "</li>")
-        .addClass(v > 0.5 ? "big" : "small")
-        .appendTo(ul);
-    }
-    $('li').each(function(i, v) {
-      $(v).fadeOut(Math.random() * 5000, function() {
-        $(v).fadeIn(Math.random() * 5000);
-      });
-    });
+Let's look at a longer example. It adds 10 randomly generated numbers that fade out and back in at a rate proportional to their size.
+```javascript
+var ul = $("<ul></ul>").appendTo("#content"), v;
+for (var i = 0; i < 10; i += 1) {
+  v = Math.random();
+  $("<li>" + v + "</li>")
+    .addClass(v > 0.5 ? "big" : "small")
+    .appendTo(ul);
+}
+$('li').each(function(i, v) {
+  $(v).fadeOut(Math.random() * 5000, function() {
+    $(v).fadeIn(Math.random() * 5000);
   });
-  </script>
-</body>
-</html>
+});
 ```
 
+And another. This one adds a new div with "bar" divs in it, each of them with random lengths. This looks like a histogram. It then randomly changes those lengths in an animated process.
+
+```javascript
+var parent = $('<div id="bars"></div>').appendTo("#content"), v;
+for (var i = 0; i < 10; i += 1) {
+  v = Math.random();
+  $("<div></div>")
+    .css({
+      'background-color': 'blue',
+      height: '10px',
+      width: (Math.random() * 300) + 'px'
+    }).appendTo(parent);
+}
+
+$('#bars div').each(function() {
+  $(this).animate({ width: (Math.random() * 300) + 'px' });
+});
+```
+
+### Practice problems
+
+1. Find the second paragraph of the first article and set its color to red.
+2. Find all h2 elements, and insert right after each an `h3` element with the exact same text.
+3. Find all h2 elements, and add an explamation mark to the end of the text.
+4. Grab the text out of all paragraph elements, form an array of the texts.
+5. Find all paragraph texts, and if any of them have text longer than 50 characters: Hide the paragraph, and insert above it a paragraph with class "condensed" and with content those first 50 characters, followed by three dots (ellipsis).
+6. Find the first paragraph of the first article. Animate its top padding from its current value to 5ems, then back.
