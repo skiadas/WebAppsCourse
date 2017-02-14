@@ -28,7 +28,7 @@ configurable
 enumerable
   ~ Boolean, default false. Whether this property will show up during enumeration (say in a for-in loop).
 
-Data descriptors are meant for properties that simply hold values, and will contain the following keys:
+*Data descriptors* are meant for properties that simply hold values, and will contain the following keys:
 
 value
   ~ The initial value. Defaults to `undefined`.
@@ -36,7 +36,21 @@ value
 writable
   ~ Boolean, determining whether the variable is writable or not.
 
-Accessor descriptors are meant for properties that require getter and setter methods, and will contain the following keys:
+For instance we can define a normal property that is constant as follows:
+```javascript
+var o = {};
+Object.defineProperty(o, 'theAnswer', {
+    configurable: false,     // Can be omitted, it's the default
+    enumerable: true,
+    value: 42,
+    writable: false
+});
+o.theAnswer;       // 42
+o.theAnswer = 3;   // No error, but does not actually change the value.
+o.theAnswer;       // Still 42
+```
+
+*Accessor descriptors* are meant for properties that require getter and setter methods, and will contain the following keys:
 
 get
   ~ A function `f` whose return value is what the property returns. A value of `undefined` would mean there is no getter.
@@ -44,7 +58,7 @@ get
 set
   ~ A function `f(v)` used to "set" the value of the property to the value v. A value of `undefined` will mean there is no setter.
 
-Here is an example of this:
+Here is an example of this. Every time you try to access the value you get an ever increasing number back
 
 ```javascript
 var o = {};
@@ -54,14 +68,14 @@ Object.defineProperty(o, 'countMe', {
         var count = 0;
         return function() { count += 1; return count; };
     }())
-})
+});
 ```
 
-Use these features sparingly!
+Use these features sparingly! It is not an expected behavior.
 
 ### Small get/set Illustration: Temperatures
 
-Here is a small example where these getters and setters might be useful. Say we want to create a "temperature" object that understands both Celsius and Fahrenheit. Here is a way to do it:
+Here is a small example where these getters and setters might be useful. Say we want to create a "temperature" object that understands both Celsius and Fahrenheit. Here is a way to do it. The "C" property is a standard value and expresses the temperature in Celsius, while the "F" property is is defined via accessors, and is a "derived property" that simply relates back to the "C" property.
 
 ```javascript
 function f2c(F) { return (F - 32) * 5 / 9; }
@@ -114,6 +128,12 @@ Stack._proto = {
 
 This was not a bad implementation, but it had some "flaws". It allows people to change it. We will try to "lock it down". This is not always a good idea, so think carefully before trying to do this.
 
+**Practice:** Think of the above implementation. You are a nefarious hacker who can run some code after that implementation is completed. You cannot change the value of the `Stack` variable itself, but you will be able to access the value of the `Stack` variable. Think of all the ways you could use to affect the behavior of the stack. Some different kinds of attacks to consider:
+
+- Reading or changing parts of a specific stack object that you are not supposed to access.
+- Altering the behavior of existing stack objects.
+- Altering the behavior of future stack objects.
+
 Here are the "flaws":
 
 1. The `_proto` property is visible: If someone enumerates the keys in `Stack`, it will see it. We will want to make it not enumerable, so that it can be accessed only if someone wants to find it.
@@ -135,47 +155,49 @@ So let us see how we can address these issues:
 Here is an implementation:
 
 ```javascript
-var Stack = Object.freeze(Object.create(null, {
-    new: {
-        enumerable: true,
-        configurable: false,
-        writeable: false,
-        value: function makeStack() {
-            return Object.freeze(Object.create(Stack._proto, {
-                values: {
-                    enumerable: false,
-                    configurable: false,
-                    writeable: false,
-                    value: []
-                }
-            }));
-        }
-    },
-    _proto: {
-        enumerable: false,
-        configurable: false,
-        writeable: false,
-        value: Object.freeze({
-            push: function push(el) {
-                this.values.push(el);
-                return this;
-            },
-            pop: function pop() {
-                if (this.isEmpty()) {
-                    throw new Error("Attempt to pop from empty stack");
-                } else {
-                    return this.values.pop();
-                }
-            },
-            isEmpty: function isEmpty() {
-                return this.values.length === 0;
+var Stack = Object.create(null);
+
+Object.defineProperty(Stack, 'new', {
+    enumerable: true,
+    configurable: false,
+    writeable: false,
+    value: function makeStack() {
+        return Object.freeze(Object.create(Stack._proto, {
+            values: {
+                enumerable: false,
+                configurable: false,
+                writeable: false,
+                value: []
             }
-        })
+        }));
     }
-}));
+});
+Object.defineProperty(Stack, '_proto', {
+    enumerable: false,
+    configurable: false,
+    writeable: false,
+    value: Object.freeze({
+        push: function push(el) {
+            this.values.push(el);
+            return this;
+        },
+        pop: function pop() {
+            if (this.isEmpty()) {
+                throw new Error("Attempt to pop from empty stack");
+            } else {
+                return this.values.pop();
+            }
+        },
+        isEmpty: function isEmpty() {
+            return this.values.length === 0;
+        }
+    })
+});
+Object.freeze(Stack);
 
 Object.keys(Stack);    // Only ["new"]
 Stack._proto.f = 2;    // Fails to change _proto
+Stack._proto.f;        // Not set
 var s1 = Stack.new();
 s1.push = 2;           // Fails to create a push property
 Object.keys(s1);       // Empty
@@ -183,7 +205,7 @@ s1.push(2).push(3);    // These work fine.
 s1.pop();
 s1.values;             // Shows us what's there
 s1.values = [];        // Fails to change the values array.
-s1.values.push(4);     // But this works and modifies the array.
+s1.values.push(4);     // DANGER: But this works and modifies the array.
 ```
 
 ### Optional: Further lockdown

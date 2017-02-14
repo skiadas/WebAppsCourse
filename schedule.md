@@ -71,18 +71,18 @@ A week-by-week breakdown of the material.
 
 - Day 1
     - [Object properties](notes/object_properties.md)
+    - [Introduction to DOM Events](notes/events_intro.md)
+    - [Timers](notes/events_timers.md)
+- Day 2
     - [Assignment 6](assignments/6.md)
     - [Lab 3: Linting, Tasks](labs/3.md)
     - [Assignment 7](assignments/7.md)
-    - [Introduction to DOM Events](notes/events_intro.md)
     - [Lab 4: Controllers, jQuery](labs/4.md)
-    - [Timers](notes/events_timers.md)
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
     - [Intro to Patterns: Iterator (cont)](notes/patterns_iterator.md)
     - [Lab 5: Collections](labs/5.md)
     - [Design Patterns](notes/design_patterns.md)
     - [Patterns of code reuse](notes/code_reuse.md)
-- Day 2
     - [Pattern: Observer](notes/patterns_observer.md)
     - [Pattern: Command](notes/patterns_command.md)
     - [Pattern: Proxy](notes/patterns_proxy.md)
