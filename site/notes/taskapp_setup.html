@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="taskapp">TaskApp</h1>
+<p>In this section we build our first app, and discuss the various steps in creating an app like that.</p>
+<h2 id="notes">Notes</h2>
+<h3 id="app-overview">App Overview</h3>
+<p>We start with a high-level description of the app we have in mind. It will be an application that helps us manage a list of “tasks”. Here is some desired functionality:</p>
+<ul>
+<li>The application manages “tasks”, which have some associated “title” string to them.</li>
+<li>We can see a listing of all the tasks.</li>
+<li>We can mark tasks as completed, or delete them altogether.</li>
+<li>We can associate “labels” to a task.</li>
+<li>Users can add/remove labels from a task.</li>
+<li>We can choose to only see the tasks that have certain label(s).</li>
+</ul>
+<p>We will look at optional behavior later.</p>
+<p>Based on the above description, let us consider some key components of such a project:</p>
+<dl>
+<dt>Task</dt>
+<dd><p>We will need to have some “Task” objects. They should contain a title, a completion status, and a list of labels. Tasks objects have methods for adding/removing a label, setting the title and so on.</p>
+<p>In an extended version of the app, tasks might be stored in some way, for instance in a database.</p>
+</dd>
+<dt>TaskList</dt>
+<dd><p>We will need to have a way to manage a list of objects. This could be as simple as an array underneath, but we will provide a specific interface.</p>
+<p>A taskList should have ways to add/remove tasks, and a way iterate over the tasks.</p>
+</dd>
+<dt>Label</dt>
+<dd><p>Even though labels are simple word strings, there is value in having them be their own objects. This constructor will be unusual in the sense that for any given string there can be only one label for that string. Our constructor will therefore be enforcing that, and possibly return an existing object if it is asked to create an existing label.</p>
+<p>Each label also contains the information as to whether it is currently “active” or not.</p>
+<p>Because of this unusual behavior of labels, we will not use a separate object to manage the list of labels. Instead, the <code>Label</code> class will be providing us with a “list” view of the labels when asked.</p>
+</dd>
+<dt>Filters</dt>
+<dd><p>We’ll need some structure to keep track of the filters that are in place. These would include the list of the labels, and whether we should show only un-completed or only completed tasks.</p>
+<p>A key question is who is responsible for deciding if a task should be shown or not. Is this a question that the tasks should be able to answer for themselves, given a Filters structure, or is this a question that the Filters structure should be able to answer, given a task? The latter makes more sense.</p>
+</dd>
+<dt>Controller</dt>
+<dd><p>A controller is the component responsible for responding to user input, and adjust the backend structures as needed, as well as updating the interface.</p>
+<p>In more complex applications we may have multiple controllers. In this instance we will use a single controller, that manages all the different page parts.</p>
+</dd>
+</dl>
+<h3 id="overall-code-structure">Overall Code Structure</h3>
+<p>We need to decide how to organize our code. Here are some key considerations:</p>
+<ul>
+<li>Each component should be in its own file, so its code can be considered/tested/altered without needing any of the other parts.</li>
+<li>In general components need to be as independent of each other as possible, but some components will need to know about other components. We therefore need a mechanism for components to “require” other components. We will see in more detail how to do this in the future.</li>
+<li><p>We should try not to pollute the global space as much as possible. One way to avoid that is to create one global variable as a “namespace for our application”. Then we add components to that. For example, a start code for each component could be something like this:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Immediate function invocation. Closes at the end of the file.</span>
+<span class="co">// &quot;global&quot; will be the global object, which is either &quot;window&quot; (browser) or &quot;root&quot; (node).</span>
+(<span class="kw">function</span>(global) <span class="op">{</span>
+   <span class="cf">if</span> (<span class="op">!</span><span class="va">global</span>.<span class="at">hasOwnProperty</span>(<span class="st">&#39;TaskApp&#39;</span>)) <span class="op">{</span>
+      <span class="va">global</span>.<span class="at">TaskApp</span> <span class="op">=</span> <span class="op">{};</span>            <span class="co">// Create namespace if it does not already exist.</span>
+   <span class="op">}</span>
+
+   <span class="co">// Can declare local variables/functions etc here</span>
+   <span class="kw">var</span> Task<span class="op">;</span>
+   <span class="co">// If Task depended on other modules, e.g. TaskApp.TaskList, we can</span>
+   <span class="co">// check if those are set and throw an error or delay running the rest of the code.</span>
+
+   <span class="co">// Define the Task class here.</span>
+   <span class="co">// All the meaty stuff goes here.</span>
+
+   <span class="co">// We &quot;export&quot; the Task class at some point</span>
+   <span class="va">global</span>.<span class="va">TaskApp</span>.<span class="at">Task</span> <span class="op">=</span> Task<span class="op">;</span>
+<span class="op">}</span>(<span class="kw">typeof</span> window <span class="op">===</span> <span class="st">&#39;undefined&#39;</span> <span class="op">?</span> root : window))<span class="op">;</span></code></pre></div>
+We will use this format in each of our files.</li>
+<li>For the above code to work, we need to manually manage dependencies, and load the files in the correct order. So the order in which we include script tags in the file matters.</li>
+<li>We will need a way to create new “task” items. For that we will need a “template” to copy from. We will see one way of doing that for now, via a script tag. We’ll learn more about templates later.</li>
+<li><p>We will need to decide on a file structure. We will use the following:</p>
+<pre><code>- projectRoot
+   - css
+      cssfiles in here
+   - js
+      javascript files in here
+   - lib
+      folder for 3rd-party libraries like jQuery
+   - tests
+      test files go here
+   index.html
+   .eslintrc.json
+   other key root level files</code></pre>
+This is by no means the only way to do it, but it is one way.</li>
+<li><p>The functionality that actually requires a web-browser should be restricted to the Controller. The other classes (models), should be self-sufficient, and we should be able to write tests for them directly.</p></li>
+</ul>
+<p>Here’s a basic graph for an initial setup for the different modules:</p>
+<div class="figure">
+<img src="images/taskAppPlanning.png" alt="TaskApp planning" />
+<p class="caption">TaskApp planning</p>
+</div>
+</body>
+</html>
