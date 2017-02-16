@@ -86,7 +86,7 @@ g.call(console, "5 seconds later");
 
 #### Throttle
 
-Given a function and an interval, it will only allow the function to be called once in that interval. Useful for events that are coming too fast for us to process them all.
+Given a function and an interval, it will only allow the function to be called once in that interval. Further attempts to call the function during that interval will simply be ignored. Useful for events that are coming too fast for us to process them all.
 
 ```javascript
 function throttle(f, interval) {
@@ -109,7 +109,7 @@ g.call(console, "Prints right away"); g.call(console, "gets lost");
 
 #### Debounce
 
-Given a function and an interval, it will only run the function after that amount of time has passed since the last time the function was invoked. So if you call the function it will start waiting for that amount of time, and if it is called again it will reset the timer and start waiting again.
+Given a function and an interval, it will only run the function after that amount of time has passed since the last time the function was invoked, and it will call it in the exact same way as the last attempted call. So if you call the function it will start waiting for that amount of time, and if it is called again it will reset the timer and start waiting again.
 
 Essentially this function will not run as long as it is getting called.
 

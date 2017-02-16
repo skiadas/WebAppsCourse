@@ -64,6 +64,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>We can choose to only see the tasks that have certain label(s).</li>
 </ul>
 <p>We will look at optional behavior later.</p>
+<p>Before we describe one approach, you should work on it first. You should answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>What are the different <strong>modules</strong> we may need? Modules are collections of functions, constructors, variables, that all share a common purpose.</li>
+<li>What are the relationships between your modules? Which module needs to know about which other module? A key goal is to keep these relationships at a minimum.</li>
+<li>Describe some key elements of each module (methods, variables).</li>
+<li>Identify which modules need to directly respond to user input and/or update the page. Ideally these behaviors would NOT be spread across multiple modules.</li>
+</ol>
 <p>Based on the above description, let us consider some key components of such a project:</p>
 <dl>
 <dt>Task</dt>

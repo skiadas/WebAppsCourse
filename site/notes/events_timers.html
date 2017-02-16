@@ -116,7 +116,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">var</span> g <span class="op">=</span> <span class="at">delay</span>(<span class="va">console</span>.<span class="at">log</span><span class="op">,</span> <span class="dv">5000</span>)<span class="op">;</span>
 <span class="va">g</span>.<span class="at">call</span>(console<span class="op">,</span> <span class="st">&quot;5 seconds later&quot;</span>)<span class="op">;</span></code></pre></div>
 <h4 id="throttle">Throttle</h4>
-<p>Given a function and an interval, it will only allow the function to be called once in that interval. Useful for events that are coming too fast for us to process them all.</p>
+<p>Given a function and an interval, it will only allow the function to be called once in that interval. Further attempts to call the function during that interval will simply be ignored. Useful for events that are coming too fast for us to process them all.</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">throttle</span>(f<span class="op">,</span> interval) <span class="op">{</span>
   <span class="kw">var</span> available <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
   <span class="co">// function &quot;wait&quot; used in setTimeout</span>
@@ -134,7 +134,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">var</span> g <span class="op">=</span> <span class="at">throttle</span>(<span class="va">console</span>.<span class="at">log</span><span class="op">,</span> <span class="dv">5000</span>)<span class="op">;</span>
 <span class="va">g</span>.<span class="at">call</span>(console<span class="op">,</span> <span class="st">&quot;Prints right away&quot;</span>)<span class="op">;</span> <span class="va">g</span>.<span class="at">call</span>(console<span class="op">,</span> <span class="st">&quot;gets lost&quot;</span>)<span class="op">;</span></code></pre></div>
 <h4 id="debounce">Debounce</h4>
-<p>Given a function and an interval, it will only run the function after that amount of time has passed since the last time the function was invoked. So if you call the function it will start waiting for that amount of time, and if it is called again it will reset the timer and start waiting again.</p>
+<p>Given a function and an interval, it will only run the function after that amount of time has passed since the last time the function was invoked, and it will call it in the exact same way as the last attempted call. So if you call the function it will start waiting for that amount of time, and if it is called again it will reset the timer and start waiting again.</p>
 <p>Essentially this function will not run as long as it is getting called.</p>
 <p>Useful when we have incoming input, and we only want the function to execute once that input is completed (say once someone has stopped moving their mouse or stopped typing).</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">debounce</span>(f<span class="op">,</span> wait) <span class="op">{</span>
