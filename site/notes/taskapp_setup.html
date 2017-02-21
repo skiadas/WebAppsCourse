@@ -71,19 +71,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Describe some key elements of each module (methods, variables).</li>
 <li>Identify which modules need to directly respond to user input and/or update the page. Ideally these behaviors would NOT be spread across multiple modules.</li>
 </ol>
+<h3 id="general-design-principles">General Design Principles</h3>
+<p>Here are some general principles to adhere to:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Separation of Concerns</strong>. A <em>concern</em> is a set of information that affects the code in a computer program. Our program should be separated in sections, each section addressing one concern, and so that a concern is not spread across multiple code sections. This is also called <strong>modular</strong> design.</li>
+<li><strong>Single Responsibility</strong>. This is closely related, and it points out that modules should not try to do too much. They should have a single responsibility, and they should do it well.</li>
+<li><strong>Information Hiding/Abstraction</strong>. We want to keep design decisions about a specific part of the code entirely local to that piece of code, and provide a consistent way for the rest of the code to get to that information. This way if in the future we decide to change the design, there is only one piece of code that needs to change. The mechanism by which this is achieved is usually called <strong>Encapsulation</strong>.</li>
+<li><strong>Model-Controller</strong>. In most web applications there is an important distinction between <strong>models</strong> and <strong>controllers</strong>. Models are modules that control the application’s data/state, and they contain the “business logic”. Controllers are responsible for interacting with the user and using the models to prepare the user interface. It is imperative that these are kept separate.</li>
+</ol>
+<h3 id="basic-architecture">Basic Architecture</h3>
 <p>Based on the above description, let us consider some key components of such a project:</p>
 <dl>
 <dt>Task</dt>
 <dd><p>We will need to have some “Task” objects. They should contain a title, a completion status, and a list of labels. Tasks objects have methods for adding/removing a label, setting the title and so on.</p>
 <p>In an extended version of the app, tasks might be stored in some way, for instance in a database.</p>
+<p>One important consideration is where the information about whether a task is visible is stored. Should it be part of the task objects, or does it belong in a separate place, that is responsible for the UI?</p>
 </dd>
 <dt>TaskList</dt>
 <dd><p>We will need to have a way to manage a list of objects. This could be as simple as an array underneath, but we will provide a specific interface.</p>
 <p>A taskList should have ways to add/remove tasks, and a way iterate over the tasks.</p>
 </dd>
 <dt>Label</dt>
-<dd><p>Even though labels are simple word strings, there is value in having them be their own objects. This constructor will be unusual in the sense that for any given string there can be only one label for that string. Our constructor will therefore be enforcing that, and possibly return an existing object if it is asked to create an existing label.</p>
-<p>Each label also contains the information as to whether it is currently “active” or not.</p>
+<dd><p>Deciding what to do with labels is a hard decision. Here are some desirable features:</p>
+<ul>
+<li>Labels are fully identified by their text string, so we should never need to have more than one label for a given text string.</li>
+<li>We need to know which labels are used by issues at any given time.</li>
+<li>We need to know a count of how many issues a label is used in, to show on the label list.</li>
+<li>The above two items need to adjust to the “current” task list, which may be filtered (i.e. not all tasks used).</li>
+<li>We need to decide if a label should exist past its use. I.e. if no issues use a label any more, does it need to be removed?</li>
+<li>We need to know if a label is “active” or not, i.e. whether it is currently used for filtering.</li>
+</ul>
+<p>We have for the most part two design options:</p>
+<ul>
+<li>Create label objects, that contain a list of the tasks in them along with other status information. Keep the information stored in tasks and that in labels in sync, as they depend on each other. We will opt for this approach here.</li>
+<li>Do not create label objects, keep the information in the tasks, tasklist, and filters. Generate counts when needed by going through the task list. This would certainly have been a viable option.</li>
+</ul>
+<p>The constructor for label objects will be unusual in the sense that for any given string there can be only one label for that string. Our constructor will therefore be enforcing that, and possibly return an existing object if it is asked to create an existing label.</p>
 <p>Because of this unusual behavior of labels, we will not use a separate object to manage the list of labels. Instead, the <code>Label</code> class will be providing us with a “list” view of the labels when asked.</p>
 </dd>
 <dt>Filters</dt>
@@ -91,10 +114,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>A key question is who is responsible for deciding if a task should be shown or not. Is this a question that the tasks should be able to answer for themselves, given a Filters structure, or is this a question that the Filters structure should be able to answer, given a task? The latter makes more sense.</p>
 </dd>
 <dt>Controller</dt>
-<dd><p>A controller is the component responsible for responding to user input, and adjust the backend structures as needed, as well as updating the interface.</p>
+<dd><p>A controller is the component responsible for responding to user input, adjusting the backend structures as needed, as well as updating the interface.</p>
 <p>In more complex applications we may have multiple controllers. In this instance we will use a single controller, that manages all the different page parts.</p>
 </dd>
 </dl>
+<p>Here’s a basic graph for an initial setup for the different modules:</p>
+<div class="figure">
+<img src="images/taskAppPlanning.png" alt="TaskApp planning" />
+<p class="caption">TaskApp planning</p>
+</div>
 <h3 id="overall-code-structure">Overall Code Structure</h3>
 <p>We need to decide how to organize our code. Here are some key considerations:</p>
 <ul>
@@ -120,8 +148,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
    <span class="va">global</span>.<span class="va">TaskApp</span>.<span class="at">Task</span> <span class="op">=</span> Task<span class="op">;</span>
 <span class="op">}</span>(<span class="kw">typeof</span> window <span class="op">===</span> <span class="st">&#39;undefined&#39;</span> <span class="op">?</span> root : window))<span class="op">;</span></code></pre></div>
 We will use this format in each of our files.</li>
-<li>For the above code to work, we need to manually manage dependencies, and load the files in the correct order. So the order in which we include script tags in the file matters.</li>
-<li>We will need a way to create new “task” items. For that we will need a “template” to copy from. We will see one way of doing that for now, via a script tag. We’ll learn more about templates later.</li>
+<li>For the above code to work, we need to manually manage dependencies, and load the files in the correct order. So the order in which we include script tags in the file matters. Figuring out the correct order for the different modules is actually an interesting program in graph theory, called <strong>topological sort</strong>.</li>
+<li><p>We will need a way to create new “task” items. For that we will need a “template” to copy from. We will see one way of doing that for now, via a script tag. We’ll learn more about templates later. Essentially we add something like the following on the web page:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> id=</span><span class="st">&quot;taskTemplate&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/template&quot;</span><span class="kw">&gt;</span>
+<span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">&quot;task&quot;</span><span class="op">&gt;</span>
+<span class="op">&lt;</span>p<span class="op">&gt;{{</span>title<span class="op">}}&lt;</span><span class="ss">/p&gt;&lt;input class=&quot;completed&quot; type=&quot;checkbox&quot; value=&quot;{{completed}}&quot;&gt;&lt;/input</span><span class="op">&gt;</span>
+<span class="op">&lt;</span><span class="ss">/div&gt;</span>
+<span class="ss">&lt;/script</span><span class="op">&gt;</span></code></pre></div>
+<p>The above script can be accessed via its id, and because its type is not set to <code>text/javascript</code> it will not actually be executed by the browser. We can then use its text to create a new item.</p>
+Notice that there are a number of “placeholders”, surrounded in double curly braces. We will replace those with suitable values.</li>
 <li><p>We will need to decide on a file structure. We will use the following:</p>
 <pre><code>- projectRoot
    - css
@@ -138,10 +173,120 @@ We will use this format in each of our files.</li>
 This is by no means the only way to do it, but it is one way.</li>
 <li><p>The functionality that actually requires a web-browser should be restricted to the Controller. The other classes (models), should be self-sufficient, and we should be able to write tests for them directly.</p></li>
 </ul>
-<p>Here’s a basic graph for an initial setup for the different modules:</p>
-<div class="figure">
-<img src="images/taskAppPlanning.png" alt="TaskApp planning" />
-<p class="caption">TaskApp planning</p>
-</div>
+<h3 id="initial-code">Initial Code</h3>
+<p>We now take a look at the starting layout code for our app.</p>
+<h4 id="main-index-file">Main Index file</h4>
+<p>We start with <code>index.html</code>:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<span class="kw">&lt;html&gt;</span>
+<span class="kw">&lt;head&gt;</span>
+   <span class="kw">&lt;title&gt;</span>TaskApp: The Task App of the future<span class="kw">&lt;/title&gt;</span>
+   <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href=</span><span class="st">&quot;css/reset.css&quot;</span><span class="kw">&gt;</span>
+   <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="ot"> href=</span><span class="st">&quot;css/taskapp.css&quot;</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/head&gt;</span>
+<span class="kw">&lt;body&gt;</span>
+   <span class="kw">&lt;header&gt;</span>
+   <span class="kw">&lt;/header&gt;</span>
+   <span class="kw">&lt;main&gt;</span>
+      <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;filters&quot;</span><span class="kw">&gt;</span>
+         <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;filter&quot;</span><span class="ot"> id=</span><span class="st">&quot;postsChoice&quot;</span><span class="kw">&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>Posts to show<span class="kw">&lt;/h3&gt;</span>
+            <span class="co">&lt;!-- TODO: Add radio buttons --&gt;</span>
+         <span class="kw">&lt;/div&gt;</span>
+         <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;filter&quot;</span><span class="ot"> id=</span><span class="st">&quot;labelsList&quot;</span><span class="kw">&gt;</span>
+            <span class="kw">&lt;h3&gt;</span>Labels<span class="kw">&lt;/h3&gt;</span>
+            <span class="kw">&lt;ul&gt;</span>
+              <span class="co">&lt;!-- Labels will be added dynamically using the template --&gt;</span>
+            <span class="kw">&lt;/ul&gt;</span>
+         <span class="kw">&lt;/div&gt;</span>
+      <span class="kw">&lt;/section&gt;</span>
+      <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;tasks&quot;</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;/section&gt;</span>
+   <span class="kw">&lt;/main&gt;</span>
+   <span class="kw">&lt;footer&gt;</span>
+   <span class="kw">&lt;/footer&gt;</span>
+<span class="co">&lt;!-- Normal page info ends here. Some scripts load further down. --&gt;</span>
+<span class="co">&lt;!-- This is the template for a task. It is not actually treated as Javascript code</span>
+<span class="co">     the curly  braces are placeholders for dynamically generated values --&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> id=</span><span class="st">&quot;taskTemplate&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/template&quot;</span><span class="kw">&gt;</span>
+<span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">&quot;task&quot;</span><span class="op">&gt;</span>
+<span class="op">&lt;</span>p<span class="op">&gt;{{</span>title<span class="op">}}&lt;</span><span class="ss">/p&gt;&lt;input class=&quot;completed&quot; type=&quot;checkbox&quot; value=&quot;{{completed}}&quot;&gt;&lt;/input</span><span class="op">&gt;</span>
+<span class="op">&lt;</span><span class="ss">/div&gt;</span>
+<span class="ss">&lt;/script</span><span class="op">&gt;</span>
+<span class="op">&lt;</span>script id<span class="op">=</span><span class="st">&quot;labelTemplate&quot;</span> type<span class="op">=</span><span class="st">&quot;text/template&quot;</span><span class="op">&gt;</span>
+<span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">&quot;label&quot;</span><span class="op">&gt;</span>
+<span class="op">&lt;</span>p<span class="op">&gt;{{</span>tag<span class="op">}}&lt;</span>span<span class="op">&gt;&lt;!--</span> count goes here <span class="op">--&gt;&lt;</span><span class="ss">/span&gt;&lt;/p</span><span class="op">&gt;&lt;</span>input <span class="kw">class</span><span class="op">=</span><span class="st">&quot;completed&quot;</span> type<span class="op">=</span><span class="st">&quot;checkbox&quot;</span> value<span class="op">=</span><span class="st">&quot;{{selected}}&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/input&gt;</span>
+<span class="ss">&lt;/div</span><span class="op">&gt;</span>
+<span class="op">&lt;</span><span class="ss">/script&gt;</span>
+<span class="ss">&lt;!-- SCRIPT LOADING HERE --&gt;</span>
+<span class="ss">&lt;script type=&quot;text/javascript</span><span class="st">&quot; src=&quot;</span>js/<span class="va">templates</span>.<span class="at">js</span><span class="st">&quot;&gt;&lt;/script&gt;</span>
+<span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;text/javascript&quot;</span> src<span class="op">=</span><span class="st">&quot;js/tasklist.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
+<span class="ss">&lt;script type=&quot;text/javascript</span><span class="st">&quot; src=&quot;</span>js/<span class="va">label</span>.<span class="at">js</span><span class="st">&quot;&gt;&lt;/script&gt;</span>
+<span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;text/javascript&quot;</span> src<span class="op">=</span><span class="st">&quot;js/task.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
+<span class="ss">&lt;script type=&quot;text/javascript</span><span class="st">&quot; src=&quot;</span>js/<span class="va">filters</span>.<span class="at">js</span><span class="st">&quot;&gt;&lt;/script&gt;</span>
+<span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;text/javascript&quot;</span> src<span class="op">=</span><span class="st">&quot;js/controller.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
+<span class="ss">&lt;/body</span><span class="op">&gt;</span>
+<span class="op">&lt;</span><span class="ss">/html&gt;</span></code></pre></div>
+<p>Our goal for now is to:</p>
+<ul>
+<li>Delineate the main areas of the page</li>
+<li>Prepare the templates</li>
+<li>Link to a CSS file</li>
+<li>Load the scripts in proper order</li>
+</ul>
+<h4 id="templates">Templates</h4>
+<p>Next we look at the template file. It provides us with methods for handling our primitive version of templates. Later on we’ll make it use a template library.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// templates.js</span>
+<span class="co">//</span>
+<span class="co">// This file handles the various templates for us.</span>
+<span class="co">//</span>
+(<span class="kw">function</span>(global) <span class="op">{</span>
+   <span class="kw">var</span> Template<span class="op">,</span> templateStorage<span class="op">,</span> proto<span class="op">;</span>
+
+   <span class="cf">if</span> (<span class="op">!</span><span class="va">global</span>.<span class="at">hasOwnProperty</span>(<span class="st">&#39;TaskApp&#39;</span>)) <span class="op">{</span>
+      <span class="va">global</span>.<span class="at">TaskApp</span> <span class="op">=</span> <span class="op">{};</span>
+   <span class="op">}</span>
+
+   <span class="co">// Object keeping the stored templates</span>
+   templateStorage <span class="op">=</span> <span class="op">{};</span>
+
+   <span class="co">/*</span>
+<span class="co">    * Exported object. `load` is used to store a template, `parse` is used to</span>
+<span class="co">    * parse a stored template.</span>
+<span class="co">    */</span>
+   Template <span class="op">=</span> <span class="op">{</span>
+      <span class="co">/*</span>
+<span class="co">       * Returns a new template object based on the text in `html`.</span>
+<span class="co">       * The `name` can be used to access the template in the future</span>
+<span class="co">       * If a template with the same name exists, it prints a warning message</span>
+<span class="co">       * and replaces it.</span>
+<span class="co">       */</span>
+      <span class="kw">new</span><span class="op">:</span> <span class="kw">function</span> <span class="at">newTemplate</span>(name<span class="op">,</span> html) <span class="op">{</span>
+
+      <span class="op">},</span>
+      <span class="co">/*</span>
+<span class="co">       * Returns the template with a given name, or `null` if it does not exist.</span>
+<span class="co">       */</span>
+      <span class="dt">get</span><span class="op">:</span> <span class="kw">function</span> <span class="at">getTemplate</span>(name) <span class="op">{</span>
+
+      <span class="op">}</span>
+   <span class="op">};</span>
+
+   <span class="co">/*</span>
+<span class="co">    * Prototype object for created templates</span>
+<span class="co">    */</span>
+   proto <span class="op">=</span> <span class="op">{</span>
+      <span class="co">/*</span>
+<span class="co">       * Parses the template named `name`, using the `values` object</span>
+<span class="co">       * to resolve parameter entries. For instance {{foo}} will be</span>
+<span class="co">       * replaced by values.foo</span>
+<span class="co">       */</span>
+      <span class="dt">parse</span><span class="op">:</span> <span class="kw">function</span>(values) <span class="op">{</span>
+
+      <span class="op">}</span>
+   <span class="op">};</span>
+
+   <span class="va">global</span>.<span class="va">TaskApp</span>.<span class="at">Template</span> <span class="op">=</span> Template<span class="op">;</span>
+<span class="op">}</span>(<span class="kw">typeof</span> window <span class="op">===</span> <span class="st">&#39;undefined&#39;</span> <span class="op">?</span> root : window))<span class="op">;</span></code></pre></div>
 </body>
 </html>

@@ -2,10 +2,52 @@
 <html>
 <head>
    <title>TaskApp: The Task App of the future</title>
+   <link rel="stylesheet" type="text/css" href="css/reset.css">
+   <link rel="stylesheet" type="text/css" href="css/taskapp.css">
 </head>
 <body>
-
+   <header>
+   </header>
+   <main>
+      <section id="filters">
+         <div class="filter" id="postsChoice">
+            <h3>Posts to show</h3>
+            <!-- TODO: Add radio buttons -->
+         </div>
+         <div class="filter" id="labelsList">
+            <h3>Labels</h3>
+            <ul>
+              <!-- Labels will be added dynamically using the template -->
+            </ul>
+         </div>
+      </section>
+      <section id="tasks">
+      </section>
+   </main>
+   <footer>
+   </footer>
+<!-- Normal page info ends here. Some scripts load further down. -->
+<!-- This is the template for a task. It is not actually treated as Javascript code
+     the curly  braces are placeholders for dynamically generated values -->
 <script id="taskTemplate" type="text/template">
+<div class="task">
+<p>{{title}}</p>
+<input class="completed" type="checkbox" value="{{completed}}"></input>
+</div>
 </script>
+<script id="labelTemplate" type="text/template">
+<div class="label">
+<p>{{tag}}<span><!-- count goes here --></span></p>
+<input class="completed" type="checkbox" value="{{selected}}"></input>
+</div>
+</script>
+<!-- SCRIPT LOADING HERE -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/templates.js"></script>
+<script type="text/javascript" src="js/tasklist.js"></script>
+<script type="text/javascript" src="js/label.js"></script>
+<script type="text/javascript" src="js/task.js"></script>
+<script type="text/javascript" src="js/filters.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
 </body>
 </html>

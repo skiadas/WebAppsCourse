@@ -79,6 +79,8 @@ A week-by-week breakdown of the material.
 ## Week  7 (02/16-02/20)
 
 - Day 1
+    - [TaskApp: Building a Web App](notes/taskapp_setup.md)
+- Day 2
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
     - [Lab 5: Collections](labs/5.md)
     - [Design Patterns](notes/design_patterns.md)
@@ -87,7 +89,6 @@ A week-by-week breakdown of the material.
     - [Pattern: Command](notes/patterns_command.md)
     - [Pattern: Proxy](notes/patterns_proxy.md)
     - [Pattern: Visitor](notes/patterns_visitor.md)
-- Day 2
     - [Pattern: Visitor (cont)](notes/patterns_visitor.md)
 
 ## Week  8 (02/23-02/27)
