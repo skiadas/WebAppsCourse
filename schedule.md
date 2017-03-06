@@ -81,6 +81,22 @@ A week-by-week breakdown of the material.
 - Day 1
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 - Day 2
+    - [TaskApp: Building a Web App](notes/taskapp_setup.md)
+
+## Week  8 (02/23-02/27)
+
+BREAK
+
+## Week  9 (03/02-03/06)
+
+- Day 1
+    - [Assignment of Projects](notes/project_descriptions.md)
+- Day 2
+    - Work on Projects
+
+## Week 10 (03/09-03/13)
+
+- Day 1
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
     - [Lab 5: Collections](labs/5.md)
     - [Design Patterns](notes/design_patterns.md)
@@ -90,23 +106,10 @@ A week-by-week breakdown of the material.
     - [Pattern: Proxy](notes/patterns_proxy.md)
     - [Pattern: Visitor](notes/patterns_visitor.md)
     - [Pattern: Visitor (cont)](notes/patterns_visitor.md)
-
-## Week  8 (02/23-02/27)
-
-BREAK
-
-## Week  9 (03/02-03/06)
-
-- Day 1
     - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
     - [Using require.js](notes/requirejs.md)
-- Day 2
     - [UMD modules](notes/umd.md)
     - [Lab 6: Double-Linked Lists, History](labs/6.md)
-
-## Week 10 (03/09-03/13)
-
-- Day 1
     - Project proposals
     - [Pattern: Composite](notes/patterns_composite.md)
     - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
