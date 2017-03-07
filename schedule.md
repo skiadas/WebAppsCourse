@@ -91,10 +91,20 @@ BREAK
 
 - Day 1
     - [Assignment of Projects](notes/project_descriptions.md)
+
+      [Using Templates: Handlebars](notes/templates.md)
+
 - Day 2
     - Work on Projects
 
 ## Week 10 (03/09-03/13)
+
+- Day 1
+    - TBA
+- Day 2
+    - TBA
+
+## Week 11 (03/16-03/20)
 
 - Day 1
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
@@ -114,13 +124,7 @@ BREAK
     - [Pattern: Composite](notes/patterns_composite.md)
     - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
     - [MVC: Model-View-Controller](notes/pattern_mvc.md)
-- Day 2
     - Lab / Projects
-    - [Using Templates: Handlebars](notes/templates.md)
-
-## Week 11 (03/16-03/20)
-
-- Day 1
     - [Project progress](notes/project_steps.md)
     - [Project progress](notes/project_steps.md)
 - Day 2

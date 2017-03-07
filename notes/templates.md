@@ -14,17 +14,17 @@ HTML Templates are used to create an outline for the kind of HTML you want, with
 So here is a simple example of a template:
 
 ```html
-<div class="todo" data-id="{{id}}">
+<div class="task" data-id="{{id}}">
   <h3>{{title}}<h3>
   <p>{{text}}</p>
 </div>
 ```
 
-So in this template there are three placeholders, one for a todo's title and another for todo's text. And a third placeholder inside the "data-id" attribute. Overall using this template would go as follows:
+So in this template there are three placeholders, one for a task's title and another for task's text. And a third placeholder inside the "data-id" attribute. Overall using this template would go as follows:
 
 1. Load the template into a string `templString`.
 2. "Compile" that template string: `templFunc = Handlebars.compile(templString)`. This gives us back a function.
-3. Call that function with an object to a get a "filled in" string: `templFunc({ id: 2, title: "yey!", text: "booooring" })`
+3. Call that function with an object to get a "filled in" string: `templFunc({ id: 2, title: "yey!", text: "booooring" })`
 4. Use that string with jquery's `html`-type methods to insert this string as HTML.
 
 This is in general the idea: You separate the structure of the HTML from the creation of the data that is to be used to fill it in. This makes it very easy to completely change the look and feel of the program without having to change the code that generates it, by simply editing the template instead.
@@ -33,7 +33,7 @@ The power of templates stems from the functionalities they provide:
 
 - Ways to iterate over a list of items
 - Ways to conditionally insert a component based on a condition
-- Ways to control whether something will go through HTML escaping or not
+- Ways to control whether something will go through HTML escaping (so that a less-than symbol is not interpreted as opening a tag) or not
 - Ways to provide your own "builder" methods for performing smart tasks
 - Ways to delve deeper into an object via nested paths
 
@@ -41,7 +41,7 @@ Different template libraries offer more or fewer of these features. We will focu
 
 ### Templates via Handlebars
 
-The Handlebars library defines a Handlebars global, or you can use is as part of an AMD loading system. There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at [the project's GitHub page](https://github.com/wycats/handlebars.js/).
+The Handlebars library defines a Handlebars global, or you can use it as part of an AMD loading system (we will learn of those later). There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at [the project's GitHub page](https://github.com/wycats/handlebars.js/).
 
 For now we focus on the kind of functionality it offers:
 
@@ -57,7 +57,7 @@ For now we focus on the kind of functionality it offers:
 {{\#each aKey}}...{{/each}}
   ~ Meant to be used with a key that returns an array of values. Will repeat the contained block once for each value in the array, using that value as the context.
 
-{{#if aKey}}...{{/if}}
+{{\#if aKey}}...{{/if}}
   ~ Only conditionally include that block depending on `aKey`'s value.
 
 {{! ...}} / {{!-- --}}

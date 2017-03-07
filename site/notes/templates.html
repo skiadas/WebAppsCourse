@@ -60,15 +60,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3 id="templates-in-general">Templates in General</h3>
 <p>HTML Templates are used to create an outline for the kind of HTML you want, with placeholders to fill in based on an object’s parameters.</p>
 <p>So here is a simple example of a template:</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;todo&quot;</span><span class="ot"> data-id=</span><span class="st">&quot;{{id}}&quot;</span><span class="kw">&gt;</span>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;task&quot;</span><span class="ot"> data-id=</span><span class="st">&quot;{{id}}&quot;</span><span class="kw">&gt;</span>
   <span class="kw">&lt;h3&gt;</span>{{title}}<span class="kw">&lt;h3&gt;</span>
   <span class="kw">&lt;p&gt;</span>{{text}}<span class="kw">&lt;/p&gt;</span>
 <span class="kw">&lt;/div&gt;</span></code></pre></div>
-<p>So in this template there are three placeholders, one for a todo’s title and another for todo’s text. And a third placeholder inside the “data-id” attribute. Overall using this template would go as follows:</p>
+<p>So in this template there are three placeholders, one for a task’s title and another for task’s text. And a third placeholder inside the “data-id” attribute. Overall using this template would go as follows:</p>
 <ol style="list-style-type: decimal">
 <li>Load the template into a string <code>templString</code>.</li>
 <li>“Compile” that template string: <code>templFunc = Handlebars.compile(templString)</code>. This gives us back a function.</li>
-<li>Call that function with an object to a get a “filled in” string: <code>templFunc({ id: 2, title: &quot;yey!&quot;, text: &quot;booooring&quot; })</code></li>
+<li>Call that function with an object to get a “filled in” string: <code>templFunc({ id: 2, title: &quot;yey!&quot;, text: &quot;booooring&quot; })</code></li>
 <li>Use that string with jquery’s <code>html</code>-type methods to insert this string as HTML.</li>
 </ol>
 <p>This is in general the idea: You separate the structure of the HTML from the creation of the data that is to be used to fill it in. This makes it very easy to completely change the look and feel of the program without having to change the code that generates it, by simply editing the template instead.</p>
@@ -76,13 +76,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>Ways to iterate over a list of items</li>
 <li>Ways to conditionally insert a component based on a condition</li>
-<li>Ways to control whether something will go through HTML escaping or not</li>
+<li>Ways to control whether something will go through HTML escaping (so that a less-than symbol is not interpreted as opening a tag) or not</li>
 <li>Ways to provide your own “builder” methods for performing smart tasks</li>
 <li>Ways to delve deeper into an object via nested paths</li>
 </ul>
 <p>Different template libraries offer more or fewer of these features. We will focus on the Handlebars library.</p>
 <h3 id="templates-via-handlebars">Templates via Handlebars</h3>
-<p>The Handlebars library defines a Handlebars global, or you can use is as part of an AMD loading system. There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at <a href="https://github.com/wycats/handlebars.js/">the project’s GitHub page</a>.</p>
+<p>The Handlebars library defines a Handlebars global, or you can use it as part of an AMD loading system (we will learn of those later). There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at <a href="https://github.com/wycats/handlebars.js/">the project’s GitHub page</a>.</p>
 <p>For now we focus on the kind of functionality it offers:</p>
 <dl>
 <dt>{{aKey}}</dt>
