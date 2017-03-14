@@ -100,7 +100,7 @@ BREAK
 ## Week 10 (03/09-03/13)
 
 - Day 1
-    - TBA
+    - [Graphics in Javascript, SVG](notes/graphics.md)
 - Day 2
     - TBA
 

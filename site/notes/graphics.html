@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="graphics-in-svg">Graphics in SVG</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="https://blogs.msdn.microsoft.com/ie/2011/04/22/thoughts-on-when-to-use-canvas-and-svg/">Comparison of Canvas and SVG</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Graphics">MDN start page for graphics on the web</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG">MDN start page for SVG</a></li>
+<li>ACM Learning center books on <a href="https://learning.acm.org/books/book_detail.cfm?id=940325&amp;type=24">SVG</a> and <a href="https://learning.acm.org/books/book_detail.cfm?id=1973125&amp;type=24">Canvas</a>.</li>
+<li><a href="http://svgjs.com/">SVG.js library</a>.</li>
+<li><a href="https://www.w3.org/TR/SVG/paths.html#PathData">SVG Paths details</a>.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths">MDN guide to paths</a></li>
+<li><a href="https://css-tricks.com/svg-path-syntax-illustrated-guide/">SVG path tutorial at CSS-tricks</a>.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<h3 id="graphics-in-javascript">Graphics in Javascript</h3>
+<p>Javascript offers two main systems for doing more elaborate graphics.</p>
+<ul>
+<li>Canvas is essentially more of image drawing. You create a <code>&lt;canvas&gt;</code> element and then use Javascript instructions to draw into that canvas as you would do on a painting.</li>
+<li>SVG stands for “Scalable Vector Graphics”. These are actually more like a set of DOM Elements that you can manipulate, but whose intent is to represent “vector graphics” elements.</li>
+</ul>
+<p>We will focus on this second group, which is based on the SVG XML specification.</p>
+<h3 id="svg-graphics">SVG Graphics</h3>
+<p>Here is an example of how an SVG graphic might look in the code:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;svg</span><span class="ot"> xmlns=</span><span class="st">&quot;http://www.w3.org/2000/svg&quot;</span><span class="ot"> version=</span><span class="st">&quot;1.1&quot;</span>
+<span class="ot">  viewBox=</span><span class="st">&quot;0 0 100 100&quot;</span><span class="ot"> preserveAspectRatio=</span><span class="st">&quot;xMidYMid slice&quot;</span>
+<span class="ot">  style=</span><span class="st">&quot;width:100%; height:100%; position:absolute; top:0; left:0; z-index:-1;&quot;</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;linearGradient</span><span class="ot"> id=</span><span class="st">&quot;gradient&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;stop</span><span class="ot"> class=</span><span class="st">&quot;begin&quot;</span><span class="ot"> offset=</span><span class="st">&quot;0%&quot;</span><span class="kw">/&gt;</span>
+    <span class="kw">&lt;stop</span><span class="ot"> class=</span><span class="st">&quot;end&quot;</span><span class="ot"> offset=</span><span class="st">&quot;100%&quot;</span><span class="kw">/&gt;</span>
+  <span class="kw">&lt;/linearGradient&gt;</span>
+  <span class="kw">&lt;rect</span><span class="ot"> x=</span><span class="st">&quot;0&quot;</span><span class="ot"> y=</span><span class="st">&quot;0&quot;</span><span class="ot"> width=</span><span class="st">&quot;100&quot;</span><span class="ot"> height=</span><span class="st">&quot;100&quot;</span><span class="ot"> style=</span><span class="st">&quot;fill:url(#gradient)&quot;</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;circle</span><span class="ot"> cx=</span><span class="st">&quot;50&quot;</span><span class="ot"> cy=</span><span class="st">&quot;50&quot;</span><span class="ot"> r=</span><span class="st">&quot;30&quot;</span><span class="ot"> style=</span><span class="st">&quot;fill:url(#gradient)&quot;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;/svg&gt;</span></code></pre></div>
+<p>So in many ways it is just HTML elements, except that they are a separate set of such elements than the normal HTML elements. But the syntax is very similar, and they can be targetted and manipulated like HTML elements.</p>
+<p>Here are the key concepts to be familiar with:</p>
+<ul>
+<li>There are some standard elements for circles, rectangles, lines etc</li>
+<li>A <code>path</code> element can be used for arbitrary curves</li>
+<li><code>transform</code> elements can be used to create shape transformations (e.g. rotation)</li>
+<li>We can set up handlers to respond to events on the shapes</li>
+<li>A <code>defs</code> element can be used to define elements that are referenced elsewhere</li>
+<li>You can define a <code>clip-path</code> attribute to an element, to specify that only a specific region of that element is to be drawn and interacted on (as if everything else was cut away). You can see some examples <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/clipPath">here</a>.</li>
+<li>You can have text that goes along a path.</li>
+</ul>
+<h4 id="elements">Elements</h4>
+<p>Here are the main SVG elements we can create:</p>
+<dl>
+<dt>svg</dt>
+<dd>This is the container element. Physical dimensions are set here.
+</dd>
+<dt>circle</dt>
+<dd>For drawing a circle with a given center and radius.
+</dd>
+<dt>ellipse</dt>
+<dd>For drawing ellipses.
+</dd>
+<dt>g</dt>
+<dd>Used for grouping elements together (and setting custom transforms to them, for example).
+</dd>
+<dt>line</dt>
+<dd>For drawing a line connecting two points.
+</dd>
+<dt>path</dt>
+<dd>Used for arbitrary curves.
+</dd>
+<dt>polyline</dt>
+<dd>For a series of connected lines. There is also a <strong>polygon</strong> element that closes the endpoints.
+</dd>
+<dt>rect</dt>
+<dd>For drawing rectangles.
+</dd>
+<dt>text</dt>
+<dd>For adding text to graphs.
+</dd>
+</dl>
+<p>Of course creating this code on your own can be fairly painful. There are libraries to help you along, and <a href="http://svgjs.com/">SVG.js</a> is the one we will use. Setting it up could be as simple as including the following script on your page:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
+<p>or dynamically on a page using the following:</p>
+<pre><code>var s = document.createElement(&#39;script&#39;);
+s.setAttribute(&#39;src&#39;, &#39;https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.min.js&#39;);
+document.body.appendChild(s);</code></pre>
+<p>This gives us an <code>SVG</code> global object to use. We can now use that to create elements. Here’s a typical interaction:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> aDiv <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&#39;div&#39;</span>)<span class="op">;</span>
+<span class="va">aDiv</span>.<span class="at">setAttribute</span>(<span class="st">&#39;id&#39;</span><span class="op">,</span> <span class="st">&#39;myDrawing&#39;</span>)<span class="op">;</span>
+<span class="va">document</span>.<span class="va">body</span>.<span class="at">prepend</span>(aDiv)<span class="op">;</span>
+<span class="kw">var</span> draw <span class="op">=</span> <span class="at">SVG</span>(<span class="st">&#39;myDrawing&#39;</span>).<span class="at">size</span>(<span class="dv">300</span><span class="op">,</span> <span class="dv">300</span>)<span class="op">;</span></code></pre></div>
+<p>This creates a new div element, and creates a new SVG empty element within it. Let’s add a rectangle in it:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> rect <span class="op">=</span> <span class="va">draw</span>.<span class="at">rect</span>(<span class="dv">100</span><span class="op">,</span> <span class="dv">100</span>).<span class="at">attr</span>(<span class="op">{</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">&#39;#f06&#39;</span> <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>Let’s move it, then change its color:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">rect</span>.<span class="at">animate</span>().<span class="at">move</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">50</span>)<span class="op">;</span>
+<span class="va">rect</span>.<span class="at">animate</span>().<span class="at">fill</span>(<span class="st">&#39;#f55&#39;</span>)<span class="op">;</span></code></pre></div>
+<p>And let’s read its coordinate values. And then change the x:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">rect</span>.<span class="at">x</span>()<span class="op">;</span> <span class="va">rect</span>.<span class="at">y</span>()<span class="op">;</span>
+<span class="va">rect</span>.<span class="at">x</span>(<span class="dv">50</span>)<span class="op">;</span></code></pre></div>
+<p>We can also round its corners:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">rect</span>.<span class="at">radius</span>(<span class="dv">10</span>)<span class="op">;</span>
+<span class="va">rect</span>.<span class="at">animate</span>()
+  .<span class="at">radius</span>(<span class="dv">40</span>)<span class="op">;</span></code></pre></div>
+<p>You can find more things you can do with each element <a href="http://svgjs.com/elements/">here</a>.</p>
+<p>Let’s work with a polyline, and then do some animation on it:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> polyline <span class="op">=</span> <span class="va">draw</span>.<span class="at">polyline</span>(<span class="st">&#39;0,0 100,50 50,100&#39;</span>)
+  .<span class="at">fill</span>(<span class="st">&#39;none&#39;</span>).
+  <span class="at">stroke</span>(<span class="op">{</span> <span class="dt">width</span><span class="op">:</span> <span class="dv">1</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="va">polyline</span>.<span class="at">animate</span>(<span class="dv">2000</span>)
+  .<span class="at">plot</span>([[<span class="dv">0</span><span class="op">,</span><span class="dv">0</span>]<span class="op">,</span> [<span class="dv">100</span><span class="op">,</span><span class="dv">50</span>]<span class="op">,</span> [<span class="dv">50</span><span class="op">,</span><span class="dv">100</span>]<span class="op">,</span> [<span class="dv">150</span><span class="op">,</span><span class="dv">50</span>]<span class="op">,</span> [<span class="dv">200</span><span class="op">,</span><span class="dv">50</span>]<span class="op">,</span> [<span class="dv">250</span><span class="op">,</span><span class="dv">100</span>]<span class="op">,</span> [<span class="dv">300</span><span class="op">,</span><span class="dv">50</span>]<span class="op">,</span> [<span class="dv">350</span><span class="op">,</span><span class="dv">50</span>]])<span class="op">;</span></code></pre></div>
+<p>SVG paths can do a lot of cool stuff, though they need some more work.</p>
+<h4 id="paths">Paths</h4>
+<p>Paths are a challenging topic, so they deserve some more discussion. A <code>path</code> element contains a <code>d</code> attribute, which is a series of instructions to an imaginary “marker”.</p>
+<ul>
+<li>Each instruction starts with a letter indicating what kind of instruction it is.</li>
+<li>This is typically followed by pairs of coordinates.</li>
+<li>Uppercase letters indicate absolute coordinates, while lowercase letters indicate relative coordinates.</li>
+<li>Roughly there are <em>move commands</em>, <em>line commands</em>, <em>curve commands</em> and <em>arc commands</em>.</li>
+<li>For the curve commands you’ll need to understand a little bit Bezier curves. In essence there are two kinds of Bezier curves:
+<ul>
+<li>Cubic Bezier curves have a start and end point, but also two <em>control points</em> that suggest how the curve should behave. The curve starts from the first point <em>towards the first control point</em> and ends in the direction <em>from the second control point towards the second point</em>. The curve never actually passes through the control points.</li>
+<li>Quandratic Bezier curves only use one control point, and it is used to guide both the start and the end.</li>
+<li>If you chain many Bezier curves together you can tell it to use as a first control point the reflection of the previous control point. This makes for a smoother path.</li>
+</ul></li>
+</ul>
+<p>Let us look at some examples:</p>
+<pre><code>M 15, 20      &lt;--------   Move to the coordinates (15, 20)
+m 20, 30      &lt;--------   Move 20 pixels to the right and 30 pixels down
+
+L 30, 40      &lt;--------   Draw a straight line to location (30, 40)
+l -30, 40     &lt;--------   Draw a straight line to going 30 pixels to the left and 40 pixels down
+H 30          &lt;--------   Draw a straight horizontal line to going the point with x coordinate 30
+v 10          &lt;--------   Draw a straight vertical line line to going 10 pixels down
+Z             &lt;--------   Close the path, joining the current point to the start
+
+C 10,20 20,20 30,10  &lt;------ Draw a &quot;cubic bezier curve&quot; to the point (30, 10) using the two control points (10, 20) and (20, 20)
+S 20,20 10,10   &lt;------ Continue the previous cubic bezier step, and use as a first control point the reflection of the previous control point, and as a second control point the point (20, 20), and end at the point (10, 10).
+c, s    &lt;---- all coordinates are relative
+Q 20,20 30,30   &lt;------- A quadratic curve from the current point to the point (30, 30), using the control point (10, 10)
+T, t     &lt;----- Continue a quadratic curve with the reflected control point.
+
+A        &lt;----- Used for arcs. We will not discuss these.</code></pre>
+<p>All this is pretty complicated in the abstract, perhaps some examples would demonstrate. The following attempts to draw the letter G:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> letterG <span class="op">=</span> <span class="va">draw</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -2 h 10 v 2 c -5,0 -5,5 -5,30 c -40,15 -40,0 -40,-32 s 0,-32 40,-30 q 2,0 2,-2 h 2 v 25 h -2 c -30,-20 -35,0 -35,10 c 0,30 25,30 30,20 c 0,-20 2,-20 -5,-20 z&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>)<span class="op">;</span></code></pre></div>
+<p><strong>Practice</strong>: Try to create some other letters.</p>
+<h4 id="gradients-and-patterns">Gradients and Patterns</h4>
+<p>You can create interesting fills with gradients and patterns. Here’s an example of a gradient from the <a href="http://svgjs.com/elements/gradient/">SVG.js documentation</a>:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> gradient <span class="op">=</span> <span class="va">draw</span>.<span class="at">gradient</span>(<span class="st">&#39;linear&#39;</span><span class="op">,</span> <span class="kw">function</span>(stop) <span class="op">{</span>
+  <span class="va">stop</span>.<span class="at">at</span>(<span class="dv">0</span><span class="op">,</span> <span class="st">&#39;#333&#39;</span>)<span class="op">;</span>
+  <span class="va">stop</span>.<span class="at">at</span>(<span class="fl">0.5</span><span class="op">,</span> <span class="st">&#39;#A44&#39;</span>)<span class="op">;</span>
+  <span class="va">stop</span>.<span class="at">at</span>(<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;#fff&#39;</span>)<span class="op">;</span>
+<span class="op">}</span>).<span class="at">from</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>).<span class="at">to</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span>
+
+<span class="kw">var</span> c <span class="op">=</span> <span class="va">draw</span>.<span class="at">circle</span>().<span class="at">x</span>(<span class="dv">50</span>).<span class="at">y</span>(<span class="dv">50</span>).<span class="at">radius</span>(<span class="dv">30</span>).<span class="at">fill</span>(gradient)<span class="op">;</span></code></pre></div>
+<p>We can also create patterns from any existing elements, then use them to fill other elements. For example here’s a checkered pattern:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> pattern <span class="op">=</span> <span class="va">draw</span>.<span class="at">pattern</span>(<span class="dv">20</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="kw">function</span>(add) <span class="op">{</span>
+  <span class="va">add</span>.<span class="at">rect</span>(<span class="dv">20</span><span class="op">,</span><span class="dv">20</span>).<span class="at">fill</span>(<span class="st">&#39;#f06&#39;</span>)<span class="op">;</span>
+  <span class="va">add</span>.<span class="at">rect</span>(<span class="dv">10</span><span class="op">,</span><span class="dv">10</span>)<span class="op">;</span>
+  <span class="va">add</span>.<span class="at">rect</span>(<span class="dv">10</span><span class="op">,</span><span class="dv">10</span>).<span class="at">move</span>(<span class="dv">10</span><span class="op">,</span><span class="dv">10</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="kw">var</span> c <span class="op">=</span> <span class="va">draw</span>.<span class="at">circle</span>().<span class="at">x</span>(<span class="dv">50</span>).<span class="at">y</span>(<span class="dv">50</span>).<span class="at">radius</span>(<span class="dv">30</span>).<span class="at">fill</span>(pattern)<span class="op">;</span></code></pre></div>
+<h4 id="transforms">Transforms</h4>
+<p>There are a number of transformations. We’ll make a simple clock using them to rotate the indices.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> circle <span class="op">=</span> <span class="va">draw</span>.<span class="at">circle</span>(<span class="dv">100</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> secIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -45&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> minIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -35 l -5,5 m 5,-5 l 5,5 m -5,-5&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span>
+<span class="kw">var</span> hourIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -15 l -5,5 m 5,-5 l 5,5 m -5,-5&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span>
+
+<span class="kw">var</span> seconds <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+<span class="kw">var</span> t <span class="op">=</span> <span class="at">setInterval</span>(<span class="kw">function</span>() <span class="op">{</span>
+  seconds <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span>
+  <span class="va">secIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> seconds)<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
+  <span class="va">minIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> seconds / <span class="dv">60</span>)<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
+  <span class="va">hourIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> seconds / <span class="dv">60</span> / <span class="dv">60</span>)<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="op">},</span> <span class="dv">1000</span>)<span class="op">;</span></code></pre></div>
+<p><strong>Practice 1</strong>: Add ticks at every hour. Start by putting one at 12 o’clock, then using <code>use</code> and rotation for the other 11. <strong>Practice 2</strong>: Add the hours numbers.</p>
+</body>
+</html>
