@@ -1,6 +1,6 @@
 TEMPLATE = template.html
 TEXTEMPLATE = template.tex
-MDFILES := $(shell find . -name \*.md)
+MDFILES := $(shell find . -name \*.md | grep exams -v)
 HTMLFILES := $(MDFILES:./%.md=site/%.html)
 # ASSIGNMENTS := $(filter ./assignments/%.md,$(MDFILES))
 PDFS := $(MDFILES:./%.md=site/%.pdf)
