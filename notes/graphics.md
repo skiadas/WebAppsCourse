@@ -218,4 +218,5 @@ var t = setInterval(function() {
 ```
 
 **Practice 1**: Add ticks at every hour. Start by putting one at 12 o'clock, then using `use` and rotation for the other 11.
+
 **Practice 2**: Add the hours numbers.
