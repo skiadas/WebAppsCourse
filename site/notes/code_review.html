@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="code-review">Code Review</h1>
+<h2 id="instructions-for-reviewees">Instructions for Reviewees</h2>
+<ol style="list-style-type: decimal">
+<li>Choose a single file to have reviewed. It would preferably be a “model”, the way you represent the key internal objects that you work with.</li>
+<li>Make sure to comment the file and structure it as best you can.</li>
+<li>Do NOT include any identifiable elements (so no names, emails etc).</li>
+<li>Upload your file to Moodle. Instructions to follow.</li>
+<li>When looking at the reviews, keep in mind that they are objective evaluations of the code, not judgements on your coding skills. In other words, don’t take the reviews personally.</li>
+</ol>
+<h2 id="instructions-for-reviewers">Instructions for Reviewers</h2>
+<p>When doing code reviews of your peers, here are the items to address as you look at a single module file:</p>
+<ol style="list-style-type: decimal">
+<li>Does the top of the file contain a comment explaining what the module’s role is?
+<ul>
+<li>Is that role clear?</li>
+</ul></li>
+<li>Is the public interface for the file clearly shown somewhere (typically near the end of the file)?
+<ul>
+<li>Does the public interface seem right? Are there methods that are missing, or methods whose usefulness is not clear?</li>
+</ul></li>
+<li>For each public function or constructor in the file:
+<ul>
+<li>Is there a comment describing what the function does?</li>
+<li>Is it clear from just the comment what the use of the function would be?</li>
+</ul></li>
+<li>For each function in the file:
+<ul>
+<li>Does the name of the function describe what the function’s intent is?</li>
+<li>Are the names of the function parameters and local variables clear and descriptive of what roles these variables play in the function?</li>
+<li>Is the overall flow of the function clear to follow?</li>
+<li>Is consistent formatting used?</li>
+<li>Does the function “do too much”? Should some part of the function perhaps be separated into its own function?</li>
+<li>Are comments within the function useful in clarifying any tricky parts of the function code?</li>
+<li>Are there comments within the function that feel superfluous and don’t really add much insight?</li>
+<li>Are there parts of the code that are not clear to you? It is <em>not</em> your job to struggle to understand what the code is doing. It is the programmer’s job to make the code as clear to readers as possible.</li>
+<li>You don’t have to tell them how to “fix it”, but simply note that these parts are hard for someone else to process. The way to improve it might end up being using different variable names, refactoring a part into a separate function, or adding comments, that is up to them how to proceed.</li>
+</ul></li>
+</ol>
+</body>
+</html>

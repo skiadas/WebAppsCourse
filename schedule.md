@@ -102,16 +102,17 @@ BREAK
 - Day 1
     - [Graphics in Javascript, SVG](notes/graphics.md)
 - Day 2
-    - TBA
+    - [Custom Events: Oberver, Publish/Subscribe](notes/custom_events.md)
 
 ## Week 11 (03/16-03/20)
 
 - Day 1
+    - [Code Reviews](notes/code_reviews.md)
+- Day 2
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
     - [Lab 5: Collections](labs/5.md)
     - [Design Patterns](notes/design_patterns.md)
     - [Patterns of code reuse](notes/code_reuse.md)
-    - [Pattern: Observer](notes/patterns_observer.md)
     - [Pattern: Command](notes/patterns_command.md)
     - [Pattern: Proxy](notes/patterns_proxy.md)
     - [Pattern: Visitor](notes/patterns_visitor.md)
@@ -120,16 +121,9 @@ BREAK
     - [Using require.js](notes/requirejs.md)
     - [UMD modules](notes/umd.md)
     - [Lab 6: Double-Linked Lists, History](labs/6.md)
-    - Project proposals
     - [Pattern: Composite](notes/patterns_composite.md)
     - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
     - [MVC: Model-View-Controller](notes/pattern_mvc.md)
-    - Lab / Projects
-    - [Project progress](notes/project_steps.md)
-    - [Project progress](notes/project_steps.md)
-- Day 2
-    - [Project progress](notes/project_steps.md)
-    - Projects review
 
 ## Week 12 (03/23-03/27)
 

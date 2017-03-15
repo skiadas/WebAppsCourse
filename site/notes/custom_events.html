@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="custom-events">Custom Events</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://www.oodesign.com/observer-pattern.html">OODesign</a></li>
+<li><a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/">GoF Book</a>, page 293</li>
+<li><a href="http://backbonejs.org/docs/backbone.html#section-16">Backbone’s Events Implementation</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>We will discuss here how to create custom events, in the context of discussing an important <em>design pattern</em>, the <strong>observer pattern</strong>, along with the closely related <strong>publish/subscribe</strong> pattern.</p>
+<h3 id="problem-description">Problem description</h3>
+<p>Design patterns in general aim to offer a standard, tried-and-true, approach to solving a design problem. They also become a standard way for programmers to communicate intent.</p>
+<p>In this case the problem is that of enabling modules to communicate with each other without a very direct link to each other (so keeping the modules loosely coupled). Both systems effectively allow one module to be “notified” when something happens to another module. ]</p>
+<p>So we can have an “observer” that is notified when something happens to another “subject”. The key idea is that the subject does not need to know exactly who is observing it. We can write the code for the subject without caring who, if anyone, is observing.</p>
+<h3 id="example">Example</h3>
+<p>As an example, imagine the task list we are working on. When a task’s title changes, the interface must be updated. How will the interface know that it must be updated?</p>
+<p>That depends on what caused the update. The typical case would be that the user had some option on the interface to change the title. Then when that is done the interface knows that the title will change, so it knows that it must update itself.</p>
+<p>But what if it is possible that the tasks change remotely, from say a collaborator who is allowed to also edit the same tasks from his computer. How will our interface then know that it must be updated?</p>
+<p>One approach is for the model to directly know all the other parts that need to change when it changes. For instance in the code that updates the model’s title, we might have something like:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">changeTitle</span>(newTitle) <span class="op">{</span>
+  <span class="co">// Change the title</span>
+  <span class="kw">this</span>.<span class="at">title</span> <span class="op">=</span> newTitle<span class="op">;</span>
+  <span class="co">// Notify all &quot;users&quot;</span>
+  <span class="va">interfaceController</span>.<span class="at">updateTitle</span>(<span class="kw">this</span>)<span class="op">;</span>
+  <span class="va">database</span>.<span class="at">updateTitle</span>(<span class="kw">this</span>)<span class="op">;</span>
+  ... <span class="at">more</span> <span class="at">calls</span> <span class="at">to</span> <span class="at">other</span> <span class="at">parts</span> <span class="at">that</span> <span class="at">need</span> <span class="at">to</span> <span class="at">know</span><span class="op">?</span>
+}</code></pre></div>
+<p>This is hard to maintain, as it forces each object to be <em>aware</em> of all these other components. And if a new component is added in the future, we now need to search through the code and find all the parts that need to be altered.</p>
+<p>And what if I want to test the Task class and this changeTitle method? While testing, maybe I don’t care about the interface and the database, I just want to test the objects themselves. The way the code above is written I cannot do that: Any call to <code>changeTitle</code> will also call an interfaceController method, a database method, and who knows what else.</p>
+<p>This is the problem that the observer pattern aims to avoid.</p>
+<h3 id="the-pattern">The pattern</h3>
+<p>The general approach is the following:</p>
+<ul>
+<li>Objects <em>trigger</em> an event when something noteworthy happens.</li>
+<li>Other objects can <em>register</em> to be called when an event is triggered.</li>
+<li>When the event is triggered, all objects that register for it get notified via a function they provided.</li>
+<li>If no objects registered, nothing happens.</li>
+</ul>
+<p>There are two versions of this technique:</p>
+<ul>
+<li>The <strong>observer pattern</strong>, where objects can register to trigger a function when some “event” happens to another object. As a real-life example, we advisors have effectively registered with the registrar’s office to receive an email if a student changes advisors. This is not something that the student needs to act on in any particular way. It just happens.</li>
+<li>The <strong>publish/subscribe pattern</strong>, which effectively uses a single global communications system: You can <em>subscribe</em> to listen to an event with a given “name”. Then you get notified when any other part of the application <em>publishes</em> an event with the given name. Imagine somehow being able to tell your email system to “send me a link whenever any news articles show up that mention Computer Science and my name”.</li>
+</ul>
+<p>More formally, we could say that <em>the Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified automatically</em>.</p>
+<h4 id="javascript-implementation">Javascript implementation</h4>
+<p>Javascript implementations of this pattern are usually done via an “Events” class/mixin. You typically would be given the following:</p>
+<p>The interface provided by events typically looks like this:</p>
+<dl>
+<dt>on</dt>
+<dd><p><code>obj.on(topic, handler, [context])</code> registers the function <code>handler</code> to respond to events associated to the string <code>topic</code>. If <code>context</code> is set, it is used as the <code>this</code> when the handler is called. The square brackets here mean that the third argument is optional, and not that it should be an array.</p>
+<p><code>topic</code> here is basically just a string. An object could trigger many different events with different topics. And handlers must register for the one they care about.</p>
+</dd>
+<dt>off</dt>
+<dd><code>obj.off(topic, handler, [context])</code> deregisters the function <code>handler</code> from the topic, and only if it’s attached to the specific context (or null).
+</dd>
+<dt>trigger</dt>
+<dd><code>obj.trigger(topic, arguments...)</code> calls the handlers associated with the topic, and passes all remaining arguments to them.
+</dd>
+<dt>once</dt>
+<dd>A convenience method that would attach a handler that deattaches itself after its first invocation. We will not implement this, but some implementations have it there, along with some other convenience methods.
+</dd>
+</dl>
+<p>We will see later details on how to implement this. Internally, we will mix in the “Events” class to any class that we want to make Observable. A hidden variable named <code>_events</code> will hold the information about all the various handlers that the object needs to keep around.</p>
+<p>An implementation can be found <a href="../../testPages/events.js">here</a>.</p>
+<p>One important consideration is regarding when the handlers should be fired. You have to choose in your implementation whether they should fire right away, and only then return control to the function that triggered the event, or whether they should set a timer for them to fire at the first available moment after the current function has finished running. It is really the latter that should happen.</p>
+<h4 id="example-1">Example</h4>
+<p>Here’s a simple example of a timer that sends a notification out every minute to whoever’s listening on the global Event channel.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>()<span class="op">{</span>
+    <span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+    <span class="kw">function</span> <span class="at">callem</span>() <span class="op">{</span> i<span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> <span class="va">Event</span>.<span class="at">trigger</span>(<span class="st">&#39;tick&#39;</span><span class="op">,</span> i)<span class="op">;</span> <span class="op">}</span>
+    <span class="at">setInterval</span>(callem<span class="op">,</span> <span class="dv">60000</span>)<span class="op">;</span>
+<span class="op">}</span>())<span class="op">;</span></code></pre></div>
+<p>The most standard application of the Observer model is in the Model-View-Controller pattern we will discuss later. Models are responsible for application state, and they send out notifications whenever their state changes.</p>
+<p>Similarly, and related, a Collection could send notifications out when a new item is added, and it can also listen to changes on its items and forward them to its observers, so that they don’t have to observe the items themselves.</p>
+</body>
+</html>
