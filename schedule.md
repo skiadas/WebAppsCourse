@@ -107,8 +107,13 @@ BREAK
 ## Week 11 (03/16-03/20)
 
 - Day 1
-    - [Code Reviews](notes/code_reviews.md)
+    - [Documentation systems](notes/documentation.md)
 - Day 2
+    - [Code Reviews](notes/code_reviews.md)
+
+## Week 12 (03/23-03/27)
+
+- Day 1
     - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
     - [Lab 5: Collections](labs/5.md)
     - [Design Patterns](notes/design_patterns.md)
@@ -124,10 +129,6 @@ BREAK
     - [Pattern: Composite](notes/patterns_composite.md)
     - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
     - [MVC: Model-View-Controller](notes/pattern_mvc.md)
-
-## Week 12 (03/23-03/27)
-
-- Day 1
     - [Example of Designing a Model](notes/design_example.md)
     - [Basics of HTTP](notes/http_intro.md)
 - Day 2

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="documentation-in-javascript">Documentation in Javascript</h1>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li><a href="http://usejsdoc.org/">JSDoc</a></li>
+<li><a href="http://documentation.js.org/">documentationjs</a></li>
+<li><a href="https://esdoc.org/">ESDoc</a></li>
+<li><a href="https://jashkenas.github.io/docco/">Docco</a></li>
+<li><a href="https://github.com/documentationjs/documentation/wiki/See-also">Lots of links to various documentation tools</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>It is invariably useful and important to provide documentation for your code, but in a way that is usable by the application’s users. This is typically done by specifying certain comments in code that are automatically processed to produce a documentation webpage.</p>
+<p>There are fundamentally a couple of different kinds of documentation:</p>
+<ul>
+<li>Separate documents that describe how to use a software (user’s guides, examples)</li>
+<li>Documentation of the API of an application/library, for the users of that library. This is what we will focus on.</li>
+<li>Inline comments to clarify some trickier parts of the code.</li>
+</ul>
+<p>There are at least two very different approaches to automatic code documentation:</p>
+<ul>
+<li>Generating a single HTML document with comments interspersed with the corresponding code. These tools tend to process all comments. You can see how this looks <a href="http://underscorejs.org/docs/underscore.html">here</a>. <a href="https://jashkenas.github.io/docco/">Docco</a> is a prime examples of this system, often called <em>literate programming</em>.</li>
+<li>Reading only specific comments, and producing an set of webpages from them. This is the standard documentation system, similar to JavaDoc. Standard examples of this in Javascript are <a href="http://usejsdoc.org/">JSDoc</a>, documentationjs](http://documentation.js.org/) and <a href="https://esdoc.org/">ESDoc</a>.</li>
+</ul>
+<p>We will be seeing documentationjs in this section, but other systems are similar.</p>
+<p>In any case, most of these systems allow you to customize the CSS for your pages, and most allow you to use Markdown syntax in your comments.</p>
+<h3 id="jsdoc-comments">JSDoc comments</h3>
+<p>JSDoc comments are special comments that processed by JSDoc and other systems:</p>
+<ul>
+<li>They are indicated by an initial <code>/**</code>, with two stars.</li>
+<li>They end as usual with <code>*/</code>.</li>
+<li>The content consists of a documentation comment, which will be processed via Markdown</li>
+<li>The comment ends with a series of “tags”, characterized by an initial <code>@</code> sign.</li>
+</ul>
+<p>Here is an example of the documentation for the TaskAppController’s constructor:</p>
+<pre><code>/**
+ * Create a new `TaskListController`.
+ *
+ * @param {TaskList} taskList     The `TaskList` instance to manage.
+ * @param {jQuery}   domEl        The DOM Element to use for printing the list.
+ * @returns {TaskListController} A new `TaskListController` instance.
+ * @example TaskListController.new(myList, $(&#39;#list&#39;));
+ * @memberof TaskListController
+ * @static
+ * @public
+ */</code></pre>
+<p>This creates a classification of sorts for our comments, into 3 types:</p>
+<pre><code>/**
+ * &quot;slash-star-star&quot; comments are meant to be processed by automatic tools.
+ * These tools might generate documentation, or look for linting instructions.
+ */
+/*
+ * &quot;slash-star&quot; comments are used for large comments that describe some
+ * feature of a file but that are not meant to be automatically processed.
+ */
+// Inline comments are meant for clarifying code snippets, for developers
+// working on the code.</code></pre>
+<h4 id="jsdoc-tags">JSDoc tags</h4>
+<p>You can find what all the available tags are in <a href="http://usejsdoc.org/index.html">JSDoc’s documentation</a>. But some standard ones are:</p>
+<dl>
+<dt><span class="citation">@param</span></dt>
+<dd>an input given to the function as a parameter, along with its expected type.
+</dd>
+<dt><span class="citation">@returns</span></dt>
+<dd>what the output value of the function is.
+</dd>
+<dt><span class="citation">@name</span></dt>
+<dd>explicitly set the documented name of the item, if the automatically detected name is not suitable.
+</dd>
+<dt><span class="citation">@private</span></dt>
+<dd>document code bo do not include it in the generated documentation. There’s also <span class="citation">@public</span> and <span class="citation">@protected</span>. You can choose to generate some of this
+</dd>
+<dt><span class="citation">@example</span></dt>
+<dd>inline code examples
+</dd>
+<dt><span class="citation">@static</span>, <span class="citation">@instance</span></dt>
+<dd>indicate if it is a static/class-level function or variable an instance/prototype-level function or variable.
+</dd>
+<dt><span class="citation">@kind</span></dt>
+<dd>indicate what kind of an item it is (function etc). Can also use more direct tags instead, like <span class="citation">@module</span>, <span class="citation">@class</span>, <span class="citation">@method</span> etc
+</dd>
+<dt><span class="citation">@event</span></dt>
+<dd>can be used for documenting events.
+</dd>
+</dl>
+<h3 id="running-the-documentation">Running the documentation</h3>
+<p>You can generate various “results” from this documentation. That all depends on the program you use. For instance with documentationjs you can:</p>
+<ul>
+<li>Create a directory of HTML files, or single file, from your comments (build/serve).</li>
+<li>Create a markdown document from your comments, which can be used in GitHub for example.</li>
+<li>Add a documentation section to a README.md file.</li>
+<li>“lint” your comments looking for comment-syntax errors.</li>
+<li>Set up the documentation page to automatically update as you add comments (serve/watch).</li>
+<li>Add your own customizations that interact with the documentation tool and modify some parts of the process.</li>
+</ul>
+<p>The simplest thing to do would be something like this:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">documentation</span> build js/taskListController.js -f html -o docs
+<span class="co"># This will open the file</span>
+<span class="kw">documentation</span> build --watch js/taskListController.js -f html -o docs</code></pre></div>
+</body>
+</html>
