@@ -109,7 +109,7 @@ BREAK
 - Day 1
     - [Documentation systems](notes/documentation.md)
 - Day 2
-    - [Code Reviews](notes/code_reviews.md)
+    - [Code Reviews](notes/code_review.md)
 
 ## Week 12 (03/23-03/27)
 

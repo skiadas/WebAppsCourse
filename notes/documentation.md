@@ -21,7 +21,7 @@ There are fundamentally a couple of different kinds of documentation:
 There are at least two very different approaches to automatic code documentation:
 
 - Generating a single HTML document with comments interspersed with the corresponding code. These tools tend to process all comments. You can see how this looks [here](http://underscorejs.org/docs/underscore.html). [Docco](https://jashkenas.github.io/docco/) is a prime examples of this system, often called *literate programming*.
-- Reading only specific comments, and producing an set of webpages from them. This is the standard documentation system, similar to JavaDoc. Standard examples of this in Javascript are [JSDoc](http://usejsdoc.org/), documentationjs](http://documentation.js.org/) and [ESDoc](https://esdoc.org/).
+- Reading only specific comments, and producing an set of webpages from them. This is the standard documentation system, similar to JavaDoc. Standard examples of this in Javascript are [JSDoc](http://usejsdoc.org/), [documentationjs](http://documentation.js.org/) and [ESDoc](https://esdoc.org/).
 
 We will be seeing documentationjs in this section, but other systems are similar.
 
