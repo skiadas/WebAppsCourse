@@ -91,8 +91,7 @@ BREAK
 
 - Day 1
     - [Assignment of Projects](notes/project_descriptions.md)
-
-      [Using Templates: Handlebars](notes/templates.md)
+    - [Using Templates: Handlebars](notes/templates.md)
 
 - Day 2
     - Work on Projects
@@ -108,30 +107,17 @@ BREAK
 
 - Day 1
     - [Documentation systems](notes/documentation.md)
-- Day 2
     - [Code Reviews](notes/code_review.md)
+- Day 2
+    - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
 
 ## Week 12 (03/23-03/27)
 
 - Day 1
-    - [Intro to Patterns: Iterator](notes/patterns_iterator.md)
-    - [Lab 5: Collections](labs/5.md)
-    - [Design Patterns](notes/design_patterns.md)
-    - [Patterns of code reuse](notes/code_reuse.md)
-    - [Pattern: Command](notes/patterns_command.md)
-    - [Pattern: Proxy](notes/patterns_proxy.md)
-    - [Pattern: Visitor](notes/patterns_visitor.md)
-    - [Pattern: Visitor (cont)](notes/patterns_visitor.md)
-    - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
     - [Using require.js](notes/requirejs.md)
     - [UMD modules](notes/umd.md)
-    - [Lab 6: Double-Linked Lists, History](labs/6.md)
-    - [Pattern: Composite](notes/patterns_composite.md)
-    - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
-    - [MVC: Model-View-Controller](notes/pattern_mvc.md)
-    - [Example of Designing a Model](notes/design_example.md)
-    - [Basics of HTTP](notes/http_intro.md)
 - Day 2
+    - [Basics of HTTP](notes/http_intro.md)
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
     - Projects progress
 
@@ -148,3 +134,19 @@ BREAK
     - Projects progress
 - Day 2
     - [What we left out](notes/left_out.md)
+
+## Other topics we did not cover
+
+- [MVC: Model-View-Controller](notes/pattern_mvc.md)
+- [Intro to Patterns: Iterator](notes/patterns_iterator.md)
+- [Lab 5: Collections](labs/5.md)
+- [Design Patterns](notes/design_patterns.md)
+- [Patterns of code reuse](notes/code_reuse.md)
+- [Pattern: Command](notes/patterns_command.md)
+- [Pattern: Proxy](notes/patterns_proxy.md)
+- [Pattern: Visitor](notes/patterns_visitor.md)
+- [Pattern: Visitor (cont)](notes/patterns_visitor.md)
+- [Lab 6: Double-Linked Lists, History](labs/6.md)
+- [Pattern: Composite](notes/patterns_composite.md)
+- [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
+- [Example of Designing a Model](notes/design_example.md)

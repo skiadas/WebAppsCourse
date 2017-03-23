@@ -10,11 +10,31 @@ In this section we look at a collection of formats for "Universal Module Definit
 
 The goal of these patterns is to offer compatibility between AMD loaders, Node.js, and browser globals.
 
+Before we move on, let's recall the main module types and their differences:
+
+globals
+  ~ - immediate function invocation creates a scope.
+    - other modules are accessed as properties of the global object
+    - module is exported as property of the global object
+    - modules loaded in order of script load in the html file
+
+CommonJS
+  ~ - each file assumed to run on its own scope
+    - other modules accessed via `require`
+    - module is exported by setting `module.exports`
+    - module are loaded synchronously
+
+AMD
+  ~ - whole file is a `define` call with input a *factory function* `function(require, exports, module)`.
+    - other modules are accessed via `require` or as arguments to the factory function
+    - module is exported as the return value of the factory function
+    - modules are loaded asynchronously
+
 Without much ado, here are some examples.
 
 ### AMD and browser global
 
-See also [here](https://github.com/umdjs/umd/blob/master/amdWeb.js).
+See also [here](https://github.com/umdjs/umd/blob/master/templates/amdWeb.js).
 
 This example provides a module if "define" is present, and creates a browser global otherwise.
 
@@ -47,7 +67,7 @@ This requires us to do some self-maintainance, especially regarding the names of
 
 ### AMD, Node and Browser global
 
-See also [here](https://github.com/umdjs/umd/blob/master/returnExports.js).
+See also [here](https://github.com/umdjs/umd/blob/master/templates/returnExports.js).
 Here is a version that attempts to also work in Node:
 
 ```javascript
@@ -76,10 +96,28 @@ One of the problems you will encounter is the way in which `'otherModule'` is lo
 
 ### AMD with Node Adapter
 
-See also [here](https://github.com/umdjs/umd/blob/master/nodeAdapter.js).
+See also [here](https://github.com/umdjs/umd/blob/master/templates/nodeAdapter.js).
 
-This format feels somewhat better than the previous formats, but doesn't play well with browser globals. It effectively use the "simple CommonJS wrapping" format for AMD, where the dependencies are loaded via `require` calls, but it provides a simple `define` function to accomodate Node.
+This format feels somewhat better than the previous formats, but doesn't play well with browser globals. It effectively uses the "simple CommonJS wrapping" format for AMD, where the dependencies are loaded via `require` calls, but it provides a simple `define` function to accomodate Node.
 
+As an intermediate step, consider that instead of the normal AMD style where we have a `define` directly, we can do the following:
+```javascript
+// Instead of:
+define(function (require, exports, module) {
+    ...
+});
+//
+// We do:
+(function(define) {
+    define(function (require, exports, module) {
+        ...
+    });
+}(define));
+// --^^^^-- Immediate function invocation binds the global define
+// to the parameter define
+```
+
+With that in mind, the following code simply feeds on the external function a custom-made `define`, if need be:
 ```javascript
 (function(define) {
 
