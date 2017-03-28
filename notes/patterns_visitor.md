@@ -273,6 +273,11 @@ Here is a picture:
 
 ![The visitor pattern illustrated](images/visitor3.png)
 
+And here is a more detailed view of the dispatch logic.
+
+![The visitor pattern dispatch details](images/visitor4.png)
+
+
 The big advantage of this method is that it requires a single function to be added to each subclass, namely `accept`. Then all sorts of visitors can be written, but they all use that `accept` method and nothing else from the classes.
 
 It does have an important **drawback** however: Adding a new subclass to the Symbolic expression set becomes nontrivial. Instead of simply adding one new subclass and implementing all its needed methods, we now have to go into *every single visitor class* and add a `visitTheNewExpressionType` method.
