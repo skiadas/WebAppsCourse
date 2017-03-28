@@ -58,49 +58,256 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <h2 id="notes">Notes</h2>
 <p>We examine here a very important pattern, the Visitor Pattern.</p>
-<h3 id="classification">Classification</h3>
-<p>The Visitor Pattern is a Behavioral Pattern.</p>
-<h3 id="intent">Intent</h3>
-<p>The Visitor Pattern is used to represent an operation to be performed on the elements of an object structure. The pattern lets you define new operations without changing the classes and elements on which it operates.</p>
-<p>This is an example of the “open-closed” principle: Classes should be open for extension but closed for modification. The Visitor Pattern allows us to extend the behavior of our class structure by later adding new functionality.</p>
+<p>The Visitor Pattern is used to represent an operation to be performed on the elements of an object structure. The pattern lets you define new operations without changing the classes and elements on which you operate.</p>
+<p>This is an example of the “open-closed” principle: Classes should be open for extension but closed for modification. The Visitor Pattern allows us to extend the behavior of our class structure by later adding new functionality, but without having to invade all the classes involved.</p>
 <h3 id="motivation">Motivation</h3>
-<p>Imagine a “calculator” program that takes a series of arithmetic expressions and evaluates them. Each such arithmetic expression would be a tree of sorts. For instance the expression <code>2 + (3 * 4)</code> can be represented with a node that stands for the addition, with a “left” child which is itself a “number node” with value 2, and a “right” child which is a multiplication node with children being number nodes.</p>
-<p>So we have a tree structure made out of “nodes” of various types. We have number nodes, binary operator nodes, function nodes (log, exponential etc), maybe variable nodes etc. These will tend not to change much.</p>
-<p>We also have various operations we might want to perform in such a structure: Evaluate it, do some type-checking in more complicated cases, print it, determine the set of variables used in it, check if any variable is used without a value assigned to it etc.</p>
-<p>Now we could put the code for these operations into the node class. But then in the future every time we want to add new operations, we would need to change all the node class implementations. This is the problem that the visitor pattern solves:</p>
+<p>Imagine writing a program for symbolic algebra manipulations. Then there are some considerations we have to take into account:</p>
+<ul>
+<li>An expression might fall into a number of <strong>multiple different forms</strong>:
+<ul>
+<li>A number</li>
+<li>A variable</li>
+<li>The sum/difference/product etc of two other expressions</li>
+<li>A function (sin/cos etc) with argument some expression</li>
+<li>Perhaps some expression forms we have not thought of yet</li>
+</ul></li>
+<li>We want to do many <strong>multiple different operations</strong> on such expressions:
+<ul>
+<li>Count the number of terms in the expression</li>
+<li>Compute the set of all variables occurring in the expression</li>
+<li>Evaluate the expression for particular value assignments to the variables</li>
+<li>Compute a derivative algebraically</li>
+<li>Simplify the expression based on algebraic rules.</li>
+<li>Turn the expression into a suitable string</li>
+<li>Turn the expression into a TeX form for inclusion in a TeX document (scientific math)</li>
+<li>Turn the expression into a MathML object, for viewing on a browser.</li>
+<li>Perhaps some future operations we have not thought of yet.</li>
+</ul></li>
+<li>Each of these operations contains a considerable amount of code.
+<ul>
+<li>Ideally that code would be all together in one place so that we may more easily reason about it. <em>We want code for the same operation to be all in one place</em>.</li>
+<li>As the code may need to deal with different forms of expressions, at some point somehow this code needs to <strong>branch</strong> out into different execution paths. This could be a sequence of if-then-else’s, a switch statement, or some of the other ways we will see shortly.</li>
+<li><p>As some of the forms contain sub-expressions, our code would need to be <strong>recursive</strong>, i.e. to be able to <em>call itself</em> on the subexpressions. For instance to print an addition, we would need to first print the left operand, which may be a whole complicated expression, then print the “plus” sign, then print the right operand.</p>
+In any case, we will need some way for the code to <em>recurse</em> on the structure of the expression.
+<ul>
+<li>The work that needs to be done for each case may require some common state to be stored somewhere, or to be passed around from call to call.</li>
+</ul></li>
+</ul></li>
+<li>We must consider <strong>future extensions</strong>:
+<ul>
+<li>We may add more forms of expressions to our existing set of expression forms (e.g. maybe we didn’t think of the functions sin/cos the first time around). Then the code for every operation will need to be updated to deal with the new form.</li>
+<li>We may add more operations to our existing set of operations. This new code will need to have a case for each form of the expressions.</li>
+</ul></li>
+</ul>
+<p>We can visualize this situation as a rectangular arrangement, with forms as rows and operations as columns:</p>
+<div class="figure">
+<img src="images/visitor0.png" alt="Visitor Pattern Problem Space" />
+<p class="caption">Visitor Pattern Problem Space</p>
+</div>
+<p>One important thing to note is that it is desirable that all the code related to the same operation stay together. The code for evaluation of a binop has little to do with the code for printing that binop, but it has more to do with the code for evaluating a func case, or a variable case. In other words, the <strong>coherence</strong> is stronger between code for the same operation but different forms, than between code for the same form but different operations.</p>
+<p>If we imagine a particular expression, we can envision it as a sort of tree. For instance it might start with a <code>binop</code> at the root, and the <code>operand1</code> might be <code>binop</code> itself, <code>operand2</code> might be a <code>number</code>, and so on. The picture shows such an example, as well as the path that our <code>evaluate</code>’s code might have to take through this tree structure.</p>
+<div class="figure">
+<img src="images/visitorNodes.png" alt="Expression Tree" />
+<p class="caption">Expression Tree</p>
+</div>
+<h3 id="functionalnon-object-oriented-approach">Functional/Non-object oriented approach</h3>
+<p>We start by discussing how a non-object oriented approach to this problem would go. We will use Javascript objects thought of as dictionaries. You can consider them a little bit like C structs. With that in mind, we could do something like the following:</p>
+<ul>
+<li>Each expression is an object that contains a <code>type</code> field.</li>
+<li>Depending on the <code>type</code> field, the object will contain further fields (e.g. operator/operand1/operand2 if the type was “binop”).</li>
+<li>Operations become functions that <em>branch</em> on the value of the <code>type</code>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeNumber</span>(n) <span class="op">{</span>
+    <span class="cf">return</span> <span class="op">{</span>
+        <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;number&#39;</span><span class="op">,</span>
+        <span class="dt">value</span><span class="op">:</span> n
+    <span class="op">};</span>
+<span class="op">}</span>
+<span class="kw">function</span> <span class="at">makeBinOp</span>(op<span class="op">,</span> left<span class="op">,</span> right) <span class="op">{</span>
+    <span class="cf">return</span> <span class="op">{</span>
+        <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;binop&#39;</span><span class="op">,</span>
+        <span class="dt">operator</span><span class="op">:</span> op<span class="op">,</span>
+        <span class="dt">operand1</span><span class="op">:</span> left<span class="op">,</span>
+        <span class="dt">operand2</span><span class="op">:</span> right
+    <span class="op">};</span>
+<span class="op">}</span>
+<span class="co">// ... other similar &quot;constructors&quot;, one for each form</span>
+<span class="co">//</span>
+<span class="co">//</span>
+<span class="kw">function</span> <span class="at">evaluate</span>(expr) <span class="op">{</span>
+    <span class="cf">switch</span> (<span class="va">expr</span>.<span class="at">type</span>) <span class="op">{</span>
+    <span class="cf">case</span> <span class="st">&#39;number&#39;</span><span class="op">:</span> <span class="co">// ... handle number case</span>
+    <span class="cf">case</span> <span class="st">&#39;binop&#39;</span><span class="op">:</span>
+        <span class="co">// ... handle binop case</span>
+        <span class="co">// ... Will involve evaluate(expr.operand1) etc</span>
+    <span class="dt">default</span><span class="op">:</span> <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;Unknown expression type: &#39;</span> <span class="op">+</span> <span class="va">expr</span>.<span class="at">type</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+<span class="co">// ... functions for other operations</span></code></pre></div>
+<p>One advantage of this approach is that it can keep all the code related to the evaluation in one place. There are however some disadvantages:</p>
+<ul>
+<li><p><strong>Harder to maintain state</strong>. We have to pass any state that we want to maintain as further arguments to the call, and remember to pass that state onto any recursive calls.</p>
+<p>Alternatively, we can create the evaluate function within some scope on which some variables are initialized, and then each call can access them. This could look like this:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">evaluate</span>(initialExpr) <span class="op">{</span>
+    <span class="kw">var</span> theActualFunc<span class="op">,</span> state<span class="op">;</span>
+
+    <span class="co">// ... initialize state here</span>
+
+    theActualFunc <span class="op">=</span> <span class="kw">function</span>(expr) <span class="op">{</span>
+        <span class="cf">switch</span> (<span class="va">expr</span>.<span class="at">type</span>) <span class="op">{</span>
+        <span class="cf">case</span> <span class="st">&#39;number&#39;</span><span class="op">:</span> <span class="co">// ... handle number case</span>
+        <span class="cf">case</span> <span class="st">&#39;binop&#39;</span><span class="op">:</span>
+            <span class="co">// ... handle binop case</span>
+            <span class="co">// ... Will involve theActualFunc(expr.operand1) etc</span>
+        <span class="dt">default</span><span class="op">:</span> <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;Unknown expression type: &#39;</span> <span class="op">+</span> <span class="va">expr</span>.<span class="at">type</span>)<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">};</span>
+
+    <span class="cf">return</span> <span class="at">theActualFunc</span>(initialExpr)<span class="op">;</span>
+<span class="op">}</span></code></pre></div></li>
+<li><strong>Magic Values</strong>. Our code uses the magic values for the expression type. There is no systematic way to check that our <code>switch</code> code actually accounts for all cases and has not mistyped a case. If these “magic values” are to change in the future, we must keep track of that change in all the various places where such a <code>switch</code> is being used.</li>
+<li><strong>Lack of clear interface</strong>. Nothing in this code makes clear what the allowed inputs to the function <code>evaluate</code> are to be, or offers any way to automatically check that input.</li>
+<li><p><strong>No clear information hiding</strong>. The full details of the individual structures are exposed to the various functions we are writing. If we change anything in the structure generators, we must account for that change in all the consumers.</p></li>
+</ul>
+<p>In programming languages that follow a stronger functional programming paradigm, most of these problems are alleviated. In a language like Javascript that lacks static typing, algebraic types and pattern matching, they are important problems and really none of the methods will be able to fully alleviate them.</p>
+<h3 id="object-oriented-approaches">Object-Oriented Approaches</h3>
+<p>Here’s how an object-oriented approach to designing the problem space might go. The first goal would be to provide a somewhat common interface to all the different forms. To that tned, we have an overall class called <code>Symbolic</code> that represents in an abstract sense a symbolic expression. Then we have numerous subclasses of it, one for each kind of symbolic expression. So the class diagram might look like this:</p>
+<div class="figure">
+<img src="images/visitor1.png" alt="Symbolic Expression class structure" />
+<p class="caption">Symbolic Expression class structure</p>
+</div>
+<p>Now what we are interested in is adding lots of operations we can perform for such symbolic expressions, as we saw earlier. The question is how we would go about implementing these operations.</p>
+<h4 id="solution-0-edit-the-subclasses">Solution 0: Edit the subclasses</h4>
+<p>A straightforward approach is to add a method in each of the subclasses. The graph would then look like this:</p>
+<div class="figure">
+<img src="images/visitor2.png" alt="Implement operations in the classes" />
+<p class="caption">Implement operations in the classes</p>
+</div>
+<p>This approach certainly has some advantages, most notable amongst them is very strong <strong>encapsulation</strong>: Each subclass needs to worry about what is going on within itself, and noone else needs to know anything about it.</p>
+<p>This approach has a number of important drawbacks:</p>
+<ul>
+<li><strong>Code logic scattering</strong>. The code that handles the evaluation process is spread out across all the different subclasses, which could possibly be in separate files, rather than it be organized in one location. Someone trying to follow the logic of the code for say expression evaluation must look through all the different subclasses.</li>
+<li><strong>Class method bloat</strong>. As we add more and more operations, the individual subclasses increase in size, containing many disparate elements. Which leads us to:</li>
+<li><strong>Lack of class cohesion</strong>. The class starts doing too much. The BinOp subclass for example starts having methods for evaluation, simplification, conversion, and a miriad other things people might want to do with expressions. Which leads us to:</li>
+<li><p><strong>Violation of open/closed principle</strong>. This principle says that “classes/modules/etc” should be open for extension, but closed for modification. In other words the principle says that we should be able to extend a class’ functionality without having to modify the class. In our particular instance we cannot add a way to evaluate an expression without modifying the code for each subclass and adding an <code>evalAt</code> method to them, and correspondingly change the interface for all the classes.</p>
+<p>This is the key benefit of the visitor pattern we will see. It is to be used when we want to have the ability to <em>add functionality/operations to classes without modifying them</em>.</p></li>
+</ul>
+<h4 id="solution-1-inheritance">Solution 1: Inheritance</h4>
+<p>So how can we add functionality to the subclasses without modifying them? One approach would be to subclass them. So for instance in order to introduce an <code>evalAt</code> method we would create a subclass <code>Symbolic.EvaluatableNumber</code>, of <code>Symbolic.Number</code>, and the same for all the other subclasses. We would end up with 4 new subclasses. And if we want to add a <code>simplify</code> method, we would need another 4 (or 8 if we also wanted instances with simplify but no evalAt). And so on. Obviously not a very elegant solution. We will quickly step away from it and keep our distance.</p>
+<h4 id="solution-2-conditional-dispatch">Solution 2: Conditional dispatch</h4>
+<p>Another somewhat straightforward approach is to do dispatch to the appropriate code, based on each subclass. So at any point we ask the expression what class it is, and we direct it accordingly. This is similar to the functional approach we mentione earlier, and it suffers from similar problems. It might look like this:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Call like: evalAt({ x: 5, y: 2 })(expr);</span>
+<span class="kw">var</span> evalAt <span class="op">=</span> <span class="kw">function</span>(values) <span class="op">{</span>
+    <span class="co">// Function that traverses a given expression for a given set of values</span>
+    <span class="kw">var</span> evaluate<span class="op">;</span>
+
+    evaluate <span class="op">=</span> <span class="kw">function</span>(expr) <span class="op">{</span>
+        <span class="cf">if</span> (expr <span class="kw">instanceof</span> <span class="va">Symbolic</span>.<span class="at">Number</span>) <span class="op">{</span>
+            <span class="cf">return</span> <span class="va">expr</span>.<span class="at">number</span><span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (expr <span class="kw">instanceof</span> <span class="va">Symbolic</span>.<span class="at">Variable</span>) <span class="op">{</span>
+            <span class="cf">return</span> values[<span class="va">expr</span>.<span class="at">variable</span>]<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (expr <span class="kw">instanceof</span> <span class="va">Symbolic</span>.<span class="at">BinOp</span>) <span class="op">{</span>
+            <span class="cf">return</span> <span class="at">doOperation</span>(<span class="va">expr</span>.<span class="at">operator</span><span class="op">,</span>
+                               <span class="at">evaluate</span>(<span class="va">expr</span>.<span class="at">operand1</span>)<span class="op">,</span>
+                               <span class="at">evaluate</span>(<span class="va">expr</span>.<span class="at">operand1</span>))<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (expr <span class="kw">instanceof</span> <span class="va">Symbolic</span>.<span class="at">Function</span>) <span class="op">{</span>
+            <span class="cf">return</span> <span class="at">applyFunction</span>(<span class="va">expr</span>.<span class="at">funName</span><span class="op">,</span> <span class="at">evaluate</span>(<span class="va">expr</span>.<span class="at">argument</span>))<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;Expression is not one of the known subclasses&#39;</span>)<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">};</span>
+
+    <span class="cf">return</span> evaluate<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>Let us discuss the drawbacks of this approach:</p>
+<ul>
+<li><p><strong>Class detection and dispatch</strong>. The above method asks an object what class it is and acts accordingly. In general doing so is frowned upon, as it breaks encapsulation. You are typically meant to call an object’s method, and depending on what class the object is the system will run a different method for each kind of class. This is the main mechanism called <em>dynamic dispatch</em>: The code that runs as the result of a line like <code>o.foo()</code> depends on what object <code>o</code> is when that code actually runs. Bypassing that mechanism goes against the grain of object-oriented programming.</p>
+It also may cause problems in the case of deeper inheritance chains. For instance suppose that we have a class B that is a subclass of a class A, and both are to be handled by the mechanism. If we do the check for A before the check for B, then any instance of A will instead be processed as an instance of B. So suddenly the order of the cases matters, which really should not be the case.</li>
+<li><strong>No protection against missing cases</strong>. It is not very easy to look at the above code and make sure all the cases are accounted for. It is a tad easier (though not by much) to look at each subclass and search for a corresponding method. Or in the opposite direction, if a case is removed we may be left with a branch that is no longer reachable.</li>
+<li><strong>Function complexity</strong>. Long conditional chains like the above increase a function’s complexity. If someone wanted to test the function, they would have to check a considerable number of cases. Also, the code could get quite unwieldy if there are a lot of things happening in the various cases.</li>
+<li><strong>Code Logic Duplication</strong>. We end up having to reimplement the dispatch logic code each time, even though that part doesn’t change.</li>
+<li><p><strong>Dispatch logic conflated with business logic</strong>. The code that tells us how to handle each case is mixed together with the code for deciding which case to handle. Ideally these should be separated.</p></li>
+</ul>
+<h4 id="solution-2b-conditional-dispatch-to-other-methods">Solution 2b: Conditional Dispatch to other methods</h4>
+<p>This solution follows the previous one, except that it places each case’s code in a separate method. So it could look like so:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">Evaluator</span>(values) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="at">values</span> <span class="op">=</span> values
+<span class="op">}</span>
+
+<span class="va">Evaluator</span>.<span class="at">prototype</span> <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">evaluate</span><span class="op">:</span> <span class="kw">function</span>(expr) <span class="op">{</span>
+        <span class="cf">if</span> (expr <span class="kw">instanceof</span> <span class="va">Symbolic</span>.<span class="at">Number</span>) <span class="op">{</span>
+            <span class="cf">return</span> <span class="kw">this</span>.<span class="at">evaluateNumber</span>(expr)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (expr <span class="kw">instanceof</span> <span class="va">Symbolic</span>.<span class="at">Variable</span>) <span class="op">{</span>
+            <span class="cf">return</span> <span class="kw">this</span>.<span class="at">evaluateVariable</span>(expr)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (expr <span class="kw">instanceof</span> <span class="va">Symbolic</span>.<span class="at">BinOp</span>) <span class="op">{</span>
+            <span class="cf">return</span> <span class="kw">this</span>.<span class="at">evaluateBinOp</span>(expr)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (expr <span class="kw">instanceof</span> <span class="va">Symbolic</span>.<span class="at">Function</span>) <span class="op">{</span>
+            <span class="cf">return</span> <span class="kw">this</span>.<span class="at">evaluateFunction</span>(expr)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;Expression is not one of the known subclasses&#39;</span>)<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">},</span>
+    <span class="dt">evaluateNumber</span><span class="op">:</span> <span class="kw">function</span>(expr) <span class="op">{</span>
+        <span class="cf">return</span> <span class="va">expr</span>.<span class="at">number</span><span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">evaluateVariable</span><span class="op">:</span> <span class="kw">function</span>(expr) <span class="op">{</span>
+        <span class="cf">return</span> <span class="kw">this</span>.<span class="at">values</span>[<span class="va">expr</span>.<span class="at">variable</span>]<span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">evaluateBinOp</span><span class="op">:</span> <span class="kw">function</span>(expr) <span class="op">{</span>
+        <span class="kw">var</span> v1 <span class="op">=</span> <span class="kw">this</span>.<span class="at">evaluate</span>(<span class="va">expr</span>.<span class="at">operand1</span>)<span class="op">;</span>
+        <span class="kw">var</span> v2 <span class="op">=</span> <span class="kw">this</span>.<span class="at">evaluate</span>(<span class="va">expr</span>.<span class="at">operand2</span>)<span class="op">;</span>
+
+        <span class="co">// Could have the doOperation logic here</span>
+        <span class="cf">return</span> <span class="at">doOperation</span>(<span class="va">expr</span>.<span class="at">operator</span><span class="op">,</span> v1<span class="op">,</span> v2)<span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">evaluateFunction</span><span class="op">:</span> <span class="kw">function</span>(expr) <span class="op">{</span>
+        <span class="co">// Could have the applyFunction logic here</span>
+        <span class="cf">return</span> <span class="at">applyFunction</span>(<span class="va">expr</span>.<span class="at">funName</span><span class="op">,</span> <span class="kw">this</span>.<span class="at">evaluate</span>(<span class="va">expr</span>.<span class="at">argument</span>))<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">};</span></code></pre></div>
+<p>This gets us a bit closer to the visitor pattern. Each case is now in a separate function, so it is a tad easier to see if we have missed any (and in a statically typed language like Java, the compiler would not let us miss a case as we have to fill in all the instance methods). Still, no guarantee that all the instance methods are accessed from the <code>evaluate</code> method.</p>
+<p>The visitor pattern is a variation of this code that avoids the deep case statement, and lets the system do that dispatch instead.</p>
+<h4 id="solution-3-visitor-pattern">Solution 3: Visitor Pattern</h4>
+<p>The visitor pattern works as follows:</p>
+<ul>
+<li>For each operation we want to implement, a new class is created. For instance <code>Evaluator</code>, <code>Simplifier</code>, <code>TeXConverter</code> etc.</li>
+<li>This class implements <code>visit</code> methods, one for each subclass. So in our example we would have <code>visitNumber</code>, <code>visitVariable</code> etc. It is important to use these names, instead of more specialized ones like the <code>evaluateNumber</code> we used above.</li>
+<li>We can use other properties and methods of this class for maintaining the state needed by the operation.</li>
+<li><p>Each subclass of the structure implements a single method, called <code>accept</code>. This method takes as input a visitor, and turns around and calls that visitor’s appropriate method depending on what kind of subclass we’re dealing with. For instance in the <code>Symbolic.Number</code> class we would find:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Symbolic</span>.<span class="va">Number</span>.<span class="va">prototype</span>.<span class="at">accept</span> <span class="op">=</span> <span class="kw">function</span>(visitor) <span class="op">{</span>
+    <span class="cf">return</span> <span class="kw">this</span>.<span class="at">visitNumber</span>(visitor)<span class="op">;</span>
+<span class="op">};</span></code></pre></div></li>
+<li><p>The visitor typically also contains a <code>visit</code> method which turns around and calls the object’s <code>accept</code> method:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Evaluator</span>.<span class="va">prototype</span>.<span class="at">visit</span> <span class="op">=</span> <span class="kw">function</span>(visitor) <span class="op">{</span>
+    <span class="cf">return</span> <span class="va">visitor</span>.<span class="at">accept</span>(<span class="kw">this</span>)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>If the Evaluator subclasses a Symbolic.Visitor class, the implementation of <code>visit</code> could in fact be there.</p>
+<p>So essentially for a number this would generate the following sequence of calls:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// The evaluator instance wants to evaluate the expression.</span>
+<span class="va">evaluator</span>.<span class="at">visit</span>(expr)
+<span class="co">// This call becomes:</span>
+<span class="va">expr</span>.<span class="at">accept</span>(evaluator)<span class="op">;</span>
+<span class="co">// And that in turn becomes:</span>
+<span class="va">evaluator</span>.<span class="at">visitNumber</span>(expr)<span class="op">;</span>      <span class="co">// Depends on the class of expr.</span></code></pre></div></li>
+</ul>
+<p>Here is a picture:</p>
+<div class="figure">
+<img src="images/visitor3.png" alt="The visitor pattern illustrated" />
+<p class="caption">The visitor pattern illustrated</p>
+</div>
+<p>The big advantage of this method is that it requires a single function to be added to each subclass, namely <code>accept</code>. Then all sorts of visitors can be written, but they all use that <code>accept</code> method and nothing else from the classes.</p>
+<p>It does have an important <strong>drawback</strong> however: Adding a new subclass to the Symbolic expression set becomes nontrivial. Instead of simply adding one new subclass and implementing all its needed methods, we now have to go into <em>every single visitor class</em> and add a <code>visitTheNewExpressionType</code> method.</p>
 <blockquote>
 <p>The visitor pattern allows us to set up an interface where we can easily add operations to a fixed set of objects/classes without having to change the class implementations.</p>
 <p>On the other hand, changing the set of objects/classes by adding new types of objects is harder to do with the visitor pattern, as it requires reworking the implementation of all the visitors.</p>
-<p>In other words, the visitor pattern is good when you have a fixed set of classes of objects that need to support a varying set of operations on them.</p>
+<p><strong>In other words, the visitor pattern is good when you have a fixed set of classes of objects that need to support a varying set of operations on them.</strong></p>
 <p><em>It makes adding new operations easy</em>.</p>
 </blockquote>
-<h3 id="participants-implementation">Participants / Implementation</h3>
-<dl>
-<dt>Visitor</dt>
-<dd><p>The visitor interface declares a <code>visit</code> operation for each concrete class in the object structure (i.e. each type of node in our example).</p>
-<p>It may also contain a generic <code>visit</code> operation that takes an Element as argument and calls its <code>accept</code> method. Typically however this belongs on the Object structure.</p>
-</dd>
-<dt>ConcreteVisitor</dt>
-<dd>Implements the specific visit operations to perform the needed task (e.g. evaluate the nodes). Each operation holds the fragment of the algorithm that is relevant for the given class structure. The ConcreteVisitor instance provides the context and local state storage for the algorithm (e.g. if variables can be “stored” in memory, this is where that would happen).
-</dd>
-<dt>Element</dt>
-<dd>The interface of the elements. They need to implement an <code>accept</code> operation that takes an object of type <code>visitor</code> as input.
-</dd>
-<dt>ConcreteElement</dt>
-<dd>The different objects implement the accept operation by simply calling the appropriate <code>visit</code> operation on the visitor.
-</dd>
-<dt>ObjectStructure</dt>
-<dd>The object structure can enumerate its elements and provides some high-level interface to allow the visitor to visit its elements. May be a composite or a collection.
-</dd>
-</dl>
-<p>Here are the typical steps involved in a “visit”:</p>
-<ul>
-<li>The object structure’s <code>visit</code> method is called with a provided visitor.</li>
-<li>The structure starts traversing its elements. For each element, it calls its <code>accept</code> method, passing it the visitor.</li>
-<li>The element, which is from some concrete class, calls the visitor’s specific “visit” method that corresponds to that class, passing itself as an argument so the visitor can use it. This is often called <em>double-dispatch</em>.</li>
-</ul>
 <h4 id="javascript-implementation">Javascript implementation</h4>
-<p>A detailed example of a Javascript implementation can be seen in <a href="../../testPages/expressions.js">this file</a>, which describes a small language for algebraic expressions. It contains the following:</p>
+<p>You can find two examples of the visitor pattern:</p>
+<ul>
+<li><p>An <a href="../../testPages/expressions.js">expression language test page</a>, which describes a small language for algebraic expressions, where the allowed expressions are:</p>
 <ul>
 <li>Number Nodes</li>
 <li>Variable Nodes</li>
@@ -108,16 +315,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Binary Operator Nodes (<code>x+2</code>)</li>
 <li>Function Nodes (<code>ln(x)</code>)</li>
 <li>Sequence Nodes (allow a series of assignments for example)</li>
+</ul></li>
+<li><p>The <a href="https://github.com/skiadas/Symbolic">Symbolic Expression</a> language we have been describing.</p></li>
 </ul>
-<p>Each of these nodes will support a <code>accept</code> function. Those all look like this:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">VariableExp</span>.<span class="va">prototype</span>.<span class="at">accept</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">accept</span>(visitor) <span class="op">{</span>
-   <span class="cf">return</span> <span class="va">visitor</span>.<span class="at">visitVariable</span>(<span class="kw">this</span>)<span class="op">;</span>
-<span class="op">};</span>
-<span class="va">FuncExp</span>.<span class="va">prototype</span>.<span class="at">accept</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">accept</span>(visitor) <span class="op">{</span>
-   <span class="cf">return</span> <span class="va">visitor</span>.<span class="at">visitFunc</span>(<span class="kw">this</span>)<span class="op">;</span>
-<span class="op">};</span>
-...</code></pre></div>
-<p>So each different type of node calls a different function of the visitor. The visitor must implement all these different methods, 6 in total.</p>
-<p>We implement three visitors: One that evaluates an expression, one that prints an expression, and one that determines if any variables are used before they have values assigned to them.</p>
 </body>
 </html>

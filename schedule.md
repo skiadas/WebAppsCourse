@@ -110,16 +110,16 @@ BREAK
     - [Code Reviews](notes/code_review.md)
 - Day 2
     - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
+    - [Using require.js](notes/requirejs.md)
+    - [UMD modules](notes/umd.md)
 
 ## Week 12 (03/23-03/27)
 
 - Day 1
-    - [Using require.js](notes/requirejs.md)
-    - [UMD modules](notes/umd.md)
+    - [The Visitor Pattern and the need for it](notes/patterns_visitor.md)
 - Day 2
     - [Basics of HTTP](notes/http_intro.md)
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
-    - Projects progress
 
 ## Week 13 (03/30-04/03)
 

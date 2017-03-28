@@ -88,14 +88,15 @@ A large part of your grade will be the term project that you will need to work o
 
 Your final grade depends on class attendance, homework, labs, project and the final, as follows:
 
-  Component   Percent
------------  --------
- Attendance        5%
-    Quizzes       15%
-       Labs       20%
-    Project       30%
-    Midterm       15%
-      Final       15%
+Component            Percent
+------------------  --------
+Attendance                5%
+Quizzes                  15%
+Labs                     15%
+Code Reviews             10%
+Project Completion       15%
+Project Rubric           20%
+Final Exam               20%
 
 This gives a number up to 100, which is then converted to a letter grade based roughly on the following correspondence:
 
