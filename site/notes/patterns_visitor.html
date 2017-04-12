@@ -298,8 +298,8 @@ It also may cause problems in the case of deeper inheritance chains. For instanc
 </div>
 <p>And here is a more detailed view of the dispatch logic.</p>
 <div class="figure">
-<img src="images/visitor4.png" alt="The visitor pattern illustrated" />
-<p class="caption">The visitor pattern illustrated</p>
+<img src="images/visitor4.png" alt="The visitor pattern dispatch details" />
+<p class="caption">The visitor pattern dispatch details</p>
 </div>
 <p>The big advantage of this method is that it requires a single function to be added to each subclass, namely <code>accept</code>. Then all sorts of visitors can be written, but they all use that <code>accept</code> method and nothing else from the classes.</p>
 <p>It does have an important <strong>drawback</strong> however: Adding a new subclass to the Symbolic expression set becomes nontrivial. Instead of simply adding one new subclass and implementing all its needed methods, we now have to go into <em>every single visitor class</em> and add a <code>visitTheNewExpressionType</code> method.</p>

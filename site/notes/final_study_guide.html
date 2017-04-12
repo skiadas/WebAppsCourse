@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="final-study-guide">Final Study Guide</h1>
+<ol style="list-style-type: decimal">
+<li>When a script is loaded on a page, and a variable is declared via <code>var</code> at the top level in that script, what visibility does this variable have, e.g. in other scripts that were loaded before or after this script?</li>
+<li>How many different types of numbers does Javascript have? (e.g. are integers different from floating point numbers? Are there different kinds of integers or different kinds of floating point numbers?)</li>
+<li>True or False: A function must be called with the correct number of arguments. What happens if it is not?</li>
+<li>True or False: In order to have objects in Javascript, we must create a class instead.</li>
+<li>Explain the distinct roles of HTML, CSS, and Javascript in the development of a web application.</li>
+<li>There are two different equality tests in Javascript. Explain their differences, with specific examples demonstrating the interesting behavior of each case.</li>
+<li>Describe what “immediate function invocation” is, what its syntax is like, and why we would use it. Demonstrate with at least one example.</li>
+<li>Have a solid understanding of the scoping rules for local variables and their visibility.</li>
+<li>Describe what the array methods <code>map</code>, <code>filter</code> and <code>reduce</code> do, and what arguments they take (and if those arguments are functions, what inputs those functions take and what they are supposed to do).</li>
+<li>Describe how to do the following with an object:
+<ul>
+<li>Set a value for a key. Both in the case where the key’s name is fixed and known beforehand, and in the case where the key’s name is given as the value of a variable.</li>
+<li>Get the value for a given key.</li>
+<li>Test if an object has a given key.</li>
+<li>Get an array of all an object’s keys.</li>
+</ul></li>
+<li>Describe the DRY principle, its importance, and some examples of its usage.</li>
+<li>What are the four different ways that a function may be called? How is the <code>this</code> object determined in each case?</li>
+<li>Explain how object prototypes work.</li>
+<li>There are two ways we learned for creating classes:
+<ul>
+<li>Write a constructor function that also represents the class, so something like <code>function Card(...) { ... use this ... }</code>. Then call this as <code>new Card(...)</code>.</li>
+<li>Write an object with a <code>new</code> method, which in turn creates and returns an object via <code>Object.create</code>. Then call this as <code>Card.new(...)</code>.</li>
+</ul>
+Write using both techniques (so two different versions of this question) a <code>Sum</code> class whose constructor takes as input two numbers <code>a</code>, <code>b</code> and stores them in instance variables with the same name. The prototype of the class needs to also contain a <code>getSum</code> method that returns the sum of the two numbers. Your constructor does <em>not</em> need to validate its inputs for correctness.</li>
+<li>Describe how Object.defineProperty works, and what specific parameters you can use to specify a property’s behavior (enumerable etc).</li>
+<li>Describe how <code>setTimeout</code> and <code>setInterval</code> work.</li>
+<li>Describe how the basic event mechanism works and what purpose it serves. What are its advantages over other methods of inter-module communication?</li>
+<li>The visitor pattern concerns itself with a situation where we have many different classes, all part of the same superclass, and we want to implement many different operations on them. Consider the general/abstract class <code>Shape</code>, with specific/concrete subclasses <code>Triangle</code>, <code>Rectangle</code>, <code>Circle</code>, <code>Line</code>, and some possible operations <code>draw(canvas)</code>, <code>computeArea()</code>, <code>rescale(factor)</code>, etc.
+<ul>
+<li>If we do not use a visitor pattern, describe where these operations would be implemented, and what problems this causes.</li>
+<li>If we do use a visitor pattern, describe what methods we would implement in these subclasses, and also what other classes we need to set up. In particular, describe how the above operations may be implemented, also accounting for the state that they need to maintain (e.g. the canvas, the scaling factor etc).</li>
+<li>The problem space can grow in two ways: by adding more shapes or by adding more operations. Describe how the visitor approach and the non-visitor approach handle these two ways, and in particular which is suited for which way.</li>
+</ul></li>
+<li>Describe the AMD module approach and the Node module approach, and their differences and similarities. What are the advantages of these approaches over “using globals”?</li>
+</ol>
+</body>
+</html>

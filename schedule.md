@@ -134,6 +134,8 @@ BREAK
     - Projects progress
 - Day 2
     - [What we left out](notes/left_out.md)
+    - [Final Study Guide](notes/final_study_guide.md)
+
 
 ## Other topics we did not cover
 
