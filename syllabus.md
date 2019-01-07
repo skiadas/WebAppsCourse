@@ -9,13 +9,13 @@ Instructor
   ~ Charilaos Skiadas (skiadas at hanover dot edu)
 
 Term
-  ~ Winter 2016-2017
+  ~ Winter 2018-2019
 
 Office
-  ~ LYN 109 and SCH 121C
+  ~ LYN 108 and SCH 111
 
 Office Hours
-  ~ MWF 1pm-2:30pm, and by appointment
+  ~ MWF 2:40pm-3:50pm in LYN 108, and by appointment
 
 Book
   ~ [ACM-provided books and other online sources](http://skiadas.github.io/WebAppsCourse/site/links.html)
@@ -24,7 +24,7 @@ Websites
   ~ [Notes](skiadas.github.io/WebAppsCourse/site/)
 
 Class times
-  ~ TR 12:20pm-2:05pm in LYN120A
+  ~ MWF 1:20pm-2:30pm in LYN120A
 
 ## Course Description
 
@@ -47,6 +47,7 @@ These are all essential skills transferable to other programming languages and e
 
 - Core language features and patterns.
 - Interacting with a web page and a web server.
+- Understanding the interplay between Javascript, HTML and CSS in the creation of a web application.
 - Learning about the various approaches to handling the asynchronous nature of user interaction and network communication.
 
 A large part of the course will be a project that you will be working on in collaboration with one other student. This will give you the opportunity to practice the above principles in a real project, as well as giving you the satisfaction of having created a deliverable project of your own.
@@ -67,11 +68,11 @@ You will have quiz about once a week, based on the material covered that week. Y
 
 ### Labs
 
-About once a week you will have a slightly longer and more thought-provoking lab assignment. You will work on these labs with the same person that will be your collaborator for the project. It is expected that you will work following a pair-programming paradigm, where you both work on the same computer, one person typing and another thinking about the code, trading places ever so often.
+About once a week you will have a slightly longer and more thought-provoking lab assignment.
 
 ### Exams
 
-There will be two equal-weight exams, one midterm (TODO: Date) and one during finals week, focusing on both the theoretical aspects of the course and some code snippets.
+There will be two equal-weight exams, one midterm (date TBD) and one during finals week, focusing on both the theoretical aspects of the course and some code snippets.
 
 ### Project
 
@@ -91,12 +92,13 @@ Your final grade depends on class attendance, homework, labs, project and the fi
 Component            Percent
 ------------------  --------
 Attendance                5%
-Quizzes                  15%
-Labs                     15%
+Quizzes                   5%
+Labs                     20%
 Code Reviews             10%
 Project Completion       15%
-Project Rubric           20%
-Final Exam               20%
+Project Rubric           15%
+Exam 1                   15%
+Exam 2                   15%
 
 This gives a number up to 100, which is then converted to a letter grade based roughly on the following correspondence:
 
@@ -108,120 +110,3 @@ This gives a number up to 100, which is then converted to a letter grade based r
    D+, D, D-               60%-70%
       F                     0%-60%
 --------------   -----------------
-
-
-## Objectives
-
-This is a list of the learning objectives for the course, split into categories.
-
-### Software development
-
-- Maintain a version-controlled repository of your code.
-- Manage your project and code evolution via management tools like issues, milestones, labels, and commits.
-- Improve the reliability of your code via both unit tests and integration/functional tests.
-- Maintain clean and readable code via linting tools and coding standards.
-- Organize code into self-contained interacting modules.
-- Reuse code from existing libraries.
-- Work with teammates on the same code and learn the value of pair-coding
-- Perform code reviews on other teams' code and learn from their code reviews.
-- Use diagrams and other tools to design your application.
-
-### Web Applications
-
-- Multi-page vs Single-page applcations and their tradeoffs.
-- Basics of web communication (HTTP, XHR)
-- Various web/data formats, their use and roles (HTML, CSS, JavaScript, JSON, XML).
-- Constraints of working in the web/browser platform.
-- Built-in Javascript functionality
-- Design patterns with Javascript objects and functions
-- Basic web page elements (creating, formatting and interacting)
-- Using jQuery for more elaborate interfaces
-- Asynchronous/Reactive models of operations (Events, PubSub, Promises)
-- Basic frameworks for GUIs (MVC, Flux)
-- Modular programming in Javascript
-
-## Schedule
-
-A rough schedule of the topics covered. See [the detailed schedule](schedule.md) for more details.
-
-Week 1
-  ~ History of the Web and Javascript. EcmaScript 5 vs 6.
-
-    Components of a Web page: HTML, CSS, Javascript.
-
-    Multi-page apps vs Single-page apps.
-
-    Modes of Javascript operation: In browser vs node.js
-
-    Basic Javascript Language constructs: Local/Global variables, arrays, objects, strings, functions.
-
-Week 2
-  ~ Version control, Git and GitLab. Typical workflow.
-
-    Functions as values.
-
-    Function closures. Patterns of using function closures.
-
-    More work with arrays.
-
-Week 3
-  ~ Writing tests: In browser and in node.
-
-    Automating tasks (Grunt).
-
-    Linting and code standards.
-
-    Objects in Javascript. Use of "this". Classes.
-
-Week 4
-  ~ Interacting with a page. DOM, jQuery.
-
-    Events. The event loop. Timers.
-
-Week 5
-  ~ Modular design patterns in Javascript.
-
-    Basic design patterns.
-
-Week 6
-  ~ MVC patterns.
-
-    Midterm.
-
-Week 7
-  ~ Using templates.
-
-    XHR.
-
-    Project proposals due, discussion.
-
-Week 8
-  ~ Components, React.js
-
-    Flux paradigm.
-
-Week 9
-  ~ Graphical modeling of applications.
-
-    Project Models. Discussion.
-
-Week 10
-  ~ Work on projects.
-
-    Code reviews.
-
-Week 11
-  ~ Security concerns.
-
-Week 12
-  ~ TBA
-
-Week 13
-  ~ Work on projects.
-
-    Code reviews.
-
-Week 14
-  ~ Wrap-up.
-
-    Work on projects.

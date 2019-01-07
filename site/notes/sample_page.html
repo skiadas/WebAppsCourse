@@ -64,7 +64,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <h2 id="notes">Notes</h2>
 <p>In this section we will provide an example of a web page and some styling of it. We start with the HTML for the page.</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="er">&lt;</span>!doctype html&gt;
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!doctype </span>html<span class="dt">&gt;</span>
 <span class="kw">&lt;html&gt;</span>
   <span class="kw">&lt;head&gt;</span>
     <span class="kw">&lt;title&gt;</span>A sample page<span class="kw">&lt;/title&gt;</span>
@@ -105,7 +105,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="kw">&lt;footer&gt;</span>Thank you for visiting!<span class="kw">&lt;/footer&gt;</span>
   <span class="kw">&lt;/body&gt;</span>
 <span class="kw">&lt;/html&gt;</span></code></pre></div>
-<p>We start by saving this into a file, and open it up a browser. It probably doesn’t show at all like we want it to, even though it has semantically described the content well. Let’s look at some of the problems:</p>
+<p>We start by saving this into a file, and open it up on a browser. It probably doesn’t show at all like we want it to, even though we have semantically described the content well. Let’s look at some of the problems:</p>
 <ul>
 <li>The header section is not visibly separated from the rest.</li>
 <li>The logo, which presumably was supposed to be much smaller and to a side, takes up a lot of space.</li>
@@ -334,7 +334,7 @@ article<span class="dv">:hover</span> h3<span class="dv">:after</span> <span cla
    <span class="kw">background-color:</span> <span class="dt">#578322</span><span class="kw">;</span>
 <span class="kw">}</span>
 
-<span class="fl">#sidebar</span> nav li a<span class="ch">[href$=</span><span class="st">&quot;.pdf&quot;</span><span class="ch">]</span><span class="dv">:after</span> <span class="kw">{</span>
+<span class="fl">#sidebar</span> nav li a<span class="at">[href$=</span><span class="st">&quot;.pdf&quot;</span><span class="at">]</span><span class="dv">:after</span> <span class="kw">{</span>
    <span class="kw">background-image:</span> <span class="dt">url(</span><span class="st">&quot;http://iconbug.com/data/5b/507/52ff0e80b07d28b590bbc4b30befde52.png&quot;</span><span class="dt">)</span><span class="kw">;</span>
    <span class="kw">background-size:</span> <span class="dt">1em</span> <span class="dt">1em</span><span class="kw">;</span>
    <span class="kw">display:</span> <span class="dt">inline-block</span><span class="kw">;</span>

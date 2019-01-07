@@ -23,13 +23,13 @@
 <dd>Charilaos Skiadas (skiadas at hanover dot edu)
 </dd>
 <dt>Term</dt>
-<dd>Winter 2016-2017
+<dd>Winter 2018-2019
 </dd>
 <dt>Office</dt>
-<dd>LYN 109 and SCH 121C
+<dd>LYN 108 and SCH 111
 </dd>
 <dt>Office Hours</dt>
-<dd>MWF 1pm-2:30pm, and by appointment
+<dd>MWF 2:40pm-3:50pm in LYN 108, and by appointment
 </dd>
 <dt>Book</dt>
 <dd><a href="http://skiadas.github.io/WebAppsCourse/site/links.html">ACM-provided books and other online sources</a>
@@ -38,7 +38,7 @@
 <dd><a href="skiadas.github.io/WebAppsCourse/site/">Notes</a>
 </dd>
 <dt>Class times</dt>
-<dd>TR 12:20pm-2:05pm in LYN120A
+<dd>MWF 1:20pm-2:30pm in LYN120A
 </dd>
 </dl>
 <h2 id="course-description">Course Description</h2>
@@ -58,6 +58,7 @@
 <ul>
 <li>Core language features and patterns.</li>
 <li>Interacting with a web page and a web server.</li>
+<li>Understanding the interplay between Javascript, HTML and CSS in the creation of a web application.</li>
 <li>Learning about the various approaches to handling the asynchronous nature of user interaction and network communication.</li>
 </ul>
 <p>A large part of the course will be a project that you will be working on in collaboration with one other student. This will give you the opportunity to practice the above principles in a real project, as well as giving you the satisfaction of having created a deliverable project of your own.</p>
@@ -69,9 +70,9 @@
 <h3 id="quizzes">Quizzes</h3>
 <p>You will have quiz about once a week, based on the material covered that week. You are expected to work on these on your own. Whenever there is code involved, make sure to have tested the code in the Console before filling in your answer.</p>
 <h3 id="labs">Labs</h3>
-<p>About once a week you will have a slightly longer and more thought-provoking lab assignment. You will work on these labs with the same person that will be your collaborator for the project. It is expected that you will work following a pair-programming paradigm, where you both work on the same computer, one person typing and another thinking about the code, trading places ever so often.</p>
+<p>About once a week you will have a slightly longer and more thought-provoking lab assignment.</p>
 <h3 id="exams">Exams</h3>
-<p>There will be two equal-weight exams, one midterm (TODO: Date) and one during finals week, focusing on both the theoretical aspects of the course and some code snippets.</p>
+<p>There will be two equal-weight exams, one midterm (date TBD) and one during finals week, focusing on both the theoretical aspects of the course and some code snippets.</p>
 <h3 id="project">Project</h3>
 <p>A large part of your grade will be the term project that you will need to work on with one partner. The end result will be a fully-functioning Web Application and the GitHub project used to maintain it. This will also include documentation and an extensive test suite for your application.</p>
 <h3 id="getting-help">Getting Help</h3>
@@ -97,11 +98,11 @@
 </tr>
 <tr class="even">
 <td align="left">Quizzes</td>
-<td align="right">15%</td>
+<td align="right">5%</td>
 </tr>
 <tr class="odd">
 <td align="left">Labs</td>
-<td align="right">15%</td>
+<td align="right">20%</td>
 </tr>
 <tr class="even">
 <td align="left">Code Reviews</td>
@@ -113,11 +114,15 @@
 </tr>
 <tr class="even">
 <td align="left">Project Rubric</td>
-<td align="right">20%</td>
+<td align="right">15%</td>
 </tr>
 <tr class="odd">
-<td align="left">Final Exam</td>
-<td align="right">20%</td>
+<td align="left">Exam 1</td>
+<td align="right">15%</td>
+</tr>
+<tr class="even">
+<td align="left">Exam 2</td>
+<td align="right">15%</td>
 </tr>
 </tbody>
 </table>
@@ -152,99 +157,5 @@
 </tr>
 </tbody>
 </table>
-<h2 id="objectives">Objectives</h2>
-<p>This is a list of the learning objectives for the course, split into categories.</p>
-<h3 id="software-development">Software development</h3>
-<ul>
-<li>Maintain a version-controlled repository of your code.</li>
-<li>Manage your project and code evolution via management tools like issues, milestones, labels, and commits.</li>
-<li>Improve the reliability of your code via both unit tests and integration/functional tests.</li>
-<li>Maintain clean and readable code via linting tools and coding standards.</li>
-<li>Organize code into self-contained interacting modules.</li>
-<li>Reuse code from existing libraries.</li>
-<li>Work with teammates on the same code and learn the value of pair-coding</li>
-<li>Perform code reviews on other teams’ code and learn from their code reviews.</li>
-<li>Use diagrams and other tools to design your application.</li>
-</ul>
-<h3 id="web-applications">Web Applications</h3>
-<ul>
-<li>Multi-page vs Single-page applcations and their tradeoffs.</li>
-<li>Basics of web communication (HTTP, XHR)</li>
-<li>Various web/data formats, their use and roles (HTML, CSS, JavaScript, JSON, XML).</li>
-<li>Constraints of working in the web/browser platform.</li>
-<li>Built-in Javascript functionality</li>
-<li>Design patterns with Javascript objects and functions</li>
-<li>Basic web page elements (creating, formatting and interacting)</li>
-<li>Using jQuery for more elaborate interfaces</li>
-<li>Asynchronous/Reactive models of operations (Events, PubSub, Promises)</li>
-<li>Basic frameworks for GUIs (MVC, Flux)</li>
-<li>Modular programming in Javascript</li>
-</ul>
-<h2 id="schedule">Schedule</h2>
-<p>A rough schedule of the topics covered. See <a href="schedule.html">the detailed schedule</a> for more details.</p>
-<dl>
-<dt>Week 1</dt>
-<dd><p>History of the Web and Javascript. EcmaScript 5 vs 6.</p>
-<p>Components of a Web page: HTML, CSS, Javascript.</p>
-<p>Multi-page apps vs Single-page apps.</p>
-<p>Modes of Javascript operation: In browser vs node.js</p>
-<p>Basic Javascript Language constructs: Local/Global variables, arrays, objects, strings, functions.</p>
-</dd>
-<dt>Week 2</dt>
-<dd><p>Version control, Git and GitLab. Typical workflow.</p>
-<p>Functions as values.</p>
-<p>Function closures. Patterns of using function closures.</p>
-<p>More work with arrays.</p>
-</dd>
-<dt>Week 3</dt>
-<dd><p>Writing tests: In browser and in node.</p>
-<p>Automating tasks (Grunt).</p>
-<p>Linting and code standards.</p>
-<p>Objects in Javascript. Use of “this”. Classes.</p>
-</dd>
-<dt>Week 4</dt>
-<dd><p>Interacting with a page. DOM, jQuery.</p>
-<p>Events. The event loop. Timers.</p>
-</dd>
-<dt>Week 5</dt>
-<dd><p>Modular design patterns in Javascript.</p>
-<p>Basic design patterns.</p>
-</dd>
-<dt>Week 6</dt>
-<dd><p>MVC patterns.</p>
-<p>Midterm.</p>
-</dd>
-<dt>Week 7</dt>
-<dd><p>Using templates.</p>
-<p>XHR.</p>
-<p>Project proposals due, discussion.</p>
-</dd>
-<dt>Week 8</dt>
-<dd><p>Components, React.js</p>
-<p>Flux paradigm.</p>
-</dd>
-<dt>Week 9</dt>
-<dd><p>Graphical modeling of applications.</p>
-<p>Project Models. Discussion.</p>
-</dd>
-<dt>Week 10</dt>
-<dd><p>Work on projects.</p>
-<p>Code reviews.</p>
-</dd>
-<dt>Week 11</dt>
-<dd>Security concerns.
-</dd>
-<dt>Week 12</dt>
-<dd>TBA
-</dd>
-<dt>Week 13</dt>
-<dd><p>Work on projects.</p>
-<p>Code reviews.</p>
-</dd>
-<dt>Week 14</dt>
-<dd><p>Wrap-up.</p>
-<p>Work on projects.</p>
-</dd>
-</dl>
 </body>
 </html>

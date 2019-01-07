@@ -7,11 +7,15 @@ A week-by-week breakdown of the material.
 - Day 1
     - [History of Javascript](notes/history.md)
     - [Components of a Web Page](notes/page_components.md)
+    - [Survey of HTML](notes/html_survey.md)
+    - [Survey of CSS](notes/css_survey.md)
+    - [A sample page](notes/sample_page.md)
+- Day 2
     - [How to run Javascript](notes/how_to_run.md)
     - [Numbers in Javascript](notes/numbers.md)
     - [Local and Global Variables](notes/local_vs_global.md)
     - [Basics of Arrays](notes/array_basics.md)
-- Day 2
+- Day 3
     - [Basics of Objects: Dictionaries](notes/object_basics.md)
     - [Equality in Javascript](notes/equality.md)
     - [Strings and Regular Expressions](notes/strings_and_re.md)
@@ -30,6 +34,7 @@ A week-by-week breakdown of the material.
     - [Function Usage Patterns](notes/function_usage_patterns.md)
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
     - [Lab 1](labs/1.md)
+- Day 3
 
 ## Week  3 (01/19-01/23)
 
@@ -45,6 +50,7 @@ A week-by-week breakdown of the material.
     - [Overall Project Workflow](notes/project_workflow.md)
     - [Methods in objects and the need for `this`](notes/object_methods.md)
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
+- Day 3
 
 ## Week  4 (01/26-01/30)
 
@@ -56,16 +62,15 @@ A week-by-week breakdown of the material.
     - ["Class" construction examples](notes/class_construction.md)
     - [Setting up a second remote](notes/second_remote.md)
     - [Testing Basics](notes/testing_basics.md)
+- Day 3
 
 ## Week  5 (02/02-02/06)
 
 - Day 1
-    - [Survey of HTML](notes/html_survey.md)
-    - [Survey of CSS](notes/css_survey.md)
-    - [A sample page](notes/sample_page.md)
 - Day 2
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
     - [Introduction to jQuery](notes/jquery_intro.md)
+- Day 3
 
 ## Week  6 (02/09-02/13)
 
@@ -75,6 +80,7 @@ A week-by-week breakdown of the material.
     - [Timers](notes/events_timers.md)
 - Day 2
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
+- Day 3
 
 ## Week  7 (02/16-02/20)
 
@@ -82,6 +88,7 @@ A week-by-week breakdown of the material.
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 - Day 2
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
+- Day 3
 
 ## Week  8 (02/23-02/27)
 
@@ -95,6 +102,7 @@ BREAK
 
 - Day 2
     - Work on Projects
+- Day 3
 
 ## Week 10 (03/09-03/13)
 
@@ -102,6 +110,7 @@ BREAK
     - [Graphics in Javascript, SVG](notes/graphics.md)
 - Day 2
     - [Custom Events: Oberver, Publish/Subscribe](notes/custom_events.md)
+- Day 3
 
 ## Week 11 (03/16-03/20)
 
@@ -112,6 +121,7 @@ BREAK
     - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
     - [Using require.js](notes/requirejs.md)
     - [UMD modules](notes/umd.md)
+- Day 3
 
 ## Week 12 (03/23-03/27)
 
@@ -120,6 +130,7 @@ BREAK
 - Day 2
     - [Basics of HTTP](notes/http_intro.md)
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
+- Day 3
 
 ## Week 13 (03/30-04/03)
 
@@ -127,6 +138,7 @@ BREAK
     - Projects progress
 - Day 2
     - Projects progress
+- Day 3
 
 ## Week 14 (04/06-04/10)
 
@@ -135,7 +147,7 @@ BREAK
 - Day 2
     - [What we left out](notes/left_out.md)
     - [Final Study Guide](notes/final_study_guide.md)
-
+- Day 3
 
 ## Other topics we did not cover
 

@@ -50,7 +50,7 @@ Optional:
     - ECMAScript 3.1 renamed to ECMAScript 5. Essentially the current standard.
     - ES5 has "default" and "strict" mode.
     - Node is released. Server-side Javascript.
-- Work on ES6, codenamed Harmony, ongoing.
+- 2015 ES6, codenamed Harmony, finalized. It is implemented in all current browsers
+    - Many improvements and cleanup
     - Brings classes, and components
-    - Many "transpilers" exist that turn ES6 code into ES5
-    - So we can use ES6 now
+    - Many "transpilers" exist that turn ES6 code into ES5 to run on older systems

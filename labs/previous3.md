@@ -4,7 +4,7 @@ In this lab you will learn how to set up some coding standards and use linting t
 
 ## Resources
 
-- [Maintainable Javascript](http://shop.oreilly.com/product/0636920025245.do) very good, unfortunately not free, book. Optional.
+- [Maintainable Javascript](http://shop.oreilly.com/product/0636920025245.do) very good book, unfortunately not free. Optional.
 - [ESLint rules](http://eslint.org/docs/rules/)
 - [Code conventions](http://eslint.org/docs/developer-guide/code-conventions.html)
 

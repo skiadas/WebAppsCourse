@@ -59,7 +59,7 @@ In this section we will provide an example of a web page and some styling of it.
 </html>
 ```
 
-We start by saving this into a file, and open it up a browser. It probably doesn't show at all like we want it to, even though it has semantically described the content well. Let's look at some of the problems:
+We start by saving this into a file, and open it up on a browser. It probably doesn't show at all like we want it to, even though we have semantically described the content well. Let's look at some of the problems:
 
 - The header section is not visibly separated from the rest.
 - The logo, which presumably was supposed to be much smaller and to a side, takes up a lot of space.

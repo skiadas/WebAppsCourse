@@ -118,7 +118,7 @@ blockquote, quote
   ~ quotes, block/inline
 
 a
-  ~ anchor links (to other documents, or within page)
+  ~ anchor links (to other webpages, or within same page)
 
 em, strong
   ~ "emphasized" and strongly emphasized text

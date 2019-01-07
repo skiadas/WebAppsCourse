@@ -8,6 +8,7 @@
 - [Learn HTML&CSS](http://learn.shayhowe.com/html-css/)
 - [MDN's links for learning CSS](https://developer.mozilla.org/en-US/learn/css)
 - ["Can I use" site](http://caniuse.com/)
+- [Details on CSS Layout](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout)
 - [Free online books](https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md#html--css)
 
 ## Notes
@@ -22,7 +23,7 @@ rules
   ~ A rule consists of a "selector" and series of property-value specifications. It indicates that those elements that match the selector should have those properties set to those values.
 
 selectors
-  ~ [Selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Selectors) "target" certain elements in the page. For instance a selector could say: "I want to look at the `li` elements that have a class of `todo` and are contained inside an element with and id of `main`."
+  ~ [Selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Selectors) "target" certain elements in the page. For instance a selector could say: "I want to look at the `li` elements that have a class of `todo` and are contained inside an element with and id of `main`." This would be expressed as `#main li.todo`.
 
     There are a great many types of things that can be targeted via selectors (both in CSS and in Javascript as we will see when we discuss jQuery). For instance:
 
@@ -65,6 +66,9 @@ floats
   ~ [Floats](https://developer.mozilla.org/en-US/docs/Web/CSS/float) are a difficult concept to work with at first. A "floating" element is taken out of the normal flow and placed along the left or right side of the page, while other elements wrap around it.
 
   Floats are especially important for creating the illusion of columns. For example we can create two columns by floating the first one to the left, giving it a fixed width, and having the second one with a left margin equaling that width.
+
+flexbox and grid
+  ~ [Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) and [Grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids) layouts are the modern ways to structure a web-page's look and feel.
 
 There are too many properties to list here, but we will list the **various selectors** we can use to target elements:
 
