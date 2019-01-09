@@ -8,24 +8,24 @@ A week-by-week breakdown of the material.
     - [History of Javascript](notes/history.md)
     - [Components of a Web Page](notes/page_components.md)
     - [Survey of HTML](notes/html_survey.md)
+- Day 2
     - [Survey of CSS](notes/css_survey.md)
     - [A sample page](notes/sample_page.md)
-- Day 2
+    - [Lab 1](labs/1.md)
+- Day 3
     - [How to run Javascript](notes/how_to_run.md)
     - [Numbers in Javascript](notes/numbers.md)
     - [Local and Global Variables](notes/local_vs_global.md)
     - [Basics of Arrays](notes/array_basics.md)
-- Day 3
-    - [Basics of Objects: Dictionaries](notes/object_basics.md)
-    - [Equality in Javascript](notes/equality.md)
-    - [Strings and Regular Expressions](notes/strings_and_re.md)
-    - [Function basics](notes/functions_basic.md)
-    - [Lab 0](labs/0.md)
-    - [Quiz 1](https://moodle.hanover.edu/mod/quiz/view.php?id=32970)
 
 ## Week  2 (01/12-01/16)
 
 - Day 1
+    - [Basics of Objects: Dictionaries](notes/object_basics.md)
+    - [Equality in Javascript](notes/equality.md)
+    - [Strings and Regular Expressions](notes/strings_and_re.md)
+    - [Function basics](notes/functions_basic.md)
+    - [Quiz 1](https://moodle.hanover.edu/mod/quiz/view.php?id=32970)
     - [Functions as values](notes/function_values.md)
     - [Functions as closures](notes/function_closures.md)
 - Day 2

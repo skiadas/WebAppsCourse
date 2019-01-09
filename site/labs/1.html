@@ -20,21 +20,38 @@
 <li>HTML tasks that add new HTML elements to the page, along with CSS tasks that format those elements.</li>
 </ul>
 <h2 id="checking-out-the-project">Checking out the project</h2>
-<p>In order to work with the project, you need two steps:</p>
+<p>In order to work with the project, you need a couple of steps steps:</p>
 <ul>
-<li><strong>Fork</strong> the project over to your GitLab account. To do that, you need to do the following:
+<li>Start a new repository in GitHub,</li>
+<li>Clone your new repository to a local repository,</li>
+<li>Link your local repository to my GitHub repository that contains startup files,</li>
+<li>Update your GitHub repository with changes from mine.</li>
+</ul>
+<p>We will now follow each of these steps</p>
 <ul>
-<li>Register with <a href="gitlab.com" class="uri">gitlab.com</a>. You can log in to it via your GitHub account, if you have one (and you should create one if you haven’t).</li>
-<li>Once logged in, go to <a href="https://gitlab.com/skiadas/webappslabsnew" class="uri">https://gitlab.com/skiadas/webappslabsnew</a>, which takes you to the main project page.</li>
-<li>Click the “Fork” button on the top right, to start the process of forking the file. A few minutes later, your project should be forked.</li>
-<li>On the menu on the left, under the Settings-&gt;General menu, make sure that under Permissions the repository is set to Private (click Save Changes if you needed to change it).</li>
-<li>Under Settings-&gt;Members, add the instructor as a new member with Role set to Reporter.</li>
+<li>Start a new repository
+<ul>
+<li>Register with <a href="github.com">GitHub</a> if you haven’t yet.</li>
+<li>Once logged in, start a new repository with any name you like (but maybe something like WebAppsLabs would be appropriate). Make sure to set it to Private.</li>
+<li>Under Settings-&gt;Collaborators, add me as a collaborator.</li>
 </ul></li>
-<li><strong>Clone</strong> your fork of the project over to your local computer. To do that:
+<li>Clone your new repository to a local repository.
 <ul>
-<li>Open the GitKraken application, and get it set up if you have not yet. This application helps you move files back and forth between your local computer and the remote GitLab repository that you just forked.</li>
-<li>In GitKraken, under Preferences-&gt;Authentication, use the GitLab.com tab to get GitKraken connected to GitLab.</li>
-<li>In GitKraken, use the folder icon at the top left and then choose Clone and find your repository under GitLab.com. Make sure the “where to clone” slot has a good path for where you want this project to be created.</li>
+<li>Open the GitKraken application, and get it set up if you have not yet. This application helps you move files back and forth between your local computer and the remote GitHub repository that you just forked.</li>
+<li>In GitKraken, under Preferences-&gt;Authentication, use the GitHub.com tab to get GitKraken connected to GitHub.</li>
+<li>In GitKraken, use the folder icon at the top left and then choose Clone and find your repository under GitHub.com. Make sure the “where to clone” slot has a good path for where you want this project to be created.</li>
+<li>Choose “Open Now” and “Initialize” when prompted at the top of the application window.</li>
+</ul></li>
+<li>Link your local repository to <em>my</em> Github repository.
+<ul>
+<li>On the left side you will see a REMOTES section. Click on the plus sign that shows up when you hover over it. In the resulting window, switch to URL, put “upstream” in the Name space and “https://github.com/skiadas/WebAppsLabsNew.git” in the Pull space. Then click “Add remote”.</li>
+</ul></li>
+<li>Update your GitHub repository with changes from mine.
+<ul>
+<li>In the main window you should now be seeing a “master” line with a desktop icon next to it (your local repository), as well as a “master” line with my face on it (my remote repository). It should contain two “commits” to it, the last one of those being “Initial commit”. Right-click on it and choose “Reset master to this commit (Hard)”.</li>
+<li>You should now be seeing only two commit lines, with the second one being the desktop master. Right-click the top one (my master) and choose “fast-forward master to upstream/master”. You should now see the two masters line up.</li>
+<li>Click on Push near the top, and click Submit in the pop-up message. You should now see a third icon, corresponding to your remote, pop up.</li>
+<li>Back on the GitHub webpage, reload the page and you should now see some folders and files present.</li>
 </ul></li>
 </ul>
 <p>Now you have a local copy of your project. To work with it, you should do two things:</p>
@@ -48,7 +65,7 @@
 <li>In GitKraken, open the project. You should see on the right side the two “unstaged files” that you edited. You may click on them to visually see all the changes you did to those files.</li>
 <li>Click the “Stage all changes” button to add all those files to your next “commit”. You should see them move to the “staged files” section.</li>
 <li>At the “Commit Message” section at the bottom, type a simple Summary, like “Lab 1 Submission”. Then click the big Commit button at the bottom. You should see a new step created in the “tree” in the middle panel. You have just created a local “commit” of your changes. This protects them from being lost or accidentally deleted.</li>
-<li>Click the “Push” button at the top of the file, to move these changes to your remote repository in GitLab.com. You can check that this has happened if you look at that repository on your web browser.</li>
+<li>Click the “Push” button at the top of the file, to move these changes to your remote repository in GitHub.com. You can check that this has happened if you look at that repository on your web browser.</li>
 </ul>
 <p>To test this process, DO this right away! Add your name at the appropriate spots in the two files (html and css), save and create and push a commit as described above.</p>
 <h2 id="details-on-the-css-tasks">Details on the CSS tasks</h2>

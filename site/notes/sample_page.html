@@ -54,6 +54,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
 <li><a href="http://web.simmons.edu/~grabiner/comm244/weeknine/css-layouts.html">Some layout techniques</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox">Flexbox Layout</a></li>
 <li><a href="http://htmlcolorcodes.com/color-picker/">Color picker</a></li>
 <li><a href="http://paletton.com/">Color pallette generator</a></li>
 <li><a href="https://www.tutorialspoint.com/css/css_measurement_units.htm">CSS units</a></li>
@@ -73,7 +74,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="kw">&lt;/head&gt;</span>
   <span class="kw">&lt;body&gt;</span>
     <span class="kw">&lt;header&gt;</span>
-      <span class="kw">&lt;img</span><span class="ot"> id=</span><span class="st">&quot;logo&quot;</span><span class="ot"> src=</span><span class="st">&quot;https://www.hanover.edu/images/athletics/athletics-logo.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Our college&#39;s athletics logo&quot;</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;img</span><span class="ot"> id=</span><span class="st">&quot;logo&quot;</span><span class="ot"> src=</span><span class="st">&quot;https://www.hanover.edu/images/site/logos/logo.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Our college&#39;s athletics logo&quot;</span><span class="kw">&gt;</span>
       <span class="kw">&lt;h1&gt;</span>An awesome sample page!<span class="kw">&lt;/h1&gt;</span>
     <span class="kw">&lt;/header&gt;</span>
     <span class="kw">&lt;main&gt;</span>
@@ -116,7 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>The navigation links are somewhat boring normal links. We’ll change them into clickable blocks.</li>
 </ul>
 <h3 id="cleanup-css-reset">Cleanup / CSS reset</h3>
-<p>A common first step in any page design is eliminating all browser settings. This is often called a CSS-reset. This often ends up being somewhat lengthy. We put it into its own file that loads first.</p>
+<p>A common first step in any page design is eliminating all browser settings. This is often called a CSS-reset. This often ends up being somewhat lengthy. We put it into its own file (reset.css) that loads first.</p>
 <div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -168,19 +169,17 @@ table <span class="kw">{</span>
    <span class="kw">height:</span> <span class="dt">2em</span><span class="kw">;</span>
    <span class="kw">width:</span> <span class="dt">auto</span><span class="kw">;</span>
    <span class="kw">padding:</span> <span class="dt">1px</span><span class="kw">;</span>
-   <span class="kw">background-color:</span> <span class="dt">white</span><span class="kw">;</span>
+   <span class="kw">background-color:</span> <span class="dt">black</span><span class="kw">;</span>
    <span class="kw">border:</span> <span class="dt">1px</span> <span class="dt">solid</span> <span class="dt">gray</span><span class="kw">;</span>
-   <span class="kw">float:</span> <span class="dt">left</span><span class="kw">;</span>
 <span class="kw">}</span></code></pre></div>
 <p>So:</p>
 <ul>
 <li>We give it a fixed height, set to 2 “ems”. An <code>em</code> is a measurement unit representing the font size. Values specified in ems will scale if you zoom in/out of the page.</li>
 <li>We give it a width of <code>auto</code>, meaning that it will maintain the image’s width/height ratio. Otherwise the image would appear distorted.</li>
 <li>We add a 1px padding around the image.</li>
-<li>We set the background color of the image to be white (we will use a different background color for the rest of the header in a moment).</li>
+<li>We set the background color of the image to be black (we will use a different background color for the rest of the header in a moment).</li>
 <li>We put a slight border to it. This is a “compound rule”, where we set multiple border properties at once (border-size, border-style, border-color).</li>
 <li>We have specified the color here by name. A number of colors can be specified that way. We can also specify colors via RGB values, and we will do so in the rest.</li>
-<li>Floating makes the image not occupy a whole line on its own. The heading will then be on the same line as the image.</li>
 </ul>
 <h3 id="basic-layout">Basic layout</h3>
 <p>The first big item is specifying the basic layout that will create the different page sections.</p>
@@ -189,49 +188,35 @@ table <span class="kw">{</span>
   <span class="kw">padding:</span> <span class="dt">10px</span><span class="kw">;</span>
 <span class="kw">}</span>
 
-html, body <span class="kw">{</span>
-   <span class="kw">height:</span><span class="dt">100%</span><span class="kw">;</span>
-<span class="kw">}</span>
-
 main <span class="kw">{</span>
-   <span class="kw">position:</span> <span class="dt">relative</span><span class="kw">;</span>
-   <span class="kw">height:</span> <span class="dt">100%</span><span class="kw">;</span>
-<span class="kw">}</span>
-
-<span class="fl">#sidebar</span>, <span class="fl">#content</span> <span class="kw">{</span>
-   <span class="kw">min-height:</span> <span class="dt">100%</span><span class="kw">;</span>
+   <span class="kw">display:</span> flex<span class="kw">;</span>
+   <span class="kw">flex-direction:</span> row<span class="kw">;</span>
 <span class="kw">}</span>
 
 <span class="fl">#sidebar</span> <span class="kw">{</span>
-   <span class="kw">float:</span> <span class="dt">left</span><span class="kw">;</span>
-   <span class="kw">width:</span> <span class="dt">25%</span><span class="kw">;</span>
+   <span class="kw">flex:</span> <span class="dt">1</span><span class="kw">;</span>
+   <span class="kw">padding:</span> <span class="dt">1em</span><span class="kw">;</span>
    <span class="kw">background-color:</span> <span class="dt">#799657</span><span class="kw">;</span>
 <span class="kw">}</span>
 
 <span class="fl">#content</span> <span class="kw">{</span>
-   <span class="kw">float:</span> <span class="dt">right</span><span class="kw">;</span>
-   <span class="kw">width:</span> <span class="dt">75%</span><span class="kw">;</span>
+   <span class="kw">flex:</span> <span class="dt">3</span><span class="kw">;</span>
+   <span class="kw">padding:</span> <span class="dt">1em</span><span class="kw">;</span>
    <span class="kw">background-color:</span> <span class="dt">#EFF4E9</span><span class="kw">;</span>
 <span class="kw">}</span>
 
 footer <span class="kw">{</span>
    <span class="kw">border-top:</span> <span class="dt">1px</span> <span class="dt">solid</span> <span class="dt">#4A523F</span><span class="kw">;</span>
    <span class="kw">padding:</span> <span class="dt">10px</span><span class="kw">;</span>
-   <span class="kw">clear:</span> <span class="dt">both</span><span class="kw">;</span>
 <span class="kw">}</span></code></pre></div>
-<p>Some of this stuff is somewhat intuitive:</p>
+<p>So here is what is going on:</p>
 <ul>
 <li>The main regions are all given background colors.</li>
-<li>The header receives some padding, so that text does not hit the boundaries.</li>
-<li>The sidebar and content are both set to float opposite each other, and with widths totaling 100%.</li>
+<li>The sidebar, content, header and footer receive some padding, so that text does not hit the boundaries.</li>
+<li>The “main” section is set to “display” as “flex” and with a “flex-direction” set to row. This means that its children should arrange themselves horizontally next to each other, forming columns.</li>
+<li>The sidebar and content, which are the children of “main”, are given “flex” values that indicate their relative size. In this case we want the content to be three times as large as the sidebar.</li>
 </ul>
-<p>Then we get to some trickier stuff:</p>
-<ul>
-<li>The footer has a “clear: both” rule, that tells CSS to “clear all floats”. It means that it should stop positioning items relative to the previous two floats, and should instead start fresh after those two floats. This will make sure that the footer follows both the sidebar and the main content.</li>
-<li>There is a section that specifies that the <code>main</code> area should be relatively positioned (which doesn’t really change it in any way) and with 100% height. Then the sidebar and content areas, which were floating, have specified to have 100% min-height, meaning that they should occupy all the available vertical space from their parent. For floating elements this only works if their parent is relatively positioned. If we do not do it this way, the background colors to those sections won’t extend all the way to the footer.</li>
-</ul>
-<p>This is the reality of standard CSS, some somewhat simple stuff becomes very difficult/counter-intuitive to do.</p>
-<p>To see what can go wrong in CSS design, try adding padding to the sidebar and content items.</p>
+<p>At this point, let’s go ahead and add: <code>display: flex;</code> to the header rule. This will allow the image and header text to stand next to each other.</p>
 <h3 id="typography">Typography</h3>
 <p>We will now do some styling of the typography of the various sections.</p>
 <div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="co">/* Typography */</span>

@@ -3,6 +3,7 @@
 ## Relevant Links
 
 - [Some layout techniques](http://web.simmons.edu/~grabiner/comm244/weeknine/css-layouts.html)
+- [Flexbox Layout](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
 - [Color picker](http://htmlcolorcodes.com/color-picker/)
 - [Color pallette generator](http://paletton.com/)
 - [CSS units](https://www.tutorialspoint.com/css/css_measurement_units.htm)
@@ -25,7 +26,7 @@ In this section we will provide an example of a web page and some styling of it.
   </head>
   <body>
     <header>
-      <img id="logo" src="https://www.hanover.edu/images/athletics/athletics-logo.png" alt="Our college's athletics logo">
+      <img id="logo" src="https://www.hanover.edu/images/site/logos/logo.png" alt="Our college's athletics logo">
       <h1>An awesome sample page!</h1>
     </header>
     <main>
@@ -71,7 +72,7 @@ We start by saving this into a file, and open it up on a browser. It probably do
 
 ### Cleanup / CSS reset
 
-A common first step in any page design is eliminating all browser settings. This is often  called a CSS-reset. This often ends up being somewhat lengthy. We put it into its own file that loads first.
+A common first step in any page design is eliminating all browser settings. This is often  called a CSS-reset. This often ends up being somewhat lengthy. We put it into its own file (reset.css) that loads first.
 
 ```css
 html, body, div, span, applet, object, iframe,
@@ -131,9 +132,8 @@ We start by taming in the logo a bit.
    height: 2em;
    width: auto;
    padding: 1px;
-   background-color: white;
+   background-color: black;
    border: 1px solid gray;
-   float: left;
 }
 ```
 
@@ -142,10 +142,9 @@ So:
 - We give it a fixed height, set to 2 "ems". An `em` is a measurement unit representing the font size. Values specified in ems will scale if you zoom in/out of the page.
 - We give it a width of `auto`, meaning that it will maintain the image's width/height ratio. Otherwise the image would appear distorted.
 - We add a 1px padding around the image.
-- We set the background color of the image to be white (we will use a different background color for the rest of the header in a moment).
+- We set the background color of the image to be black (we will use a different background color for the rest of the header in a moment).
 - We put a slight border to it. This is a "compound rule", where we set multiple border properties at once (border-size, border-style, border-color).
 - We have specified the color here by name. A number of colors can be specified that way. We can also specify colors via RGB values, and we will do so in the rest.
-- Floating makes the image not occupy a whole line on its own. The heading will then be on the same line as the image.
 
 ### Basic layout
 
@@ -157,52 +156,37 @@ header {
   padding: 10px;
 }
 
-html, body {
-   height:100%;
-}
-
 main {
-   position: relative;
-   height: 100%;
-}
-
-#sidebar, #content {
-   min-height: 100%;
+   display: flex;
+   flex-direction: row;
 }
 
 #sidebar {
-   float: left;
-   width: 25%;
+   flex: 1;
+   padding: 1em;
    background-color: #799657;
 }
 
 #content {
-   float: right;
-   width: 75%;
+   flex: 3;
+   padding: 1em;
    background-color: #EFF4E9;
 }
 
 footer {
    border-top: 1px solid #4A523F;
    padding: 10px;
-   clear: both;
 }
 ```
 
-Some of this stuff is somewhat intuitive:
+So here is what is going on:
 
 - The main regions are all given background colors.
-- The header receives some padding, so that text does not hit the boundaries.
-- The sidebar and content are both set to float opposite each other, and with widths totaling 100%.
+- The sidebar, content, header and footer receive some padding, so that text does not hit the boundaries.
+- The "main" section is set to "display" as "flex" and with a "flex-direction" set to row. This means that its children should arrange themselves horizontally next to each other, forming columns.
+- The sidebar and content, which are the children of "main", are given "flex" values that indicate their relative size. In this case we want the content to be three times as large as the sidebar.
 
-Then we get to some trickier stuff:
-
-- The footer has a "clear: both" rule, that tells CSS to "clear all floats". It means that it should stop positioning items relative to the previous two floats, and should instead start fresh after those two floats. This will make sure that the footer follows both the sidebar and the main content.
-- There is a section that specifies that the `main` area should be relatively positioned (which doesn't really change it in any way) and with 100% height. Then the sidebar and content areas, which were floating, have specified to have 100% min-height, meaning that they should occupy all the available vertical space from their parent. For floating elements this only works if their parent is relatively positioned. If we do not do it this way, the background colors to those sections won't extend all the way to the footer.
-
-This is the reality of standard CSS, some somewhat simple stuff becomes very difficult/counter-intuitive to do.
-
-To see what can go wrong in CSS design, try adding padding to the sidebar and content items.
+At this point, let's go ahead and add: `display: flex;` to the header rule. This will allow the image and header text to stand next to each other.
 
 ### Typography
 

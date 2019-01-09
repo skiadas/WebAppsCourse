@@ -12,7 +12,7 @@ All the work you do here is tied to the particular page. If you reload the page,
 
 Type `window` on the console, you should see an object, which you can expand and explore. This is the "global object" of Javascript; everything you do happens in one way or another under this object. As an example, try the following:
 
-```
+```js
 a = 23     // Sets a new variable a to equal 23
 window.a   // That variable was created as a property of the window object
 ```

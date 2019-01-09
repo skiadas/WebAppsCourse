@@ -59,38 +59,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2 id="variables-in-javascript">Variables in Javascript</h2>
 <ul>
 <li>Apart from a few reserved words, most other identifiers can be used as variable names.</li>
-<li>You declare a local variable via the keyword <code>var</code>. You can also give it a value at the same time.</li>
-<li>To begin with, things are defined in the global scope. A new scope is created within the body of any function.</li>
-<li><p>One particularly interesting behavior of Javascript is “variable hoisting”: <em>Variable declarations are always processed as if they happened at the top of the function</em>.</p>
-<p>For example consider the following code:</p>
-<pre><code>function f() {
-    a = 2;
-    var a = 1;
-}</code></pre>
-<p>This is equivalent to:</p>
-<pre><code>function f() {
-    var a;
-    a = 2;
-    a = 1;
-}</code></pre></li>
-<li>A local variable is not visible outside the scope of the function in which it was defined.</li>
+<li>Modern Javascript has a number of different variable “scopes”:
+<ul>
+<li>Global variables can be accessed anywhere.</li>
+<li>Old-style local variables are available <em>anywhere</em> within the function on which they are declared. They are defined via the keyword <code>var</code>. AVOID THESE. We will not discuss them further.</li>
+<li>New-style local variables are available within the innermost set of braces in which they are declared. They are defined via the keywords <code>let</code> and <code>const</code> (for constant variables).</li>
+</ul>
+CAUTION: If you assign to a variable name without declaring it, this will create a global variable and you will get no warning about it.</li>
+<li>A local variable is not visible outside the scope in which it was defined.</li>
 <li>Variables that are assigned a value without a corresponding declaration are “global”. Global variables are visible everywhere.</li>
 <li><p>Global variables are really nothing more than properties of the global object:</p>
-<pre><code>a = 2;        // Defining a global variable
-window.a;     // That variable exists as part of the global object
-window.b = 4; // Can define global variables as properties of the global object
-b;            // Returns 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript">a <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>        <span class="co">// Defining a global variable</span>
+<span class="va">window</span>.<span class="at">a</span><span class="op">;</span>     <span class="co">// That variable exists as part of the global object</span>
+<span class="va">window</span>.<span class="at">b</span> <span class="op">=</span> <span class="dv">4</span><span class="op">;</span> <span class="co">// Can define global variables as properties of the global object</span>
+b<span class="op">;</span>            <span class="co">// Returns 4</span>
+<span class="kw">delete</span> <span class="va">window</span>.<span class="at">b</span><span class="op">;</span></code></pre></div>
 <blockquote>
 <p>Note: Very few things in Javascript are protected. For instance this line overwrites the Math object:</p>
-<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript">Math <span class="op">=</span> <span class="op">{}</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript">Math <span class="op">=</span> <span class="op">{}</span>
+<span class="va">Math</span>.<span class="at">sin</span>(<span class="dv">2</span>)<span class="op">;</span>    <span class="co">/// An error now</span></code></pre></div>
 </blockquote></li>
-<li><p>Here is a gotcha to watch out for, there are no other scopes than those introduced by functions. For example a <code>for</code> loop does NOT introduce a new scope.</p>
-<pre><code>for (var i = 0; i &lt; 10; i += 1) {
-    i;
-}
-i;     // i is still declared outside the loop, and with value 10</code></pre></li>
 <li>Pay particular attention to the example at the top of page 54.</li>
-<li>Make a point to <strong>always declare variables at the top of functions/files</strong>.</li>
+<li>Make a point to <strong>always declare variables using <code>let</code> or <code>const</code></strong>.</li>
 <li><p>Here is an example of what can go horribly wrong if you are not careful: <a href="../testPages/local_global.html">local_global.html</a> and <a href="../testPages/local_global.js">local_global.js</a></p>
 <blockquote>
 <p>Note: Files loaded via <code>&lt;script&gt;</code> tags all share the same global space. Whatever you do in one file can impact the other files.</p>

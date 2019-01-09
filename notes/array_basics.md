@@ -15,7 +15,7 @@
 - Arrays are actually just objects, and can have properties that are non-numeric.
 - The length of an array is one more than the largest numeric property.
 ```
-var a = [1, 4, 5];
+let a = [1, 4, 5];
 a[2];                 // 2 -> 5
 a[6] = 2;
 a;
@@ -24,8 +24,8 @@ a.foo = 5;            // A random property.
 ```
 - The most basic way to iterate over an array's elements is with a `for` loop:
 ```
-var a = [1,2,3,4], i;
-for (i = 0; i < a.length; i += 1) {
+let a = [1,2,3,4];
+for (let i = 0; i < a.length; i += 1) {
    console.log(a[i]);
 }
 ```
