@@ -29,16 +29,18 @@ A week-by-week breakdown of the material.
     - [Functions as values](notes/function_values.md)
     - [Functions as closures](notes/function_closures.md)
 - Day 2
+    - No class
+- Day 3
+    - No class
+
+## Week  3 (01/19-01/23)
+
+- Day 1
     - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
     - [Array Collection methods](notes/array_collection_methods.md)
     - [Function Usage Patterns](notes/function_usage_patterns.md)
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
     - [Lab 1](labs/1.md)
-- Day 3
-
-## Week  3 (01/19-01/23)
-
-- Day 1
     - [Overview of Software Development Practices](notes/dev_overview.md)
     - [Basics of Version Control](notes/git_version_control.md)
     - [Git basics](notes/git_basics.md)

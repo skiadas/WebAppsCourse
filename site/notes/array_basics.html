@@ -7,6 +7,43 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
 <link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -30,21 +67,50 @@
 <li>Set any array value similarly: <code>arr[5] = 2</code>. You can set values out of bounds!</li>
 <li>Arrays are actually just objects, and can have properties that are non-numeric.</li>
 <li><p>The length of an array is one more than the largest numeric property.</p>
-<pre><code>let a = [1, 4, 5];
-a[2];                 // 2 -&gt; 5
-a[6] = 2;
-a;
-a.length;             // 7
-a.foo = 5;            // A random property.</code></pre></li>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">let</span> a <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span>
+a[<span class="dv">2</span>]<span class="op">;</span>                 <span class="co">// 2 -&gt; 5</span>
+a[<span class="dv">6</span>] <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>
+a<span class="op">;</span>
+<span class="va">a</span>.<span class="at">length</span><span class="op">;</span>             <span class="co">// 7</span>
+<span class="va">a</span>.<span class="at">foo</span> <span class="op">=</span> <span class="dv">5</span><span class="op">;</span>            <span class="co">// A random property.</span></code></pre></div></li>
 <li><p>The most basic way to iterate over an array’s elements is with a <code>for</code> loop:</p>
-<pre><code>let a = [1,2,3,4];
-for (let i = 0; i &lt; a.length; i += 1) {
-   console.log(a[i]);
-}</code></pre></li>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">let</span> a <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span>]<span class="op">;</span>
+<span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">a</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+   <span class="va">console</span>.<span class="at">log</span>(a[i])<span class="op">;</span>
+<span class="op">}</span></code></pre></div></li>
+<li><p>A better way to iterate over an array, or in fact any <em>iterable</em> object (we will discuss those later), with a <code>for-of</code> loop, which is similar to Python loops:</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">let</span> arr <span class="op">=</span> [<span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span>]<span class="op">;</span>
+<span class="cf">for</span> (<span class="kw">let</span> x of arr) <span class="op">{</span>
+   <span class="va">console</span>.<span class="at">log</span>(x)<span class="op">;</span>
+<span class="op">}</span>
+<span class="co">// Can use const if you don&#39;t try to reassign it in the loop</span>
+<span class="cf">for</span> (<span class="kw">const</span> x of arr) <span class="op">{</span>
+   <span class="va">console</span>.<span class="at">log</span>(x)<span class="op">;</span>
+<span class="op">}</span></code></pre></div></li>
 </ul>
-<p><strong>Practice:</strong> Create an array containing the squares of the numbers from 1 to 10.</p>
+<p><strong>Practice:</strong> Create an array containing the squares of the numbers from 1 to 10. Then write a loop that prints them.</p>
 <h3 id="standard-methods">Standard Methods</h3>
 <p>Consult individual method pages as well as section 7.8 from the book.</p>
+<dl>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from">Array.from</a></dt>
+<dd>Used to construct an array from an iterable object.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of">Array.of</a></dt>
+<dd>Used to construct an array from the provided arguments. You should prefer this (or the array literal notation) to using the constructor.
+</dd>
+</dl>
+<p>Iterators:</p>
+<dl>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys">keys</a></dt>
+<dd>Iterates over the indices of the array: <code>for (const i of [2,3,5].keys()) { console.log(i); }</code>
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values">values</a></dt>
+<dd>Iterates over the values of the array: <code>for (const e of [2,3,5].values()) { console.log(e); }</code>
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries">entries</a></dt>
+<dd>Allows you to iterate over both indices and values of an array: <code>for (const [i, e] of [2,3,5].entries()) { console.log(i + &quot;: &quot; + e); }</code>
+</dd>
+</dl>
 <p>Inserting/Removing elements:</p>
 <dl>
 <dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push">push</a></dt>
@@ -76,6 +142,9 @@ for (let i = 0; i &lt; a.length; i += 1) {
 </dd>
 <dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf">lastIndexOf</a></dt>
 <dd>finds the last match instead.
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndexf">findIndex</a></dt>
+<dd>searches into an array looking for a specific element that satisfies a provided predicate function.
 </dd>
 </dl>
 <p>Others:</p>

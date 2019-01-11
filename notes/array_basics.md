@@ -14,27 +14,59 @@
 - Set any array value similarly: `arr[5] = 2`. You can set values out of bounds!
 - Arrays are actually just objects, and can have properties that are non-numeric.
 - The length of an array is one more than the largest numeric property.
-```
-let a = [1, 4, 5];
-a[2];                 // 2 -> 5
-a[6] = 2;
-a;
-a.length;             // 7
-a.foo = 5;            // A random property.
-```
-- The most basic way to iterate over an array's elements is with a `for` loop:
-```
-let a = [1,2,3,4];
-for (let i = 0; i < a.length; i += 1) {
-   console.log(a[i]);
-}
-```
 
-**Practice:** Create an array containing the squares of the numbers from 1 to 10.
+    ```js
+    let a = [1, 4, 5];
+    a[2];                 // 2 -> 5
+    a[6] = 2;
+    a;
+    a.length;             // 7
+    a.foo = 5;            // A random property.
+    ```
+- The most basic way to iterate over an array's elements is with a `for` loop:
+
+    ```js
+    let a = [1,2,3,4];
+    for (let i = 0; i < a.length; i += 1) {
+       console.log(a[i]);
+    }
+    ```
+- A better way to iterate over an array, or in fact any *iterable* object (we will discuss those later), with a `for-of` loop, which is similar to Python loops:
+
+    ```js
+    let arr = [3,5,3,4];
+    for (let x of arr) {
+       console.log(x);
+    }
+    // Can use const if you don't try to reassign it in the loop
+    for (const x of arr) {
+       console.log(x);
+    }
+    ```
+
+**Practice:** Create an array containing the squares of the numbers from 1 to 10. Then write a loop that prints them.
 
 ### Standard Methods
 
 Consult individual method pages as well as section 7.8 from the book.
+
+[Array.from](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
+  ~ Used to construct an array from an iterable object.
+
+[Array.of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of)
+  ~ Used to construct an array from the provided arguments. You should prefer this (or the array literal notation) to using the constructor.
+
+
+Iterators:
+
+[keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
+  ~ Iterates over the indices of the array: `for (const i of [2,3,5].keys()) { console.log(i); }`
+
+[values](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values)
+  ~ Iterates over the values of the array: `for (const e of [2,3,5].values()) { console.log(e); }`
+
+[entries](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)
+  ~ Allows you to iterate over both indices and values of an array: `for (const [i, e] of [2,3,5].entries()) { console.log(i + ": " + e); }`
 
 Inserting/Removing elements:
 
@@ -65,6 +97,9 @@ Finding:
 
 [lastIndexOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)
   ~ finds the last match instead.
+
+[findIndex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndexf)
+  ~ searches into an array looking for a specific element that satisfies a provided predicate function.
 
 Others:
 

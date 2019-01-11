@@ -50,22 +50,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </script>
 </head>
 <body>
-<h1 id="basics-of-javascript-objects-dictionaries">Basics of Javascript Objects (Dictionaries)</h1>
+<h1 id="basics-of-javascript-objects">Basics of Javascript Objects</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
 <li>Flanagan’s book, sections 4.2, 4.4, 6.1.1, 6.2.1</li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects">MDN’s guide on objects</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">MDN’s reference on objects</a></li>
 </ul>
-<p>We will start with simple object literals for now.</p>
-<h2 id="basics-of-javascript-objects">Basics of Javascript Objects</h2>
+<p>We will start with simple object literals.</p>
+<h2 id="basics-of-javascript-objects-1">Basics of Javascript Objects</h2>
+<p>Most typically objects are parts of classes and instantiated by calling the class constructor. We will discuss these objects shortly. For now we will learn some basic methods for working with objects, by looking at “objects as dictionaries”.</p>
 <ul>
 <li>For the time being, we will be working with objects as simply key-value pairs. So think of them more like Python’s <em>dictionaries</em>.</li>
 <li>An <strong>object</strong> is a <em>dynamic collection of key-value pairs</em>. The keys are usually called <em>properties</em>.</li>
-<li>There are no restrictions on what the values can be. The keys however are <em>strings</em>.</li>
+<li>There are no restrictions on what the values can be. The keys however are <em>strings</em> (or in modern Javascript also Symbols).</li>
 <li>Almost everything in Javascript is an object.</li>
 <li><p>Object literals are enclosed in curly braces:</p>
-<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> a <span class="op">=</span> <span class="op">{</span>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">let</span> a <span class="op">=</span> <span class="op">{</span>
     <span class="dt">foo</span><span class="op">:</span> <span class="dv">123</span><span class="op">,</span>
     <span class="st">&quot;bar&quot;</span><span class="op">:</span> <span class="st">&quot;hello&quot;</span><span class="op">,</span>
     <span class="st">&quot;properties can be any string&quot;</span><span class="op">:</span> <span class="st">&quot;values can be anything&quot;</span><span class="op">,</span>
@@ -78,18 +79,18 @@ The keys can be written without quotes around them if there is no ambiguity in d
 <li>“Object” access, using dot notation: <code>a.foo</code></li>
 </ul></li>
 <li><p>You can also access a property if you have it as a variable value:</p>
-<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> b <span class="op">=</span> <span class="st">&quot;foo&quot;</span><span class="op">;</span>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">let</span> b <span class="op">=</span> <span class="st">&quot;foo&quot;</span><span class="op">;</span>
 a[b]<span class="op">;</span>              <span class="co">// same as a[&quot;foo&quot;]</span></code></pre></div></li>
 <li>Setting a property: <code>a[&quot;foo&quot;] = 3</code>, <code>a.foo = 3</code>.</li>
 <li>You may delete properties, though this is rare and to be avoided: <code>delete a.foo</code>.</li>
 <li>You can chain accesses: <code>a.even.other</code>.</li>
 <li>You may use <code>hasOwnProperty</code> to determine if an object has a specific property: <code>a.hasOwnProperty(&quot;bar&quot;)</code></li>
 <li><p>Two special values of importance: <code>null</code>, <code>undefined</code>. Both tend to indicate the absence of a value. The difference is that the former of those is an object:</p>
-<pre><code>typeof null;
-typeof undefined;</code></pre></li>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">typeof</span> <span class="kw">null</span><span class="op">;</span>
+<span class="kw">typeof</span> <span class="kw">undefined</span><span class="op">;</span></code></pre></div></li>
 <li>If you try to access a non-existent property, the result is <code>undefined</code>. This is very different behavior than in Python.</li>
 <li><p>You can also set the value of a property to equal <code>undefined</code>. This is different from not having that property:</p>
-<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> a <span class="op">=</span> <span class="op">{</span> <span class="dt">foo</span><span class="op">:</span> <span class="dv">5</span> <span class="op">};</span>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">let</span> a <span class="op">=</span> <span class="op">{</span> <span class="dt">foo</span><span class="op">:</span> <span class="dv">5</span> <span class="op">};</span>
 <span class="va">a</span>.<span class="at">bar</span> <span class="op">=</span> <span class="kw">undefined</span><span class="op">;</span>
 <span class="va">a</span>.<span class="at">hasOwnProperty</span>(<span class="st">&quot;bar&quot;</span>)<span class="op">;</span>    <span class="co">// returns true</span></code></pre></div></li>
 </ul>
@@ -97,7 +98,7 @@ typeof undefined;</code></pre></li>
 <p>Here are some key tasks with dictionaries and how to carry them out:</p>
 <dl>
 <dt>Creating an object</dt>
-<dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> o <span class="op">=</span> <span class="op">{</span> <span class="dt">key1</span><span class="op">:</span> val1<span class="op">,</span> <span class="dt">key2</span><span class="op">:</span> val2<span class="op">,</span> ... <span class="op">};</span></code></pre></div>
+<dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span> o <span class="op">=</span> <span class="op">{</span> <span class="dt">key1</span><span class="op">:</span> val1<span class="op">,</span> <span class="dt">key2</span><span class="op">:</span> val2<span class="op">,</span> ... <span class="op">};</span></code></pre></div>
 </dd>
 <dt>Setting an object key</dt>
 <dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">o[keyString] <span class="op">=</span> newValue<span class="op">;</span>
@@ -112,24 +113,19 @@ typeof undefined;</code></pre></li>
 </dd>
 <dt>Traversing all keys-value pairs</dt>
 <dd><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Approach 1</span>
-<span class="cf">for</span> (<span class="kw">var</span> key <span class="kw">in</span> o) <span class="op">{</span>
+<span class="cf">for</span> (<span class="kw">let</span> key <span class="kw">in</span> o) <span class="op">{</span>
     <span class="cf">if</span> (<span class="va">o</span>.<span class="at">hasOwnProperty</span>(key)) <span class="op">{</span>      <span class="co">// &lt;--- Must do this check!</span>
-      <span class="kw">var</span> value <span class="op">=</span> o[key]<span class="op">;</span>             <span class="co">// Declaration should be earlier</span>
+      <span class="kw">let</span> value <span class="op">=</span> o[key]<span class="op">;</span>             <span class="co">// Declaration should be earlier</span>
       <span class="co">// Do things with key, value</span>
     <span class="op">}</span>
 <span class="op">}</span>
 <span class="co">// Approach 2</span>
-<span class="kw">var</span> keys <span class="op">=</span> <span class="va">Object</span>.<span class="at">keys</span>(o)<span class="op">;</span>     <span class="co">// &lt;-- Returns array of keys</span>
-<span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">keys</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
-  <span class="kw">var</span> key <span class="op">=</span> keys[i]<span class="op">;</span>          <span class="co">// Declaration should be earlier</span>
-  <span class="kw">var</span> value <span class="op">=</span> o[key]<span class="op">;</span>         <span class="co">// Declaration should be earlier</span>
+<span class="kw">let</span> keys <span class="op">=</span> <span class="va">Object</span>.<span class="at">keys</span>(o)<span class="op">;</span>     <span class="co">// &lt;-- Returns array of keys</span>
+<span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">keys</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+  <span class="kw">let</span> key <span class="op">=</span> keys[i]<span class="op">;</span>          <span class="co">// Declaration should be earlier</span>
+  <span class="kw">let</span> value <span class="op">=</span> o[key]<span class="op">;</span>         <span class="co">// Declaration should be earlier</span>
   <span class="co">// Do things with key, value</span>
-<span class="op">}</span>
-<span class="co">// Approach 3</span>
-<span class="va">Object</span>.<span class="va">keys</span>.<span class="at">forEach</span>(<span class="kw">function</span>(key) <span class="op">{</span>
-  <span class="kw">var</span> value <span class="op">=</span> o[key]<span class="op">;</span>         <span class="co">// Declaration is OK, inside a function</span>
-  <span class="co">// do things with key, value</span>
-<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<span class="op">}</span></code></pre></div>
 </dd>
 </dl>
 </body>

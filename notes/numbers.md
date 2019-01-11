@@ -35,5 +35,6 @@
     - You can see that by typing `typeof NaN`.
     - `NaN` is not equal to any value, including itself.
     - You can see that by trying `NaN == NaN`.
+    - `Number.isNaN` can be used to check if a *number* is actually `NaN`.
 - Some behavior to watch out for (try to explain it): `Number.MAX_VALUE == Number.MAX_VALUE + 1`.
 - Make sure to read about rounding errors, that are unavoidable whenever you do floating point arithmetic.
