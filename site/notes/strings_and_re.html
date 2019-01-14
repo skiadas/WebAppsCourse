@@ -61,6 +61,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2 id="strings-in-javascript">Strings in Javascript</h2>
 <ul>
 <li>String literals are formed by surrounding the text in single or double quotes: <code>&quot;a string&quot;</code>, <code>'another string'</code>.</li>
+<li>In ES 6, there is a third string literal, called <em>template literal</em>, and we will discuss those further later.</li>
 <li>Escape characters are combinations that hold special meaning. Refer to table 3.1 in the book, or in MDN’s String reference.</li>
 <li><p>The plus operator is overloaded to cause string concatenation. Other values will be coersed to strings if necessary.</p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="st">&quot;hi&quot;</span> <span class="op">+</span> <span class="dv">0</span><span class="op">;</span>     <span class="co">// &quot;hi0&quot;</span>
@@ -70,6 +71,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Note: Oftentimes you read numeric input from a text field. You must convert it into a number first, to avoid examples like the above.</p>
 </blockquote></li>
 <li>Strings can be accessed via array indexing: <code>&quot;hi there&quot;[4] == &quot;h&quot;</code>, <code>&quot;hello&quot;.length == 5</code>. There is no separate type for single characters.</li>
+<li>You can iterate over the characters in a string using for example a for-of loop.</li>
 <li><p>Strings are immutable: You cannot change their value, you can only create a new string.</p></li>
 </ul>
 <h3 id="string-methods">String methods</h3>
@@ -104,6 +106,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase">toUpperCase</a></dt>
 <dd>Converts to upper case
 </dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith">startsWith</a></dt>
+<dd>Checks if the string starts with the provided string
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith">endsWith</a></dt>
+<dd>Checks if the string ends with the provided string
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes">includes</a></dt>
+<dd>Checks if the string includes with the provided string
+</dd>
+<dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat">repeat</a></dt>
+<dd>Repeats the string a number of times
+</dd>
 </dl>
 <h2 id="regular-expressions-in-javascript">Regular Expressions in Javascript</h2>
 <ul>
@@ -120,11 +134,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dt>m</dt>
 <dd>the regular expression possibly matches across multiple lines.
 </dd>
+<dt>u</dt>
+<dd>offers some Unicode-related features.
+</dd>
 </dl></li>
 <li><p>Between the two forward slashes, a number of elements can be present, each with its meaning. Here are the most important ones:</p>
 <dl>
 <dt>c</dt>
-<dd>Any character except for a few special that we will mention further down matches itself. This includes numbers, letters, some punctuation etc.
+<dd>Any character except for a few special characters that we will mention further down matches itself. This includes numbers, letters, some punctuation etc.
 </dd>
 <dt>\t</dt>
 <dd>Matches a tab character.
@@ -181,10 +198,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dd>Treats the contents as a group. In many regular expression searches, you would be able to access the matched pieces. Also called <em>capturing parentheses</em>.
 </dd>
 <dt>\n</dt>
-<dd>where n is a number. Matches a previously matched group.
+<dd>where n is a number. Matches a previously matched group. For example <code>(.)\1</code> will match an occurence of the same character back-to-back.
 </dd>
 <dt>(?:…)</dt>
-<dd><em>Non-capturing parentheses</em>. Useful when you simply want to group some elements together, but do not care for capturing the result separately.
+<dd><em>Non-capturing parentheses</em>. Useful when you simply want to group some elements together (to impose some operator precedence for example), but do not care for capturing the result separately.
 </dd>
 <dt>x*</dt>
 <dd>Matches the expression x zero or more times.
@@ -207,8 +224,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This will match all student emails at Hanover (faculty/staff emails don’t end in digits). It looks for a word character or dash, one or more times, followed by one or more digits, then a literal at sign, “hanover”, then a literal dot, then “edu”.</p>
 <pre><code>/(.)(.)(.)\3\2\1/</code></pre>
 <p>This regular expression will match palindromes with total length 6, e.g. something like “abccba”. The parenthesized dots match one arbitrary element each, then the backticked numbers refer to those matches in reverse order.</p>
+<pre><code>/((.)(.)(.))\4\3\2\1/</code></pre>
+<p>QUESTION: What does the above regex match?</p>
 <pre><code>/^\s*[+-]?(?:\d+\.?|\.\d+)\d*(?:[eE][+-]?\d+)?\s*$/</code></pre>
-<p>This is a fairly complicated regular expression that matches numbers in decimal or scientific format. It starts with a caret, and ends in a dollar sign, meaning that the contents much match the entire line/string. It allows for an arbitrary number of whitespace characters on either end. After that, it has an optional sign, followed by: either at least one digit followed by an optional dot, or a dot following by at least one digit, these form a non-capturing group, and they are followed by zero or more digits. Finally, there is another optional non-capturing group, that matches an optional exponent. It consists of an uppercase or lowercase e, followed by an optional sign, followed by at least one digit.</p>
+<p>This is a fairly complicated regular expression that matches numbers in decimal or scientific format. It starts with a caret, and ends in a dollar sign, meaning that the contents must match the entire line/string. It allows for an arbitrary number of whitespace characters on either end. After that, it has an optional sign, followed by: either at least one digit followed by an optional dot, or a dot following by at least one digit (these form a non-capturing group), and they are followed by zero or more digits. Finally, there is another optional non-capturing group, that matches an optional exponent. It consists of an uppercase or lowercase e, followed by an optional sign, followed by at least one digit.</p>
 <pre><code>/&quot;((?:\\\\|\\&quot;|[^&quot;])*)&quot;/</code></pre>
 <p>This is a complicated regular expression used to capture a “double-quoted string” within a string. If you read in a data file or some javascript code, you may find in it some quoted strings. The quoted string ends when we find the next unescaped quote. A quote can be escaped by using a backslash, unless that backslash itself was escaped by another backslash. That is why the above pattern has 3 parts separated by vertical lines to indicate any of the 3 alternatives at any given time. The first part matches two backslashes back to back, the next matches a backslash followed by a quote, the third part matches any character except for a quote. Make sure you think about this and understand why it is necessary to do it this way.</p></li>
 </ul>

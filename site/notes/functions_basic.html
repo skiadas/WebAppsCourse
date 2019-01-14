@@ -24,9 +24,9 @@
 <ul>
 <li>Functions are first class objects in Javascript. While we will explore later what that means in more detail, for now it means that functions can be defined anywhere in the code, even within other functions, or in the value field of an object property, and so on.</li>
 <li>The basic syntax for a function definition is: <code>function f(arg1, arg2) { ... }</code>.</li>
-<li>You can often have anonymous functions: <code>function(args) { ... }</code>. These can be stored as local variables via a <code>var</code> statement.</li>
-<li>Function declarations use the same “variable hoisting” system we discussed in the <a href="local_vs_global.html">variable section</a>. In practice this means that functions can be used <em>before</em> the code that defines them.</li>
-<li>Unlike some other languages, the value of the last statement is not used as the return value of the function. Your function must use explicit <code>return</code> statements if it wants to return a result.</li>
+<li>You can often have anonymous functions: <code>function(args) { ... }</code>. These can be stored as local variables via a <code>let</code> or <code>const</code> statement.</li>
+<li>Function declarations employ a “hoisting” system: They behave as if they appeared at the very top of the current block. In practice this means that functions can be used <em>before</em> the code that defines them, as long as it is done within the same block.</li>
+<li>Your function must use explicit <code>return</code> statements if it wants to return a result.</li>
 <li>The function stops execution the moment a <code>return</code> statement is encountered. Any lines following that <code>return</code> statement will be ignored.</li>
 <li>There are various ways of calling functions with some subtle semantics that we will discuss later. But for now, the name of the function followed by values for the arguments will suffice: <code>f(val1, val2)</code></li>
 <li>The number of values provided when a function is called may differ from the number of arguments in its definition, and that is OK.</li>
@@ -34,11 +34,9 @@
 <li>If there are too few values passed, the remaining arguments will default to the value <code>undefined</code>.</li>
 <li><p>Here is an example of a function that each time it is called with an argument <code>n</code> returns a new array of <code>n</code> random values:</p>
 <pre><code>function makeRandomArray(n) {
-    var newArray, i;
+    let newArray = [];
 
-    newArray = [];
-
-    for (i = 0; i &lt; n; i += 1) {
+    for (let i = 0; i &lt; n; i += 1) {
         newArray[i] = Math.random();
     }
 
@@ -49,7 +47,7 @@ makeRandomArray(2);</code></pre></li>
 </ul>
 <h2 id="practice-functions">Practice Functions</h2>
 <ol style="list-style-type: decimal">
-<li>Write a function <code>indexOf</code> that is given an array and an element, and it searches through the array for that element (using strict equality). If it finds the element then it returns the index where it found it. Otherwise it returns -1. Do NOT use the built-in array function that does this, just build a for-loop.</li>
+<li>Write a function <code>indexOf</code> that is given an array and an element, and it searches through the array for that element (using <code>==</code> to check equality). If it finds the element then it returns the index where it found it. Otherwise it returns -1. Do NOT use the built-in array function that does this, just do it via a for-loop.</li>
 <li>Write a function <code>isOrdered</code> that takes as argument an array of numbers and returns <code>true</code> if the array elements are in ascending order, <code>false</code> otherwise. Do NOT change the elements in the array, and do NOT use any sort method.</li>
 <li>Write a function <code>isOrdered2</code> that behaves like <code>isOrdered</code> except that it takes a second optional argument, called <code>asc</code>. If that argument is <code>false</code>, then it should check to see that the array is ordered in <em>descending</em> order, in all other cases it should check for <em>ascending</em> order.</li>
 <li>Write a function <code>takeNames</code> that takes as input an array of objects. It then goes through the array, and for any object that has a property called “name” it takes that value and puts it in a new array. It then returns that array.</li>

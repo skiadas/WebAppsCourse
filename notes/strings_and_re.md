@@ -10,6 +10,7 @@
 ## Strings in Javascript
 
 - String literals are formed by surrounding the text in single or double quotes: `"a string"`, `'another string'`.
+- In ES 6, there is a third string literal, called *template literal*, and we will discuss those further later.
 - Escape characters are combinations that hold special meaning. Refer to table 3.1 in the book, or in MDN's String reference.
 - The plus operator is overloaded to cause string concatenation. Other values will be coersed to strings if necessary.
     ```js
@@ -19,6 +20,7 @@
     ```
     > Note: Oftentimes you read numeric input from a text field. You must convert it into a number first, to avoid examples like the above.
 - Strings can be accessed via array indexing: `"hi there"[4] == "h"`, `"hello".length == 5`. There is no separate type for single characters.
+- You can iterate over the characters in a string using for example a for-of loop.
 - Strings are immutable: You cannot change their value, you can only create a new string.
 
 ### String methods
@@ -53,6 +55,18 @@
 [toUpperCase](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase)
   ~ Converts to upper case
 
+[startsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith)
+  ~ Checks if the string starts with the provided string
+
+[endsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith)
+  ~ Checks if the string ends with the provided string
+
+[includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes)
+  ~ Checks if the string includes with the provided string
+
+[repeat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)
+  ~ Repeats the string a number of times
+
 ## Regular Expressions in Javascript
 
 - Regular expressions are patterns that allow us to express very intelligent searches in strings.
@@ -68,10 +82,12 @@
     m
       ~ the regular expression possibly matches across multiple lines.
 
+    u
+      ~ offers some Unicode-related features.
 - Between the two forward slashes, a number of elements can be present, each with its meaning. Here are the most important ones:
 
     c
-      ~ Any character except for a few special that we will mention further down matches itself. This includes numbers, letters, some punctuation etc.
+      ~ Any character except for a few special characters that we will mention further down matches itself. This includes numbers, letters, some punctuation etc.
 
     \\t
       ~ Matches a tab character.
@@ -128,10 +144,10 @@
       ~ Treats the contents as a group. In many regular expression searches, you would be able to access the matched pieces. Also called *capturing parentheses*.
 
     \\n
-      ~ where n is a number. Matches a previously matched group.
+      ~ where n is a number. Matches a previously matched group. For example `(.)\1` will match an occurence of the same character back-to-back.
 
     (?:...)
-      ~ *Non-capturing parentheses*. Useful when you simply want to group some elements together, but do not care for capturing the result separately.
+      ~ *Non-capturing parentheses*. Useful when you simply want to group some elements together (to impose some operator precedence for example), but do not care for capturing the result separately.
 
     x*
       ~ Matches the expression x zero or more times.
@@ -162,10 +178,16 @@
     This regular expression will match palindromes with total length 6, e.g. something like "abccba". The parenthesized dots match one arbitrary element each, then the backticked numbers refer to those matches in reverse order.
 
     ```
+    /((.)(.)(.))\4\3\2\1/
+    ```
+
+    QUESTION: What does the above regex match?
+
+    ```
     /^\s*[+-]?(?:\d+\.?|\.\d+)\d*(?:[eE][+-]?\d+)?\s*$/
     ```
 
-    This is a fairly complicated regular expression that matches numbers in decimal or scientific format. It starts with a caret, and ends in a dollar sign, meaning that the contents much match the entire line/string. It allows for an arbitrary number of whitespace characters on either end. After that, it has an optional sign, followed by: either at least one digit followed by an optional dot, or a dot following by at least one digit, these form a non-capturing group, and they are followed by zero or more digits. Finally, there is another optional non-capturing group, that matches an optional exponent. It consists of an uppercase or lowercase e, followed by an optional sign, followed by at least one digit.
+    This is a fairly complicated regular expression that matches numbers in decimal or scientific format. It starts with a caret, and ends in a dollar sign, meaning that the contents must match the entire line/string. It allows for an arbitrary number of whitespace characters on either end. After that, it has an optional sign, followed by: either at least one digit followed by an optional dot, or a dot following by at least one digit (these form a non-capturing group), and they are followed by zero or more digits. Finally, there is another optional non-capturing group, that matches an optional exponent. It consists of an uppercase or lowercase e, followed by an optional sign, followed by at least one digit.
 
     ```
     /"((?:\\\\|\\"|[^"])*)"/

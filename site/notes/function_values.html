@@ -61,15 +61,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Functions in Javascript are first-class values. This means that they can be used anywhere a value would be used.</li>
 <li>This simple fact has extremely deep consequences. We will start examining them here.</li>
 <li><p>Here is one example of this:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ops <span class="op">=</span> <span class="op">{</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">const</span> ops <span class="op">=</span> <span class="op">{</span>
     <span class="st">&quot;add&quot;</span><span class="op">:</span> <span class="kw">function</span>(a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">},</span>
     <span class="st">&quot;sub&quot;</span><span class="op">:</span> <span class="kw">function</span>(a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">-</span> b<span class="op">;</span> <span class="op">},</span>
     <span class="st">&quot;mult&quot;</span><span class="op">:</span> <span class="kw">function</span>(a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">*</span> b<span class="op">;</span> <span class="op">},</span>
     <span class="st">&quot;div&quot;</span><span class="op">:</span> <span class="kw">function</span>(a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a / b<span class="op">;</span> <span class="op">}</span>
 <span class="op">};</span>
 <span class="kw">function</span> <span class="at">doOp</span>(op<span class="op">,</span> v1<span class="op">,</span> v2) <span class="op">{</span>
-    <span class="cf">if</span> (<span class="kw">typeof</span> ops[op] <span class="op">===</span> <span class="st">&#39;function&#39;</span>) <span class="op">{</span>
-        <span class="cf">return</span> ops[op](v1<span class="op">,</span> v2)<span class="op">;</span>
+    <span class="kw">const</span> operation <span class="op">=</span> ops[op]<span class="op">;</span>  <span class="co">// It&#39;s a function stored in an array!</span>
+    <span class="cf">if</span> (<span class="kw">typeof</span> operation <span class="op">===</span> <span class="st">&#39;function&#39;</span>) <span class="op">{</span>
+        <span class="cf">return</span> <span class="at">operation</span>(v1<span class="op">,</span> v2)<span class="op">;</span>
     <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
         <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Unknown operation&quot;</span>)<span class="op">;</span>
     <span class="op">}</span>
@@ -77,9 +78,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="at">doOp</span>(<span class="st">&quot;add&quot;</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">6</span>)<span class="op">;</span></code></pre></div>
 In this example, the <code>ops</code> object contains keys whose values are functions. The function <code>doOp</code> uses a string “<code>op</code>” to access the corresponding key, and get back a function. That function is then called on the two values <code>v1</code> and <code>v2</code>.</li>
 <li><p>Here is another example, from the <code>Array</code> object. We have an array of strings, and we want to print a message for each one. We could do a <code>for</code> loop, but here is an alternative:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> arr <span class="op">=</span> [<span class="dv">8</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span> arr <span class="op">=</span> [<span class="dv">8</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span>
 <span class="kw">function</span> <span class="at">printIt</span>(v) <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;You are looking at:&quot;</span><span class="op">,</span> v)<span class="op">;</span> <span class="op">}</span>
-<span class="va">arr</span>.<span class="at">forEach</span>(printIt)<span class="op">;</span></code></pre></div>
+<span class="va">arr</span>.<span class="at">forEach</span>(printIt)<span class="op">;</span>
+<span class="co">// Alternative</span>
+<span class="cf">for</span> (<span class="kw">const</span> v of arr) <span class="op">{</span> <span class="at">printIt</span>(v)<span class="op">;</span> <span class="op">}</span></code></pre></div>
 <p>So what happens here is that <code>forEach</code> expects a function as an argument. It then calls the function once for each element of the array, passing that element as an argument. This form of iteration is something you should get used to, and we will spend some more time going over it in a future segment. We could even enter the function directly, without giving it a name:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">[<span class="dv">8</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">4</span>].<span class="at">forEach</span>(<span class="kw">function</span>(v) <span class="op">{</span>
     <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;You are looking at:&quot;</span><span class="op">,</span> v)<span class="op">;</span>
@@ -87,13 +90,13 @@ In this example, the <code>ops</code> object contains keys whose values are func
 But the thing to take from this is that <em>you can have a function that takes as argument another function</em>. These are called <strong>higher-order functions</strong> and they are a cornerstone of what is known as “functional programming”.</li>
 <li><p>Here is a different example: In this case, our function actually returns a function:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">makeGreeter</span>(name) <span class="op">{</span>
-    <span class="kw">var</span> greeter <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">const</span> greeter <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
         <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Greetings, &quot;</span> <span class="op">+</span> name <span class="op">+</span> <span class="st">&quot;!&quot;</span>)<span class="op">;</span>
     <span class="op">};</span>
 
     <span class="cf">return</span> greeter<span class="op">;</span>
 <span class="op">}</span>
-<span class="kw">var</span> greet <span class="op">=</span> <span class="at">makeGreeter</span>(<span class="st">&quot;John&quot;</span>)<span class="op">;</span>
+<span class="kw">const</span> greet <span class="op">=</span> <span class="at">makeGreeter</span>(<span class="st">&quot;John&quot;</span>)<span class="op">;</span>
 <span class="at">greet</span>()<span class="op">;</span>
 <span class="at">greet</span>()<span class="op">;</span></code></pre></div>
 <p>So our function <code>makeGreeter</code> takes as argument a <code>name</code> string, and returns a function. When that function called, it does a console.log. Notice that nothing happens until we actually call <code>greet</code>.</p>
@@ -106,7 +109,7 @@ But the thing to take from this is that <em>you can have a function that takes a
 </ul>
 <h3 id="practice">Practice</h3>
 <ol style="list-style-type: decimal">
-<li>Write a function <code>loving</code> that takes a <code>name</code> string as input, and returns a function. That function takes a <code>language</code> string as input, and <em>returns</em> the string <code>&quot;&lt;name&gt; loves &lt;language&gt;&quot;</code>. So for instance if <code>var f = loving('Skiadas');</code> then <code>f('Javascript')</code> would result in the string <code>&quot;Skiadas loves Javascript&quot;</code>.</li>
+<li>Write a function <code>loving</code> that takes a <code>name</code> string as input, and returns a function. That function takes a <code>language</code> string as input, and <em>returns</em> the string <code>&quot;&lt;name&gt; loves &lt;language&gt;&quot;</code>. So for instance if <code>const f = loving('Skiadas');</code> then <code>f('Javascript')</code> would result in the string <code>&quot;Skiadas loves Javascript&quot;</code>.</li>
 <li>Write a function <code>map</code> that takes as input a function <code>f</code>. It then returns a function that takes as input an array <code>arr</code>, and proceeds to create a new array by applying <code>f</code> to each element of <code>arr</code> and collecting the results.</li>
 </ol>
 </body>

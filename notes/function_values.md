@@ -12,15 +12,16 @@ We discuss more extensively one of the key features of Javascript, namely that f
 - This simple fact has extremely deep consequences. We will start examining them here.
 - Here is one example of this:
     ```javascript
-    var ops = {
+    const ops = {
         "add": function(a, b) { return a + b; },
         "sub": function(a, b) { return a - b; },
         "mult": function(a, b) { return a * b; },
         "div": function(a, b) { return a / b; }
     };
     function doOp(op, v1, v2) {
-        if (typeof ops[op] === 'function') {
-            return ops[op](v1, v2);
+        const operation = ops[op];  // It's a function stored in an array!
+        if (typeof operation === 'function') {
+            return operation(v1, v2);
         } else {
             throw new Error("Unknown operation");
         }
@@ -31,9 +32,11 @@ We discuss more extensively one of the key features of Javascript, namely that f
     In this example, the `ops` object contains keys whose values are functions. The function `doOp` uses a string "`op`" to access the corresponding key, and get back a function. That function is then called on the two values `v1` and `v2`.
 - Here is another example, from the `Array` object. We have an array of strings, and we want to print a message for each one. We could do a `for` loop, but here is an alternative:
     ```javascript
-    var arr = [8, 3, 2, 4];
+    let arr = [8, 3, 2, 4];
     function printIt(v) { console.log("You are looking at:", v); }
     arr.forEach(printIt);
+    // Alternative
+    for (const v of arr) { printIt(v); }
     ```
 
     So what happens here is that `forEach` expects a function as an argument. It then calls the function once for each element of the array, passing that element as an argument. This form of iteration is something you should get used to, and we will spend some more time going over it in a future segment. We could even enter the function directly, without giving it a name:
@@ -47,13 +50,13 @@ We discuss more extensively one of the key features of Javascript, namely that f
 - Here is a different example: In this case, our function actually returns a function:
     ```javascript
     function makeGreeter(name) {
-        var greeter = function() {
+        const greeter = function() {
             console.log("Greetings, " + name + "!");
         };
 
         return greeter;
     }
-    var greet = makeGreeter("John");
+    const greet = makeGreeter("John");
     greet();
     greet();
     ```
@@ -71,5 +74,5 @@ We discuss more extensively one of the key features of Javascript, namely that f
 
 ### Practice
 
-1. Write a function `loving` that takes a `name` string as input, and returns a function. That function takes a `language` string as input, and *returns* the string `"<name> loves <language>"`. So for instance if `var f = loving('Skiadas');` then `f('Javascript')` would result in the string `"Skiadas loves Javascript"`.
+1. Write a function `loving` that takes a `name` string as input, and returns a function. That function takes a `language` string as input, and *returns* the string `"<name> loves <language>"`. So for instance if `const f = loving('Skiadas');` then `f('Javascript')` would result in the string `"Skiadas loves Javascript"`.
 2. Write a function `map` that takes as input a function `f`. It then returns a function that takes as input an array `arr`, and proceeds to create a new array by applying `f` to each element of `arr` and collecting the results.

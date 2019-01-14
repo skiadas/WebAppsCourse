@@ -21,13 +21,13 @@ A week-by-week breakdown of the material.
 ## Week  2 (01/12-01/16)
 
 - Day 1
-    - [Basics of Objects: Dictionaries](notes/object_basics.md)
+    - [Basics of Objects: Object literals](notes/object_basics.md)
     - [Equality in Javascript](notes/equality.md)
     - [Strings and Regular Expressions](notes/strings_and_re.md)
     - [Function basics](notes/functions_basic.md)
-    - [Quiz 1](https://moodle.hanover.edu/mod/quiz/view.php?id=32970)
-    - [Functions as values](notes/function_values.md)
-    - [Functions as closures](notes/function_closures.md)
+    - [Lab 2](labs/2.md)
+    - [Quiz 1](https://moodle.hanover.edu/mod/quiz/view.php?id=15591)
+
 - Day 2
     - No class
 - Day 3
@@ -36,6 +36,9 @@ A week-by-week breakdown of the material.
 ## Week  3 (01/19-01/23)
 
 - Day 1
+    - [Functions as values](notes/function_values.md)
+
+
     - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
     - [Array Collection methods](notes/array_collection_methods.md)
     - [Function Usage Patterns](notes/function_usage_patterns.md)
@@ -166,3 +169,7 @@ BREAK
 - [Pattern: Composite](notes/patterns_composite.md)
 - [Patterns: Adapter and Facade](notes/patterns_adapter_facade.md)
 - [Example of Designing a Model](notes/design_example.md)
+
+## Old notes
+
+- [Functions as closures](notes/function_closures.md)
