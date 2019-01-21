@@ -41,8 +41,8 @@ You can also imagine a variant that allows a specific number of calls before it 
 
 ```javascript
 function once(f) {
-    var called = false;
-    var value;
+    let called = false;
+    let value;
     return function() {
         if (!called) {
             value = f();
@@ -57,8 +57,8 @@ Here is an interesting variation:
 
 ```javascript
 function once(f) {
-    var wrapper = function() {
-        var value = f();
+    let wrapper = function() {
+        let value = f();
         wrapper = function() { return value; };
         return value;
     };

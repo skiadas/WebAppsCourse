@@ -78,8 +78,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This is often used for “lazy loading”, where you have some module that would require a lot of work to initialize, and you only want to do it if and when it is actually needed. But once it is initialized once, there is no need to initialize it a second time, so subsequent “initialization calls” can simply recall the stored value.</p>
 <p>You can also imagine a variant that allows a specific number of calls before it defaults to just returning the last computed value.</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">once</span>(f) <span class="op">{</span>
-    <span class="kw">var</span> called <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
-    <span class="kw">var</span> value<span class="op">;</span>
+    <span class="kw">let</span> called <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+    <span class="kw">let</span> value<span class="op">;</span>
     <span class="cf">return</span> <span class="kw">function</span>() <span class="op">{</span>
         <span class="cf">if</span> (<span class="op">!</span>called) <span class="op">{</span>
             value <span class="op">=</span> <span class="at">f</span>()<span class="op">;</span>
@@ -90,8 +90,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="op">}</span></code></pre></div>
 <p>Here is an interesting variation:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">once</span>(f) <span class="op">{</span>
-    <span class="kw">var</span> wrapper <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
-        <span class="kw">var</span> value <span class="op">=</span> <span class="at">f</span>()<span class="op">;</span>
+    <span class="kw">let</span> wrapper <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="kw">let</span> value <span class="op">=</span> <span class="at">f</span>()<span class="op">;</span>
         wrapper <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span> <span class="cf">return</span> value<span class="op">;</span> <span class="op">};</span>
         <span class="cf">return</span> value<span class="op">;</span>
     <span class="op">};</span>

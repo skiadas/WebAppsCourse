@@ -71,8 +71,9 @@ We discuss more extensively one of the key features of Javascript, namely that f
         };
     }
     ```
+- We will use this idea a lot when we create interactive web pages. We can specify a function to be run when a UI action is taken (e.g. when the user clicks a button or hovers over a button or whatnot).
 
 ### Practice
 
 1. Write a function `loving` that takes a `name` string as input, and returns a function. That function takes a `language` string as input, and *returns* the string `"<name> loves <language>"`. So for instance if `const f = loving('Skiadas');` then `f('Javascript')` would result in the string `"Skiadas loves Javascript"`.
-2. Write a function `map` that takes as input a function `f`. It then returns a function that takes as input an array `arr`, and proceeds to create a new array by applying `f` to each element of `arr` and collecting the results.
+2. Write a function `mapIt` that takes as input a function `f`. It then returns a function that takes as input an array `arr`, and proceeds to create a new array by applying `f` to each element of `arr` and collecting the results.

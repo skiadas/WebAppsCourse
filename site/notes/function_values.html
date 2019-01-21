@@ -106,11 +106,12 @@ But the thing to take from this is that <em>you can have a function that takes a
         <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Greetings, &quot;</span> <span class="op">+</span> name <span class="op">+</span> <span class="st">&quot;!&quot;</span>)<span class="op">;</span>
     <span class="op">};</span>
 <span class="op">}</span></code></pre></div></li>
+<li><p>We will use this idea a lot when we create interactive web pages. We can specify a function to be run when a UI action is taken (e.g. when the user clicks a button or hovers over a button or whatnot).</p></li>
 </ul>
 <h3 id="practice">Practice</h3>
 <ol style="list-style-type: decimal">
 <li>Write a function <code>loving</code> that takes a <code>name</code> string as input, and returns a function. That function takes a <code>language</code> string as input, and <em>returns</em> the string <code>&quot;&lt;name&gt; loves &lt;language&gt;&quot;</code>. So for instance if <code>const f = loving('Skiadas');</code> then <code>f('Javascript')</code> would result in the string <code>&quot;Skiadas loves Javascript&quot;</code>.</li>
-<li>Write a function <code>map</code> that takes as input a function <code>f</code>. It then returns a function that takes as input an array <code>arr</code>, and proceeds to create a new array by applying <code>f</code> to each element of <code>arr</code> and collecting the results.</li>
+<li>Write a function <code>mapIt</code> that takes as input a function <code>f</code>. It then returns a function that takes as input an array <code>arr</code>, and proceeds to create a new array by applying <code>f</code> to each element of <code>arr</code> and collecting the results.</li>
 </ol>
 </body>
 </html>

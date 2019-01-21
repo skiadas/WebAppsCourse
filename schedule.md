@@ -37,25 +37,17 @@ A week-by-week breakdown of the material.
 
 - Day 1
     - [Functions as values](notes/function_values.md)
-
-
-    - [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
+    - [Arrow Functions](notes/function_arrow.md)
     - [Array Collection methods](notes/array_collection_methods.md)
     - [Function Usage Patterns](notes/function_usage_patterns.md)
-    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
-    - [Lab 1](labs/1.md)
+- Day 2
     - [Overview of Software Development Practices](notes/dev_overview.md)
     - [Basics of Version Control](notes/git_version_control.md)
-    - [Git basics](notes/git_basics.md)
-    - [Review of Git commands](notes/git_commands_review.md)
-    - [GitHub basics](notes/github_basics.md)
-- Day 2
-    - [Remotes and Branches](notes/git_remotes_branches.md)
-    - [GitHub Workflow](notes/github_workflow.md)
-    - [Overall Project Workflow](notes/project_workflow.md)
+- Day 3
+    - [ES6 Classes](notes/classes.md)
     - [Methods in objects and the need for `this`](notes/object_methods.md)
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
-- Day 3
+    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
 
 ## Week  4 (01/26-01/30)
 
@@ -173,3 +165,10 @@ BREAK
 ## Old notes
 
 - [Functions as closures](notes/function_closures.md)
+- [Functions as a means for creating a scope/context](notes/functions_for_scope.md)
+- [Git basics](notes/git_basics.md)
+- [Review of Git commands](notes/git_commands_review.md)
+- [GitHub basics](notes/github_basics.md)
+- [Remotes and Branches](notes/git_remotes_branches.md)
+- [GitHub Workflow](notes/github_workflow.md)
+- [Overall Project Workflow](notes/project_workflow.md)

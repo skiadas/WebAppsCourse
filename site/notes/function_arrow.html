@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="arrow-functions">Arrow Functions</h1>
+<p>Arrow functions were introduced in ECMAScript 6. They offer some shorthands and conveniences compared to “normal” functions. We will see the notation in this section, and we will discuss the differences at a later time.</p>
+<h2 id="relevant-links">Relevant Links</h2>
+<ul>
+<li>Exploring ES6, chapter 13</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p><strong>Arrow functions</strong> are just another way to define a function. They are especially convenient for defining one-time functions, as we will explore in the next section. Their syntax is inspired from CoffeeScript.</p>
+<p>Arrow functions differ from “normal” functions in how they treat the <code>this</code> variable, which we will discuss in a future section. This makes them extremely valuable as “callback functions”.</p>
+<p>For now, just consider them as a shorthand notation for functions.</p>
+<p>Here is a small example of an arrow function:</p>
+<pre><code>let sq1 = function(x) { return x * x; };   // A normal function
+let sq2 = (x) =&gt; x * x;        // Arrow function
+let sq3 = x =&gt; x * x;   // Can omit the parentheses if there is a single argument.
+// Can do multiple steps, but then need braces and to &quot;return&quot;
+let sq4 = x =&gt; { x = x + 1; return x * x; };
+sq1(5);
+sq2(5);
+sq3(5);
+sq4(4);</code></pre>
+</body>
+</html>

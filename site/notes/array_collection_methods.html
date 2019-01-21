@@ -53,6 +53,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1 id="array-collection-methods">Array Collection Methods</h1>
 <p>We look at a number of methods of array objects that capture the idea of a “collection of values”, and offer ways to manipulate the entire collection, rather than performing an iterative <code>for</code> loop.</p>
 <p>These are often called “higher-order functions”.</p>
+<p>The idea is simple: We forget about the fact that an array is in fact an array, which a specific length and value at each index, and we treat it instead as a <em>collection</em> of elements. We might then want to perform some standard operations on these elements:</p>
+<ul>
+<li>Perform an <strong>action</strong> for each element (<code>forEach</code>)</li>
+<li><strong>Transform</strong> each element into a new element based on some specific function (<code>map</code>)</li>
+<li><strong>Restrict</strong> the list of elements to only those that match certain criteria (<code>filter</code>)</li>
+<li><strong>Accumulate</strong> some value as we traverse the elements, and produce one final result (<code>reduce</code>)</li>
+</ul>
+<p>If you think through most of the cases where you traversed the elements of an array, you were likely performing some of these steps.</p>
 <h2 id="relevant-links">Relevant links</h2>
 <ul>
 <li>Flanagan’s Book, section 7.9</li>
@@ -85,43 +93,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The <code>forEach</code> method is really our bread and butter for performing something on each element of the array. It takes as argument a function <code>f</code>, and calls that function once for every element of the array, passing it as arguments the value, the index, and the whole array object. These functions are often called “callbacks” in the documentation.</p>
 <p>NOTE: This method will skip indices that are undefined (but not indices whose value is “<code>undefined</code>”).</p>
 <p>A simple example would be a log function:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">[<span class="dv">4</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">5</span>].<span class="at">forEach</span>(<span class="kw">function</span>(v<span class="op">,</span> i) <span class="op">{</span>
-   <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Found the value &quot;</span> <span class="op">+</span> v <span class="op">+</span> <span class="st">&quot; at index &quot;</span> <span class="op">+</span> i)<span class="op">;</span>
-<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span>  a <span class="op">=</span> [<span class="dv">4</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">5</span>]<span class="op">;</span>
+<span class="va">a</span>.<span class="at">forEach</span>((v<span class="op">,</span> i) <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Found the value &quot;</span> <span class="op">+</span> v <span class="op">+</span> <span class="st">&quot; at index &quot;</span> <span class="op">+</span> i))<span class="op">;</span></code></pre></div>
 <h3 id="map"><code>map</code></h3>
 <p>The <code>map</code> method returns a new array from the results of applying the given function <code>f</code> to the original array. It will also skip undefined indices, preserving them in the result. Here is an example where we increment each entry by its index. It is important to note that the original array remains unaffected.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> a <span class="op">=</span> [<span class="dv">4</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">5</span>]<span class="op">;</span>
-<span class="va">a</span>.<span class="at">map</span>(<span class="kw">function</span>(v<span class="op">,</span> i) <span class="op">{</span>
-   <span class="cf">return</span> v <span class="op">+</span> i<span class="op">;</span>
-<span class="op">}</span>)<span class="op">;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">a</span>.<span class="at">map</span>((v<span class="op">,</span> i) <span class="op">=&gt;</span> v <span class="op">+</span> i)<span class="op">;</span>
 a<span class="op">;</span></code></pre></div>
 <h3 id="reduce"><code>reduce</code></h3>
 <p><code>reduce</code> is the most powerful of these methods, and the harder to understand. Essentially it starts with an initial value, and accumulates into it the results of applying a certain function to the values in the array, along with the accumulated values. An example will probably be better. Consider the following code:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> a <span class="op">=</span> [<span class="dv">4</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">5</span>]<span class="op">;</span>
-<span class="va">a</span>.<span class="at">reduce</span>(<span class="kw">function</span>(acc<span class="op">,</span> v) <span class="op">{</span> <span class="cf">return</span> acc <span class="op">+</span> v<span class="op">;</span> <span class="op">},</span> <span class="dv">10</span>)<span class="op">;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">a</span>.<span class="at">reduce</span>((acc<span class="op">,</span> v) <span class="op">=&gt;</span> acc <span class="op">+</span> v<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></code></pre></div>
 <p>So what this code will do is start with an initial value of <code>10</code> for <code>acc</code>. It will then apply the function to <code>10</code> and the first value in the array, <code>4</code>, resulting in <code>14</code>. It will then proceed to apply the function (addition) to this <code>14</code> and the next value in the array, namely <code>3</code>, resulting in <code>17</code>. Then it will add this <code>17</code> to <code>1</code>, resulting in <code>18</code>, and finally it will add this <code>18</code> to <code>5</code>, producing the final result of <code>23</code>. It will then return that value.</p>
 <p>So <code>a.reduce(f, init)</code> is roughly equivalent to the following code:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> acc <span class="op">=</span> init<span class="op">;</span>
-<span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">a</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span> acc <span class="op">=</span> init<span class="op">;</span>
+<span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">a</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
    acc <span class="op">=</span> <span class="at">f</span>(acc<span class="op">,</span> a[i])<span class="op">;</span>
 <span class="op">}</span>
 <span class="cf">return</span> acc<span class="op">;</span></code></pre></div>
 <p>In reality, the function <code>f</code> receives extra parameters, namely the index <code>i</code> and the whole array.</p>
 <p>One of the reasons to use these functions is that they can be better optimized by the Javascript interpreter/compiler, and thus typically run faster. The following timing test will attest to that.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> A <span class="op">=</span> []
-<span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">100000</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span> <span class="va">A</span>.<span class="at">push</span>(<span class="va">Math</span>.<span class="at">random</span>())<span class="op">;</span> <span class="op">}</span>
-<span class="kw">var</span> times <span class="op">=</span> []<span class="op">;</span>
-<span class="cf">for</span> (<span class="kw">var</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> j <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
-   <span class="kw">var</span> t<span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span>
-   <span class="va">A</span>.<span class="at">reduce</span>(<span class="kw">function</span>(a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span> <span class="op">},</span> <span class="dv">0</span>)<span class="op">;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span> A <span class="op">=</span> []
+<span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">100000</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span> <span class="va">A</span>.<span class="at">push</span>(<span class="va">Math</span>.<span class="at">random</span>())<span class="op">;</span> <span class="op">}</span>
+<span class="kw">let</span> times <span class="op">=</span> []<span class="op">;</span>
+<span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> j <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+   <span class="kw">let</span> t <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span>
+   <span class="va">A</span>.<span class="at">reduce</span>((a<span class="op">,</span> b) <span class="op">=&gt;</span> a <span class="op">+</span> b<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span>
    <span class="va">times</span>.<span class="at">push</span>(<span class="kw">new</span> <span class="at">Date</span>() <span class="op">-</span> t)<span class="op">;</span>
 <span class="op">}</span>
 <span class="va">console</span>.<span class="at">log</span>(times)
 times <span class="op">=</span> []<span class="op">;</span>
-<span class="cf">for</span> (<span class="kw">var</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> j <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
-   <span class="kw">var</span> t<span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span>
-   <span class="kw">var</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
-   <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">A</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span> s <span class="op">+=</span> A[i]<span class="op">;</span> <span class="op">}</span>
+<span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> j <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+   <span class="kw">let</span> t <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span>
+   <span class="kw">let</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
+   <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">A</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span> s <span class="op">+=</span> A[i]<span class="op">;</span> <span class="op">}</span>
    <span class="va">times</span>.<span class="at">push</span>(<span class="kw">new</span> <span class="at">Date</span>() <span class="op">-</span> t)<span class="op">;</span>
 <span class="op">}</span>
 <span class="va">console</span>.<span class="at">log</span>(times)<span class="op">;</span></code></pre></div>
@@ -129,7 +132,7 @@ times <span class="op">=</span> []<span class="op">;</span>
 <p>The filter method expects a predicate, namely a function that returns a boolean. It will call this function for each value, and will add to a new array those values that return true from the predicate.</p>
 <p>As usual with the other methods here, the predicate will be given two more arguments, the index and the whole array.</p>
 <p>As an example, the following will retrieve the even-indexed elements in the array:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">arr</span>.<span class="at">filter</span>(<span class="kw">function</span>(v<span class="op">,</span> i) <span class="op">{</span> <span class="cf">return</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">a</span>.<span class="at">filter</span>((v<span class="op">,</span> i) <span class="op">=&gt;</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span>)<span class="op">;</span></code></pre></div>
 <h3 id="every-and-some"><code>every</code> and <code>some</code></h3>
 <p>These methods take the same argument as <code>filter</code>, and apply it to the array values until they can resolve their result.</p>
 <p><code>every</code> will return <code>false</code> the moment it encounters a value that the predicate evaluates to <code>false</code>, and otherwise (if it makes it to the end of the array) it will return <code>true</code>.</p>
