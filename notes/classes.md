@@ -65,3 +65,8 @@ class DatedTask extends Task {
 }
 ```
 We can also have `static` methods, if we prepend the method definition with the keyword `static`.
+
+**Practice**
+
+1. Create a class `Countdown` that represents "countdown" objects. Each countdown object contains two properties: A number `count` to count down from, and a function `action` to call when that count reaches 0. The counter provides a method `dec` that decrements the count by 1, and if that count has reached 0 then calls the function. The count should only be decremented if it is positive; the function should do nothing otherwise.
+2. Amend your `Countdown` class to contain a static property that stores the number of countdown objects that have been created, along with a static method that returns that number. Whenever a new Countdown object is created, that number needs to increase by 1.

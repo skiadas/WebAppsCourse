@@ -98,5 +98,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
 <p>We can also have <code>static</code> methods, if we prepend the method definition with the keyword <code>static</code>.</p>
+<p><strong>Practice</strong></p>
+<ol style="list-style-type: decimal">
+<li>Create a class <code>Countdown</code> that represents “countdown” objects. Each countdown object contains two properties: A number <code>count</code> to count down from, and a function <code>action</code> to call when that count reaches 0. The counter provides a method <code>dec</code> that decrements the count by 1, and if that count has reached 0 then calls the function. The count should only be decremented if it is positive; the function should do nothing otherwise.</li>
+<li>Amend your <code>Countdown</code> class to contain a static property that stores the number of countdown objects that have been created, along with a static method that returns that number. Whenever a new Countdown object is created, that number needs to increase by 1.</li>
+</ol>
 </body>
 </html>

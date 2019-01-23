@@ -39,42 +39,42 @@ A week-by-week breakdown of the material.
     - [Functions as values](notes/function_values.md)
     - [Arrow Functions](notes/function_arrow.md)
     - [Array Collection methods](notes/array_collection_methods.md)
-    - [Function Usage Patterns](notes/function_usage_patterns.md)
 - Day 2
+    - [Function Usage Patterns](notes/function_usage_patterns.md)
     - [Overview of Software Development Practices](notes/dev_overview.md)
     - [Basics of Version Control](notes/git_version_control.md)
-- Day 3
     - [ES6 Classes](notes/classes.md)
-    - [Methods in objects and the need for `this`](notes/object_methods.md)
+- Day 3
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
-    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
+    - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
+    - [Introduction to jQuery](notes/jquery_intro.md)
 
 ## Week  4 (01/26-01/30)
 
 - Day 1
-    - [The DRY principle](notes/dry.md)
-    - [Object creation and prototypes](notes/object_creation_prototypes.md)
+    - Modules
 - Day 2
-    - [Different stack implementations](notes/stack_various.md)
-    - ["Class" construction examples](notes/class_construction.md)
-    - [Setting up a second remote](notes/second_remote.md)
-    - [Testing Basics](notes/testing_basics.md)
+    - [Introduction to DOM Events](notes/events_intro.md)
+    - [Timers](notes/events_timers.md)
+    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
 - Day 3
+    - [The DRY principle](notes/dry.md)
+    - [Object properties](notes/object_properties.md)
+    - [Different stack implementations](notes/stack_various.md)
+    - [Object creation and prototypes](notes/object_creation_prototypes.md)
 
 ## Week  5 (02/02-02/06)
 
 - Day 1
+    - ["Class" construction examples](notes/class_construction.md)
+    - [Setting up a second remote](notes/second_remote.md)
+    - [Testing Basics](notes/testing_basics.md)
 - Day 2
-    - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
-    - [Introduction to jQuery](notes/jquery_intro.md)
 - Day 3
 
 ## Week  6 (02/09-02/13)
 
 - Day 1
-    - [Object properties](notes/object_properties.md)
-    - [Introduction to DOM Events](notes/events_intro.md)
-    - [Timers](notes/events_timers.md)
 - Day 2
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 - Day 3
@@ -172,3 +172,4 @@ BREAK
 - [Remotes and Branches](notes/git_remotes_branches.md)
 - [GitHub Workflow](notes/github_workflow.md)
 - [Overall Project Workflow](notes/project_workflow.md)
+- [Methods in objects and the need for `this`](notes/object_methods.md)

@@ -59,7 +59,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty in MDN</a></li>
 </ul>
 <h2 id="notes">Notes</h2>
-<p>An object’s properties have a number of customizable “attributes”, that are exposed via methods of <code>Object</code>. These attributes are used when we try to set properties via <code>Object.defineProperty</code> or <code>Object,defineProperties</code> or when we pass a second argument to <code>Object.create</code>.</p>
+<p>An object’s properties have a number of customizable “attributes”, that are exposed via methods of <code>Object</code>. These attributes are used when we try to set properties via <code>Object.defineProperty</code> or <code>Object.defineProperties</code> or when we pass a second argument to <code>Object.create</code>.</p>
 <p>A call to <code>Object.defineProperty</code> would look something like this:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Object</span>.<span class="at">defineProperty</span>(obj<span class="op">,</span> prop<span class="op">,</span> desc)</code></pre></div>
 <p>where the third argument is a “descriptor” object containing the attributes. There are two types of descriptor objects, “data” and “accessor”.</p>
@@ -228,7 +228,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="va">s1</span>.<span class="at">pop</span>()<span class="op">;</span>
 <span class="va">s1</span>.<span class="at">values</span><span class="op">;</span>             <span class="co">// Shows us what&#39;s there</span>
 <span class="va">s1</span>.<span class="at">values</span> <span class="op">=</span> []<span class="op">;</span>        <span class="co">// Fails to change the values array.</span>
-<span class="va">s1</span>.<span class="va">values</span>.<span class="at">push</span>(<span class="dv">4</span>)<span class="op">;</span>     <span class="co">// DANGER: But this works and modifies the array.</span></code></pre></div>
+<span class="va">s1</span>.<span class="va">values</span>.<span class="at">push</span>(<span class="dv">4</span>)<span class="op">;</span>     <span class="co">// </span><span class="al">DANGER</span><span class="co">: But this works and modifies the array.</span></code></pre></div>
 <h3 id="optional-further-lockdown">Optional: Further lockdown</h3>
 <p>We will describe here a way to lock down even that part of the story, where the values array is accessible to users of our stack. Here is the plan:</p>
 <ul>

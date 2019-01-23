@@ -10,7 +10,7 @@ We discuss here various issues related to Javascript object properties.
 
 ## Notes
 
-An object's properties have a number of customizable "attributes", that are exposed via methods of `Object`. These attributes are used when we try to set properties via `Object.defineProperty` or `Object,defineProperties` or when we pass a second argument to `Object.create`.
+An object's properties have a number of customizable "attributes", that are exposed via methods of `Object`. These attributes are used when we try to set properties via `Object.defineProperty` or `Object.defineProperties` or when we pass a second argument to `Object.create`.
 
 A call to `Object.defineProperty` would look something like this:
 
