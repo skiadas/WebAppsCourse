@@ -73,7 +73,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="at">g</span>()<span class="op">;</span>       <span class="co">// prints the global object</span>
 <span class="kw">new</span> <span class="at">f</span>()<span class="op">;</span>   <span class="co">// a newly created object using f as its constructor.</span>
 <span class="kw">new</span> <span class="at">g</span>()<span class="op">;</span>   <span class="co">// an error</span>
-<span class="va">f</span>.<span class="at">call</span>(o)<span class="op">;</span> <span class="co">// prints whatever arguments is passed</span>
+<span class="va">f</span>.<span class="at">call</span>(o)<span class="op">;</span> <span class="co">// prints whatever argument is passed</span>
 <span class="va">g</span>.<span class="at">call</span>(o)<span class="op">;</span> <span class="co">// prints the global object</span>
 
 <span class="va">o</span>.<span class="at">h</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span> <span class="kw">this</span>.<span class="at">l</span> <span class="op">=</span> () <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="kw">this</span>) <span class="op">};</span>
@@ -81,8 +81,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="va">o</span>.<span class="at">l</span>()<span class="op">;</span>     <span class="co">// prints the object o</span></code></pre></div>
 <p>So the rules are basically as follows:</p>
 <ul>
-<li>For <em>arrow functions</em>, the <code>this</code> object is determined <strong>lexically</strong>, i.e. it is the object that was current when the function was created.</li>
-<li><p>For <em>normal functions</em>, the <code>this</code> object is determined dynamically, and it depends on how the function is invoked, as follows:</p>
+<li>For <strong>arrow functions</strong>, the <code>this</code> object is determined <strong>lexically</strong>, i.e. it is the object that was current when the function was created. This is very helpful when you are trying to set up a callback for a user event.</li>
+<li><p>For <strong>normal functions</strong>, the <code>this</code> object is determined <strong>dynamically</strong>, and it depends on how the function is invoked, as follows:</p>
 <dl>
 <dt>function invoc.</dt>
 <dd><p><code>f(...)</code> where <code>f</code> is a function.</p>
@@ -117,6 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dt><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind"><code>f.bind</code></a></dt>
 <dd><p>Does not actually call <code>f</code>, but it returns a function which behaves like <code>f</code> except that it has “bound” the <code>this</code> object, and optionally has bound some number of arguments.</p>
 <p>e.g. <code>f.bind(o, 1, 2)(3, 4)</code> is the same as <code>f.call(o, 1, 2, 3, 4)</code>.</p>
+<p><code>bind</code> was really important before we had arrow functions, because it allowed us to bind the <code>this</code> object and still pass the function to someone who needs to do something with it, while making sure we retain ownership of the object that the function will be acting on.</p>
 </dd>
 </dl>
 </body>

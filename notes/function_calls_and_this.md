@@ -26,7 +26,7 @@ f();       // prints the global object
 g();       // prints the global object
 new f();   // a newly created object using f as its constructor.
 new g();   // an error
-f.call(o); // prints whatever arguments is passed
+f.call(o); // prints whatever argument is passed
 g.call(o); // prints the global object
 
 o.h = function() { this.l = () => console.log(this) };
@@ -36,8 +36,8 @@ o.l();     // prints the object o
 
 So the rules are basically as follows:
 
-- For *arrow functions*, the `this` object is determined **lexically**, i.e. it is the object that was current when the function was created.
-- For *normal functions*, the `this` object is determined dynamically, and it depends on how the function is invoked, as follows:
+- For **arrow functions**, the `this` object is determined **lexically**, i.e. it is the object that was current when the function was created. This is very helpful when you are trying to set up a callback for a user event.
+- For **normal functions**, the `this` object is determined **dynamically**, and it depends on how the function is invoked, as follows:
 
     function invoc.
       ~ `f(...)` where `f` is a function.
@@ -80,3 +80,4 @@ The indirect invocations deserve further notice. There are mainly 3 functions:
 
     e.g. `f.bind(o, 1, 2)(3, 4)` is the same as `f.call(o, 1, 2, 3, 4)`.
 
+    `bind` was really important before we had arrow functions, because it allowed us to bind the `this` object and still pass the function to someone who needs to do something with it, while making sure we retain ownership of the object that the function will be acting on.

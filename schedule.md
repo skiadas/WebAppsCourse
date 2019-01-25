@@ -41,9 +41,8 @@ A week-by-week breakdown of the material.
     - [Array Collection methods](notes/array_collection_methods.md)
 - Day 2
     - [Function Usage Patterns](notes/function_usage_patterns.md)
-    - [Overview of Software Development Practices](notes/dev_overview.md)
-    - [Basics of Version Control](notes/git_version_control.md)
     - [ES6 Classes](notes/classes.md)
+    - [Lab 3](labs/3.md)
 - Day 3
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
@@ -53,6 +52,8 @@ A week-by-week breakdown of the material.
 
 - Day 1
     - Modules
+    - [Overview of Software Development Practices](notes/dev_overview.md)
+    - [Basics of Version Control](notes/git_version_control.md)
 - Day 2
     - [Introduction to DOM Events](notes/events_intro.md)
     - [Timers](notes/events_timers.md)

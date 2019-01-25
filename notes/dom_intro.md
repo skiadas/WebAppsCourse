@@ -11,7 +11,7 @@
 
 ## Notes
 
-The *Document Object Model* is an API for accessing HTML and XML documents.
+The **Document Object Model** is an API for accessing HTML and XML documents.
 
 It represents the document as a tree, the *root node* being the html/xml tag.
 
@@ -32,7 +32,7 @@ parent
 ancestors
   ~ The node's parent, its parent's parent, its parent's parent's parent and so on.
 
-DOM Nodes comes in various types. Even though you might expect that only tag elements would be nodes, in fact this is in practice not the case: There are text nodes, attribute nodes, comment nodes and so on. Some of the DOM methods bypass non-element nodes. Also many popular libraries, like jQuery, offer a more convenient interface.
+DOM Nodes comes in various types. Even though you might expect that only tag elements would be nodes, in fact this is in practice not the case: There are *text nodes*, *attribute nodes*, *comment nodes* and so on. Some of the DOM methods bypass non-element nodes. Also many popular libraries, like jQuery, offer a more convenient interface.
 
 The DOM interface also allows you to manipulate the page elements, not only access them. We will see examples in the future.
 
@@ -80,3 +80,20 @@ Here is a main list of the properties and methods you have access to. Most of th
 We will not spend more time with this part of the DOM, and we will instead rely on jQuery for DOM manipulation. But you should be aware of what is out there, and that you could do directly most of the things that jQuery offers.
 
 Chapter 15 of Flanagan's book, along with sections of Part IV, do a very good job showing what is possible as well as how one would manipulate a page with the standard DOM toolkit.
+
+Before we move on however, let us examine a small example, using the current page as a test:
+```javascript
+let dls = document.getElementsByTagName("dl");    // definition lists
+let terms = dls[0];             // the definition list near the top
+for (const child of terms.children) {
+  if (child.tagName == "DT") {
+    console.log(child.textContent);
+  }
+}
+let newElement = document.createElement("dt");
+newElement.textContent = "hi!";
+terms.appendChild(newElement);
+let newElement2 = document.createElement("dd");
+newElement2.textContent = "Definition of 'hi'";
+terms.appendChild(newElement2);
+```

@@ -68,13 +68,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>asynchronous data loading</li>
 </ul>
 <p>Even if you do decide not to use it, you need to become familiar with it, as many other libraries offer a similar interface.</p>
-<p>As an external library, jQuery needs to be first incorporated into your project via a script tag (or the AMD module methods we will learn about later). You can either download the version you want and link to it, or you can link to the <a href="https://code.jquery.com/">jQuery CDN</a> (the <a href="http://en.wikipedia.org/wiki/Content_delivery_network">wikipedia page</a> is a good place to start if you want to learn more about Content Delivery Networks and their advantages). So the simplest way to get jQuery into your code is to include the following script tag:</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://code.jquery.com/jquery-3.1.1.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
+<p>As an external library, jQuery needs to be first incorporated into your project via a script tag (or as a module as will learn later). You can either download the version you want and link to it, or you can link to the <a href="https://code.jquery.com/">jQuery CDN</a> (the <a href="http://en.wikipedia.org/wiki/Content_delivery_network">wikipedia page</a> is a good place to start if you want to learn more about Content Delivery Networks and their advantages). So the simplest way to get jQuery into your code is to include a script tag like the following</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span>
+<span class="ot">  src=</span><span class="st">&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;</span>
+<span class="ot">  integrity=</span><span class="st">&quot;sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=&quot;</span>
+<span class="ot">  crossorigin=</span><span class="st">&quot;anonymous&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
 <p>You can also load jQuery on a web page that doesn’t have it loaded yet by doing something like the following on the console:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> script <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&#39;script&#39;</span>)<span class="op">;</span>
-<span class="va">script</span>.<span class="at">setAttribute</span>(<span class="st">&#39;src&#39;</span><span class="op">,</span> <span class="st">&#39;https://code.jquery.com/jquery-3.1.1.min.js&#39;</span>)<span class="op">;</span>
-<span class="va">document</span>.<span class="va">body</span>.<span class="at">appendChild</span>(script)<span class="op">;</span></code></pre></div>
-<p>You can follow this along by using the sample <a href="../samplePage/test.html">found here</a>.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+  <span class="kw">let</span> script <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&#39;script&#39;</span>)<span class="op">;</span>
+  <span class="va">script</span>.<span class="at">setAttribute</span>(<span class="st">&#39;src&#39;</span><span class="op">,</span> <span class="st">&#39;https://code.jquery.com/jquery-3.3.1.min.js&#39;</span>)<span class="op">;</span>
+  <span class="va">document</span>.<span class="va">body</span>.<span class="at">appendChild</span>(script)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>You can follow these notes along by using the sample <a href="../samplePage/test.html">found here</a>.</p>
 <p>jQuery defines two global objects, that you can use to access it. One is <code>jQuery</code>, the other is <code>$</code>. For all our purposes, they are synonyms and we will be using <code>$</code>.</p>
 <h3 id="the-global-factory-function">The global (factory) function <code>$</code></h3>
 <p>The global <code>$</code> is a swiss-army knife, it is a function that sort of does everything. It has three main forms, depending on what the first argument is:</p>
@@ -82,16 +87,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dt>$(sel)</dt>
 <dd>If the first argument is a string that is a selector, it will return a “jQuery object” that represents the collection of all elements that match the selector. If a second “context” argument is passed, representing an element or elements, it will search for the elements <em>relative to that context</em>.
 </dd>
+</dl>
+<p>For example in our sample page above, <code>$(&quot;h2&quot;, &quot;#sidebar&quot;)</code> will target the h2 elements that are within the element with id <code>#sidebar</code>.</p>
+<dl>
 <dt>$(html)</dt>
-<dd>If the first argument is a string that is html text, then it will return a new object representing that html code. This object is currently detached (does not show up on the web page), but it can then be inserted into some point in the web page specified by future commands.
+<dd>If the first argument is a string that is html text, then it will create and return a new object representing that html code. This object is currently detached (does not show up on the web page), but it can then be inserted into some point in the web page specified by future commands.
 </dd>
+</dl>
+<p>For example the following creates a new list item with a link in it:</p>
+<p><code>let newLink = $('&lt;li&gt;&lt;a href=&quot;http://www.google.com&quot;&gt;Google!&lt;/a&gt;&lt;/li&gt;');</code> We can then add it to the list in the sidebar by doing: <code>$('#sidebar ul').append(newLink);</code></p>
+<dl>
 <dt>$(domEls)</dt>
-<dd>If the first argument is a dom element or array of dom elements, it will return a “jQuery object” that represents that same array of elements, but now as jQuery objects.
+<dd>If the first argument is a DOM element or array of DOM elements, it will return a “jQuery object” that represents that same array of elements, but now as jQuery objects.
 </dd>
 <dt>$(f)</dt>
 <dd>If the first argument is a function, then this function will be called when the document has finished loading. This is a good place to do page initialization.
 </dd>
 </dl>
+<p><strong>NOTE</strong>: This is an important note. Many elements on the page are not accessible via Javascript until the page has been fully loaded. This does not happen until after all the <code>script</code> tags in the file have been fully executed. Therefore scripts that want to interact with the webpage must set up a callback function to be executed <em>after</em> the page has been fully loaded. jQuery makes this easy.</p>
 <h3 id="examples">Examples</h3>
 <p>Let’s assume that jQuery was loaded on the sample web page we were looking at last time. We start by locating the <code>ul</code> element on the sidebar that contains our navigation links:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> linkList <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;#sidebar ul&#39;</span>)<span class="op">;</span></code></pre></div>
@@ -109,7 +122,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>First we have collection methods.</p>
 <dl>
 <dt><a href="http://api.jquery.com/each/">each(f)</a></dt>
-<dd>Given a function <code>f(i, el)</code>, will call the function for each element (if a collection).
+<dd>Given a function <code>f(i, el)</code>, will call the function for each element (if a collection). Note that the arguments on this function are unlike those for <code>Array.forEach</code> in standard Javascript; they are reversed.
 </dd>
 <dt><a href="http://api.jquery.com/get/">get(i), el[i]</a></dt>
 <dd>gets the element at the i-th index. jQuery objects tend to be collections, this picks out a specific element from that collection. The resulting object is not a jQuery object. If you want to carry out jQuery methods on it, you must wrap it in <code>$()</code>.
@@ -124,7 +137,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dd>Adds more elements to the current selection, and returns the resulting object.
 </dd>
 <dt><a href="http://api.jquery.com/children/">children()</a></dt>
-<dd>Selects the children of the current selection.
+<dd>Selects the children of each node in the current selection.
 </dd>
 <dt><a href="http://api.jquery.com/closest/">closest()</a></dt>
 <dd>Returns the closest ancestor of each element that matches certain criteria.
@@ -141,13 +154,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This can actually toggle multiple classes at once.</p>
 </dd>
 <dt><a href="http://api.jquery.com/attr/">attr</a></dt>
-<dd>Get or set one more more attributes.
+<dd>Get or set one more more attributes (the key-value pairs that appear within the opening HTML tags, like <code>href</code>).
 </dd>
 <dt><a href="http://api.jquery.com/data/">data</a></dt>
-<dd>Get or set data attributes.
+<dd>Get or set data attributes. Data attributes do not affect the visual appearance of an element, but they are a convenient way to attach some Javascript information to specific DOM elements.
 </dd>
 <dt><a href="http://api.jquery.com/val/">val</a></dt>
-<dd>Get or set the “value” associated with the element.
+<dd>Get or set the “value” associated with the element. Most useful for <code>input</code> elements.
 </dd>
 </dl>
 <h4 id="tree-manipulation">Tree manipulation</h4>
@@ -177,34 +190,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We will run some examples on the sample page we created already. Remember to add jQuery to it as we described earlier.</p>
 <p>Okay, now first off, let’s type <code>$</code> in the console. We should see that it exists and is a function.</p>
 <p>Try each of these lines in order.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> mainContent <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span> mainContent <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">;</span>
 <span class="va">mainContent</span>.<span class="at">addClass</span>(<span class="st">&quot;foo&quot;</span>)<span class="op">;</span>               <span class="co">// Add a class to mainContent</span>
-<span class="kw">var</span> art <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;article&#39;</span><span class="op">,</span> mainContent).<span class="at">first</span>()<span class="op">;</span>   <span class="co">// The first article</span>
+<span class="kw">let</span> art <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;article&#39;</span><span class="op">,</span> mainContent).<span class="at">first</span>()<span class="op">;</span>   <span class="co">// The first article</span>
 <span class="va">art</span>.<span class="at">text</span>()<span class="op">;</span>                                <span class="co">// Text in art</span>
 <span class="va">art</span>.<span class="at">html</span>()<span class="op">;</span>                                <span class="co">// HTML in art</span>
 <span class="at">$</span>(<span class="st">&#39;&lt;p&gt;A new first paragraph!&lt;/p&gt;&#39;</span>)         <span class="co">// Create a new paragraph</span>
   .<span class="at">hide</span>()                                  <span class="co">// Start it as hidden</span>
   .<span class="at">insertBefore</span>(<span class="at">$</span>(<span class="st">&#39;p&#39;</span><span class="op">,</span> art).<span class="at">first</span>())       <span class="co">// Insert before 1st article&#39;s 1st par</span>
   .<span class="at">show</span>(<span class="dv">2000</span>)<span class="op">;</span>                             <span class="co">// Slowly make it appear</span>
-<span class="kw">var</span> items <span class="op">=</span> [
+<span class="kw">let</span> items <span class="op">=</span> [
   <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;chair&quot;</span><span class="op">,</span> <span class="dt">quantity</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">price</span><span class="op">:</span> <span class="dv">5</span> <span class="op">},</span>
   <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;table&quot;</span><span class="op">,</span> <span class="dt">quantity</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">price</span><span class="op">:</span> <span class="dv">15</span> <span class="op">},</span>
   <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;lamp&quot;</span><span class="op">,</span> <span class="dt">quantity</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">price</span><span class="op">:</span> <span class="dv">15</span> <span class="op">}</span>
 ]<span class="op">;</span>
-<span class="kw">var</span> rows <span class="op">=</span> <span class="va">items</span>.<span class="at">map</span>(<span class="kw">function</span>(item) <span class="op">{</span>
-  <span class="kw">var</span> entries <span class="op">=</span> [<span class="va">item</span>.<span class="at">name</span><span class="op">,</span> <span class="va">item</span>.<span class="at">quantity</span><span class="op">,</span> <span class="va">item</span>.<span class="at">price</span>]
-    .<span class="at">map</span>(<span class="kw">function</span>(txt) <span class="op">{</span> <span class="cf">return</span> <span class="st">&#39;&lt;td&gt;&#39;</span> <span class="op">+</span> txt <span class="op">+</span> <span class="st">&#39;&lt;/td&gt;&#39;</span><span class="op">;</span> <span class="op">}</span>)
+<span class="kw">let</span> rows <span class="op">=</span> <span class="va">items</span>.<span class="at">map</span>(<span class="kw">function</span>(item) <span class="op">{</span>
+  <span class="kw">let</span> entries <span class="op">=</span> [<span class="va">item</span>.<span class="at">name</span><span class="op">,</span> <span class="va">item</span>.<span class="at">quantity</span><span class="op">,</span> <span class="va">item</span>.<span class="at">price</span>]
+    .<span class="at">map</span>(<span class="kw">function</span>(txt) <span class="op">{</span> <span class="cf">return</span> <span class="vs">`&lt;td&gt;</span><span class="sc">${</span>txt<span class="sc">}</span><span class="vs">&lt;/td&gt;`</span><span class="op">;</span> <span class="op">}</span>)
     .<span class="at">join</span>(<span class="st">&#39;&#39;</span>)<span class="op">;</span>
-  <span class="cf">return</span> <span class="st">&#39;&lt;tr&gt;&#39;</span> <span class="op">+</span> <span class="st">&#39;&lt;td&gt;&#39;</span> <span class="op">+</span> <span class="va">item</span>.<span class="at">name</span> <span class="op">+</span> <span class="st">&#39;&lt;/td&gt;&#39;</span> <span class="op">+</span>
-                  <span class="st">&#39;&lt;td&gt;&#39;</span> <span class="op">+</span> <span class="va">item</span>.<span class="at">quantity</span> <span class="op">+</span> <span class="st">&#39;&lt;/td&gt;&#39;</span> <span class="op">+</span>
-                  <span class="st">&#39;&lt;td&gt;&#39;</span> <span class="op">+</span> <span class="va">item</span>.<span class="at">price</span> <span class="op">+</span> <span class="st">&#39;&lt;/td&gt;&#39;</span> <span class="op">+</span>
-                  <span class="st">&#39;&lt;/tr&gt;&#39;</span><span class="op">;</span>
+  <span class="cf">return</span> <span class="vs">`&lt;tr&gt;</span><span class="sc">${</span>entries<span class="sc">}</span><span class="vs">&lt;/tr&gt;`</span><span class="op">;</span>
 <span class="op">}</span>)<span class="op">;</span>
 
-<span class="kw">var</span> tbody <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Quantity&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;/tbody&gt;&lt;/tr&gt;&#39;</span>)
+<span class="kw">let</span> tbody <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Quantity&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;/tbody&gt;&lt;/tr&gt;&#39;</span>)
   .<span class="at">appendTo</span>(<span class="at">$</span>(<span class="st">&#39;#content&#39;</span>))
   .<span class="at">find</span>(<span class="st">&#39;tbody&#39;</span>)<span class="op">;</span>
 <span class="at">$</span>(tbody).<span class="at">append</span>(rows)<span class="op">;</span>
+
 <span class="co">// Now we find each td in the table, and replace the contents with an input field:</span>
 <span class="at">$</span>(<span class="st">&#39;td&#39;</span>).<span class="at">html</span>(<span class="kw">function</span>() <span class="op">{</span>
   <span class="co">// &quot;this&quot; here refers to the element itself.</span>
@@ -219,7 +230,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   .<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span><span class="op">,</span> <span class="st">&#39;red&#39;</span>)        <span class="co">// Set its background color</span>
   .<span class="at">hide</span>(<span class="dv">2000</span>)
   .<span class="at">show</span>(<span class="dv">2000</span>)<span class="op">;</span></code></pre></div>
-<p>Let’s look at a longer example. It adds 10 randomly generated numbers that fade out and back in at a rate proportional to their size.</p>
+<p>Let’s look at a longer example. It adds 10 randomly generated numbers that fade out and back in.</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ul <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;&lt;ul&gt;&lt;/ul&gt;&quot;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">,</span> v<span class="op">;</span>
 <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
   v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>

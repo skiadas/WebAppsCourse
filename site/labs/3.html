@@ -14,84 +14,51 @@
 </head>
 <body>
 <h1 id="lab-3">Lab 3<span class="small"> (<a href="3.pdf" class="small" title="3">pdf</a>)</span></h1>
-<p>In this lab you will learn how to set up some coding standards and use linting to enforce them, and practice more of our class-construction knowledge to start building the pieces of our TODO application.</p>
-<h2 id="resources">Resources</h2>
+<p>In this lab we will build a mini browser-game, and also get a bit of practice creating classes. First, we’ll need to update your project.</p>
+<h2 id="updating-your-project">Updating your project</h2>
 <ul>
-<li><a href="http://shop.oreilly.com/product/0636920025245.do">Maintainable Javascript</a> very good, unfortunately not free, book. Optional.</li>
-<li><a href="http://eslint.org/docs/rules/">ESLint rules</a></li>
-<li><a href="http://eslint.org/docs/developer-guide/code-conventions.html">Code conventions</a></li>
+<li>Start up GitKraken.</li>
+<li>Make sure that you have committed all files related to your project. When you look at your project in GitKraken, you should be seeing no WIP section and no modified files.</li>
+<li>Right-click at the “upstream” item in the “REMOTE” section on the left side. Choose “Fetch upstream”. You should now be seeing that your graph in the middle has two “master branches”. One corresponds to “my repository” (the upstream) and the other corresponds to your master branch with the changes you’ve made on it for Labs 1 and 2. This should be the “active” branch, with a little checkbox next to it. These two branches should appear to “deviate” from a common start.</li>
+<li>Right-click <em>my</em> master branch (upstream). You can do so either in the main window or in the upstream-&gt;master section in REMOTE on the left. Choose “Merge upstream/master onto master”. You should see the two branches merge into a new “merge” commit.</li>
+<li>You are now ready to work on Lab 3! After you add your changes, save and create a commit in GitKraken, then push your changes.</li>
+<li>You will need to repeat these steps when a new lab is released.</li>
 </ul>
-<h2 id="linting-basics">Linting Basics</h2>
-<p>Code debugging is hard enough as it is, having ambiguous code just makes it harder. Coding standards enforce some practices. Some are pure formatting issues, others affect how you use the code.</p>
-<p>If you are looking for a good book on the subject, <a href="http://shop.oreilly.com/product/0636920025245.do">Maintainable Javascript</a> is a very good book (alas, not free, and completely optional).</p>
-<p>Here are some examples of “coding style”:</p>
+<h2 id="assignment">Assignment</h2>
+<p>In your project you will find a Lab3 folder and a number of files:</p>
 <ul>
-<li>Always use 4 spaces for each level of indentation.</li>
-<li>Do not use tabs for indentation. (tab settings might be different on someone else’s computer, so your code might not look like you intend it to)</li>
-<li>Always use braces for if/else/for etc, even if they contain only one statement.</li>
-<li>Put open braces on the same line as the construct that precedes them.</li>
-<li>Always put a space before the open brace in function definitions.</li>
-<li>Never put a non-boolean result as the test in an “if”.</li>
-<li>Do not do assignments in the test part of an “if”.</li>
-<li>Use semicolons at the end of all statements except for function declarations and conditionals.</li>
-<li>Always declare variables before using them.</li>
-<li>Declare all variables at the top of the function that marks their scope.</li>
-<li>Combine <code>var</code> statements.</li>
-<li>Use appropriate variable names.</li>
-<li>Camel-case variable names. Do not use underscores.</li>
-<li>Use appropriate verbs in the name to descrite what methods do (has/is for booleans, get/set for setters, new for constructors etc)</li>
-<li>Always capitalize constructors and class objects.</li>
-<li>Never use <code>==</code> (except when comparing to <code>null</code>, and that’s only if you want to capture the case of <code>undefined</code>). Use <code>===</code> instead.</li>
-<li>Use blank lines to separate code in contextual blocks
-<ul>
-<li>inbetween methods</li>
-<li>before each control statement within a method</li>
-<li>between variable declarations at top of function</li>
-</ul></li>
-<li>Keep the complexity of your methods below a limit (complexity is how many different branches your code can take within the method, based on conditionals)</li>
-<li>Use double-quotes for strings (or single quotes, but fix one convention)</li>
-<li>Code should not exceed “this many” characters per line.</li>
-<li>Use “proto” as the name for the prototype object when using the <code>Object.create</code> form.</li>
-<li>Use “double-slash” comments for single line inline comments.</li>
-<li>Use “slash star” comments for multi-line inline comments.</li>
-<li>Indent inline comments the same way as surrounding code.</li>
-<li>Add inline comments only where they clarify the code.</li>
-<li>Use “slash star star” comments for documentation comments before each function.</li>
-<li>Never use <code>++</code> or <code>--</code>. Use <code>+= 1</code> instead.</li>
-<li>Avoid using <code>continue</code>, using a condition instead.</li>
-<li>Avoid <code>for-in</code> loop in favor of <code>Object.keys</code>.</li>
-<li>If you use <code>for-in</code> loop, always include a <code>hasOwnProperty</code> check.</li>
-<li>Do not put space between function name and the open parenthesis in a call.</li>
-<li>Always put spaces around the parentheses in control-flow blocks (if, while etc).</li>
-<li>Always put spaces around operators.</li>
-<li>Always wrap immediate function invocations in parentheses.</li>
-<li>Avoid <code>eval</code> and <code>Function</code>.</li>
+<li><code>index.html</code> file within that folder. This will be used to test your progress, and we will describe that process in a moment.</li>
+<li><code>controller.js</code> is code provided by me that drives the testing and playing of the resulting game. You should not need to do anything with it.</li>
+<li><code>game.js</code> is a “module” that holds the <code>Game</code> class. You will need to implement the details of this class.</li>
+<li><code>circle.js</code> is a small “module” that holds a <code>Circle</code> class representing circles. You will need to implement a constructor for the class.</li>
 </ul>
-<p>We will be using <a href="http://eslint.org/">ESLint</a>, which can automatically check your code for many of the above types of things, and it is fairly customizable. You can see a list of all the <a href="http://eslint.org/docs/rules/">rules</a> it will look for, and how you can set them up. Clicking through each rule will tell you more about it.</p>
-<p>You can even add your own rules, but we will not do so here.</p>
-<p>When you check out Lab3, you will find in the root directory a file <code>.eslintrc</code>. This contains directives for ESLint, take a moment to look through it and <a href="http://eslint.org/docs/rules/">look the corresponding rules up</a>.</p>
-<p>The provided files in Lab3 already contain some “errors” in there. You should be able to see a report of those errors by running “<code>eslint fileName</code>”. Make sure to fix those errors before continuing with the rest of the assignment.</p>
-<h2 id="basic-steps">Basic steps</h2>
+<h3 id="running-a-local-server">Running a local server</h3>
+<p>In order to test the application, you will need to open the <code>index.html</code> file <em>as if it was a file served from a server</em>. In order to achieve that, you will need to be running a local server.</p>
+<p>If you are on the lab computers, then open up a terminal window and navigate to the Lab3 folder of your project. In that folder, execute “<code>http-server</code>” from the terminal. You should see a response which will look something like this:</p>
+<pre><code>Starting up http-server, serving ./
+Available on:
+  http://127.0.0.1:8080
+  http://10.83.0.52:8080
+Hit CTRL-C to stop the server</code></pre>
+<p>Keeping that terminal window open, open up your web-browser and in the location address write:</p>
+<pre><code>http://127.0.0.1:8080/index.html</code></pre>
+<p>where the numbers should be whatever your system is reporting.</p>
+<p>If you want to do this on your own machines, you need to either know a way to run a local server, or you need to install the <code>http-server</code> package from NPM. The instructions to do that would likely be:</p>
+<pre><code>npm install -g http-server</code></pre>
+<p>You may need to install Node and NPM if you don’t have those set up yet, and you may also need to run the above command as administrator.</p>
+<p>You can stop the server at any time by hitting Ctrl-C on the terminal.</p>
+<h3 id="assignment-questions">Assignment questions</h3>
+<p>The questions you need to answer follow. When you are satisfied with your answers, save all your files and make a commit and push it.</p>
+<p>When you open up the <code>index.html</code> file, it should show you a red banner with what still needs to be done to make progress. Briefly the steps are as follows:</p>
 <ol style="list-style-type: decimal">
-<li>You should have already decided which of the two partner’s GitHub account to use.</li>
-<li>If you have not switched roles with your partner for a while, this is a good time to do so.</li>
-<li>You need to first bring your version of the lab up-to-date by fetching from the remote that is linked to MY project. This is a bit tedious.
-<ul>
-<li>Use “<code>git remote -v</code>” to see the remote branches. There should be one named <code>mainSource</code> and pointing to <code>skiadas/WebAppsLabs</code>.</li>
-<li>We will start by fetching the newest version of that, with: “<code>git fetch mainSource</code>”. It should tell you about a new branch, Lab3.</li>
-<li>Create a new branch with “<code>git checkout -b Lab3 --track mainSource/Lab3</code>”.</li>
-<li>Push this repository to your fork, by “<code>git push origin Lab3</code>”.</li>
-<li>Set your local branch to in the future update your repository by: “<code>git branch --set-upstream Lab3 origin/Lab3</code>”.</li>
-<li>To make sure this is set up properly, do “<code>git branch -vv</code>”. You should see <code>[origin/Lab3]</code> next to the Lab3 branch line.</li>
-</ul></li>
-<li>Check out the correct branch, via <code>git checkout Lab3</code>.</li>
-<li>In the GitHub issues page for your project, switch to the Milestones tab and create a Lab3 milestone. Use that instead of a label for all issues you create related to Lab3.</li>
-<li>In the Settings page you can set the “Default branch” for the application. Set this to the Lab3 branch. This should make it so that your pushed commits close any issues that they mention via “Close #n”.</li>
-<li>Open the <code>README.md</code> file there, it will contain the instructions on what you need to do.</li>
-<li>When you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>
-<li>You should use the issues page to track your progress. Create a new label called “Lab3” and use it to tag all issues related to this lab. I will review those issues to look at your work.</li>
-<li>Needless to say it, but you are NOT allowed to look at other people’s forks of the project and their issues/solutions.</li>
-<li>I expect you to do the coding using pair programming.</li>
+<li>In the <code>game.js</code> module, you need to implement the details of a <code>Game</code> class. The goal of the Game class is to keep a score as the game is played. Your constructor should be accepting one argument, which is the “maximum number of points”. You will need to choose a good variable name for it. Your constructor should then store this value in an instance variable.</li>
+<li>Your Game class constructor will also need to create an instance variable called <code>points</code> and initialize it to 0.</li>
+<li>Your Game class needs to have a method <code>isOver()</code>, which returns <code>true</code> if the number of points has reached or exceeded the maximum number of points.</li>
+<li>Your Game class needs to have a method <code>reset()</code> which resets the number of points to <code>0</code>.</li>
+<li>Your Game class needs to have a method <code>hit()</code> which increments the number of points by <code>1</code>.</li>
+<li>Your Circle class needs to have a constructor that takes a single <code>color</code> parameter. It then stores that color in an instance variable named <code>color</code>.</li>
+<li>Your Circle class constructor needs to also set values for variables <code>x</code>, <code>y</code> and <code>radius</code>, which are not provided as parameters. Your <code>x</code> should be a randomly generated number between <code>0</code> and <code>600</code>, your <code>y</code> should be a randomly generated number between <code>0</code> and <code>300</code>, and your radius should be a randomly generated number between <code>10</code> and <code>30</code>. The <code>Math.random()</code> method can help you, as it will generate a random number between <code>0</code> and <code>1</code>. You will need to transform that number suitably fit the desired scales.</li>
 </ol>
+<p>Once you complete these steps, you will be able to play the game. Every 2 seconds a new circle will appear on the board, and you have 2.5 seconds to click on it before it disappears. If you do, then you get a point. You need to reach 20 points to win. Feel free to adjust those numbers in the <code>controller.js</code> file if you would like a bit more challenge.</p>
 </body>
 </html>
