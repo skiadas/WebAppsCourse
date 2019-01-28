@@ -46,17 +46,17 @@ A week-by-week breakdown of the material.
 - Day 3
     - [Function call forms and the value of `this`](notes/function_calls_and_this.md)
     - [Introduction to the DOM (Document Object Model)](notes/dom_intro.md)
-    - [Introduction to jQuery](notes/jquery_intro.md)
 
 ## Week  4 (01/26-01/30)
 
 - Day 1
+    - [Introduction to jQuery](notes/jquery_intro.md)
+    - [Introduction to DOM Events](notes/events_intro.md)
+    - [Timers](notes/events_timers.md)
+- Day 2
     - Modules
     - [Overview of Software Development Practices](notes/dev_overview.md)
     - [Basics of Version Control](notes/git_version_control.md)
-- Day 2
-    - [Introduction to DOM Events](notes/events_intro.md)
-    - [Timers](notes/events_timers.md)
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
 - Day 3
     - [The DRY principle](notes/dry.md)
@@ -68,7 +68,6 @@ A week-by-week breakdown of the material.
 
 - Day 1
     - ["Class" construction examples](notes/class_construction.md)
-    - [Setting up a second remote](notes/second_remote.md)
     - [Testing Basics](notes/testing_basics.md)
 - Day 2
 - Day 3
@@ -174,3 +173,4 @@ BREAK
 - [GitHub Workflow](notes/github_workflow.md)
 - [Overall Project Workflow](notes/project_workflow.md)
 - [Methods in objects and the need for `this`](notes/object_methods.md)
+- [Setting up a second remote](notes/second_remote.md)

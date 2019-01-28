@@ -211,6 +211,11 @@ $('td').html(function() {
 
 // Prints out all the values from all inputs
 $('input').each(function() { console.log($(this).val()); });
+// Arrow functions can't use "this".
+// Most jquery methods that  expect functions provide those functions
+// with the index in the list and the element.
+$('input').each( (index, element) => console.log($(element).val()) );
+
 $('article').last()     // Find last article
   .find('p').last()     // Grab its last paragraph
   .css('background-color', 'red')        // Set its background color
@@ -221,36 +226,39 @@ $('article').last()     // Find last article
 
 Let's look at a longer example. It adds 10 randomly generated numbers that fade out and back in.
 ```javascript
-var ul = $("<ul></ul>").appendTo("#content"), v;
-for (var i = 0; i < 10; i += 1) {
-  v = Math.random();
-  $("<li>" + v + "</li>")
-    .addClass(v > 0.5 ? "big" : "small")
-    .appendTo(ul);
-}
-$('li').each(function(i, v) {
-  $(v).fadeOut(Math.random() * 5000, function() {
-    $(v).fadeIn(Math.random() * 5000);
+{
+  let ul = $("<ul></ul>").appendTo("#content");
+  for (let i = 0; i < 10; i += 1) {
+    let v = Math.random();
+    $("<li>" + v + "</li>")
+      .addClass(v > 0.5 ? "big" : "small")
+      .appendTo(ul);
+  }
+  $('li').each(function(i, v) {
+    $(v).fadeOut(Math.random() * 5000, function() {
+      $(v).fadeIn(Math.random() * 5000);
+    });
   });
-});
+}
 ```
 
 And another. This one adds a new div with "bar" divs in it, each of them with random lengths. This looks like a histogram. It then randomly changes those lengths in an animated process.
 ```javascript
-var parent = $('<div id="bars"></div>').appendTo("#content"), v;
-for (var i = 0; i < 10; i += 1) {
-  v = Math.random();
-  $("<div></div>")
-    .css({
-      'background-color': 'blue',
-      height: '10px',
-      width: (Math.random() * 300) + 'px'
-    }).appendTo(parent);
+{
+  let parent = $('<div id="bars"></div>').appendTo("#content");
+  for (let i = 0; i < 10; i += 1) {
+    let v = Math.random();
+    $("<div></div>")
+      .css({
+        'background-color': 'blue',
+        height: '10px',
+        width: (Math.random() * 300) + 'px'
+      }).appendTo(parent);
+  }
+  $('#bars div').each(function() {
+    $(this).animate({ width: (Math.random() * 300) + 'px' });
+  });
 }
-
-$('#bars div').each(function() {
-  $(this).animate({ width: (Math.random() * 300) + 'px' });
-});
 ```
 
 ### Practice problems

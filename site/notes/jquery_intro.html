@@ -225,39 +225,47 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="co">// Prints out all the values from all inputs</span>
 <span class="at">$</span>(<span class="st">&#39;input&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>() <span class="op">{</span> <span class="va">console</span>.<span class="at">log</span>(<span class="at">$</span>(<span class="kw">this</span>).<span class="at">val</span>())<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="co">// Arrow functions can&#39;t use &quot;this&quot;.</span>
+<span class="co">// Most jquery methods that  expect functions provide those functions</span>
+<span class="co">// with the index in the list and the element.</span>
+<span class="at">$</span>(<span class="st">&#39;input&#39;</span>).<span class="at">each</span>( (index<span class="op">,</span> element) <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="at">$</span>(element).<span class="at">val</span>()) )<span class="op">;</span>
+
 <span class="at">$</span>(<span class="st">&#39;article&#39;</span>).<span class="at">last</span>()     <span class="co">// Find last article</span>
   .<span class="at">find</span>(<span class="st">&#39;p&#39;</span>).<span class="at">last</span>()     <span class="co">// Grab its last paragraph</span>
   .<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span><span class="op">,</span> <span class="st">&#39;red&#39;</span>)        <span class="co">// Set its background color</span>
   .<span class="at">hide</span>(<span class="dv">2000</span>)
   .<span class="at">show</span>(<span class="dv">2000</span>)<span class="op">;</span></code></pre></div>
 <p>Let’s look at a longer example. It adds 10 randomly generated numbers that fade out and back in.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> ul <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;&lt;ul&gt;&lt;/ul&gt;&quot;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">,</span> v<span class="op">;</span>
-<span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
-  v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>
-  <span class="at">$</span>(<span class="st">&quot;&lt;li&gt;&quot;</span> <span class="op">+</span> v <span class="op">+</span> <span class="st">&quot;&lt;/li&gt;&quot;</span>)
-    .<span class="at">addClass</span>(v <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="op">?</span> <span class="st">&quot;big&quot;</span> : <span class="st">&quot;small&quot;</span>)
-    .<span class="at">appendTo</span>(ul)<span class="op">;</span>
-<span class="op">}</span>
-<span class="at">$</span>(<span class="st">&#39;li&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>(i<span class="op">,</span> v) <span class="op">{</span>
-  <span class="at">$</span>(v).<span class="at">fadeOut</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span>
-    <span class="at">$</span>(v).<span class="at">fadeIn</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span>)<span class="op">;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+  <span class="kw">let</span> ul <span class="op">=</span> <span class="at">$</span>(<span class="st">&quot;&lt;ul&gt;&lt;/ul&gt;&quot;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">;</span>
+  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+    <span class="kw">let</span> v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>
+    <span class="at">$</span>(<span class="st">&quot;&lt;li&gt;&quot;</span> <span class="op">+</span> v <span class="op">+</span> <span class="st">&quot;&lt;/li&gt;&quot;</span>)
+      .<span class="at">addClass</span>(v <span class="op">&gt;</span> <span class="fl">0.5</span> <span class="op">?</span> <span class="st">&quot;big&quot;</span> : <span class="st">&quot;small&quot;</span>)
+      .<span class="at">appendTo</span>(ul)<span class="op">;</span>
+  <span class="op">}</span>
+  <span class="at">$</span>(<span class="st">&#39;li&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>(i<span class="op">,</span> v) <span class="op">{</span>
+    <span class="at">$</span>(v).<span class="at">fadeOut</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span>
+      <span class="at">$</span>(v).<span class="at">fadeIn</span>(<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">5000</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
   <span class="op">}</span>)<span class="op">;</span>
-<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>And another. This one adds a new div with “bar” divs in it, each of them with random lengths. This looks like a histogram. It then randomly changes those lengths in an animated process.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> parent <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;&lt;div id=&quot;bars&quot;&gt;&lt;/div&gt;&#39;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">,</span> v<span class="op">;</span>
-<span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
-  v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>
-  <span class="at">$</span>(<span class="st">&quot;&lt;div&gt;&lt;/div&gt;&quot;</span>)
-    .<span class="at">css</span>(<span class="op">{</span>
-      <span class="st">&#39;background-color&#39;</span><span class="op">:</span> <span class="st">&#39;blue&#39;</span><span class="op">,</span>
-      <span class="dt">height</span><span class="op">:</span> <span class="st">&#39;10px&#39;</span><span class="op">,</span>
-      <span class="dt">width</span><span class="op">:</span> (<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">300</span>) <span class="op">+</span> <span class="st">&#39;px&#39;</span>
-    <span class="op">}</span>).<span class="at">appendTo</span>(parent)<span class="op">;</span>
-<span class="op">}</span>
-
-<span class="at">$</span>(<span class="st">&#39;#bars div&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>() <span class="op">{</span>
-  <span class="at">$</span>(<span class="kw">this</span>).<span class="at">animate</span>(<span class="op">{</span> <span class="dt">width</span><span class="op">:</span> (<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">300</span>) <span class="op">+</span> <span class="st">&#39;px&#39;</span> <span class="op">}</span>)<span class="op">;</span>
-<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+  <span class="kw">let</span> parent <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;&lt;div id=&quot;bars&quot;&gt;&lt;/div&gt;&#39;</span>).<span class="at">appendTo</span>(<span class="st">&quot;#content&quot;</span>)<span class="op">;</span>
+  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span>
+    <span class="kw">let</span> v <span class="op">=</span> <span class="va">Math</span>.<span class="at">random</span>()<span class="op">;</span>
+    <span class="at">$</span>(<span class="st">&quot;&lt;div&gt;&lt;/div&gt;&quot;</span>)
+      .<span class="at">css</span>(<span class="op">{</span>
+        <span class="st">&#39;background-color&#39;</span><span class="op">:</span> <span class="st">&#39;blue&#39;</span><span class="op">,</span>
+        <span class="dt">height</span><span class="op">:</span> <span class="st">&#39;10px&#39;</span><span class="op">,</span>
+        <span class="dt">width</span><span class="op">:</span> (<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">300</span>) <span class="op">+</span> <span class="st">&#39;px&#39;</span>
+      <span class="op">}</span>).<span class="at">appendTo</span>(parent)<span class="op">;</span>
+  <span class="op">}</span>
+  <span class="at">$</span>(<span class="st">&#39;#bars div&#39;</span>).<span class="at">each</span>(<span class="kw">function</span>() <span class="op">{</span>
+    <span class="at">$</span>(<span class="kw">this</span>).<span class="at">animate</span>(<span class="op">{</span> <span class="dt">width</span><span class="op">:</span> (<span class="va">Math</span>.<span class="at">random</span>() <span class="op">*</span> <span class="dv">300</span>) <span class="op">+</span> <span class="st">&#39;px&#39;</span> <span class="op">}</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <h3 id="practice-problems">Practice problems</h3>
 <ol style="list-style-type: decimal">
 <li>Find the second paragraph of the first article and set its color to red.</li>
