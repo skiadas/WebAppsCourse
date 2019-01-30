@@ -9,7 +9,7 @@
 
 ### The Event Loop
 
-Javascript follows a simple concurency model, based on an "event loop":
+Javascript follows a simple concurrency model, based on an "event loop":
 
 - There is a *queue* of "messages".
 - When an "event" occurs and a handler was registered for it, a message is added to the queue. These events could have come from a UI interaction, from a page loading, or programmatically via the timers we will discuss in a moment.
