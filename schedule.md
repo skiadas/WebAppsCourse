@@ -52,17 +52,18 @@ A week-by-week breakdown of the material.
 - Day 1
     - [Introduction to jQuery](notes/jquery_intro.md)
 - Day 2
+    - Practice with jQuery
+- Day 3
     - [Introduction to DOM Events](notes/events_intro.md)
     - [Timers](notes/events_timers.md)
-- Day 3
-    - Modules
-    - [Overview of Software Development Practices](notes/dev_overview.md)
-    - [Basics of Version Control](notes/git_version_control.md)
-    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
 
 ## Week  5 (02/02-02/06)
 
 - Day 1
+    - Modules
+    - [Overview of Software Development Practices](notes/dev_overview.md)
+    - [Basics of Version Control](notes/git_version_control.md)
+    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
     - [The DRY principle](notes/dry.md)
     - [Object properties](notes/object_properties.md)
     - [Different stack implementations](notes/stack_various.md)
