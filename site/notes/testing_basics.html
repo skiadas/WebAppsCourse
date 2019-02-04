@@ -64,6 +64,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dd><p>Integration tests test bigger parts of your application, making sure that different parts come together naturally.</p>
 <p>Time permitting, we will talk more about integration tests later in the term.</p>
 </dd>
+<dt>Acceptance Tests</dt>
+<dd><p>Acceptance tests are <em>executable specifications of the system’s behavior</em>. They are meant to describe the functionality required of the software from a business point of view, and are meant to be read and possibly written by our clients or their proxies. At the same time, they can be automatically executed.</p>
+<p>Acceptance tests indicate when your software has met its business needs: If the tests pass, we are ready to ship the software.</p>
+</dd>
 <dt>Timing Tests</dt>
 <dd><p>Timing tests are used in algorithm implementations to assess the efficiency of the algorithms.</p>
 <p>They can also be used to try to find bottlenecks in your application, though some of the browser profiling tools might be better.</p>
@@ -97,7 +101,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Do the refactoring, and make sure your tests still all pass.</li>
 <li>Commit (optionally creating an issue first to explain what the refactoring was about).</li>
 </ul>
-<p>This is some of the general theory behind testing. The lab readme will have more specific instructions.</p>
+<p>This is some of the general theory behind testing.</p>
 <h2 id="testing-in-javascript">Testing in Javascript</h2>
 <p>We will be using <a href="http://mochajs.org/">mocha</a> in combination with <a href="http://chaijs.com/">chai</a> for our unit tests. Here is a basic html file:</p>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
@@ -112,16 +116,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
    <span class="kw">&lt;script&gt;</span>
       <span class="va">mocha</span>.<span class="at">setup</span>(<span class="st">&#39;bdd&#39;</span>)<span class="op">;</span>
       <span class="kw">var</span> expect <span class="op">=</span> <span class="va">chai</span>.<span class="at">expect</span><span class="op">;</span>
-   <span class="op">&lt;</span><span class="ss">/script&gt;</span>
-<span class="ss">   &lt;script src=&quot;yourCode.js&quot;&gt;&lt;/script</span><span class="op">&gt;</span>
-   <span class="op">&lt;</span>script src<span class="op">=</span><span class="st">&quot;tests.spec.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
-<span class="ss">   &lt;script&gt;</span>
-<span class="ss">      mocha.checkLeaks</span><span class="sc">()</span><span class="ss">;</span>
-<span class="ss">      mocha.globals</span><span class="sc">([&#39;chai&#39;])</span><span class="ss">;</span>
-<span class="ss">      mocha.run</span><span class="sc">()</span><span class="ss">;</span>
-<span class="ss">  &lt;/script</span><span class="op">&gt;</span>
-<span class="op">&lt;</span><span class="ss">/body&gt;</span>
-<span class="ss">&lt;/html</span><span class="op">&gt;</span></code></pre></div>
+   <span class="kw">&lt;/script&gt;</span>
+   <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;yourCode.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+   <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;tests.spec.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+   <span class="kw">&lt;script&gt;</span>
+      <span class="va">mocha</span>.<span class="at">checkLeaks</span>()<span class="op">;</span>
+      <span class="va">mocha</span>.<span class="at">globals</span>([<span class="st">&#39;chai&#39;</span>])<span class="op">;</span>
+      <span class="va">mocha</span>.<span class="at">run</span>()<span class="op">;</span>
+  <span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
 <p>All the tests go into <code>tests.spec.js</code> (or a similarly named file). You can also use multiple test files, just put them after each other. Use the rest as a template on every project.</p>
 <p>mocha and chai together offer all the primitives we need for testing. We will describe them briefly in the following section. Refer to their homepages for more info.</p>
 <h3 id="mocha-and-chai">Mocha and Chai</h3>

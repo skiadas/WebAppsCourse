@@ -45,7 +45,7 @@ Here is a simple example:
 
 ```javascript
 var f = (function() {
-  var i = 0;
+  let i = 0;
   return function() {
     i += 1;
     console.log(i);
@@ -70,11 +70,7 @@ This idiom can be handy if we want to pass a function to someone else to execute
 ```javascript
 function delay(f, milli) {
   return function delayed() {
-    var context = this;
-    var args = arguments;
-    setTimeout(function() {
-      f.apply(context, args);
-    }, milli);
+    setTimeout(() => f.apply(this, arguments), milli);
     return;
   };
 }
@@ -82,6 +78,7 @@ function delay(f, milli) {
 // Sample run:
 var g = delay(console.log, 5000);
 g.call(console, "5 seconds later");
+g("5 seconds later");
 ```
 
 #### Throttle
@@ -90,7 +87,7 @@ Given a function and an interval, it will only allow the function to be called o
 
 ```javascript
 function throttle(f, interval) {
-  var available = true;
+  let available = true;
   // function "wait" used in setTimeout
   function wait() { available = true; };
   return function throttled() {
@@ -117,29 +114,15 @@ Useful when we have incoming input, and we only want the function to execute onc
 
 ```javascript
 function debounce(f, wait) {
-  var timeout, context, args, lastCalled;
-  function later() {
-    var sinceLast = new Date() - lastCalled;
-    if (sinceLast < wait) {
-      timeout = setTimeout(later, wait - sinceLast);
-    } else {
-      timeout = null;
-      f.apply(context, args);
-      context = null;
-      args = null;
-    }
-  }
+  let timer = null;
+
   return function debounced() {
-    context = this;
-    args = arguments;
-    lastCalled = new Date();
-    if (!timeout) {
-      timeout = setTimeout(later, wait);
-    }
+    if (timer != null) { clearTimeout(timer); }
+    timer = setTimeout(() => f.call(this, arguments), wait);
   };
 }
 
 // Sample run
 document.onmousemove = function() { console.log("All the time!"); };
-document.onmousemove = debounce(function() { console.log("only when I stop!"); }, 3000);
+document.onmousemove = debounce(function(ev) { console.log("only when I stop!", ev); }, 3000);
 ```

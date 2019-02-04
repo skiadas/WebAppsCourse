@@ -18,6 +18,11 @@ Integration Tests
 
     Time permitting, we will talk more about integration tests later in the term.
 
+Acceptance Tests
+  ~ Acceptance tests are *executable specifications of the system's behavior*. They are meant to describe the functionality required of the software from a business point of view, and are meant to be read and possibly written by our clients or their proxies. At the same time, they can be automatically executed.
+
+    Acceptance tests indicate when your software has met its business needs: If the tests pass, we are ready to ship the software.
+
 Timing Tests
   ~ Timing tests are used in algorithm implementations to assess the efficiency of the algorithms.
 
@@ -47,7 +52,7 @@ In Test-Driven-Development, you typically would follow these steps:
 - Do the refactoring, and make sure your tests still all pass.
 - Commit (optionally creating an issue first to explain what the refactoring was about).
 
-This is some of the general theory behind testing. The lab readme will have more specific instructions.
+This is some of the general theory behind testing.
 
 ## Testing in Javascript
 

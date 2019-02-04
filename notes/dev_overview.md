@@ -2,7 +2,7 @@
 
 ## Relevant Links
 
-- [Code Complete, 2nd Edition](http://learning.acm.org/books/book_detail.cfm?id=1096143&type=safari) A bible/handbook on software development. Must read for any developer.
+- [Code Complete, 2nd Edition](http://learning.acm.org/books/book_detail.cfm?id=1096143&type=safari) A bible/handbook on software development.
 
 ## Notes
 

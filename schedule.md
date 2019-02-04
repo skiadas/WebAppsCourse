@@ -55,27 +55,28 @@ A week-by-week breakdown of the material.
     - Practice with jQuery
 - Day 3
     - [Introduction to DOM Events](notes/events_intro.md)
-    - [Timers](notes/events_timers.md)
 
 ## Week  5 (02/02-02/06)
 
 - Day 1
-    - Modules
+    - [Timers](notes/events_timers.md)
     - [Overview of Software Development Practices](notes/dev_overview.md)
     - [Basics of Version Control](notes/git_version_control.md)
+    - [Testing Basics](notes/testing_basics.md)
+- Day 2
+    - Modules
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
     - [The DRY principle](notes/dry.md)
     - [Object properties](notes/object_properties.md)
-    - [Different stack implementations](notes/stack_various.md)
-    - [Object creation and prototypes](notes/object_creation_prototypes.md)
-- Day 2
-    - ["Class" construction examples](notes/class_construction.md)
-    - [Testing Basics](notes/testing_basics.md)
 - Day 3
+    - Midterm
 
 ## Week  6 (02/09-02/13)
 
 - Day 1
+    - [Different stack implementations](notes/stack_various.md)
+    - [Object creation and prototypes](notes/object_creation_prototypes.md)
+    - ["Class" construction examples](notes/class_construction.md)
 - Day 2
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 - Day 3
