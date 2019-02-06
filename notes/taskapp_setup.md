@@ -88,41 +88,8 @@ We need to decide how to organize our code. Here are some key considerations:
 
 - Each component should be in its own file, so its code can be considered/tested/altered without needing any of the other parts.
 - In general components need to be as independent of each other as possible, but some components will need to know about other components. We therefore need a mechanism for components to "require" other components. We will see in more detail how to do this in the future.
-- We should try not to pollute the global space as much as possible. One way to avoid that is to create one global variable as a "namespace for our application". Then we add components to that. For example, a start code for each component could be something like this:
-
-    ```javascript
-    // Immediate function invocation. Closes at the end of the file.
-    // "global" will be the global object, which is either "window" (browser) or "root" (node).
-    (function(global) {
-       if (!global.hasOwnProperty('TaskApp')) {
-          global.TaskApp = {};            // Create namespace if it does not already exist.
-       }
-
-       // Can declare local variables/functions etc here
-       var Task;
-       // If Task depended on other modules, e.g. TaskApp.TaskList, we can
-       // check if those are set and throw an error or delay running the rest of the code.
-
-       // Define the Task class here.
-       // All the meaty stuff goes here.
-
-       // We "export" the Task class at some point
-       global.TaskApp.Task = Task;
-    }(typeof window === 'undefined' ? root : window));
-    ```
-    We will use this format in each of our files.
-- For the above code to work, we need to manually manage dependencies, and load the files in the correct order. So the order in which we include script tags in the file matters. Figuring out the correct order for the different modules is actually an interesting program in graph theory, called **topological sort**.
-- We will need a way to create new "task" items. For that we will need a "template" to copy from. We will see one way of doing that for now, via a script tag. We'll learn more about templates later. Essentially we add something like the following on the web page:
-    ```html
-    <script id="taskTemplate" type="text/template">
-    <div class="task">
-    <p>{{title}}</p><input class="completed" type="checkbox" value="{{completed}}"></input>
-    </div>
-    </script>
-    ```
-    The above script can be accessed via its id, and because its type is not set to `text/javascript` it will not actually be executed by the browser. We can then use its text to create a new item.
-
-    Notice that there are a number of "placeholders", surrounded in double curly braces. We will replace those with suitable values.
+- We should try not to pollute the global space as much as possible. We'll be using ES6 modules for our organization, to avoid that.
+- We will need a way to create new "task" items. For that we will need a "template" to copy from. We will use **template strings**, one of the new features in ECMAScript 6. We will see how this works later.
 - We will need to decide on a file structure. We will use the following:
     ```
     - projectRoot
@@ -132,7 +99,7 @@ We need to decide how to organize our code. Here are some key considerations:
           javascript files in here
        - lib
           folder for 3rd-party libraries like jQuery
-       - tests
+       - test
           test files go here
        index.html
        .eslintrc.json
@@ -140,7 +107,7 @@ We need to decide how to organize our code. Here are some key considerations:
     ```
 
     This is by no means the only way to do it, but it is one way.
-- The functionality that actually requires a web-browser should be restricted to the Controller. The other classes (models), should be self-sufficient, and we should be able to write tests for them directly.
+- The functionality that actually requires a web browser should be restricted to the Controller. The other classes (models), should be self-sufficient, and we should be able to write tests for them directly.
 
 ### Initial Code
 

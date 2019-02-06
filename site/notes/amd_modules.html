@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="amd-modules">AMD Modules</h1>
+<p>Some old notes on AMD modules, kept here for posterity.</p>
+<h3 id="amd-modules-1">AMD Modules</h3>
+<p>AMD stands for <em>Asynchronous Module Definition</em>. It is a <a href="https://github.com/amdjs/amdjs-api/blob/master/AMD.html">specification</a> born out of a need to have modular development in a project that is meant to be deployed in the browser. As scripts in the browser are simply concatenated together in one common environment, the CommonJS style described above would not work.</p>
+<p>The AMD specification consists of a number of parts:</p>
+<dl>
+<dt>AMD Modules</dt>
+<dd><p>You write your module files in a specific format, with the use of the <code>define</code> function that we will discuss shortly. Part of that specification is what other modules your module depends on.</p>
+<p>AMD Modules cannot be inserted into a webpage directly. They need the use of a loader or builder.</p>
+<p>The key features of these modules is that they have explicitly declared dependencies, and that they can be loaded asynchronously: You specify the file’s dependencies, along with how your module will finish its loading once those dependencies have been loaded.</p>
+</dd>
+<dt>AMD Loader</dt>
+<dd><p>The loader is responsible for loading the modules in the correct order. It has to provide a “define” function, and it processes the information provided in those “define” calls to determine the correct order in which modules should be loaded to resolve the dependencies.</p>
+<p>There are a number of existing loaders, including <a href="http://requirejs.org/">require.js</a> and <a href="https://github.com/RaveJS">RaveJS</a>. We will spend more time looking closer at require.js in future segments.</p>
+</dd>
+<dt>AMD Builder</dt>
+<dd><p>There are various programs whose goal is to build/consolidate the various AMD modules into one file to be served in a <code>&lt;script&gt;</code> tag. Loaders are used in the development of the application, while builders are used in the deployment phase. <a href="http://requirejs.org/">require.js</a> includes such a builder/optimizer, but there are many others, for instance <a href="http://browserify.org/">browserify</a>.</p>
+<p>These programs often also do compression, removing spaces, comments etc, to reduce the file size and make it faster to download.</p>
+</dd>
+</dl>
+<p>The key component of and AMD module is the <code>define</code> function. It takes up to three arguments:</p>
+<ul>
+<li><code>id</code> is the first argument, and it is optional. It is a string characterizing the module’s “identifier”. This will default to the filename if omitted, which is typically the case.</li>
+<li><p><code>dependencies</code> is the second argument, also optional but usually included. It is an <em>array</em> of the “id”s of modules that your module depends on. Those modules will be processed first before your module is processed. There are three special id names that are treated separately: <code>&quot;require&quot;</code>, <code>&quot;exports&quot;</code> and <code>&quot;module&quot;</code>. If those ids appear, they are resolved to their CommonJS module meaning.</p>
+<p>If this second argument is omitted, then it defaults to the triple <code>[&quot;require&quot;, &quot;exports&quot;, &quot;module&quot;]</code>.</p>
+One key difference with the ids in the AMD specification is that they are looked for either relative to the current file or from “top-level”. There is nothing analogous to the “<code>node_modules</code>” folders.</li>
+<li><code>factory</code> is the third, and only required, argument. It can be an object, in which case it is what is exported by this module. Or more typically it is a function, which will be executed exactly once, and its return value is the exported object from the module. This function will receive as arguments the modules that were listed in the dependencies array.</li>
+<li><p>For a proper AMD implementation, the <code>define</code> function has a property, <code>define.amd</code>, which must be an object but has no other required fields.</p></li>
+</ul>
+<p>Here is an example of how such a file might look like. In its simplest form it has no dependencies:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">define</span>(<span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> OurModule<span class="op">;</span>
+    <span class="co">// ... define OurModule here</span>
+    <span class="cf">return</span> OurModule<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>Or if we wanted to give it a specific name rather than have it obtain its name from the filename:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">define</span>(<span class="st">&#39;ourModuleName&#39;</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="kw">var</span> OurModule<span class="op">;</span>
+    <span class="co">// ... define OurModule here</span>
+    <span class="cf">return</span> OurModule<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>Here’s an example of a module that depends on jQuery and one other module:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">define</span>([<span class="st">&quot;jquery&quot;</span><span class="op">,</span> <span class="st">&quot;otherModule&quot;</span>]<span class="op">,</span> <span class="kw">function</span>($<span class="op">,</span> otherM) <span class="op">{</span>
+    <span class="co">// &quot;$&quot; here will equal the jquery object</span>
+    <span class="co">// and otherM equal the &quot;otherModule&quot;</span>
+    <span class="co">// ...</span>
+    <span class="cf">return</span> MyModule<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>We can easily transform a CommonJS/Node module into an AMD module by using the simplified CommonJS wrapping. For instance here is how our TaskListController file might look:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">define</span>(<span class="kw">function</span>(require<span class="op">,</span> exports<span class="op">,</span> module) <span class="op">{</span>
+    <span class="kw">var</span> Template<span class="op">,</span> Task<span class="op">,</span> TaskListController<span class="op">;</span>
+
+    Template <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;Template&#39;</span>)<span class="op">;</span>
+    Task <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;Task&#39;</span>)<span class="op">;</span>
+
+    <span class="co">// Write TaskListController here</span>
+
+    <span class="co">// Export at the end</span>
+    <span class="va">module</span>.<span class="at">exports</span> <span class="op">=</span> TaskListController<span class="op">;</span>
+    <span class="co">// AMD return</span>
+    <span class="cf">return</span> TaskListController<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>A sample of using AMD modules can be <a href="https://github.com/skiadas/HealCalc3/tree/master/">found here</a>. Start by looking inside the <code>js/app</code> folder and the bottom of the <code>index-test.html</code> file for bootstrapping such an application. You will find there the following line:</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; data-main=&quot;js/app/main&quot; src=&quot;js/lib/require.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>This line loads the <code>require.js</code> file, which then takes care of loading the application by starting at the <code>&quot;js/app/main&quot;</code> module and following its dependencies.</p>
+</body>
+</html>

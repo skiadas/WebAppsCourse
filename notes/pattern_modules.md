@@ -2,11 +2,9 @@
 
 ## Relevant Links
 
+- [ES6 modules](http://exploringjs.com/es6/ch_modules.html)
 - [Node's modules](http://nodejs.org/api/modules.html)
 - [CommonJS specification](http://wiki.commonjs.org/wiki/Modules/1.1)
-- [AMD specification](https://github.com/amdjs/amdjs-api)
-- [require.js docs on AMD](http://requirejs.org/docs/whyamd.html#amdtoday)
-- [cujo.js tutorials](http://know.cujojs.com/tutorials)
 
 ## Notes
 
@@ -18,19 +16,21 @@ Modules are the building blocks of applications in most modern programming langu
 - A module could be swapped with another module that provides the same interface, without affecting the rest of the application.
 - In many object-oriented languages, the role of modules is often performed by classes.
 
-In Javascript, there are at least 3 different kinds of approaches to modules. There are also "ES6 modules", that are part of the ECMAScript 6 specification, but we will not be discussing these here.
+In Javascript these days there are at least 3 different kinds of approaches to modules.
 
 Manual Modules
-  ~ We can build a barebones "module" structure using globals and careful naming. This does not require any extra infrastructure, and it is what we have been doing with TaskApp.
+  ~ We can build a barebones "module" structure using globals and careful naming. This does not require any extra infrastructure, but it is limited. You are also responsible for making sure dependencies are loaded in the correct order.
 
-CommonJS Modules
-  ~ This module style is used by Node and other mostly server-side technologies.
+Node Modules
+  ~ This module style is used by Node and other mostly server-side technologies. It uses two special methods, `require` and `exports`, one for including other modules and the other for exporting functionality to the rest of the world.
+
+ES6 Modules
+  ~ This type of module was introduces with ECMAScript 6, and they are fully supported by all modern browsers. It uses the keywords `import` and `export`
 
 AMD Modules
-  ~ This is a paradigm that evolved to serve the asynchronous loading needs of client-side applications. It requires the use of "amd loaders".
+  ~ This is a paradigm that evolved to serve the asynchronous loading needs of client-side applications, and it requires the use of "amd loaders". It is less useful today in the presence of ES6 modules.
 
-UMD Modules
-  ~ A "Universal Module Definition" has emerged as a collection of ways to merge 2 or more of the above types.
+One of the challenges of Javascript is that these different approaches don't always play well with each other.
 
 We will now discuss each of these cases in more detail.
 
@@ -40,59 +40,48 @@ Manual modules offer a simple way to provide some namespacing capabilities. They
 
 You typically start by using one global variable named after the author or application under consideration. That variable is an object whose properties hold the different modules for the application.
 
-For example, in our application, called *PanthR*, we would create, if it does not already exist, a global variable called PanthR, and populate it with different modules. For instance we need a module called Variable to represent the statistical notion of a variable. Here's how such a file might look like:
+The key elements of approach are as follows:
+
+- We use an anonymous function which is immediately invoked to protect the insides of our application from the rest of the world. Anything we define within the function stays local to the function unless we make steps to make it available outside.
+- We use a specific global variable object as a *namespace*, possibly named after our organization or project. Our different modules will become properties of that object.
+- We access other modules through the global names they may have. This runs the risk of someone else overwriting our global name.
+
+Here's how such a file might look like:
 
 ```javascript
-// Create global PanthR if it doesn't already exist
-var PanthR = PanthR || {};
-PanthR.Variable = (function() {
-    // Local scope that only methods related to Variable see
-    var Variable;
-    // ... module code here
-    // ... you can refer to other modules:
-    PanthR.OtherModule.doSomething();
-    // Make sure to return the Variable object we are creating
-    return Variable;
-}());
-```
-We also saw a variation of it that includes accounting for different global objects:
-```javascript
-// Immediate function invocation. "root" here is set to the proper global object.
+// Function takes as argument the "global" object. In browser that is "window".
+// In Node, it is "global". This is provided at the bottom of the snippet,
+// where the function is called immediately after its definition.
 (function(root) {
-    var Variable;
+    let MyOrg = root.MyOrg || {};
+    root.MyOrg = MyOrg;
+    let OtherModule = MyOrg.OtherModule; // Loading another module
 
-    // Make sure the PanthR "namespace" exists
-    if (!root.hasOwnProperty('PanthR')) {
-        root.PanthR = {};
-    }
-    // If the module is loaded already, don't reload (optional).
-    if (root.PanthR.hasOwnProperty('Variable')) {
-        return;
-    }
+    // Creating the module. Could use a class declaration or whatever is appropriate.
+    let MyModule = ...;
 
-    // ... module code here
-    // ... you can refer to other modules:
-    PanthR.OtherModule.doSomething();
+    // We do stuff for our module.
+    // We can use OtherModule here.
 
-    // Make sure to return export Variable
-    PanthR.Variable = Variable;
-}(typeof window === 'undefined' ? global : window));   // Here we set root
+    // Store this module so other modules can find it.
+    MyOrg.MyModule = MyModule;
+}(typeof window === 'undefined' ? global : window));
 ```
 
 This can work well for moderately sized projects. We can combine all these files in one big file, and the immediate function invocations keep the different scopes separate. Or we can put them one at a time in their own `<script>` tags (though one big file tends to be more efficient to download).
 
 This is a simple format, and requires some discipline on the part of the programmer, but nothing special otherwise.
 
-Its main drawback is that it offers no way to specify the dependencies between modules. For instance, when we access `PanthR.OtherModule` in the code above, how to do we know that it has already been created? We don't, we must rely on making sure we load/concatenate the files in their proper order. And this is something we must ourselves keep track of, a very fragile process.
+Its main drawback is that it offers no way to specify the dependencies between modules. For instance, when we access `MyOrg.OtherModule` in the code above, how to do we know that it has already been created? We don't, we must rely on making sure we load/concatenate the files in their proper order. And this is something we must ourselves keep track of, a very fragile process.
 
-### CommonJS Modules
+### Node (CommonJS) Modules
 
 The CommonJS Module format was created by a group interested in using Javascript technologies on the server, like for instance Node.js (but there are others). Any such technology must provide certain libraries for input and output, managing the file system, multiple processes etc.
 
 In the CommonJS module specification there are 3 provided globals:
 
-- `require` is a function that takes as argument the module name returns the object exported by that module.
-- `exports` the object exported by the module. The module can provide functionality by adding properties to this object.
+- `require` is a function that takes as argument the module name and returns the object exported by that module.
+- `exports` is the object exported by the module. The module can provide functionality by adding properties to this object.
 - `module` is an object containing properties describing the module. In particular it contains a `module.id` property that is a string that can be used with `require` to load the module, and a `module.exports` property, which is the exported module. In fact `exports` is a variable initially set to the object in `module.exports`. So one often sets `module.exports` to the desired return object/function, rather than adding methods to `exports`.
 
 Each file in the CommonJS specification is assumed to have its own local environment (as opposed to files loaded via `<script>` tags in the browser, where they are all treated as part of the global environment).
@@ -105,21 +94,19 @@ But briefly here is how code would typically look like in a Node module:
 // We read the "filesystem" module
 // Modules "paths" that don't start with a "./" are searched in
 // the "module" space, a special library directory.
-var fs = require("fs");
-// Load the "os" module
-var os = require("os");
+let fs = require("fs");
 // Load some other custom modules of our own.
 // This path is relative to where our current file is at.
-var otherModule = require("./otherModule");
+let otherModule = require("./otherModule");
 
 // Implement our module
-var myModule = {
+let myModule = {
     ...
 };
 
 // Ensure that myModule is what is exported
 module.exports = myModule;
-// No need to explicitly return anything
+// No need to explicitly return anything. The file can just end.
 ```
 
 The string passed to the "require" call is used to locate the file. It is *resolved* to a full path to a file via a set of rules:
@@ -131,91 +118,30 @@ The string passed to the "require" call is used to locate the file. It is *resol
 
 The required modules are loaded *synchronously*. This is an important characteristic of this module format.
 
-### AMD Modules
+### ES6 Modules
 
-AMD stands for *Asynchronous Module Definition*. It is a [specification](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) born out of a need to have modular development in a project that is meant to be deployed in the browser. As scripts in the browser are simply concatenated together in one common environment, the CommonJS style described above would not work.
+ES6 Modules are the current module specification for Javascript. It is already implemented in most browsers, and Node.js is in the process of creating support for it.
 
-The AMD specification consists of a number of parts:
+We often use the extension `.mjs` for ES6 modules to distinguish them from Node modules. And when we want to include them into a Javascript page, we must use the `type="module"` attribute of the script tag:
+```html
+<script type="module" src="...."></script>
+```
 
-AMD Modules
-  ~ You write your module files in a specific format, with the use of the `define` function that we will discuss shortly. Part of that specification is what other modules your module depends on.
+One of the ongoing challenges is that some of the current support for ES6 Modules is limited: When it comes to testing frameworks, we have to jump through a few hoops to make it work smoothly.
 
-    AMD Modules cannot be inserted into a webpage directly. They need the use of a loader or builder.
+ES6 Modules follow use the following primitive constructions:
 
-    The key features of these modules is that they have explicitly declared dependencies, and that they can be loaded asynchronously: You specify the file's dependencies, along with how your module will finish its loading once those dependencies have been loaded.
+- `import` is used to load another module. You may choose to import everything that is exported from that module, or some selected pieces.
+- `export` is used to specify which parts of the module are meant to be exported and used by other modules. You can export multiple functions/classes/objects, using `export` in front of each of them (or grouping them together), or you can use `export default` to export exactly one thing. In the former case, you must use the correct names for all the pieces you want to use; in the latter you can choose on the importing module what name you want to give to the imported module. `export default` is particularly suited to modules that are essentially classes.
 
-AMD Loader
-  ~ The loader is responsible for loading the modules in the correct order. It has to provide a "define" function, and it processes the information provided in those "define" calls to determine the correct order in which modules should be loaded to resolve the dependencies.
+Make sure to read [these notes](http://exploringjs.com/es6/ch_modules.html) for more details.
 
-    There are a number of existing loaders, including [require.js](http://requirejs.org/) and [RaveJS](https://github.com/RaveJS). We will spend more time looking closer at require.js in future segments.
-
-AMD Builder
-  ~ There are various programs whose goal is to build/consolidate the various AMD modules into one file to be served in a `<script>` tag. Loaders are used in the development of the application, while builders are used in the deployment phase. [require.js](http://requirejs.org/) includes such a builder/optimizer, but there are many others, for instance [browserify](http://browserify.org/).
-
-    These programs often also do compression, removing spaces, comments etc, to reduce the file size and make it faster to download.
-
-The key component of and AMD module is the `define` function. It takes up to three arguments:
-
-- `id` is the first argument, and it is optional. It is a string characterizing the module's "identifier". This will default to the filename if omitted, which is typically the case.
-- `dependencies` is the second argument, also optional but usually included. It is an *array* of the "id"s of modules that your module depends on. Those modules will be processed first before your module is processed. There are three special id names that are treated separately: `"require"`, `"exports"` and `"module"`. If those ids appear, they are resolved to their CommonJS module meaning.
-
-    If this second argument is omitted, then it defaults to the triple `["require", "exports", "module"]`.
-
-    One key difference with the ids in the AMD specification is that they are looked for either relative to the current file or from "top-level". There is nothing analogous to the "`node_modules`" folders.
-- `factory` is the third, and only required, argument. It can be an object, in which case it is what is exported by this module. Or more typically it is a function, which will be executed exactly once, and its return value is the exported object from the module. This function will receive as arguments the modules that were listed in the dependencies array.
-- For a proper AMD implementation, the `define` function has a property, `define.amd`, which must be an object but has no other required fields.
-
-Here is an example of how such a file might look like. In its simplest form it has no dependencies:
-
+Here is a small example of what a ES6 module might look like.
 ```javascript
-define(function() {
-    var OurModule;
-    // ... define OurModule here
-    return OurModule;
-});
+// lib is a library that exports a "square" and a "diag"
+import { square, diag } from 'lib';
+square(...)
+// Or ...
+import * as lib from 'lib';
+lib.square(...)
 ```
-Or if we wanted to give it a specific name rather than have it obtain its name from the filename:
-```javascript
-define('ourModuleName', function() {
-    var OurModule;
-    // ... define OurModule here
-    return OurModule;
-});
-```
-
-Here's an example of a module that depends on jQuery and one other module:
-```javascript
-define(["jquery", "otherModule"], function($, otherM) {
-    // "$" here will equal the jquery object
-    // and otherM equal the "otherModule"
-    // ...
-    return MyModule;
-});
-```
-
-We can easily transform a CommonJS/Node module into an AMD module by using the simplified CommonJS wrapping. For instance here is how our TaskListController file might look:
-
-```javascript
-define(function(require, exports, module) {
-    var Template, Task, TaskListController;
-
-    Template = require('Template');
-    Task = require('Task');
-
-    // Write TaskListController here
-
-    // Export at the end
-    module.exports = TaskListController;
-    // AMD return
-    return TaskListController;
-});
-```
-
-A sample of using AMD modules can be [found here](https://github.com/skiadas/HealCalc3/tree/master/). Start by looking inside the `js/app` folder and the bottom of the `index-test.html` file for bootstrapping such an application. You will find there the following line:
-
-```
-<script type="text/javascript" data-main="js/app/main" src="js/lib/require.js"></script>
-```
-
-This line loads the `require.js` file, which then takes care of loading the application by starting at the `"js/app/main"` module and following its dependencies.
-

@@ -61,32 +61,32 @@ A week-by-week breakdown of the material.
 - Day 1
     - [Timers](notes/events_timers.md)
     - [Overview of Software Development Practices](notes/dev_overview.md)
-    - [Basics of Version Control](notes/git_version_control.md)
-    - [Testing Basics](notes/testing_basics.md)
 - Day 2
-    - Modules
-    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
-    - [The DRY principle](notes/dry.md)
-    - [Object properties](notes/object_properties.md)
+    - [Basics of Version Control](notes/git_version_control.md)
+    - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
 - Day 3
-    - Midterm
+    - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 
 ## Week  6 (02/09-02/13)
 
 - Day 1
-    - [Different stack implementations](notes/stack_various.md)
-    - [Object creation and prototypes](notes/object_creation_prototypes.md)
-    - ["Class" construction examples](notes/class_construction.md)
+    - [Testing Basics](notes/testing_basics.md)
+    - [Object properties](notes/object_properties.md)
 - Day 2
-    - [TaskApp: Building a Web App](notes/taskapp_setup.md)
+    - ES6 features: String Templates, Symbols
 - Day 3
+    - ES6 features: Promises
 
 ## Week  7 (02/16-02/20)
 
 - Day 1
+    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
+    - [The DRY principle](notes/dry.md)
+    - [Different stack implementations](notes/stack_various.md)
+    - [Object creation and prototypes](notes/object_creation_prototypes.md)
+    - ["Class" construction examples](notes/class_construction.md)
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 - Day 2
-    - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 - Day 3
 
 ## Week  8 (02/23-02/27)
@@ -117,15 +117,11 @@ BREAK
     - [Documentation systems](notes/documentation.md)
     - [Code Reviews](notes/code_review.md)
 - Day 2
-    - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
-    - [Using require.js](notes/requirejs.md)
-    - [UMD modules](notes/umd.md)
 - Day 3
 
 ## Week 12 (03/23-03/27)
 
 - Day 1
-    - [The Visitor Pattern and the need for it](notes/patterns_visitor.md)
 - Day 2
     - [Basics of HTTP](notes/http_intro.md)
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
@@ -176,3 +172,7 @@ BREAK
 - [Overall Project Workflow](notes/project_workflow.md)
 - [Methods in objects and the need for `this`](notes/object_methods.md)
 - [Setting up a second remote](notes/second_remote.md)
+- [AMD Modules](notes/amd_modules.md)
+- [Using require.js](notes/requirejs.md)
+- [UMD modules](notes/umd.md)
+- [The Visitor Pattern and the need for it](notes/patterns_visitor.md)

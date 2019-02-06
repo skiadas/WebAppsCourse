@@ -128,35 +128,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>Each component should be in its own file, so its code can be considered/tested/altered without needing any of the other parts.</li>
 <li>In general components need to be as independent of each other as possible, but some components will need to know about other components. We therefore need a mechanism for components to “require” other components. We will see in more detail how to do this in the future.</li>
-<li><p>We should try not to pollute the global space as much as possible. One way to avoid that is to create one global variable as a “namespace for our application”. Then we add components to that. For example, a start code for each component could be something like this:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Immediate function invocation. Closes at the end of the file.</span>
-<span class="co">// &quot;global&quot; will be the global object, which is either &quot;window&quot; (browser) or &quot;root&quot; (node).</span>
-(<span class="kw">function</span>(global) <span class="op">{</span>
-   <span class="cf">if</span> (<span class="op">!</span><span class="va">global</span>.<span class="at">hasOwnProperty</span>(<span class="st">&#39;TaskApp&#39;</span>)) <span class="op">{</span>
-      <span class="va">global</span>.<span class="at">TaskApp</span> <span class="op">=</span> <span class="op">{};</span>            <span class="co">// Create namespace if it does not already exist.</span>
-   <span class="op">}</span>
-
-   <span class="co">// Can declare local variables/functions etc here</span>
-   <span class="kw">var</span> Task<span class="op">;</span>
-   <span class="co">// If Task depended on other modules, e.g. TaskApp.TaskList, we can</span>
-   <span class="co">// check if those are set and throw an error or delay running the rest of the code.</span>
-
-   <span class="co">// Define the Task class here.</span>
-   <span class="co">// All the meaty stuff goes here.</span>
-
-   <span class="co">// We &quot;export&quot; the Task class at some point</span>
-   <span class="va">global</span>.<span class="va">TaskApp</span>.<span class="at">Task</span> <span class="op">=</span> Task<span class="op">;</span>
-<span class="op">}</span>(<span class="kw">typeof</span> window <span class="op">===</span> <span class="st">&#39;undefined&#39;</span> <span class="op">?</span> root : window))<span class="op">;</span></code></pre></div>
-We will use this format in each of our files.</li>
-<li>For the above code to work, we need to manually manage dependencies, and load the files in the correct order. So the order in which we include script tags in the file matters. Figuring out the correct order for the different modules is actually an interesting program in graph theory, called <strong>topological sort</strong>.</li>
-<li><p>We will need a way to create new “task” items. For that we will need a “template” to copy from. We will see one way of doing that for now, via a script tag. We’ll learn more about templates later. Essentially we add something like the following on the web page:</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> id=</span><span class="st">&quot;taskTemplate&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/template&quot;</span><span class="kw">&gt;</span>
-<span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">&quot;task&quot;</span><span class="op">&gt;</span>
-<span class="op">&lt;</span>p<span class="op">&gt;{{</span>title<span class="op">}}&lt;</span><span class="ss">/p&gt;&lt;input class=&quot;completed&quot; type=&quot;checkbox&quot; value=&quot;{{completed}}&quot;&gt;&lt;/input</span><span class="op">&gt;</span>
-<span class="op">&lt;</span><span class="ss">/div&gt;</span>
-<span class="ss">&lt;/script</span><span class="op">&gt;</span></code></pre></div>
-<p>The above script can be accessed via its id, and because its type is not set to <code>text/javascript</code> it will not actually be executed by the browser. We can then use its text to create a new item.</p>
-Notice that there are a number of “placeholders”, surrounded in double curly braces. We will replace those with suitable values.</li>
+<li>We should try not to pollute the global space as much as possible. We’ll be using ES6 modules for our organization, to avoid that.</li>
+<li>We will need a way to create new “task” items. For that we will need a “template” to copy from. We will use <strong>template strings</strong>, one of the new features in ECMAScript 6. We will see how this works later.</li>
 <li><p>We will need to decide on a file structure. We will use the following:</p>
 <pre><code>- projectRoot
    - css
@@ -165,13 +138,13 @@ Notice that there are a number of “placeholders”, surrounded in double curly
       javascript files in here
    - lib
       folder for 3rd-party libraries like jQuery
-   - tests
+   - test
       test files go here
    index.html
    .eslintrc.json
    other key root level files</code></pre>
 This is by no means the only way to do it, but it is one way.</li>
-<li><p>The functionality that actually requires a web-browser should be restricted to the Controller. The other classes (models), should be self-sufficient, and we should be able to write tests for them directly.</p></li>
+<li><p>The functionality that actually requires a web browser should be restricted to the Controller. The other classes (models), should be self-sufficient, and we should be able to write tests for them directly.</p></li>
 </ul>
 <h3 id="initial-code">Initial Code</h3>
 <p>We now take a look at the starting layout code for our app.</p>
@@ -191,7 +164,7 @@ This is by no means the only way to do it, but it is one way.</li>
       <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;filters&quot;</span><span class="kw">&gt;</span>
          <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;filter&quot;</span><span class="ot"> id=</span><span class="st">&quot;postsChoice&quot;</span><span class="kw">&gt;</span>
             <span class="kw">&lt;h3&gt;</span>Posts to show<span class="kw">&lt;/h3&gt;</span>
-            <span class="co">&lt;!-- TODO: Add radio buttons --&gt;</span>
+            <span class="co">&lt;!-- </span><span class="al">TODO</span><span class="co">: Add radio buttons --&gt;</span>
          <span class="kw">&lt;/div&gt;</span>
          <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;filter&quot;</span><span class="ot"> id=</span><span class="st">&quot;labelsList&quot;</span><span class="kw">&gt;</span>
             <span class="kw">&lt;h3&gt;</span>Labels<span class="kw">&lt;/h3&gt;</span>
@@ -217,16 +190,16 @@ This is by no means the only way to do it, but it is one way.</li>
 <span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">&quot;label&quot;</span><span class="op">&gt;</span>
 <span class="op">&lt;</span>p<span class="op">&gt;{{</span>tag<span class="op">}}&lt;</span>span<span class="op">&gt;&lt;!--</span> count goes here <span class="op">--&gt;&lt;</span><span class="ss">/span&gt;&lt;/p</span><span class="op">&gt;&lt;</span>input <span class="kw">class</span><span class="op">=</span><span class="st">&quot;completed&quot;</span> type<span class="op">=</span><span class="st">&quot;checkbox&quot;</span> value<span class="op">=</span><span class="st">&quot;{{selected}}&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/input&gt;</span>
 <span class="ss">&lt;/div</span><span class="op">&gt;</span>
-<span class="op">&lt;</span><span class="ss">/script&gt;</span>
-<span class="ss">&lt;!-- SCRIPT LOADING HERE --&gt;</span>
-<span class="ss">&lt;script type=&quot;text/javascript</span><span class="st">&quot; src=&quot;</span>js/<span class="va">templates</span>.<span class="at">js</span><span class="st">&quot;&gt;&lt;/script&gt;</span>
-<span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;text/javascript&quot;</span> src<span class="op">=</span><span class="st">&quot;js/tasklist.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
-<span class="ss">&lt;script type=&quot;text/javascript</span><span class="st">&quot; src=&quot;</span>js/<span class="va">label</span>.<span class="at">js</span><span class="st">&quot;&gt;&lt;/script&gt;</span>
-<span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;text/javascript&quot;</span> src<span class="op">=</span><span class="st">&quot;js/task.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
-<span class="ss">&lt;script type=&quot;text/javascript</span><span class="st">&quot; src=&quot;</span>js/<span class="va">filters</span>.<span class="at">js</span><span class="st">&quot;&gt;&lt;/script&gt;</span>
-<span class="op">&lt;</span>script type<span class="op">=</span><span class="st">&quot;text/javascript&quot;</span> src<span class="op">=</span><span class="st">&quot;js/controller.js&quot;</span><span class="op">&gt;&lt;</span><span class="ss">/script&gt;</span>
-<span class="ss">&lt;/body</span><span class="op">&gt;</span>
-<span class="op">&lt;</span><span class="ss">/html&gt;</span></code></pre></div>
+<span class="kw">&lt;/script&gt;</span>
+<span class="co">&lt;!-- SCRIPT LOADING HERE --&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="ot"> src=</span><span class="st">&quot;js/templates.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="ot"> src=</span><span class="st">&quot;js/tasklist.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="ot"> src=</span><span class="st">&quot;js/label.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="ot"> src=</span><span class="st">&quot;js/task.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="ot"> src=</span><span class="st">&quot;js/filters.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="ot"> src=</span><span class="st">&quot;js/controller.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
 <p>Our goal for now is to:</p>
 <ul>
 <li>Delineate the main areas of the page</li>

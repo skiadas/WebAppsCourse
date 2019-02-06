@@ -102,6 +102,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Commit (optionally creating an issue first to explain what the refactoring was about).</li>
 </ul>
 <p>This is some of the general theory behind testing.</p>
+<p>The key steps on the above, other than issues and commits, are:</p>
+<ul>
+<li>Write a test</li>
+<li>Watch it fail</li>
+<li>Make it pass</li>
+<li>Make it right (cleanup/refactor)</li>
+</ul>
+<p>The goal is to keep repeating this loop over and over.</p>
 <h2 id="testing-in-javascript">Testing in Javascript</h2>
 <p>We will be using <a href="http://mochajs.org/">mocha</a> in combination with <a href="http://chaijs.com/">chai</a> for our unit tests. Here is a basic html file:</p>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>

@@ -54,6 +54,15 @@ In Test-Driven-Development, you typically would follow these steps:
 
 This is some of the general theory behind testing.
 
+The key steps on the above, other than issues and commits, are:
+
+- Write a test
+- Watch it fail
+- Make it pass
+- Make it right (cleanup/refactor)
+
+The goal is to keep repeating this loop over and over.
+
 ## Testing in Javascript
 
 We will be using [mocha](http://mochajs.org/) in combination with [chai](http://chaijs.com/) for our unit tests. Here is a basic html file:
