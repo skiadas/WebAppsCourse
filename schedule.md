@@ -63,30 +63,30 @@ A week-by-week breakdown of the material.
     - [Overview of Software Development Practices](notes/dev_overview.md)
 - Day 2
     - [Basics of Version Control](notes/git_version_control.md)
-    - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
 - Day 3
+    - [Module Patterns: Node/CommonJS modules](notes/pattern_modules.md)
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 
 ## Week  6 (02/09-02/13)
 
 - Day 1
     - [Testing Basics](notes/testing_basics.md)
-    - [Object properties](notes/object_properties.md)
 - Day 2
-    - ES6 features: String Templates, Symbols
+    - [Object properties](notes/object_properties.md)
 - Day 3
-    - ES6 features: Promises
+    - ES6 features: String Templates, Symbols
 
 ## Week  7 (02/16-02/20)
 
 - Day 1
+    - ES6 features: Promises
+- Day 2
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
     - [The DRY principle](notes/dry.md)
     - [Different stack implementations](notes/stack_various.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
     - ["Class" construction examples](notes/class_construction.md)
     - [TaskApp: Building a Web App](notes/taskapp_setup.md)
-- Day 2
 - Day 3
 
 ## Week  8 (02/23-02/27)

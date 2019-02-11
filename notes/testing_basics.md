@@ -61,11 +61,11 @@ The key steps on the above, other than issues and commits, are:
 - Make it pass
 - Make it right (cleanup/refactor)
 
-The goal is to keep repeating this loop over and over.
+The goal is to keep repeating this loop over and over, with ever more complex tests, until you have reached all the functionality you desire.
 
 ## Testing in Javascript
 
-We will be using [mocha](http://mochajs.org/) in combination with [chai](http://chaijs.com/) for our unit tests. Here is a basic html file:
+We will be using [mocha](http://mochajs.org/) in combination with [chai](http://chaijs.com/) for our unit tests. Here is a basic html file to run mocha on the browser:
 
 ```html
 <!DOCTYPE html>
@@ -149,3 +149,54 @@ chainable words
 
 many others
   ~ Look in the [Chai API](http://chaijs.com/api/bdd/).
+
+### Mocha and ES6 modules
+
+Currently Mocha has some challenges dealing with ES6 modules, but there are some workarounds. Here's what we need to do:
+
+To run mocha on the browser, you use a format similar to the one above, but referring to modules instead. You need to make sure to run a local server like `http-server` for these to take effect:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+   <link rel="stylesheet" href="https://unpkg.com/mocha@4.0.1/mocha.css" />
+</head>
+<body>
+   <div id="mocha"></div>
+   <script src="https://unpkg.com/chai@4.1.2/chai.js"></script>
+   <script src="https://unpkg.com/mocha@4.0.1/mocha.js"></script>
+   <script>mocha.setup('bdd');</script>
+   <script type="module" src="test/event.spec.mjs"></script>
+   <script type="module">
+      mocha.checkLeaks();
+      mocha.run();
+  </script>
+</body>
+</html>
+```
+If you have more testing modules, you just add links to each one. The `event.spec.mjs` file here is a ES6 module, and the `type=module` line in front ensures that it is loaded as such.
+
+To run the same tests with Node on the server, we need a bit more work. Normally we would simply run the `mocha` executable. However `mocha` is not currently able by itself to run the files as ES6 modules. We instead need to execute mocha as follows:
+```bash
+NODE_OPTIONS="--experimental-modules" mocha --delay test.esm.js
+```
+This does two things. First, it sets the `experimental-modules` flag for Node, which tells it to recognize ES6 files. Then, it runs the `test.esm.js` file as a normal Node module. That module loads the other tests as follows:
+```javascript
+// Run tests with: NODE_OPTIONS="--experimental-modules" mocha --delay test.esm.js
+const { sync: globSync } = require("glob");
+
+global.chai = require('chai');
+
+(async () => {
+   const matches = globSync("test/*.spec.mjs");
+   try {
+      for (const match of matches) {
+         await import("./" + match);
+      }
+   } catch (e) {
+      throw e;
+   }
+   run();
+})();
+```
+This file sets up `chai` as a globally available value, then looks for test files in the `test` directory, and imports them. It then waits for all of them to load before using  `run` to execute them all.

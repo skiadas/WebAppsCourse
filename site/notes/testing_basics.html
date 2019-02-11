@@ -109,9 +109,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Make it pass</li>
 <li>Make it right (cleanup/refactor)</li>
 </ul>
-<p>The goal is to keep repeating this loop over and over.</p>
+<p>The goal is to keep repeating this loop over and over, with ever more complex tests, until you have reached all the functionality you desire.</p>
 <h2 id="testing-in-javascript">Testing in Javascript</h2>
-<p>We will be using <a href="http://mochajs.org/">mocha</a> in combination with <a href="http://chaijs.com/">chai</a> for our unit tests. Here is a basic html file:</p>
+<p>We will be using <a href="http://mochajs.org/">mocha</a> in combination with <a href="http://chaijs.com/">chai</a> for our unit tests. Here is a basic html file to run mocha on the browser:</p>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
 <span class="kw">&lt;html&gt;</span>
 <span class="kw">&lt;head&gt;</span>
@@ -188,5 +188,46 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <dd>Look in the <a href="http://chaijs.com/api/bdd/">Chai API</a>.
 </dd>
 </dl>
+<h3 id="mocha-and-es6-modules">Mocha and ES6 modules</h3>
+<p>Currently Mocha has some challenges dealing with ES6 modules, but there are some workarounds. Here’s what we need to do:</p>
+<p>To run mocha on the browser, you use a format similar to the one above, but referring to modules instead. You need to make sure to run a local server like <code>http-server</code> for these to take effect:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<span class="kw">&lt;html&gt;</span>
+<span class="kw">&lt;head&gt;</span>
+   <span class="kw">&lt;link</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href=</span><span class="st">&quot;https://unpkg.com/mocha@4.0.1/mocha.css&quot;</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;/head&gt;</span>
+<span class="kw">&lt;body&gt;</span>
+   <span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;mocha&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>
+   <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://unpkg.com/chai@4.1.2/chai.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+   <span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://unpkg.com/mocha@4.0.1/mocha.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+   <span class="kw">&lt;script&gt;</span><span class="va">mocha</span>.<span class="at">setup</span>(<span class="st">&#39;bdd&#39;</span>)<span class="op">;</span><span class="kw">&lt;/script&gt;</span>
+   <span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;module&quot;</span><span class="ot"> src=</span><span class="st">&quot;test/event.spec.mjs&quot;</span><span class="kw">&gt;&lt;/script&gt;</span>
+   <span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;module&quot;</span><span class="kw">&gt;</span>
+      <span class="va">mocha</span>.<span class="at">checkLeaks</span>()<span class="op">;</span>
+      <span class="va">mocha</span>.<span class="at">run</span>()<span class="op">;</span>
+  <span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
+<p>If you have more testing modules, you just add links to each one. The <code>event.spec.mjs</code> file here is a ES6 module, and the <code>type=module</code> line in front ensures that it is loaded as such.</p>
+<p>To run the same tests with Node on the server, we need a bit more work. Normally we would simply run the <code>mocha</code> executable. However <code>mocha</code> is not currently able by itself to run the files as ES6 modules. We instead need to execute mocha as follows:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="va">NODE_OPTIONS=</span><span class="st">&quot;--experimental-modules&quot;</span> <span class="ex">mocha</span> --delay test.esm.js</code></pre></div>
+<p>This does two things. First, it sets the <code>experimental-modules</code> flag for Node, which tells it to recognize ES6 files. Then, it runs the <code>test.esm.js</code> file as a normal Node module. That module loads the other tests as follows:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Run tests with: NODE_OPTIONS=&quot;--experimental-modules&quot; mocha --delay test.esm.js</span>
+<span class="kw">const</span> <span class="op">{</span> <span class="dt">sync</span><span class="op">:</span> globSync <span class="op">}</span> <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;glob&quot;</span>)<span class="op">;</span>
+
+<span class="va">global</span>.<span class="at">chai</span> <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;chai&#39;</span>)<span class="op">;</span>
+
+(<span class="at">async</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="kw">const</span> matches <span class="op">=</span> <span class="at">globSync</span>(<span class="st">&quot;test/*.spec.mjs&quot;</span>)<span class="op">;</span>
+   <span class="cf">try</span> <span class="op">{</span>
+      <span class="cf">for</span> (<span class="kw">const</span> match of matches) <span class="op">{</span>
+         await <span class="im">import</span>(<span class="st">&quot;./&quot;</span> <span class="op">+</span> match)<span class="op">;</span>
+      <span class="op">}</span>
+   <span class="op">}</span> <span class="cf">catch</span> (e) <span class="op">{</span>
+      <span class="cf">throw</span> e<span class="op">;</span>
+   <span class="op">}</span>
+   <span class="at">run</span>()<span class="op">;</span>
+<span class="op">}</span>)()<span class="op">;</span></code></pre></div>
+<p>This file sets up <code>chai</code> as a globally available value, then looks for test files in the <code>test</code> directory, and imports them. It then waits for all of them to load before using <code>run</code> to execute them all.</p>
 </body>
 </html>
