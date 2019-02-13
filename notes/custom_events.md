@@ -14,7 +14,7 @@ We will discuss here how to create custom events, in the context of discussing a
 
 Design patterns in general aim to offer a standard, tried-and-true, approach to solving a design problem. They also become a standard way for programmers to communicate intent.
 
-In this case the problem is that of enabling modules to communicate with each other without a very direct link to each other (so keeping the modules loosely coupled). Both systems effectively allow one module to be "notified" when something happens to another module. ]
+In this case the problem is that of enabling modules to communicate with each other without a very direct link to each other (so keeping the modules loosely coupled). Both systems effectively allow one module to be "notified" when something happens to another module.
 
 So we can have an "observer" that is notified when something happens to another "subject". The key idea is that the subject does not need to know exactly who is observing it. We can write the code for the subject without caring who, if anyone, is observing.
 
@@ -55,10 +55,10 @@ The general approach is the following:
 
 There are two versions of this technique:
 
-- The **observer pattern**, where objects can register to trigger a function when some "event" happens to another object. As a real-life example, we advisors have effectively registered with the registrar's office to receive an email if a student changes advisors. This is not something that the student needs to act on in any particular way. It just happens.
+- The **observer pattern**, where objects can register to trigger a function when some "event" happens to another object. As a real-life example, we advisors have effectively registered with the registrar's office to receive an email if a student changes advisors. This is not something that the student needs to act on in any particular way. It just happens when the student triggers their "change advisor" method.
 - The **publish/subscribe pattern**, which effectively uses a single global communications system: You can *subscribe* to listen to an event with a given "name". Then you get notified when any other part of the application *publishes* an event with the given name. Imagine somehow being able to tell your email system to "send me a link whenever any news articles show up that mention Computer Science and my name".
 
-More formally, we could say that *the Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified automatically*.
+More formally, we could say that *the Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified automatically*. This is a *runtime* dependency, not necessarily a source-code dependency.
 
 #### Javascript implementation
 

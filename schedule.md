@@ -71,8 +71,9 @@ A week-by-week breakdown of the material.
 
 - Day 1
     - [Testing Basics](notes/testing_basics.md)
+    - [TaskApp (cont)](notes/taskapp_setup.md)
 - Day 2
-    - [Object properties](notes/object_properties.md)
+    - [Custom Events: Observer, Publish/Subscribe](notes/custom_events.md)
 - Day 3
     - ES6 features: String Templates, Symbols
 
@@ -83,11 +84,12 @@ A week-by-week breakdown of the material.
 - Day 2
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
     - [The DRY principle](notes/dry.md)
+    - [Object properties](notes/object_properties.md)
     - [Different stack implementations](notes/stack_various.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
     - ["Class" construction examples](notes/class_construction.md)
-    - [TaskApp: Building a Web App](notes/taskapp_setup.md)
 - Day 3
+    - MIDTERM
 
 ## Week  8 (02/23-02/27)
 
@@ -108,7 +110,6 @@ BREAK
 - Day 1
     - [Graphics in Javascript, SVG](notes/graphics.md)
 - Day 2
-    - [Custom Events: Oberver, Publish/Subscribe](notes/custom_events.md)
 - Day 3
 
 ## Week 11 (03/16-03/20)

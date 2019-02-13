@@ -61,7 +61,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We will discuss here how to create custom events, in the context of discussing an important <em>design pattern</em>, the <strong>observer pattern</strong>, along with the closely related <strong>publish/subscribe</strong> pattern.</p>
 <h3 id="problem-description">Problem description</h3>
 <p>Design patterns in general aim to offer a standard, tried-and-true, approach to solving a design problem. They also become a standard way for programmers to communicate intent.</p>
-<p>In this case the problem is that of enabling modules to communicate with each other without a very direct link to each other (so keeping the modules loosely coupled). Both systems effectively allow one module to be “notified” when something happens to another module. ]</p>
+<p>In this case the problem is that of enabling modules to communicate with each other without a very direct link to each other (so keeping the modules loosely coupled). Both systems effectively allow one module to be “notified” when something happens to another module.</p>
 <p>So we can have an “observer” that is notified when something happens to another “subject”. The key idea is that the subject does not need to know exactly who is observing it. We can write the code for the subject without caring who, if anyone, is observing.</p>
 <h3 id="example">Example</h3>
 <p>As an example, imagine the task list we are working on. When a task’s title changes, the interface must be updated. How will the interface know that it must be updated?</p>
@@ -89,10 +89,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>There are two versions of this technique:</p>
 <ul>
-<li>The <strong>observer pattern</strong>, where objects can register to trigger a function when some “event” happens to another object. As a real-life example, we advisors have effectively registered with the registrar’s office to receive an email if a student changes advisors. This is not something that the student needs to act on in any particular way. It just happens.</li>
+<li>The <strong>observer pattern</strong>, where objects can register to trigger a function when some “event” happens to another object. As a real-life example, we advisors have effectively registered with the registrar’s office to receive an email if a student changes advisors. This is not something that the student needs to act on in any particular way. It just happens when the student triggers their “change advisor” method.</li>
 <li>The <strong>publish/subscribe pattern</strong>, which effectively uses a single global communications system: You can <em>subscribe</em> to listen to an event with a given “name”. Then you get notified when any other part of the application <em>publishes</em> an event with the given name. Imagine somehow being able to tell your email system to “send me a link whenever any news articles show up that mention Computer Science and my name”.</li>
 </ul>
-<p>More formally, we could say that <em>the Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified automatically</em>.</p>
+<p>More formally, we could say that <em>the Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified automatically</em>. This is a <em>runtime</em> dependency, not necessarily a source-code dependency.</p>
 <h4 id="javascript-implementation">Javascript implementation</h4>
 <p>Javascript implementations of this pattern are usually done via an “Events” class/mixin. You typically would be given the following:</p>
 <p>The interface provided by events typically looks like this:</p>
