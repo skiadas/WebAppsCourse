@@ -75,11 +75,14 @@ A week-by-week breakdown of the material.
 - Day 2
     - [Custom Events: Observer, Publish/Subscribe](notes/custom_events.md)
 - Day 3
-    - ES6 features: String Templates, Symbols
+    - Observer pattern in TaskApp.
+    - Boundaries: controller vs UI/view.
+    - Test doubles in the controller.
 
 ## Week  7 (02/16-02/20)
 
 - Day 1
+    - ES6 features: String Templates, Symbols
     - ES6 features: Promises
 - Day 2
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
