@@ -76,21 +76,16 @@ A week-by-week breakdown of the material.
     - [Custom Events: Observer, Publish/Subscribe](notes/custom_events.md)
 - Day 3
     - Observer pattern in TaskApp.
-    - Boundaries: controller vs UI/view.
-    - Test doubles in the controller.
 
 ## Week  7 (02/16-02/20)
 
 - Day 1
+    - Boundaries: controller vs UI/view.
+    - Test doubles in the controller.
+- Day 2
     - ES6 features: String Templates, Symbols
     - ES6 features: Promises
-- Day 2
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
-    - [The DRY principle](notes/dry.md)
-    - [Object properties](notes/object_properties.md)
-    - [Different stack implementations](notes/stack_various.md)
-    - [Object creation and prototypes](notes/object_creation_prototypes.md)
-    - ["Class" construction examples](notes/class_construction.md)
 - Day 3
     - MIDTERM
 
@@ -103,6 +98,11 @@ BREAK
 - Day 1
     - [Assignment of Projects](notes/project_descriptions.md)
     - [Using Templates: Handlebars](notes/templates.md)
+    - [The DRY principle](notes/dry.md)
+    - [Object properties](notes/object_properties.md)
+    - [Different stack implementations](notes/stack_various.md)
+    - [Object creation and prototypes](notes/object_creation_prototypes.md)
+    - ["Class" construction examples](notes/class_construction.md)
 
 - Day 2
     - Work on Projects
