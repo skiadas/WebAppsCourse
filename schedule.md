@@ -87,7 +87,7 @@ A week-by-week breakdown of the material.
     - ES6 features: Promises
     - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
 - Day 3
-    - MIDTERM
+    - [MIDTERM](midtermStudyGuide.md)
 
 ## Week  8 (02/23-02/27)
 
