@@ -85,7 +85,7 @@ A week-by-week breakdown of the material.
 - Day 2
     - ES6 features: String Templates, Symbols
     - ES6 features: Promises
-    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=33676)
+    - [Quiz 2](https://moodle.hanover.edu/mod/quiz/view.php?id=17430)
 - Day 3
     - [MIDTERM](midtermStudyGuide.md)
 
