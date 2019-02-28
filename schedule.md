@@ -96,17 +96,16 @@ BREAK
 ## Week  9 (03/02-03/06)
 
 - Day 1
+    - [Lab 4](labs/4.md)
+- Day 2
     - [Assignment of Projects](notes/project_descriptions.md)
+- Day 3
     - [Using Templates: Handlebars](notes/templates.md)
     - [The DRY principle](notes/dry.md)
     - [Object properties](notes/object_properties.md)
     - [Different stack implementations](notes/stack_various.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
     - ["Class" construction examples](notes/class_construction.md)
-
-- Day 2
-    - Work on Projects
-- Day 3
 
 ## Week 10 (03/09-03/13)
 

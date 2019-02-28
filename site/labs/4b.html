@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="lab-4-part-b">Lab 4 Part b</h1>
+<p>We continue our work on the assignment with the overall <code>index.html</code> structure, and then the Scorecard UI.</p>
+<h3 id="overall-structure">Overall structure</h3>
+<p>What we want to do now is set up a bit of our overall page layout. Here is our overall plan:</p>
+<ul>
+<li>The page contains a “Scorecard area” near the middle top, that displays the score and contains a “reset” button.</li>
+<li>Below the scorecard area is the “doors area” which contains the three large doors that the user gets to click.</li>
+<li>Below the doors area is a “messages” area that the system will use to give instructions to the user.</li>
+</ul>
+<p>Before moving on, make a new issue in GitHub titled “overall page layout” and list the above three items in a comment. Add it to your milestone.</p>
+<p>So the top level interface could be written in HTML as follows (add these inside the <code>body</code> tag in the <code>index.html</code> page, and before the script section there):</p>
+<pre><code>   &lt;div id=&quot;scorecard&quot;&gt;&lt;/div&gt;
+   &lt;div id=&quot;doors&quot;&gt;&lt;/div&gt;
+   &lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;</code></pre>
+<p>We will obviously need to format them later once we have something more to show. For now let’s leave it at that. Make a commit and link it to your issue about the UI. We will return to it later.</p>
+<h3 id="scorecard-ui">Scorecard UI</h3>
+<p>The <code>ScorecardUI</code> class is responsible for setting up the HTML for the scorecard, along with any needed <code>jQuery</code> methods to react to user actions, and methods to update the values when the score is updated. Our goal is for this class to not be directly related to the <code>Score</code> class itself. There will therefore be some amount of duplicated information.</p>
+<p>This class will not be built in a test-driven-development style, as it involves the UI. What we will do is inspect the UI every few steps, to make sure things look OK. We will do this in a copy of the <code>index.html</code> file, which we will call <code>testUI.html</code>. The idea is that both files will be loading the same modules, but the UI file will have extra stuff that we can use to examine the behavior.</p>
+<p>Create such a copy now, at the same level as the <code>index.html</code>, and open it in the browser.</p>
+<p>Let’s start by making an issue about building the scorecard UI (give it the <em>scorecard</em> label and add it to the milestone). And let’s add some comments to it:</p>
+<pre><code>- The scorecard UI class will be given DOM element as a parameter, and it will store it.
+- When we use this class in our application, this element will be the div with id &quot;scorecard&quot;.
+- The class needs to add labels and values for the four counters we wish to report, probably in two sections, one for &quot;SWITCH&quot; and one for &quot;STAY&quot;. A method called `initialize` would be given those values, and it will use string templates and jQuery to add the appropriate HTML to the page.
+- The class needs to have an `update` method that is given some information about which value is to be updated, and updates it accordingly. We might set up a highlight of the value on a timer, to make it stand out.
+- The class will be managing a &quot;Reset&quot; button, and when the button is pressed it triggers a &quot;reset&quot; event. Our controller will later be listening to that event, therefore we will need to make our class follow the Observer pattern. A class called `Observable` has been provided for us, and our UI class will need to extend it.</code></pre>
+<p>We start by setting up the basics of the <code>ScorecardUI</code> class.</p>
+<ul>
+<li>Create a new <code>js/scorecardui.js</code> class star with an <code>export default class ScorecardUI {}</code> in it.</li>
+<li>Add a constructor to the class, that takes an argument called <code>$el</code> and stores it in a instance variable <code>this.$el</code>. The dollar signs here are just a reminder that this is to be a <code>jQuery</code> element and that jQuery methods will apply to it.</li>
+<li><p>On our <code>testUI.html</code> page, we want to create a little startup script that loads the ScorecardUI module and calls this constructor. As this will grow over time, we’ll instead put it in a little “test script”. So add the following before the closing <code>&lt;/body&gt;</code> tag in <code>testUI.html</code>:</p>
+<p><code>html &lt;script type=&quot;module&quot; src=&quot;test/scorecarduiTest.js&quot;&gt;&lt;/script&gt;</code>html</p>
+<p>and create this new file <code>test/scorecarduiTest.js</code> in the test folder. In it put</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> ScorecardUI <span class="im">from</span> <span class="st">&#39;../js/scorecardui.js&#39;</span><span class="op">;</span>
+<span class="kw">let</span> scorecard <span class="op">=</span> <span class="kw">new</span> <span class="at">ScorecardUI</span>(<span class="at">$</span>(<span class="st">&quot;#scorecard&quot;</span>))<span class="op">;</span></code></pre></div>
+Then save and reload the page and make sure you get no errors.</li>
+<li>To make sure that the constructor is getting called, add a “console.log” call in the constructor, then reload the page to see that a message is printing, then delete the console.log.</li>
+<li><p>Next we need to write the <code>initialize</code> function. It is given an object <code>o</code> that has properties <code>switchWins</code>, <code>switchLoses</code>, etc similar to the <code>Score</code> object. It is then using this object to create the view, and uses the <code>$el</code> element to place information onto the screen. Start by adding the following lines in the <code>test/scorecarduiTest.js</code> file:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="va">scorecard</span>.<span class="at">initialize</span>(<span class="op">{</span>
+        <span class="dt">switchWins</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">switchLoses</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span>
+        <span class="dt">stayWins</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">stayLosses</span><span class="op">:</span> <span class="dv">4</span>
+    <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+Reload the page and you should see these lines fail because there is no function <code>initialize</code>.</li>
+<li><p>Now let’s add this method to the <code>ScorecardUI</code> class in <code>js/scorecardui.js</code>:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">initialize</span>(o) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="va">$el</span>.<span class="at">html</span>(<span class="at">template</span>(o))<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>This calls the <code>template</code> function on the object <code>o</code>. Place the template function at the bottom of the file, outside of the `ScorecardUI class:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">template</span>(o) <span class="op">{</span>
+
+<span class="op">}</span></code></pre></div>
+<p>This function uses a “template string”, which is a new kind of string introduced in ES6. It is delineated by the single backticks instead of quotes, and it contains in it segments like `<span class="math inline">\({ o.switchWins }\)</span> that contain executable Javascript code. The template string executes that code, then replaces the whole segment with the code’s result.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">return</span> <span class="vs">`</span>
+<span class="vs">&lt;input type=&quot;button&quot; id=&quot;resetButton&quot; value=&quot;Reset&quot;&gt;&lt;/input&gt;</span>
+<span class="vs">&lt;div class=&quot;scoreSection&quot;&gt;&lt;h2&gt;SWITCH&lt;/h2&gt;</span>
+<span class="vs">   &lt;label for=&quot;switchWins&quot; &gt;Wins:</span>
+<span class="vs">      &lt;input type=&quot;text&quot; id=&quot;switchWins&quot; name=&quot;switchWins&quot; value=&quot;</span><span class="sc">${</span><span class="va">o</span>.<span class="at">switchWins</span><span class="sc">}</span><span class="vs">&quot;&gt;&lt;/input&gt;</span>
+<span class="vs">   &lt;/label&gt;</span>
+<span class="vs">   &lt;label for=&quot;switchLosses&quot; &gt;Losses:</span>
+<span class="vs">      &lt;input type=&quot;text&quot; id=&quot;switchLosses&quot; name=&quot;switchLosses&quot; value=&quot;</span><span class="sc">${</span><span class="va">o</span>.<span class="at">switchLosses</span><span class="sc">}</span><span class="vs">&quot;&gt;&lt;/input&gt;</span>
+<span class="vs">   &lt;/label&gt;</span>
+<span class="vs">&lt;/div&gt;</span>
+<span class="vs">&lt;div class=&quot;scoreSection&quot;&gt;&lt;h2&gt;STAY&lt;/h2&gt;</span>
+<span class="vs">   &lt;label for=&quot;stayWins&quot; &gt;Wins:</span>
+<span class="vs">      &lt;input type=&quot;text&quot; id=&quot;stayWins&quot; name=&quot;stayWins&quot; value=&quot;</span><span class="sc">${</span><span class="va">o</span>.<span class="at">stayWins</span><span class="sc">}</span><span class="vs">&quot;&gt;&lt;/input&gt;</span>
+<span class="vs">   &lt;/label&gt;</span>
+<span class="vs">   &lt;label for=&quot;switchLosses&quot; &gt;Losses:</span>
+<span class="vs">      &lt;input type=&quot;text&quot; id=&quot;stayLosses&quot; name=&quot;stayLosses&quot; value=&quot;</span><span class="sc">${</span><span class="va">o</span>.<span class="at">stayLosses</span><span class="sc">}</span><span class="vs">&quot;&gt;&lt;/input&gt;</span>
+<span class="vs">   &lt;/label&gt;</span>
+<span class="vs">&lt;/div&gt;</span>
+<span class="vs">`</span><span class="op">;</span></code></pre></div>
+<p>So what is going on here? The backtick next to the return marks the beginning of the string, while the backtick at the end marks the end of the string. And inbetween we can freely write the HTML code we want. Notice the parts that say <code>${o.switchWins}</code>, these are executable Javascript that will look at that property from the object <code>o</code> and replace that placeholder with the corresponding value.</p>
+<p>Refresh your testUI page to make sure this worked. It doesn’t look pretty yet, but you should be seeing the scores. Take a moment to study this HTML code:</p>
+<ul>
+<li>There is a button (<code>input</code> with a <code>type</code> of <code>button</code>) at the top that we will use for resetting everything. We’ll obviously need to make it a lot bigger and make it span the width of the element.</li>
+<li>There are two <code>div</code> elements, one for the SWITCH case and one for the STAY case. They each contain an <code>h2</code> element with the case title.</li>
+<li>Then in those <code>div</code>s we have two input elements wrapped in labels, one for the wins and one for losses. Notice how the <code>for</code> attribute of the label matches the <code>name</code> attribute of the corresponding input, this links the two together.</li>
+</ul></li>
+</ul>
+<p>This is a good time to make a commit, referring to initial UI for the ScorecardUI class. Make sure you link it to the corresponding issue number!</p>
+<p>We will at some point worry about the look-and-feel of the whole thing, but for now let us focus on functionality. The class needs to have an <code>update</code> method that is given simply the name of the updated field, for example <code>&quot;switchWins&quot;</code>, and an updated value. It is then responsible for updating a corresponding value on the table. Let’s work on creating this method.</p>
+<ul>
+<li><p>We start by writing some test code in our <code>test/scorecarduiTest.js</code> class. Right after the call we made to <code>initialize</code>, let’s make a call to <code>update</code>:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">scorecard</span>.<span class="at">update</span>(<span class="st">&quot;switchLosses&quot;</span><span class="op">,</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">1</span>)<span class="op">;</span></code></pre></div>
+<p>Reload the page and you should see it fail in the console log, because there is no <code>update</code> method. Now let’s go into our <code>ScorecardUI</code> class, and add that method, right below the <code>initialize</code>:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">update</span>(field<span class="op">,</span> newValue) <span class="op">{</span>
+   <span class="kw">let</span> $inputEl <span class="op">=</span> <span class="kw">this</span>.<span class="va">$el</span>.<span class="at">find</span>(<span class="st">&quot;#&quot;</span> <span class="op">+</span> field)<span class="op">;</span>
+   <span class="va">$inputEl</span>.<span class="at">val</span>(newValue)<span class="op">;</span>
+   <span class="at">highlight</span>($inputEl)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>The first line finds the actual UI field, the second updates the value, and the third calls a helper function, that you should put further down in the file outside of the class:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">highlight</span>(el) <span class="op">{</span>
+   <span class="kw">let</span> currentColor <span class="op">=</span> <span class="va">el</span>.<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span>)<span class="op">;</span>
+   <span class="kw">let</span> targetColor <span class="op">=</span> <span class="st">&quot;#f47142&quot;</span><span class="op">;</span>
+   <span class="va">el</span>.<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span><span class="op">,</span> targetColor)<span class="op">;</span>
+   <span class="at">setTimeout</span>(() <span class="op">=&gt;</span> <span class="va">el</span>.<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span><span class="op">,</span> currentColor)<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div></li>
+<li><p>Alright we have some basic <code>update</code> functionality working! Go ahead and make a commit, and refer to the appropriate issue number.</p></li>
+</ul>
+<h4 id="the-reset-button-and-observables">The reset button and observables</h4>
+<p>One last thing we need to set up is what happens when the “Reset” button is clicked. Of course the values on our Score model will need to be reset, but our little UI doesn’t know anything about the <code>Score</code> class, and we like it that way. What the UI will need to do when the Reset button is clicked, is send out an announcement, and hope someone is listening. Therefore we would like to use the observer pattern for that.</p>
+<ul>
+<li><p>Let’s start with a little test code for that. In <code>test/scorecarduiTest.js</code>, we write the method that would add an observer to listen for the click:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">scorecard</span>.<span class="at">on</span>(<span class="st">&quot;resetRequested&quot;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Reset called!&quot;</span>))<span class="op">;</span></code></pre></div>
+Reload your page and you should see an error, about the method “on” not existing.</li>
+<li><p>To fix that, we will turn our class into an “Observable”. This is similar to the Event class we discussed in class. Take a look at the <code>js/observable.js</code> file to see how it is implemented, and the <code>test/observable.spec.js</code> file for some usage examples. We need to now use <code>Observable</code> in our class, by making it extend <code>Observable</code>. To do that, we need to change the first line to the following:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> Observable <span class="im">from</span> <span class="st">&#39;./observable.js&#39;</span><span class="op">;</span>
+
+<span class="im">export</span> <span class="im">default</span> <span class="kw">class</span> ScorecardUI <span class="kw">extends</span> Observable <span class="op">{</span>
+   <span class="at">constructor</span>($el) <span class="op">{</span>
+      <span class="kw">super</span>()<span class="op">;</span>
+      <span class="kw">this</span>.<span class="at">$el</span> <span class="op">=</span> $el<span class="op">;</span>
+   <span class="op">}</span></code></pre></div>
+<p>The method <code>super</code> here calls the constructor of <code>Observable</code>, to make sure that it does all the work it needs to do.</p>
+<p>Now we should be seeing no errors, but when we click the button nothing happens. We need to make sure that the UI triggers a message when the reset button is clicked. We can do this in the <code>initialize</code> method. After you set the <code>html</code> of the element, add the following:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">this</span>.<span class="va">$el</span>.<span class="at">find</span>(<span class="st">&quot;#resetButton&quot;</span>)
+    .<span class="at">on</span>(<span class="st">&quot;click&quot;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="kw">this</span>.<span class="at">trigger</span>(<span class="st">&quot;resetRequested&quot;</span>))<span class="op">;</span></code></pre></div>
+<p>So we find the button, and we register for a click event on that button, so that when the button is clicked we can trigger the “resetRequested” message. Click the button now and you should be seeing your console messages pop up.</p></li>
+</ul>
+<p>And this concludes our ScorecardUI class! We’ll work on the CSS later. For now, make a final commit and close the issue.</p>
+<p>Notice how our <code>ScorecardUI</code> class had very little real logic in it. It is simply there to protect the rest of the application from knowing about specific UI details. But we don’t want it to be too smart:</p>
+<ul>
+<li>It does not know what effect the <code>resetRequested</code> message may have on the system, or who would be responsible for acting on it.</li>
+<li>It does not know any of the rules based on which the four values it shows will be changing, nor does it care. We can test it by changing those values in some arbitrary way from the <code>scorecarduiTest.js</code> file.</li>
+</ul>
+<p>Next up we will work on the ScorecardController class, which will coordinate between the <code>Score</code> model and the <code>ScorecardUI</code> view.</p>
+<h4 id="scorecardcontroller">ScorecardController</h4>
+<p>Now it is time to work on the Scorecard controller. Start by creating an issue:</p>
+<pre><code>Scorecard controller is the interface between the Score model and the ScorecardUI class. It knows about both of them and coordinates between them.
+
+- Its constructor would be taking as input two things: A UI instance and a score model. We will use a mock UI instance in our testing. It will call the UI&#39;s initialize method at the start.
+- It will register to listen for a change event on the Score model. We&#39;ll need to make the Score model observable. It will then communicate the corresponding changes to the UI.
+- It will register to listen to a reset change from the UI, then pass that reset instruction on to the Score model.</code></pre>
+<p>Let’s get started!</p>
+<ul>
+<li>We’ll need a <code>test/scoreController.spec.js</code> file, and you’ll need to also add to the <code>tests.html</code> file a <code>&lt;script&gt;</code> tag that loads it.</li>
+<li><p>Next we need to import <code>Score</code> and <code>ScoreController</code>. Add the following lines to the spec file, and run your tests to make sure they fail, as the second file hasn’t been created yet.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> Score <span class="im">from</span> <span class="st">&#39;../js/score.js&#39;</span><span class="op">;</span>
+<span class="im">import</span> ScoreController <span class="im">from</span> <span class="st">&#39;../js/scoreController.js&#39;</span><span class="op">;</span></code></pre></div></li>
+<li><p>Now create the <code>scoreController.js</code> file, and add an empty starting class to it to make the tests pass:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">export</span> <span class="im">default</span> <span class="kw">class</span> ScorecardController <span class="op">{</span>
+
+<span class="op">}</span></code></pre></div></li>
+<li><p>Now let’s start work on our first test. We’ll need some boilerplate:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">describe</span>(<span class="st">&#39;ScoreController instances&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="kw">let</span> score<span class="op">;</span>
+   <span class="kw">let</span> controller<span class="op">;</span>
+   <span class="at">beforeEach</span>(<span class="kw">function</span>() <span class="op">{</span>
+      score <span class="op">=</span> <span class="kw">new</span> <span class="at">Score</span>()<span class="op">;</span>
+      controller <span class="op">=</span> <span class="kw">new</span> <span class="at">ScoreController</span>(score)<span class="op">;</span>
+   <span class="op">}</span>)<span class="op">;</span>
+   <span class="at">it</span>(<span class="st">&#39;register to listen to score changes&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+
+   <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>We use the <code>beforeEach</code> trick again, as we are likely to use the score and controller on pretty much every test. We have not done anything with the UI part yet; when we do we’ll need to update the call to <code>ScoreController(score)</code> to also take our mock UI as input.</p></li>
+</ul>
+<p>Our first controller test is in theory going to be relatively easy: We just need to make sure that the controller registers to listen to score changes. For this we’ll need a few ingredients. First, we’ll need to turn the <code>Score</code> class into an observable, and add some tests to that effect. And those test will take us down the rabbit hole of asynchronous testing.</p>
+<p>Let’s start by turning the <code>Score</code> class into an observable. Do this now, by following the same steps we did for ScorecardUI, namely importing the <code>Observable</code> class and then making the <code>Score</code> class definition <code>extend</code> Observable, and adding a call to <code>super()</code> in the constructor. Do this now and make sure your tests still pass.</p>
+<p>We still haven’t set up the class to trigger anything, but let’s work through our first test for this. Go back to the <code>Score</code> class test file, <code>test/score.spec.js</code>.</p>
+<h4 id="asynchronous-events-and-testing">Asynchronous events and testing</h4>
+<p>Let’s discuss the problem we will need to face with these tests. If you look at the <code>Observable</code> class, you will notice that it triggers its events <strong>asynchronously</strong>: It creates timeouts for the events to execute once the current function is done. This presents some challenges. For instance imagine that we add our next test as follows:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">it</span>(<span class="st">&#39;trigger messages when values change (switchWins)&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="kw">let</span> h <span class="op">=</span> (msg<span class="op">,</span> value) <span class="op">=&gt;</span> <span class="op">{</span>
+      <span class="at">expect</span>(msg).<span class="va">to</span>.<span class="at">equal</span>(<span class="st">&#39;switchWins&#39;</span>)<span class="op">;</span>
+      <span class="at">expect</span>(value).<span class="va">to</span>.<span class="at">equal</span>(<span class="dv">2</span>)<span class="op">;</span>
+   <span class="op">};</span>
+   <span class="va">score</span>.<span class="at">on</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> h)<span class="op">;</span>
+   <span class="va">score</span>.<span class="at">trigger</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="st">&#39;switchWins&#39;</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>So what we do here is prepare a function <code>h</code>, then we give it as a handler to the observable. Then we call <code>trigger</code>, and expect that the function <code>h</code> will be called and will do the two checks listed there. (actually in practice we would not call <code>trigger</code> ourselves, but we haven’t hooked that up yet). Put that test in and run that code and see what happens. This code should be failing, but you’ll see that the tests technically all pass (even though you see an uncaught exception pop up on the console).</p>
+<p>Note that we purposefully wrote this test with the wrong value in the trigger call; this test should be failing, but it does not fail in a normal way, and we need to fix that.</p>
+<p>So what is going on here? The problem is that when trigger happens, the observable class sets up a call to occur <em>in the future</em>, and in the meantime it returns. The flow of control will then go to the end of the <code>it</code>, which will finish normally and therefore the test will register as “done” and succeeding. So the problem is that our function <code>h</code> never gets a chance to run until after the <code>it</code> call has been completed.</p>
+<p>In order to deal with these problems, the one solution is to use some mock observable structure that works synchronously rather than asynchronously.</p>
+<p>The other approach, which we will take, is to accept that the operations will happen asynchronously, and to adapt the tests accordingly.</p>
+<p>Mocha offers us an important tool in this process, via the <code>done</code> parameter. Our tests will look something like this:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">it</span>(<span class="st">&#39;...&#39;</span><span class="op">,</span> (done) <span class="op">=&gt;</span> <span class="op">{</span>
+   ... <span class="at">do</span> <span class="va">stuff</span> ...
+   ... <span class="at">possibly</span> <span class="va">asynchronously</span> ...
+   ... <span class="at">call</span> <span class="at">done</span>()  when the test is trully <span class="va">done</span> ...
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>The idea of this is that the system does not consider the task completed until that function <code>done</code> is called. It wait wait for asynchronous events to complete if they are the ones that trigger the <code>done</code>. For example our test could look as follows:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">it</span>(<span class="st">&#39;trigger messages when values change (switchWins)&#39;</span><span class="op">,</span> (done) <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="kw">let</span> h <span class="op">=</span> (msg<span class="op">,</span> value) <span class="op">=&gt;</span> <span class="op">{</span>
+      <span class="at">expect</span>(msg).<span class="va">to</span>.<span class="at">equal</span>(<span class="st">&#39;switchWins&#39;</span>)<span class="op">;</span>
+      <span class="at">expect</span>(value).<span class="va">to</span>.<span class="at">equal</span>(<span class="dv">2</span>)<span class="op">;</span>
+      <span class="at">done</span>()<span class="op">;</span>
+   <span class="op">};</span>
+   <span class="va">score</span>.<span class="at">on</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> h)<span class="op">;</span>
+   <span class="va">score</span>.<span class="at">trigger</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="st">&#39;switchWins&#39;</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>Run this test instead and see how it fails a bit more gracefully. Now comment out the <code>trigger</code> line and see what happens: The test will time out and get reported as failing if <code>done</code> is never called.</p>
+<p>In order to understand this better, take a look at the <code>test/observable.spec.js</code> file, where <code>done</code> is used extensively.</p>
+<p>Now on to our <code>Score</code> tests. Replace this test you just put with the following:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">it</span>(<span class="st">&#39;trigger messages when values change (switchWins)&#39;</span><span class="op">,</span> (done) <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="kw">let</span> h <span class="op">=</span> (msg<span class="op">,</span> value) <span class="op">=&gt;</span> <span class="op">{</span>
+      <span class="at">expect</span>(msg).<span class="va">to</span>.<span class="at">equal</span>(<span class="st">&#39;switchWins&#39;</span>)<span class="op">;</span>
+      <span class="at">expect</span>(value).<span class="va">to</span>.<span class="at">equal</span>(<span class="dv">1</span>)<span class="op">;</span>
+      <span class="at">done</span>()<span class="op">;</span>
+   <span class="op">};</span>
+   <span class="va">score</span>.<span class="at">on</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> h)<span class="op">;</span>
+   <span class="va">score</span>.<span class="at">addResult</span>(<span class="va">Score</span>.<span class="at">ACTION_SWITCH</span><span class="op">,</span> <span class="va">Score</span>.<span class="at">RESULT_WIN</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>This test should fail, because we have not done anything in <code>addResult</code> that would trigger an event. So run your tests and you should see this test time out after 2 seconds.</p>
+<p>Now we need to make this test pass. If you look in your <code>addResult</code> function, you can imagine various places where we can add this kind of <code>trigger</code>. But if we are not careful, we’ll add with 15 different trigger calls, when we really should have one: whenever any of the score value changes, we should have a trigger.</p>
+<p>What this means is that we should create a little <code>set</code> function that sets a value. And this function will set the value and then call <code>trigger</code>. And all other places that need to set a value will go through <code>set</code>.</p>
+<p>Let’s see how we can make that happen.</p>
+<ul>
+<li><p>Start by adding this new method in the <code>Score</code> class:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">set</span>(property<span class="op">,</span> value) <span class="op">{</span>
+    <span class="kw">this</span>[property] <span class="op">=</span> value<span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">trigger</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> property<span class="op">,</span> value)<span class="op">;</span>
+<span class="op">}</span></code></pre></div></li>
+<li>Now, replace our <code>this.switchWins += 1;</code> line with <code>this.set('switchWins', this.switchWins + 1);</code>. This should make the test pass.</li>
+<li><p>We could now create 3 copies of this test to handle the other cases, but clearly that could get very unwieldy very quickly. Instead, we will use the <strong>spy</strong> functionality we created for <code>TaskApp</code>. Recall that a <code>spy</code> monitors calls to a function, and can provide you information about what that function did. In our case, we will monitor calls to <code>trigger</code>. This has another great benefit: We don’t need to wait for the asynchronous call any more. Therefore change our current test to read:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">it</span>(<span class="st">&#39;trigger messages when values change&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="kw">let</span> spy <span class="op">=</span> <span class="kw">new</span> <span class="at">Spy</span>(score<span class="op">,</span> <span class="st">&quot;trigger&quot;</span>)<span class="op">;</span>
+   <span class="va">score</span>.<span class="at">addResult</span>(<span class="va">Score</span>.<span class="at">ACTION_SWITCH</span><span class="op">,</span> <span class="va">Score</span>.<span class="at">RESULT_WIN</span>)<span class="op">;</span>
+   <span class="at">expect</span>(<span class="va">spy</span>.<span class="at">argumentsOfCall</span>(<span class="dv">0</span>)).<span class="va">to</span>.<span class="va">deep</span>.<span class="at">equal</span>([<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="st">&#39;switchWins&#39;</span><span class="op">,</span> <span class="dv">1</span>])<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+You will also need to add an <code>import</code> call for the <code>Spy</code> class near the top of the test file. Your tests should still pass after that.</li>
+<li>Now, add two lines to the above test, one calling <code>addResult</code> with a “switch and loss” information and one expecting the arguments of the call indexed at 0 to deep equal <code>['change', 'switchLosses', 1]</code>. Your tests should now fail. Then adjust the corresponding line in the <code>Score</code> to call <code>set</code> on a switch loss as well.</li>
+<li><p>Repeat this process for the stay wins and stay losses.</p></li>
+<li><p>Before we move on, did you notice that this was somewhat repetitive? That’s never a good idea, and it also forces us to keep in sync things that should always be the same, for example in this line <code>this.set('switchWins', this.switchWins + 1);</code> when we switch things up we need to keep the string and the <code>this....</code> parts in sync. Ideally we should not need to do that. We can avoid it by creating an <code>incr</code> method instead! Let’s do this now. Add a new method to the <code>Score</code> class:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">incr</span>(property) <span class="op">{</span>
+   <span class="kw">this</span>.<span class="at">set</span>(property<span class="op">,</span> <span class="kw">this</span>[property] <span class="op">+</span> <span class="dv">1</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+And then replace the four <code>this.set</code> lines you have with <code>this.incr('switchWins');</code> etc. Make sure your tests still pass.</li>
+<li><p>We should also update the assignments that take place in the <code>reset</code> method. Make sure you replace the lines like <code>this.switchWins=0;</code> to instead say <code>this.set('switchWins', 0);</code> and similarly for the others.</p></li>
+</ul>
+<p>Now that we have the <code>Score</code> class all in order, time to return to the <code>ScoreController</code> class and its tests.</p>
+<p>Now, the first test we wanted to write for the <code>ScoreController</code> is simply a test that the controller signs up to be notified when values change.</p>
+<ul>
+<li><p>In order to test this, we need to “spy” on the <code>score</code> object’s <code>&quot;on&quot;</code> method, and then recreate the controller and see if it registered itself:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">it</span>(<span class="st">&#39;register to listen to score changes&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="kw">let</span> spy <span class="op">=</span> <span class="kw">new</span> <span class="at">Spy</span>(score<span class="op">,</span> <span class="st">&#39;on&#39;</span>)<span class="op">;</span>
+   <span class="kw">new</span> <span class="at">ScoreController</span>(score)<span class="op">;</span>
+   <span class="at">expect</span>(<span class="va">spy</span>.<span class="at">numberOfCalls</span>()).<span class="va">to</span>.<span class="at">equal</span>(<span class="dv">1</span>)<span class="op">;</span>
+   <span class="kw">let</span> [topic<span class="op">,</span> handler] <span class="op">=</span> <span class="va">spy</span>.<span class="at">argumentsOfCall</span>(<span class="dv">0</span>)<span class="op">;</span>
+   <span class="at">expect</span>(topic).<span class="va">to</span>.<span class="at">equal</span>(<span class="st">&#39;change&#39;</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>Run your test and make sure it fails.</p>
+There is a new syntax in the above code, namely the <code>[topic, handler] = ....</code> bit. This is called <strong>Destructuring assignment</strong> and you can read more about it <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">here</a>.</li>
+<li><p>In order to make the test pass, we’ll need to do some work on the <code>ScoreController</code> constructor:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">constructor</span>(score) <span class="op">{</span>
+   <span class="kw">this</span>.<span class="at">score</span> <span class="op">=</span> score<span class="op">;</span>
+   <span class="kw">this</span>.<span class="va">score</span>.<span class="at">on</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> (property<span class="op">,</span> value) <span class="op">=&gt;</span> <span class="kw">this</span>.<span class="at">modelChanged</span>(property<span class="op">,</span> value))<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+Check that the test now passes. Note that we have not yet implemented the <code>modelChanged</code> method; that’s not a problem yet because we have not triggered the event yet.</li>
+<li><p>Next up, our controller is supposed to call the <code>initialize</code> method of the ScorecardUI class when it starts up, and to give it a copy of the model. In order to make that happen, we’ll need to let the controller constructor take a second parameter, namely the ui instance, and store it in an instance variable. As we don’t want to use the actual UI in our tests, we will use a “fake UI” class. You can create this class directly into the <code>scoreController.spec.js</code> test file, before all the <code>describe</code> part:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> FakeScorecardUI <span class="op">{</span>
+   <span class="at">initialize</span>(o) <span class="op">{}</span>
+   <span class="at">update</span>(field<span class="op">,</span> newValue) <span class="op">{}</span>
+<span class="op">}</span></code></pre></div>
+As you can tell, the class doesn’t actually need to do anything, yet; we’ll use spies to look into calls to those methods.</li>
+<li><p>Now we need to hook this class in. In our test file, right before the <code>beforeEach</code> call, add a <code>let ui;</code> line, and inside the <code>beforeEach</code> call change the lines to be:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">beforeEach</span>(<span class="kw">function</span>() <span class="op">{</span>
+   score <span class="op">=</span> <span class="kw">new</span> <span class="at">Score</span>()<span class="op">;</span>
+   ui <span class="op">=</span> <span class="kw">new</span> <span class="at">FakeScorecardUI</span>()<span class="op">;</span>
+   controller <span class="op">=</span> <span class="kw">new</span> <span class="at">ScoreController</span>(score<span class="op">,</span> ui)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+Run your tests to make sure we didn’t break anything. You should also fix the other call to <code>new ScoreController(..)</code> to also take the second parameter.</li>
+<li><p>Now we need to write our test. In our test, we’ll need to recreate the controller after we’ve set up to spy on the <code>initialize</code> method:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">it</span>(<span class="st">&#39;initialize the ui when they start&#39;</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="kw">let</span> spy <span class="op">=</span> <span class="kw">new</span> <span class="at">Spy</span>(ui<span class="op">,</span> <span class="st">&#39;initialize&#39;</span>)<span class="op">;</span>
+   <span class="kw">new</span> <span class="at">ScoreController</span>(score<span class="op">,</span> ui)<span class="op">;</span>
+   <span class="at">expect</span>(<span class="va">spy</span>.<span class="at">numberOfCalls</span>()).<span class="va">to</span>.<span class="at">equal</span>(<span class="dv">1</span>)<span class="op">;</span>
+   <span class="at">expect</span>(<span class="va">spy</span>.<span class="at">argumentsOfCall</span>(<span class="dv">0</span>)).<span class="va">to</span>.<span class="va">deep</span>.<span class="at">equal</span>([score])<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+Make sure to understand what this test code does, and why it currently fails.</li>
+<li><p>Now let’s make it pass, by fixing the controller constructor, in <code>js/scoreController.js</code>:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">constructor</span>(score<span class="op">,</span> ui) <span class="op">{</span>
+    <span class="kw">this</span>.<span class="at">score</span> <span class="op">=</span> score<span class="op">;</span>
+    <span class="kw">this</span>.<span class="at">ui</span> <span class="op">=</span> ui<span class="op">;</span>
+    <span class="kw">this</span>.<span class="va">ui</span>.<span class="at">initialize</span>(score)<span class="op">;</span>
+    <span class="kw">this</span>.<span class="va">score</span>.<span class="at">on</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> (property<span class="op">,</span> value) <span class="op">=&gt;</span> <span class="kw">this</span>.<span class="at">modelChanged</span>(property<span class="op">,</span> value))<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>Run your tests and make sure they pass.</p></li>
+</ul>
+<p>This might be a good time to make a commit. Make sure to reference the appropriate issue number in your message!</p>
+<p>Now it is time for our first “real” test on the controller. We need to make sure that when the model triggers a change event, then the controller calls the UI’s <code>update</code> method with the correct arguments. We can easily spy on the <code>update</code> method. But the problem we have is that the controller will respond to the trigger event asynchronously. We therefore want to use the <code>done</code> parameter to control when the test ends. We’ll also enhance our spy with an extra function parameter to call when the function it spies on is getting called. Take a look at our <code>spy.js</code> code to see how that third parameter behaves.</p>
+<p>Here’s how that all looks like, add it to the scoreController test file:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">it</span>(<span class="st">&#39;call the ui update when the model triggers a change&#39;</span><span class="op">,</span> done <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="kw">let</span> spy <span class="op">=</span> <span class="kw">new</span> <span class="at">Spy</span>(ui<span class="op">,</span> <span class="st">&#39;update&#39;</span><span class="op">,</span> (field<span class="op">,</span> value) <span class="op">=&gt;</span> <span class="op">{</span>
+        <span class="at">expect</span>(field).<span class="va">to</span>.<span class="at">equal</span>(<span class="st">&#39;switchWins&#39;</span>)<span class="op">;</span>
+        <span class="at">expect</span>(value).<span class="va">to</span>.<span class="at">equal</span>(<span class="va">score</span>.<span class="at">switchWins</span>)<span class="op">;</span>
+        <span class="at">done</span>()<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="va">score</span>.<span class="at">trigger</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="st">&#39;switchWins&#39;</span><span class="op">,</span> <span class="va">score</span>.<span class="at">switchWins</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>So we set up a spy on the <code>update</code> method, and we also provide a third “callback” function that should be called instead of the actual <code>update</code> method. That callback checks that <code>update</code> was given the correct arguments by the controller, and then calls <code>done</code> to end the test.</p>
+<p>Run this test now and you should see it time out.</p>
+<p>To make the test pass, we simply need to finally implement the <code>modelChanged</code> method of the controller, by adding the following method to the <code>ScoreController</code> class:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">modelChanged</span>(property<span class="op">,</span> value) <span class="op">{</span>
+   <span class="kw">this</span>.<span class="va">ui</span>.<span class="at">update</span>(property<span class="op">,</span> value)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>You should see your tests pass after this.</p>
+<p>In order to wrap up our controller, we need one final component. We need for our controller to set up to listen to the ui for a <code>resetRequested</code> trigger, and call the model’s <code>reset</code> method when that happens. Here is an overview of the steps you will need to implement for this:</p>
+<ul>
+<li>First, have our <code>FakeScorecardUI</code> class extend <code>Observable</code>. You’ll need to also import <code>Observable</code> to make that happen.</li>
+<li>Write a <code>'register to listen to ui resetRequested'</code> test, which is similar to the <code>'register to listen to score changes'</code> test, but instead spies on the ui’s <code>resetRequested</code> method. Run your test and watch it fail because the number of calls is 0 instead of 1.</li>
+<li>Add a line to the <code>ScoreController</code> constructor to have it register with the ui to listen to the <code>resetRequested</code> event. It should call <code>this.resetRequested()</code> in response to that event (instead of <code>modelChanged</code>. That event will not need to pass any parameters, so your handler does not need to take any parameters. Make sure your test passes.</li>
+<li>Write a <code>'call the model reset method when the ui triggers resetRequested'</code> test that is similiar to the <code>'call the ui update when the model triggers a change'</code> event: It should set up a spy on the score’s <code>reset</code> method, with a handler that simply calls <code>done</code>. Then it should use <code>ui.trigger('resetRequested')</code> to trigger the event, and then it is done. Run your tests to see this test throw an error because the <code>resetRequested</code> method that the controller offered as its handler doesn’t exit yet.</li>
+<li>Add a <code>resetRequested</code> method to the controller, with no parameters and an empty body. Watch your test time out.</li>
+<li>Implement the <code>resetRequested</code> method in the controller, to simply call the score’s <code>reset</code> method. Watch your tests pass.</li>
+</ul>
+<p>And this concludes our ScoreController class and the overall “Scorecard” component! Make sure you make a commit, close the corresponding issue, and check off the corresponding box in our master list.</p>
+</body>
+</html>

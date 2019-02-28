@@ -14,34 +14,185 @@
 </head>
 <body>
 <h1 id="lab-4">Lab 4<span class="small"> (<a href="4.pdf" class="small" title="4">pdf</a>)</span></h1>
-<p>In this lab you will practice working with the DOM and creating a basic controller for a task list.</p>
-<h2 id="basic-steps">Basic steps</h2>
-<ol style="list-style-type: decimal">
-<li>You should have already decided which of the two partner’s GitHub account to use.</li>
-<li>If you have not switched roles with your partner for a while, this is a good time to do so.</li>
-<li>You need to first bring your version of the lab up-to-date by fetching from the remote that is linked to MY project. This is a bit tedious. Only ONE of the two persons needs to do this.
+<p>In this lab we will build a simulator for the Monty Hall problem. Our emphasis is on three aspects:</p>
 <ul>
-<li>Use “<code>git remote -v</code>” to see the remote branches. There should be one named <code>mainSource</code> and pointing to <code>skiadas/WebAppsLabs</code>.</li>
-<li>We will start by fetching the newest version of that, with: “<code>git fetch mainSource</code>”. It should tell you about a new branch, Lab4.</li>
-<li>Create a new branch with “<code>git checkout -b Lab4 --track mainSource/Lab4</code>”.</li>
-<li>Push this repository to your fork, by “<code>git push origin Lab4</code>”.</li>
-<li>Set your local branch to in the future update your repository by: “<code>git branch --set-upstream Lab4 origin/Lab4</code>”.</li>
-<li>To make sure this is set up properly, do “<code>git branch -vv</code>”. You should see <code>[origin/Lab4]</code> next to the Lab4 branch line.</li>
-</ul></li>
-<li>Check out the correct branch, via <code>git checkout Lab4</code>.</li>
-<li>One person did steps 3 and 4, here is what the other person needs to do after that, on their repository:
+<li>Practicing test-driven development and working with GitHub issues.</li>
+<li>Getting more practice working with ES6 modules and classes.</li>
+<li>Learning how to manage a GUI component while also allowing the majority of the application to be automatically testable.</li>
+</ul>
+<h2 id="the-monty-hall-problem">The Monty-Hall problem</h2>
+<p>The Monty-Hall problem is as follows:</p>
 <ul>
-<li>Use “<code>git fetch origin</code>” to grab the changes your partner just made.</li>
-<li>Create a new branch to follow the new lab by “<code>git branch Lab4 origin/Lab4</code>”.</li>
-<li>Switch to the new branch via “<code>git checkout Lab4</code>”.</li>
-</ul></li>
-<li>In the GitHub issues page for your project, switch to the Milestones tab and create a Lab4 milestone. Use that instead of a label for all issues you create related to Lab4.</li>
-<li>In the Settings page you can set the “Default branch” for the application. Set this to the Lab4 branch. This should make it so that your pushed commits close any issues that they mention via “Close #n”.</li>
-<li>Open the <code>README.md</code> file there, it will contain the instructions on what you need to do.</li>
-<li>When you are ready to submit simply email me a link to your project and the SHA of the commit that contains your final submission.</li>
-<li>You should use the issues page to track your progress. Use the Lab4 milestone to track the relevant issues. I will review those issues to look at your work.</li>
-<li>Needless to say it, but you are NOT allowed to look at other people’s forks of the project and their issues/solutions.</li>
-<li>I expect you to do the coding using pair programming.</li>
-</ol>
+<li>You are a contestant at a show, and you are presented with 3 closed doors, you must choose one door.</li>
+<li>You are told that one door has a luxury car behind it, while other two have nothing (but they show you a goat if you open them, as an indication that you lost).</li>
+<li>You get to choose one of the doors. Then the show host opens up one of the remaining doors that contain a goat.</li>
+<li>You are now given the option to STAY with your current door selection, or to SWITCH to the other closed door. You then get to see whether you won or lost.</li>
+</ul>
+<p>It can be mathematically proven that it is to your advantage to switch. What we will do in this assignment is create a simulator that will help us see this fact. It will work as follows:</p>
+<ul>
+<li>The user will be presented with three closed doors, then they will select one door, and have another goat-door revealed.</li>
+<li>They will then have the option of switching or staying. Upon their choice, the winning door is revealed and their “scorecard” is updated with the appropriate information.</li>
+</ul>
+<h2 id="updating-your-project">Updating your project</h2>
+<ul>
+<li>Start up GitKraken.</li>
+<li>Make sure that you have committed all files related to your project. When you look at your project in GitKraken, you should be seeing no WIP section and no modified files.</li>
+<li>Right-click at the “upstream” item in the “REMOTE” section on the left side. Choose “Fetch upstream”. You should now be seeing that your graph in the middle has two “master branches”. One corresponds to “my repository” (the upstream) and the other corresponds to your master branch with the changes you’ve made on it for Labs 1 and 2. This should be the “active” branch, with a little checkbox next to it. These two branches should appear to “deviate” from a common start.</li>
+<li>Right-click <em>my</em> master branch (upstream). You can do so either in the main window or in the upstream-&gt;master section in REMOTE on the left. Choose “Merge upstream/master onto master”. You should see the two branches merge into a new “merge” commit.</li>
+<li>There is a good chance you will get “merge conflicts”. Ask for help if you are not sure how to handle them.</li>
+<li>You are now ready to work on Lab 3! After you add your changes, save and create a commit in GitKraken, then push your changes.</li>
+<li>You will need to repeat these steps when a new lab is released.</li>
+</ul>
+<h2 id="assignment">Assignment</h2>
+<p>In your project you will find a Lab4 folder. It has some startup files, but you will also need to add your own files as you make progress.</p>
+<h3 id="running-a-local-server">Running a local server</h3>
+<p>In order to test the application, you will need to open the <code>index.html</code> file <em>as if it was a file served from a server</em>. In order to achieve that, you will need to be running a local server.</p>
+<p>If you are on the lab computers, then open up a terminal window and navigate to the Lab3 folder of your project. In that folder, execute “<code>http-server</code>” from the terminal. You should see a response which will look something like this:</p>
+<pre><code>Starting up http-server, serving ./
+Available on:
+  http://127.0.0.1:8080
+  http://10.83.0.52:8080
+Hit CTRL-C to stop the server</code></pre>
+<p>Keeping that terminal window open, open up your web-browser and in the location address write:</p>
+<pre><code>http://127.0.0.1:8080/index.html</code></pre>
+<p>where the numbers should be whatever your system is reporting.</p>
+<p>If you want to do this on your own machines, you need to either know a way to run a local server, or you need to install the <code>http-server</code> package from NPM. The instructions to do that would likely be:</p>
+<pre><code>npm install -g http-server</code></pre>
+<p>You may need to install Node and NPM if you don’t have those set up yet, and you may also need to run the above command as administrator.</p>
+<p>You can stop the server at any time by hitting Ctrl-C on the terminal.</p>
+<h3 id="issues-milestones-labels">Issues, Milestones, Labels</h3>
+<p>We will start by setting up GitHub to help us track our progress.</p>
+<ul>
+<li>We will create a <strong>Milestone</strong> called “Lab 4” to keep track of our progress. It will host all the issues related to our project.</li>
+<li>We will create a couple custom <strong>Labels</strong> to help us organize our issues. Most of our issues will be assigned at least one label. This is just so that you familiarize yourself with the use of labels in relation to issues.</li>
+<li>We will then create some issues to describe our main design steps and key big ideas. As we work towards those issues, we will link the commits we make to the issues, so that the set of changes that solve a particular issue is easily identified.</li>
+</ul>
+<p>Milestones vs Labels: An issue can have many labels associated to it, but it can only belong to one milestone.</p>
+<p>Let’s get started!</p>
+<h4 id="creating-a-milestone">Creating a milestone</h4>
+<ul>
+<li>Go to your project’s GitHub page, and to the Issues section.</li>
+<li>Click the Milestones button, and choose “New Milestone” to create a new milestone.</li>
+<li>Give your milestone a title; I named mine Lab 4.</li>
+<li>Set yourself a due date for the milestone; The lab’s due date would do.</li>
+<li>You can leave the description blank, or you can write something like “Create a simulator for the Monty Hall problem”.</li>
+<li>Click on “Create Milestone”. You should now be looking at your new milestone as the only item in a list, and showing it has no issues in it right now. We are going to add issues in a moment.</li>
+</ul>
+<h4 id="creating-custom-labels">Creating custom labels</h4>
+<ul>
+<li><p>Switch to the Labels tab. You are seeing the list of labels that are offered by default: bug, duplicate, enhancement, etc. We will create our own set of labels. You do this as follows:</p></li>
+<li>Click on the New Label button.</li>
+<li>Type in a name for the label. Our first label will be called “scorecard” and it will be used for issues that have to do with the scorecard functionality of our application.</li>
+<li>Write a description if you like. I wrote: “Related to the scorecard functionality”.</li>
+<li>Choose a new color by either clicking the random generator button or typing a hex color representation.</li>
+<li><p>Click on “Create Label”. You should now be seeing your label amongst the list of available labels.</p></li>
+</ul>
+<p>Repeat this process to create a label “doors” that will contain functionality related to having doors, and one called “game” that will contain functionality related to the overall game process (which guides the user to choose a door, then choose to switch or stay etc).</p>
+<p>You will notice that the labels we are creating are fundamentally different than the ones provided by GitHub: those focused on the type of issue (bug, enhancement etc); ours focused on the functionality affected. There are no rules for what labels to use; in general do whatever helps you organize the issues.</p>
+<h4 id="creating-our-first-issue">Creating our first issue</h4>
+<p>We’ll create an overall planning issue that contains our plan of action.</p>
+<ul>
+<li>Click at the Issues tab near the top. Then click on New Issue on the right.</li>
+<li>The title of our issue will be “Monty Hall Simulator planning”.</li>
+<li><p>In the “Write” section below, copy and paste the following:</p>
+<pre><code>We will build a simulator for the Monty Hall problem. This issue will serve to keep track of our overall progress.
+
+- [ ] Make sure we can run tests.
+- [ ] Create a simple Score class to hold counts for the outcomes of each round of the game. It will hold wins and losses separately for the cases where the user switched and for the case where the user stayed.
+- [ ] Plan the overall index.html structure and create containers for the various sections.
+- [ ] Create basic UI for the scorecard, both HTML and suitable CSS.
+- [ ] Create and hook up a controller that relates the Score class to the scorecard UI.
+- [ ] Create simple door class that contains two pieces of information about a door: Whether it is the winning door, and whether it is open or closed.
+- [ ] Create a door UI class that represents a visual representation of a door on the webpage.
+- [ ] Create a controller that connects the door class to the door UI.
+- [ ] Create a game class that drives the overall simulation. It should have the ability to reset everything, and guides the user through the simulation process.
+- [ ] Create the UI elements for the overall game, including buttons for resetting and staying or switching.
+- [ ] Create the main game controller that coordinates the simulation.</code></pre></li>
+<li>Click on Submit to create this new issue. You should see a list of checkboxes. We’ll use those boxes to track our overall progress.</li>
+<li><p>Use the Milestone option on the right to assign this issue to the Lab 4 milestone.</p></li>
+</ul>
+<h3 id="working-on-the-assignment">Working on the assignment</h3>
+<p>Now we start our work on the assignment.</p>
+<h4 id="verifying-out-testing-environment">Verifying out testing environment</h4>
+<p>The first order of business would be to verify that our testing environment is all set up. You should have already started an <code>http-server</code> from the terminal, running on the location where your files are checked out. With that you should be able to open up the two files <code>index.html</code> and <code>tests.html</code> and you should not see any worrisome errors in the console for the two pages.</p>
+<p>If it all seems to work out and you see one passing test and no errors on the console on either page, go ahead and click that first checkbox in our master issue that said “make sure we can run tests”.</p>
+<h4 id="creating-the-score-class">Creating the Score class</h4>
+<p>We will start by creating the Score class. We will do it in a test-driven approach.</p>
+<p>First, we will create an issue that describes in more detail how the class will work. Go ahead and create such an issue, titled “Create Score class”. Add the following to the comment area for the issue:</p>
+<pre><code>The scorecard class maintains the score for the simulation. It keeps track of four instance variables: `switchWins`, `switchLosses`, `stayWins`, `stayLosses`. It also provides two methods:
+
+- `reset()` resets all the counts to 0.
+- `addResult(userAction, result)` that takes as input the result of a play and updates the counts accordingly. The possible values for userAction and result are given by class constants that we will need to create: `Score.ACTION_STAY`, `Score.ACTION_SWITCH`, `Scorecard.RESULT_WIN`, `Score.RESULT_LOSS`. These will simply stand for corresponding strings &quot;stay&quot;, &quot;switch&quot; etc.</code></pre>
+<p>Make sure to add the <strong>scorecard</strong> label to the issue, and to add it to your <strong>milestone</strong>. After you create the issue, take note of its number (<code>#XXX</code>). You will need it in a few moments.</p>
+<p>Now that we have an issue, we can start work on our Score class. We start by creating a test class:</p>
+<ul>
+<li>Create a file <code>test/score.spec.js</code>. Use the <code>test/example.spec.js</code> as a start point.</li>
+<li>Add a <code>script</code> tag for this new file in the <code>tests.html</code> file, below the one for <code>observable</code>.</li>
+<li>Use a better string label for the <code>describe</code> part, to refer to “Score instances” or something like that. In that first <code>it</code> part, your first test, set its string label to say something to the effect of “start with all counts set to zero”.</li>
+<li>In the body of the <code>it</code> part, start with something like: <code>let score = new Score();</code>. Now look at your tests page and you should be getting errors that <code>Score</code> is not defined.</li>
+<li>Let’s work on defining it. We will need to import it, go before the <code>describe</code> in your test file, and add <code>import Score from '../js/score.js';</code>. Run your tests again, and you should now be receiving an error in the console, because <code>js/score.js</code> doesn’t exist.</li>
+<li>Create an empty <code>js/score.js</code> file, and run your tests again. You should be now seeing an error in your test about the file “not having a default export”.</li>
+<li>Add an <code>export default class Score {}</code> part to the <code>score.js</code> file. Your tests should now be compiling. Of course we still need to fix our test for initial scores.</li>
+<li>Back inside the <code>it</code> in the <code>score.spec.js</code> test file, we now want to add tests for the four variables. Add the line <code>expect(score.switchWins).to.equal(0);</code> to the tests, and add 3 more similar lines for the other 3 variables that are mentioned in your issue. Run your tests and they should fail because undefined is not equal to 0.</li>
+<li>To make the tests pass, back in the <code>js/score.js</code> file add a constructor inside the <code>Score</code> class, and in that constructor set <code>this.switchWins=0;</code> and similarly for the other three variables. Watch your tests pass.</li>
+<li>Great! Now let’s make a commit. Open up GitKraken, and review the changes you made to the three files. If they look OK, go ahead and stage them and make a commit with summary saying “Add basic Score card. Ref #XXX”. Here <code>#XXX</code> is the number of the GitHub issue that you created earlier about the score class, so put that number in there instead (for example in my case it looks like so: <code>Ref #2</code>). The <code>ref</code> word is important there. You have to use either <code>ref</code> or <code>close</code>, if you wanted the issue to automatically close at the same time.</li>
+<li>Push your changes, and now in GitHub when you look at your issue you should see a reference in it to the commit you just made.</li>
+<li>You want to do this for each commit you make from this point on, link it as above to a corresponding issue.</li>
+</ul>
+<h4 id="refactoring">Refactoring</h4>
+<p>OK we are not done with the class yet. Let’s look back at our issue comment. It looks like we need to add the two functions <code>reset</code> and <code>addResult</code>. It would be nice if we could write <code>reset</code> first, but since <code>reset</code> simply sets the values to 0, and they are already 0, there is no meaningful test we can write for it. We will therefore start from <code>addResult</code>. But before we do so, let’s take a closer look at our test code. We are about to add some more <code>it</code> statements, and each of them will need to work with a <code>Score</code> instance. It would be nice if we didn’t have to write it every single time. Here’s how we will do that:</p>
+<ul>
+<li>Within your <code>describe</code>, but before the first <code>it</code>, we will declare the <code>score</code> variable: <code>let score;</code>.</li>
+<li><p>Below it, but before the <code>it</code>, add a call to <code>beforeEach</code>:</p>
+<pre><code>beforeEach(() =&gt; { score = new Score(); });</code></pre></li>
+<li>Remove the <code>let score = ...</code> statement from within the <code>it</code>.</li>
+<li><p>Save and run your tests to make sure they still run OK.</p></li>
+</ul>
+<p>What we did is called <em>refactoring</em>: We changed the structure of the code to prepare it for future change, but without changing the behavior. We will be doing a number of these refactorings. In fact, we’ll do one more right now. This is a popular refactoring, called <em>extract function</em>:</p>
+<p>Look at the body of our test. We test that the four stored values match four specific numbers, namely 0. I imagine we’ll need to do a lot more similar checks in future tests. Instead of repeating these four lines, we’ll turn them into a function:</p>
+<ul>
+<li>Copy the four lines.</li>
+<li>Within the <code>describe</code>, but immediately following the <code>it</code>, create a new function called <code>checkValuesAre()</code>, and paste those four lines to its body.</li>
+<li>Replace the body of the <code>it</code> with a called to <code>checkValuesAre</code>.</li>
+<li>Run your tests to make sure they pass.</li>
+</ul>
+<p>Hm OK this is nice, but it’s not going to do us much good unless the values are always going to be 0. What we need to do next is turn these values into function parameters, and the method that achieves that is called <em>extract parameter</em>.</p>
+<ul>
+<li>Add a parameter <code>switchWins</code> to the definition of <code>checkValuesAre</code>.</li>
+<li>Replace the <code>0</code> in the first <code>expect</code> in the body of <code>checkValuesAre</code> with <code>switchWins</code>.</li>
+<li>In your call to <code>checkValuesAre</code> from within the <code>it</code>, put the value <code>0</code> there. That is where the parameter <code>switchWins</code> will take its value from.</li>
+<li>Run your tests to make sure they still pass.</li>
+</ul>
+<p>Now repeat for the other three zeros, to add parameters <code>switchLosses</code>, <code>stayWins</code> and <code>stayLosses</code>. Run your tests after each parameter to make sure you did not mess up anywhere along the way.</p>
+<p>Go ahead and create a commit from all these changes. You can put “test refactoring” on its summary. Make sure to reference your issue number!</p>
+<h4 id="more-tests">More tests</h4>
+<p>Now we are finally ready to add more tests! We start with the test for <code>addResult</code>.</p>
+<ul>
+<li>Within the <code>describe</code> but after the first <code>it</code>, start a new <code>it</code> that states that the score class increments the appropriate value when <code>addResult</code> is called. In the body, add a line <code>score.addResult(Score.ACTION_SWITCH, Score.RESULT_WIN);</code> which is supposed to icrement the corresponding score. Run your tests, and they should fail at this point, because scores don’t have an <code>addResult</code> method yet.</li>
+<li>Go to the <code>Score</code> class, and add an <code>addResult</code> method, that takes the parameters <code>action</code> and <code>result</code>. It does not need to do anything yet so you don’t have to write anything in its body. But run your tests and make sure they all pass.</li>
+<li>Now we need to actually test something. Back in the <code>it</code> test we are writing, add a <code>checkValuesAre(1, 0, 0, 0)</code> line, we expect that to have been incremented. Run your tests to see them fail.</li>
+<li><p>Now we need to make it pass. Go back to your <code>Score</code> class code and the empty body of <code>addResult</code>. There are many ways we could try to make this work, but we’ll simply do nested if statements:</p>
+<pre><code>if (action == Score.ACTION_SWITCH) {
+    if (result == Score.RESULT_WIN) {
+        this.switchWins += 1;
+    }
+}</code></pre>
+Add this to the body of <code>addResult</code> and watch your tests pass.</li>
+<li>Now we continue the tests to account for the other cases. Add a <code>score.addResult(Score.ACTION_SWITCH, Score.RESULT_LOSS);</code> line to your test, and a corresponding <code>checkValuesAre(1,1,0,0);</code> line (note that they accumulate). Now run your tests, and notice that they fail but not for the reason we expected: It says that 2 is not equal to 1, not that 0 is not equal to 1.</li>
+<li>We finally need to deal with the fact that we never defined <code>Score.RESULT_WIN</code> etc. So they are all undefined, and therefore all equal to each other. So right now everything we do will increment the <code>switchWins</code>. Let’s remedy that. Do the bottom of the <code>js/score.js</code> file, after the class definition ends, add four lines like: <code>Score.ACTION_SWITCH = &quot;switch&quot;;</code> and similarly for the other three constants. Then run your tests again, and they should now be failing for the correct reason.</li>
+<li>The reason is of course that the inner <code>if</code> condition above needs a corresponding <code>else</code> clause that increments the loss count. Add it and then watch your tests pass.</li>
+<li>Add the appropriate pair of lines to test the <code>STAY</code> action and <code>WIN</code> result, and watch your tests fail. Then add an <code>else</code> clause to the outer if statement to increment the <code>STAY</code> cases.</li>
+<li><p>Finally, add the pair of lines that tests the <code>STAY</code> action and <code>LOSS</code> result, and the corresponding code, and make sure your tests pass.</p></li>
+</ul>
+<p>Great! Time for another commit now, saying that you added the <code>addResult</code> method. Don’t forget to reference your issue number!</p>
+<p>Now we just need to add the <code>reset</code> function and its tests.</p>
+<ul>
+<li>Add a third <code>it</code> test that talks about the score instances setting all counters to 0 when <code>reset</code> is called. In that test, use some <code>addResult</code> calls to increment the counters, then do <code>score.reset();</code> then a line about <code>checkValuesAre(0, 0, 0, 0);</code> to verify that <code>reset</code> did in fact reset the values.</li>
+<li>You should see your test fail because <code>reset</code> doesn’t exist. Add an empty <code>reset()</code> method to the <code>Score</code> class to see your tests now fail for the right reason, namely 0 not equal to 1.</li>
+<li>Now we need to implement <code>reset</code>. We already did this work in the constructor. So just copy the 4 lines from the constructor and put them in the <code>reset</code> method. Then replace the body of the <code>constructor</code> with a call to <code>this.reset()</code>.</li>
+</ul>
+<p>Now commit this, and close the issue! You can either do it by including <code>close #...</code> in the commit message, or from the GitHub interface.</p>
+<p>Now that we have closed this issue, go back to your master checklist issue and check off the second item.</p>
+<p>This concludes part a of the lab. Due to its size, the lab is broken into pieces. Continue to <a href="./4b.html">part b</a></p>
 </body>
 </html>
