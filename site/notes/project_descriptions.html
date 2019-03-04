@@ -18,37 +18,36 @@
 <h2 id="project-deliverables">Project Deliverables</h2>
 <p>Regardless of which project you go for, you must have the following:</p>
 <ol style="list-style-type: decimal">
-<li>All work must be in a GitLab repository for the project.
+<li>All work must be in a GitHub repository for the project.
 <ol style="list-style-type: lower-alpha">
 <li>It should be hosted on one group member’s account. It should be private, and your instructor should be given read access.</li>
 <li>The other member(s) should be added as collaborator(s).</li>
-<li>You can keep the project public, as it can be part of your future profile.</li>
 </ol></li>
-<li>You must use the issue system provided by the site.
+<li>You must use the issue system provided by GitHub.
 <ol style="list-style-type: lower-alpha">
-<li>Commits must be linked to issues.</li>
-<li>Issues must be assigned labels.</li>
+<li>Almost all commits must be linked to issues via the “Ref #…” or “close #…” keywords.</li>
+<li>Almost all issues must be assigned one or more labels.</li>
 <li>You must use milestones to organize the issues into sub-goals.</li>
-<li>Issue title and description must sufficiently discuss the problem and the plan for addressing it.</li>
+<li>Issue title and description must sufficiently and succinctly discuss the pertinent problem and the overall plan for addressing it.</li>
 </ol></li>
 <li>Modularize your code.
 <ol style="list-style-type: lower-alpha">
 <li>Your project should be logically broken into smaller modules that are as independent of each other as possible.</li>
-<li>Each module should be in its own file, but sharing a common namespace like we did for our TaskApp.</li>
-<li>Modules should be individually testable as much as possible.</li>
+<li>Each module should be in its own file.</li>
+<li>Modules should be individually testable as much as possible, and mocks/fakes should be used when needed.</li>
 <li>Functions/methods within modules should as much as possible have a single purpose.</li>
 <li>There should be an <code>index.html</code> file that starts your application. Opening that page in a browser should get everything working.</li>
 </ol></li>
 <li>You must create suitable commits.
 <ol style="list-style-type: lower-alpha">
-<li>Each commit should address a single issue.</li>
-<li>Small issues should be resolved by no more than 2-3 commits. You may make separate commits with the tests for the issue and with the implementation/solution. But all needed main code changes should be in a single commit unless there is a reason to do otherwise.</li>
+<li>Each commit should address a single issue. To the extent possible, refactorings should be done as separate commits.</li>
+<li>Small issues should be resolved by no more than 2-3 commits. You may make separate commits with the tests for the issue and with the implementation/solution.</li>
 <li>The code should be passing the linter before you make a commit.</li>
 </ol></li>
 <li>Use a linter.
 <ol style="list-style-type: lower-alpha">
 <li>Set up a .eslintrc.json file in your home directory.</li>
-<li>You may use the same rules as the assignments, or choose other sets of rules.</li>
+<li>You may use the same rules discussed in class, or choose other sets of rules.</li>
 <li>Your code files must pass the linter.</li>
 <li>You can decide if you want the test files to also pass the linter.</li>
 </ol></li>
@@ -56,20 +55,20 @@
 <ol style="list-style-type: lower-alpha">
 <li>Unit tests should be arranged in a <code>test</code> directory with filenames ending in <code>.spec.js</code>.</li>
 <li>Tests should be broken into multiple files, organized in some logical fashion (e.g. one test file per code module).</li>
-<li>Tests should be written <strong>before</strong> the code they address is written (but perhaps after or in tandem with the documentation).</li>
+<li>Tests should be written <strong>before</strong> the code they address is written.</li>
+<li>Tests should be loaded via a <code>tests.html</code> main page.</li>
+<li>You may have other files that are used for UI testing.</li>
 </ol></li>
 <li>Write documentation.
 <ol style="list-style-type: lower-alpha">
 <li>Your project should have a <code>README.md</code> file in Markdown format, describing the project and acting as a user’s guide.</li>
 <li>A separate <code>architecture.md</code> file should describe the high level architecture of your application. What are the different files/modules, what are their relationships? A graphic is encouraged.</li>
-<li>Each module should include a top section documenting what the module is about.</li>
-<li>Each method in the module should be preceded with a comment describing the method (at the very least input/output and what the function does).</li>
 <li>Your project should include a <code>package.json</code> file including at the very least a name, short description, list of collaborators and a link to the repository.</li>
 </ol></li>
 <li>Pair programming.
 <ol style="list-style-type: lower-alpha">
 <li>You are expected to follow a <a href="https://en.wikipedia.org/wiki/Pair_programming">pair-programming</a> paradigm when working on this project. This entails two people working on the same screen, one (driver) writes the code while the other (navigator) observes and considers the relation of the code to the rest of the application.</li>
-<li>You should switch roles frequently (no more than a couple of hours for each).</li>
+<li>You should switch roles frequently (no more than an hour or so of coding without switching).</li>
 <li>You should always commit and push when you are done, and pull before you start.</li>
 <li>Each user should be logging in and committing from their account. All collaborators should end up having a roughly equal amount of commits.</li>
 </ol></li>
@@ -82,6 +81,8 @@
 <li>LinkedListVis</li>
 <li>SortVis</li>
 <li>Shapes</li>
+<li>Memory Game</li>
+<li>2048</li>
 </ol>
 <h3 id="simplerpg">SimpleRPG</h3>
 <p>In this game you can create “characters”, and form parties of up to three characters to do combat. It is an extremely simplified role-playing game.</p>
@@ -97,37 +98,33 @@
 </dd>
 <dt>Level</dt>
 <dd><p>Every character starts at level 1. As you gain experience you advance levels. You need experience points equal to 50 times your current level in order to advance to the next level.</p>
-<p>Each level gives you 2 points to allocate to your attributes, in addition to any of the racial bonuses discussed below. Levels divisible by 5 give you an extra point.</p>
+<p>Each time you level, you gain a number of “level points”, that you can allocate towards health and/or strength.</p>
+<p>Your chance to hit your opponent is determined by the difference between your level and theirs. A formula like 1/(1 + 50 * exp(l2 - l1)) can be used to determine the chance to hit, but you can adjust the formula.</p>
 </dd>
 <dt>Health</dt>
-<dd><p>How many “hit points” you have. You have a maximum health based on the number of points you allocate in this attribute. You lose hit points when you are hit in combat. You return to your maximum health when combat ends. If you reach 0 health you are out of the combat.</p>
-<p>Everyone starts with a health of 10.</p>
-</dd>
-<dt>Dexterity</dt>
-<dd><p>Compared to your opponent’s dexterity, determines your chance to hit your opponent when you perform an attack. If you have dexterity d1 and your opponent has dexterity d2, then your chance to hit your opponent is given by the formula 1/(1 + 50 * exp(d2 - d1)). For example when you have 5 dexterity more than your opponent, you have a 75% chance to hit them, when you have 10 dexterity more you have a 99% chance.</p>
-<p>Everyone starts with a dexterity of 10.</p>
+<dd><p>How many “hit points” you have. You have a maximum health based on your level. You lose hit points when you are hit in combat. You return to your maximum health when combat ends. If you reach 0 health you are out of the combat.</p>
+<p>Everyone starts with some amount of max health, and there are some rules about how many max health points you gain per level based on where the player allocates their “level points”. You can customize those parameters.</p>
 </dd>
 <dt>Strength</dt>
 <dd><p>Determines how much damage you do to your opponent if your attack hits. Every point of strength takes away 0.5 of the opponent’s health.</p>
-<p>Everyone starts with a strength of 10.</p>
+<p>Everyone starts with some amount of strength, and strength grows based on “level points” you allocate.</p>
 </dd>
 <dt>Race</dt>
-<dd>You can choose one of three races. <em>Dwarves</em> start off with an extra 2 health and gain one more health per level, <em>Elves</em> start off with an extra 2 dexterity and gain one more dexterity per level, and <em>Humans</em> gain one more attribute points per level (so 3 instead of 2).
+<dd>You can choose one of three races. <em>Dwarves</em> start off with a more health and gain more health per level point, <em>Elves</em> have a naturally higher chance to hit by their attacks (say 10%) and always go before non-elves in combat, and <em>Humans</em> gain more “level points” per level.
 </dd>
-</dl>
-<p>Furthermore, all newly created characters get an extra 10 points to allocate however they choose amongst the above categories.</p></li>
+</dl></li>
 <li><p>Combat happens as follows:</p>
 <dl>
 <dt>Party</dt>
 <dd>A party can consist of up to three characters. They should be chosen from amonst a list of created characters.
 </dd>
 <dt>Rounds</dt>
-<dd>On each round all alive characters (and their opponents) will take exactly one action. The order of actions is determined by dexterity: Those with the higher dexterity go earlier.
+<dd>On each round all alive characters (and their opponents) will take exactly one action. The order of actions is determined at random (but with all elves going before all non-elves).
 </dd>
 <dt>Actions</dt>
 <dd><p>Each character can take one of two actions:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Attack</strong> a single target of their choice. A dexterity calculation determines their chance to hit, and a random number generator is used to determine if they hit or not. For instance if the chance to hit ends up being 75%, then a random number between 0 and 1 should be generated, and if it is below 0.75 then a hit occurs, otherwise it is a miss. The amount of damage is based on the opponent’s strength as described in the attributes section.</li>
+<li><strong>Attack</strong> a single target of their choice. A dexterity calculation determines their chance to hit, and a random number generator is used to determine if they hit or not. For instance if the chance to hit ends up being 75%, then a random number between 0 and 1 should be generated, and if it is below 0.75 then a hit occurs, otherwise it is a miss. The amount of damage is based on the attacker’s strength as described in the attributes section.</li>
 <li><strong>Heal</strong> themselves, regaining an amount of lost hit points (but never exceeding their max health). Once used, this ability cannot be used for another 3 rounds. This ability heals for 50% of the person’s maximum health the first time it is used in a combat, 30% the next two times, and 10% for any remaining time.</li>
 </ol>
 </dd>
@@ -150,20 +147,20 @@
 <h4 id="main-deliverables">Main deliverables</h4>
 <ol style="list-style-type: decimal">
 <li>You need to provide ways for the user to create new characters, and to form and store parties to use.</li>
-<li>You need to provide a way for a user to allocate new attributes to their character whenever that character gains a level.</li>
+<li>You need to provide a way for a user to allocate gained level points towards their attributes whenever their character gains a level.</li>
 <li>You need to provide a system for performing combat.</li>
 <li>You must offer both player vs player and player vs AI modes.</li>
 </ol>
 <h4 id="optional-deliverables">Optional deliverables</h4>
 <ol style="list-style-type: decimal">
-<li>Add more race options</li>
+<li>Add more race options with interesting special behaviors</li>
 <li>Add other abilities. For instance:
 <ul>
-<li>“buff” abilities that temporarily increase some attributes.</li>
-<li>“debuff” abilities that temporarily decrease an opponent’s attributes.</li>
 <li>“area of effect” abilities that can target multiple opponents.</li>
+<li>“friendly heal” instead of self-heal.</li>
 </ul></li>
 <li>Create “campaigns” consisting of a specific series of encounters.</li>
+<li>Create “professions” (healer, caster, warrior etc).</li>
 </ol>
 <h3 id="playset">PlaySET</h3>
 <p>The <a href="http://www.setgame.com/set">SET game</a> is a card-matching game. Each card contains 4 characteristics, each with three options:</p>
@@ -181,7 +178,8 @@
 <li>If no SET is present (you will need to write an algorithm to detect that), three more cards are added to the end of each row (if there are cards left). If still no SET is present (an extremely unlikely event), another three cards are added.</li>
 <li>Depending on skill level (beginner / medium / advanced, you decide on the levels), the player has a given amount of time to find a SET. The timer resets every time the player finds a SET.</li>
 <li>When a SET is found, the player gains an amount of points depending on the timer left and the skill level (up to you to determine the scoring system). The cards are removed from the board in a properly animated way, and three new cards (if available) are placed in their spot.</li>
-<li>The game ends when there are no SETs present and no cards remaining on the deck, or when the player runs out of time. If the player runs out of time, they should see a visual of the SET they could not find.</li>
+<li>The game ends when there are no SETs present and no cards remaining on the deck, or when the player runs out of time.</li>
+<li>If the player runs out of time, they should see a visual of the SET they could not find.</li>
 </ol>
 <h4 id="main-deliverables-1">Main deliverables</h4>
 <ol style="list-style-type: decimal">
@@ -192,7 +190,7 @@
 </ol>
 <h4 id="optional-deliverables-1">Optional deliverables</h4>
 <ol style="list-style-type: decimal">
-<li>“Training” mode: Once two cards are “selected”, the third one that matches them is highlighted if it is on the board.</li>
+<li>“Training” mode: Once two cards are “selected”, the third one that matches them is highlighted if it is on the board, or a visual for “no possible match” is displayed.</li>
 <li>“Infinite” mode: Once all cards from the deck have been drawn, the already-matched cards are reshuffled and placed back on the deck to be drawn from. At any given time there are always at least 12 cards on the board (15 or 18 if no matches were present).</li>
 </ol>
 <h3 id="linkedlistvis">LinkedListVis</h3>
@@ -209,7 +207,7 @@
 <li>Add a pointer to that last node, to point to the newly created node.</li>
 <li>Smoothly slide the new node in place (adjusting the pointer as the node moves).</li>
 </ul>
-<p>Your implementation should visualize the following operations:</p>
+<p>Your implementation should visualize the following operations (this is a lot, discuss with me which subset you would like to implement):</p>
 <ol style="list-style-type: decimal">
 <li>Creating a new empty list.</li>
 <li>Inserting a new node that contains a user-provided string at the beginning.</li>
@@ -239,14 +237,14 @@
 <li>Create an option for double-linked lists, with/without a sentinel node.</li>
 </ol>
 <h3 id="sortvis">SortVis</h3>
-<p>Create a visualization tool for various sorting algorithms.</p>
+<p>Create a visualization tool for various sorting algorithms (think of it as a simple version of https://visualgo.net/en/sorting).</p>
 <p>The arrays to be sorted will contain positive numbers. The main area will contain a window representing the numbers to be sorted, using a user-defined number of vertical bars with heights representing the “size” of numbers.</p>
 <h4 id="main-deliverables-3">Main deliverables</h4>
 <ol style="list-style-type: decimal">
-<li>The visualization should work for all main algorithm methods that rely on swapping elements (insertion, selection, quicksort, bubblesort).</li>
+<li>The visualization should work for all main algorithm methods that rely on swapping elements (insertion, selection, quicksort, bubblesort). At least 3 algorithms should be visualized.</li>
 <li>The interface should highlight bars when their values are about to be swapped.</li>
 <li>The interface should highlight bars that are currently “active” in some way (i.e. if a pivot and/or an index is being used, the current elements should be marked somehow). Watching the bars should give someone an indication of how the algorithm works.</li>
-<li>The interface should keep a count of how many “swaps” have been performed.</li>
+<li>The interface should keep a count of how many comparisons and how many “swaps” have been performed.</li>
 <li>The user can ask for a random set of numbers with a given maximum and specific size, or can manually provide a list of numbers in a text area.</li>
 <li>The user should be able to choose which algorithm to show and the speed at which to show it.</li>
 </ol>
@@ -280,6 +278,47 @@
 <li>Remember the last 4/5 used colors and offer easier access to them.</li>
 <li>Allow for automatically connecting two items by an arrow if the user drags from one onto the other.</li>
 <li>Allow arrows to “lock” onto elements by placing their endpoints near the boundary, and subsequently move with them.</li>
+<li>Allow for “undoing” any number of steps.</li>
+</ol>
+<h3 id="memory-game">Memory Game</h3>
+<p>In the memory game a NxN grid of cards is shown, with their content hidden. Cards have some image on their other side, and each image appears on exactly two cards. Users get to click on one card, then another, and if the two cards match then they win this point and the cards are removed from the grid, otherwise the cards are flipped back to have their images hidden.</p>
+<h4 id="main-deliverables-5">Main deliverables</h4>
+<ol style="list-style-type: decimal">
+<li>Creation of a NxN grid, where N should be able to switch between 4, 6 or 8.</li>
+<li>At least two different sets of available images to use.</li>
+<li>A timer that keeps count of how long it takes the user to finish.</li>
+<li>A “top scores” list that shows the best 3 times for each grid size.</li>
+</ol>
+<h4 id="optional-deliverables-5">Optional deliverables</h4>
+<ol style="list-style-type: decimal">
+<li>Time restriction after the first card is clicked and before you have to click the second card (or it times out and the first card resets).</li>
+<li>“Challenge mode”, where you see what the cards are only after you have clicked them both (i.e. first card is not revealed the moment you select it).</li>
+<li>Different patterns for the card backgrounds.</li>
+<li>Ability for users to upload their own images.</li>
+<li>“Challenge mode 2”, where when two cards don’t match then their positions are switched with some other cards in the board (but the user gets to see which positions are swapped).</li>
+</ol>
+<h3 id="section">2048</h3>
+<p>The 2048 game is played as follows:</p>
+<ol style="list-style-type: decimal">
+<li>The board is typically a 4x4 grid. It starts with two random squares “filled” by containing the numbers 2 and 4.</li>
+<li>Each “round” the user picks a direction, top/bottom/left/right. All filled squares move as far as possible towards that direction, and in addition any squares with the same number that move into each other get combined into one square with twice the number (so when a 4 gets moved into another 4, they get replaced by an 8).</li>
+<li>After that move happens, a random empty square is filled with a 2. This ends the round.</li>
+<li>The player wins when he manages a square with number 2048.</li>
+<li>If it is not possible to fill a square with a 2, the player loses.</li>
+</ol>
+<h4 id="main-deliverables-6">Main deliverables</h4>
+<ol style="list-style-type: decimal">
+<li>A playable grid, where the user clicks on arrows on the four sides to indicate their direction.</li>
+<li>Squares should get progressively darker colors as the numbers increase.</li>
+<li>At least 2 different color palettes are available for the user to choose from.</li>
+<li>The player can reset the game at any time.</li>
+<li>The moves of the filled squared should be animated.</li>
+</ol>
+<h4 id="optional-deliverables-6">Optional deliverables</h4>
+<ol style="list-style-type: decimal">
+<li>Variations of the game with bigger grids and/or different target numbers.</li>
+<li>The ability for the user to “undo” their last move.</li>
+<li>A mathematical analysis of the minimum number of moves needed to complete the game.</li>
 </ol>
 </body>
 </html>
