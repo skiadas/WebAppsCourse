@@ -89,6 +89,33 @@ a.baz = "What did I change?";
 b.baz;
 ```
 
+### Classes and constructors
+
+In ES6, classes were introduced, and they are effectively a wrapper around the constructor and prototype basics discussed above. For example, recall the basic counter class we've been looking at:
+
+```javascript
+class Counter {
+    constructor(start) {
+        this.start = start;
+        this.current = start;
+    }
+    incr() { this.current += 1; }
+    getValue() { return this.current; }
+    reset() { this.current = this.start; }
+}
+```
+This could also be done as follows:
+```javascript
+function Counter(start) {
+    this.start = start;
+    this.current = start;
+}
+Counter.prototype.incr = function() { this.current += 1; };
+Counter.prototype.getValue = function() { return this.current; };
+Counter.prototype.reset = function() { this.current = this.start; };
+```
+The above two are effectively the same.
+
 ### Practice
 
 Creating a `Counter` constructor.

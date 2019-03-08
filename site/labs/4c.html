@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="lab-4-part-c">Lab 4 Part c</h1>
+<p>Next up is the design of the doors mechanism. Let’s refresh ourselves on the basics of how that is meant to work with a GitHub issue to “implement doors mechanism”:</p>
+<pre><code>We need to manage the doors involved in the game. There are two possibilities in terms of structuring this: We can have each door be an object, or we can have the collection of doors be the object. With the former approach, we implement some basic logic about the doors in isolation to everything else, but we&#39;ll need another class to manage to collection of all doors together. With the latter, we&#39;ll be packing too much logic into this class.
+
+We&#39;ll opt for the first approach. We will have a `Door` class, which represents the idea of a door. Then the Game class will be responsible for managing the overall gameplay.
+
+- There are two pieces of information we need to store for a door: Whether it is a winning door or not, and whether it is currently open or not. We will hold both as booleans.
+- A door should start closed, and we should have a method for opening it.
+- We should have methods to test if a door is a winning door or a losing door.
+- We should also have methods for setting the win/lose status of the door.</code></pre>
+<p>Make sure to add the “doors” label to this issue, and to add it to our milestone.</p>
+</body>
+</html>
