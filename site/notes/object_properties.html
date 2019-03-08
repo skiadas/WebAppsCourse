@@ -109,7 +109,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         <span class="kw">var</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
         <span class="cf">return</span> <span class="kw">function</span>() <span class="op">{</span> count <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> <span class="cf">return</span> count<span class="op">;</span> <span class="op">};</span>
     <span class="op">}</span>())
-<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<span class="op">}</span>)<span class="op">;</span>
+<span class="va">o</span>.<span class="at">countMe</span><span class="op">;</span>
+<span class="va">o</span>.<span class="at">countMe</span><span class="op">;</span>
+<span class="va">o</span>.<span class="at">countMe</span><span class="op">;</span></code></pre></div>
 <p>Use these features sparingly! It is not an expected behavior.</p>
 <h3 id="small-getset-illustration-temperatures">Small get/set Illustration: Temperatures</h3>
 <p>Here is a small example where these getters and setters might be useful. Say we want to create a “temperature” object that understands both Celsius and Fahrenheit. Here is a way to do it. The “C” property is a standard value and expresses the temperature in Celsius, while the “F” property is is defined via accessors, and is a “derived property” that simply relates back to the “C” property.</p>

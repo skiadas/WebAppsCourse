@@ -53,6 +53,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1 id="using-templates">Using Templates</h1>
 <h2 id="relevant-links">Relevant Links</h2>
 <ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">Template literals</a></li>
 <li><a href="http://handlebarsjs.com/">Handlebars</a></li>
 <li><a href="http://underscorejs.org/#template">underscorejs templates</a></li>
 </ul>
@@ -80,9 +81,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Ways to provide your own “builder” methods for performing smart tasks</li>
 <li>Ways to delve deeper into an object via nested paths</li>
 </ul>
-<p>Different template libraries offer more or fewer of these features. We will focus on the Handlebars library.</p>
+<p>Different template libraries offer more or fewer of these features.</p>
+<p>There are broadly speaking two kinds of “templates” you can use in Javascript:</p>
+<ul>
+<li>ES6 <em>Template Strings/Literals</em>. They offer some simple capabilities, and they are built in to modern Javascript engines.</li>
+<li>Third-part template libraries. They are quite powerful with control structures, helper functions and other features. The downside is that you need to include the libraries to your project.</li>
+</ul>
+<p>We will take a brief look at ES6 template literals, and then focus on the Handlebars library.</p>
+<h3 id="es6-template-literals">ES6 Template literals</h3>
+<p>In ES6 a new syntax was introduced for defining template literals. It looks something like this:</p>
+<pre><code>let name = &quot;Haris&quot;;
+let language = &quot;Javascript&quot;;
+let s = `Here is a template. I am ${name} and I like ${language}!.
+And we can even span multiple lines with this!
+Btw, did you know that ${name} has ${name.length} characters?`;</code></pre>
+<p>The part between the backticks is the template literal. When that line is executed, the parts like <code>${name}</code> are evaluated in the current scope and substituted. You see that you can have some fairly elaborate logic inside the <code>${...}</code> part.</p>
+<p>You can read more about template literals <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">here</a>.</p>
 <h3 id="templates-via-handlebars">Templates via Handlebars</h3>
-<p>The Handlebars library defines a Handlebars global, or you can use it as part of an AMD loading system (we will learn of those later). There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at <a href="https://github.com/wycats/handlebars.js/">the project’s GitHub page</a>.</p>
+<p>The Handlebars library defines a Handlebars global, or you can use it as part of an module loading system (we will learn of those later). There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at <a href="https://github.com/wycats/handlebars.js/">the project’s GitHub page</a>.</p>
 <p>For now we focus on the kind of functionality it offers:</p>
 <dl>
 <dt>{{aKey}}</dt>

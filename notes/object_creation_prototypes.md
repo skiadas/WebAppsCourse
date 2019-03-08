@@ -11,7 +11,7 @@ Object literal
   ~ Introduced in ES5.
 
 Constructors
-  ~ Using `new`. So something like `new Object()`, `new Array()` etc. We will discuss these more later.
+  ~ Using `new` and classes/constructors. So something like `new Object()`, `new Array()` etc.
 
 For now we focus on `Object.create`, as it offers the most direct way to discuss prototypes.
 

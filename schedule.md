@@ -101,18 +101,17 @@ BREAK
     - [Assignment of Projects](notes/project_descriptions.md)
 - Day 3
     - [Using Templates: Handlebars](notes/templates.md)
-    - [The DRY principle](notes/dry.md)
-    - [Object properties](notes/object_properties.md)
-    - [Different stack implementations](notes/stack_various.md)
     - [Object creation and prototypes](notes/object_creation_prototypes.md)
-    - ["Class" construction examples](notes/class_construction.md)
 
 ## Week 10 (03/09-03/13)
 
 - Day 1
+    - [Object properties](notes/object_properties.md)
     - [Graphics in Javascript, SVG](notes/graphics.md)
 - Day 2
+    - [Different stack implementations](notes/stack_various.md)
 - Day 3
+    - ["Class" construction examples](notes/class_construction.md)
 
 ## Week 11 (03/16-03/20)
 
@@ -179,3 +178,4 @@ BREAK
 - [Using require.js](notes/requirejs.md)
 - [UMD modules](notes/umd.md)
 - [The Visitor Pattern and the need for it](notes/patterns_visitor.md)
+- [The DRY principle](notes/dry.md)

@@ -69,6 +69,9 @@ Object.defineProperty(o, 'countMe', {
         return function() { count += 1; return count; };
     }())
 });
+o.countMe;
+o.countMe;
+o.countMe;
 ```
 
 Use these features sparingly! It is not an expected behavior.

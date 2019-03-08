@@ -2,6 +2,7 @@
 
 ## Relevant Links
 
+- [Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 - [Handlebars](http://handlebarsjs.com/)
 - [underscorejs templates](http://underscorejs.org/#template)
 
@@ -37,11 +38,34 @@ The power of templates stems from the functionalities they provide:
 - Ways to provide your own "builder" methods for performing smart tasks
 - Ways to delve deeper into an object via nested paths
 
-Different template libraries offer more or fewer of these features. We will focus on the Handlebars library.
+Different template libraries offer more or fewer of these features.
+
+There are broadly speaking two kinds of "templates" you can use in Javascript:
+
+- ES6 *Template Strings/Literals*. They offer some simple capabilities, and they are built in to modern Javascript engines.
+- Third-part template libraries. They are quite powerful with control structures, helper functions and other features. The downside is that you need to include the libraries to your project.
+
+We will take a brief look at ES6 template literals, and then focus on the Handlebars library.
+
+### ES6 Template literals
+
+In ES6 a new syntax was introduced for defining template literals. It looks something like this:
+
+```
+let name = "Haris";
+let language = "Javascript";
+let s = `Here is a template. I am ${name} and I like ${language}!.
+And we can even span multiple lines with this!
+Btw, did you know that ${name} has ${name.length} characters?`;
+```
+
+The part between the backticks is the template literal. When that line is executed, the parts like `${name}` are evaluated in the current scope and substituted. You see that you can have some fairly elaborate logic inside the `${...}` part.
+
+You can read more about template literals [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).
 
 ### Templates via Handlebars
 
-The Handlebars library defines a Handlebars global, or you can use it as part of an AMD loading system (we will learn of those later). There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at [the project's GitHub page](https://github.com/wycats/handlebars.js/).
+The Handlebars library defines a Handlebars global, or you can use it as part of an module loading system (we will learn of those later). There is also a command-line utility that you can use to pre-compile your templates into AMD or other format. More details at [the project's GitHub page](https://github.com/wycats/handlebars.js/).
 
 For now we focus on the kind of functionality it offers:
 
