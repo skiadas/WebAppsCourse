@@ -115,7 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="va">o</span>.<span class="at">countMe</span><span class="op">;</span></code></pre></div>
 <p>Use these features sparingly! It is not an expected behavior.</p>
 <h3 id="small-getset-illustration-temperatures">Small get/set Illustration: Temperatures</h3>
-<p>Here is a small example where these getters and setters might be useful. Say we want to create a “temperature” object that understands both Celsius and Fahrenheit. Here is a way to do it. The “C” property is a standard value and expresses the temperature in Celsius, while the “F” property is is defined via accessors, and is a “derived property” that simply relates back to the “C” property.</p>
+<p>Here is a small example where these getters and setters might be useful. Say we want to create a “temperature” object that understands both Celsius and Fahrenheit. Here is a way to do it. The “C” property is a standard value and expresses the temperature in Celsius, while the “F” property is defined via accessors, and is a “derived property” that simply relates back to the “C” property.</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">f2c</span>(F) <span class="op">{</span> <span class="cf">return</span> (F <span class="op">-</span> <span class="dv">32</span>) <span class="op">*</span> <span class="dv">5</span> / <span class="dv">9</span><span class="op">;</span> <span class="op">}</span>
 <span class="kw">function</span> <span class="at">c2f</span>(C) <span class="op">{</span> <span class="cf">return</span> C <span class="op">*</span> <span class="dv">9</span> / <span class="dv">5</span> <span class="op">+</span> <span class="dv">32</span><span class="op">;</span> <span class="op">}</span>
 <span class="kw">function</span> <span class="at">makeTemp</span>() <span class="op">{</span>
@@ -131,7 +131,44 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="op">}</span></code></pre></div>
 <p>We are essentially turning “F” into a “virtual property”, that instead just sets the corresponding C value appropriately transformed.</p>
 <p>You can also use these get/set methods to do some validation.</p>
+<h3 id="getters-and-setters-for-classes">Getters and Setters for classes</h3>
+<p>Classes also support a special getter-setter syntax. We could carry out the above example as follows:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">f2c</span>(F) <span class="op">{</span> <span class="cf">return</span> (F <span class="op">-</span> <span class="dv">32</span>) <span class="op">*</span> <span class="dv">5</span> / <span class="dv">9</span><span class="op">;</span> <span class="op">}</span>
+<span class="kw">function</span> <span class="at">c2f</span>(C) <span class="op">{</span> <span class="cf">return</span> C <span class="op">*</span> <span class="dv">9</span> / <span class="dv">5</span> <span class="op">+</span> <span class="dv">32</span><span class="op">;</span> <span class="op">}</span>
+<span class="kw">class</span> Temp <span class="op">{</span>
+    <span class="at">constructor</span>(Ctemp) <span class="op">{</span> <span class="kw">this</span>.<span class="at">C</span> <span class="op">=</span> Ctemp<span class="op">;</span> <span class="op">}</span>
+    get <span class="at">F</span>() <span class="op">{</span> <span class="cf">return</span> <span class="at">c2f</span>(<span class="kw">this</span>.<span class="at">C</span>)<span class="op">;</span> <span class="op">}</span>
+    set <span class="at">F</span>(Ftemp) <span class="op">{</span> <span class="kw">this</span>.<span class="at">C</span> <span class="op">=</span> <span class="at">f2c</span>(Ftemp)<span class="op">;</span> <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="kw">let</span> t <span class="op">=</span> <span class="kw">new</span> <span class="at">Temp</span>(<span class="dv">0</span>)<span class="op">;</span>
+<span class="va">t</span>.<span class="at">F</span><span class="op">;</span>   <span class="co">// 32</span>
+<span class="va">t</span>.<span class="at">F</span> <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> <span class="co">//  (changes C to 37.7777)</span>
+<span class="va">t</span>.<span class="at">C</span><span class="op">;</span>   <span class="co">// 37.7777 now</span></code></pre></div>
+<p>A common idiom is to create a “private” version of an a value, using an underscore to the beginning of the name, then using getters and setters for it:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> Person <span class="op">{</span>
+    <span class="at">constructor</span>(first<span class="op">,</span> last<span class="op">,</span> age) <span class="op">{</span>
+        <span class="kw">this</span>.<span class="at">_first</span> <span class="op">=</span> first<span class="op">;</span>  <span class="co">// Could also hide via defineProperty</span>
+        <span class="kw">this</span>.<span class="at">_last</span> <span class="op">=</span> last<span class="op">;</span>
+        <span class="kw">this</span>.<span class="at">_age</span> <span class="op">=</span> age<span class="op">;</span>
+    <span class="op">}</span>
+    get <span class="at">first</span>() <span class="op">{</span> <span class="cf">return</span> <span class="kw">this</span>.<span class="at">_first</span><span class="op">;</span> <span class="op">}</span>
+    set <span class="at">first</span>(firstName) <span class="op">{</span> <span class="kw">this</span>.<span class="at">_first</span> <span class="op">=</span> firstName<span class="op">;</span> <span class="op">}</span>
+    get <span class="at">last</span>() <span class="op">{</span> <span class="cf">return</span> <span class="kw">this</span>.<span class="at">_last</span><span class="op">;</span> <span class="op">}</span>
+    set <span class="at">last</span>(lastName) <span class="op">{</span> <span class="kw">this</span>.<span class="at">_last</span> <span class="op">=</span> lastName<span class="op">;</span> <span class="op">}</span>
+    get <span class="at">full</span>() <span class="op">{</span> <span class="cf">return</span> <span class="vs">`</span><span class="sc">${</span><span class="kw">this</span>.<span class="at">_first</span><span class="sc">}</span><span class="vs"> </span><span class="sc">${</span><span class="kw">this</span>.<span class="at">_last</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span> <span class="op">}</span>
+    get <span class="at">age</span>() <span class="op">{</span> <span class="cf">return</span> <span class="kw">this</span>.<span class="at">_age</span><span class="op">;</span> <span class="op">}</span>
+    set <span class="at">age</span>(newAge) <span class="op">{</span>
+        <span class="cf">if</span> (newAge <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">{</span> <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Incorrect age value&quot;</span>)<span class="op">;</span> <span class="op">}</span>
+        <span class="kw">this</span>.<span class="at">_age</span> <span class="op">=</span> newAge<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="kw">let</span> haris <span class="op">=</span> <span class="kw">new</span> <span class="at">Person</span>(<span class="st">&quot;Haris&quot;</span><span class="op">,</span> <span class="st">&quot;Skiadas&quot;</span><span class="op">,</span> <span class="dv">24</span>)<span class="op">;</span> <span class="co">// I wish</span>
+<span class="va">haris</span>.<span class="at">full</span><span class="op">;</span>
+<span class="va">haris</span>.<span class="at">age</span> <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span>  <span class="co">// Throws error</span></code></pre></div>
 <h3 id="stack-implementation-again.-locking-things-down.">Stack implementation, again. Locking things down.</h3>
+<p>TODO: This part needs to be revised</p>
 <p>Let us look at what was the second version of the prototype-based implementation of stacks we had in previous classes:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> Stack <span class="op">=</span> <span class="op">{};</span>
 <span class="va">Stack</span>.<span class="at">new</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">makeStack</span>() <span class="op">{</span>

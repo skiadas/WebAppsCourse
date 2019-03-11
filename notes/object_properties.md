@@ -78,7 +78,7 @@ Use these features sparingly! It is not an expected behavior.
 
 ### Small get/set Illustration: Temperatures
 
-Here is a small example where these getters and setters might be useful. Say we want to create a "temperature" object that understands both Celsius and Fahrenheit. Here is a way to do it. The "C" property is a standard value and expresses the temperature in Celsius, while the "F" property is is defined via accessors, and is a "derived property" that simply relates back to the "C" property.
+Here is a small example where these getters and setters might be useful. Say we want to create a "temperature" object that understands both Celsius and Fahrenheit. Here is a way to do it. The "C" property is a standard value and expresses the temperature in Celsius, while the "F" property is defined via accessors, and is a "derived property" that simply relates back to the "C" property.
 
 ```javascript
 function f2c(F) { return (F - 32) * 5 / 9; }
@@ -100,7 +100,54 @@ We are essentially turning "F" into a "virtual property", that instead just sets
 
 You can also use these get/set methods to do some validation.
 
+### Getters and Setters for classes
+
+Classes also support a special getter-setter syntax. We could carry out the above example as follows:
+
+```javascript
+function f2c(F) { return (F - 32) * 5 / 9; }
+function c2f(C) { return C * 9 / 5 + 32; }
+class Temp {
+    constructor(Ctemp) { this.C = Ctemp; }
+    get F() { return c2f(this.C); }
+    set F(Ftemp) { this.C = f2c(Ftemp); }
+}
+
+let t = new Temp(0);
+t.F;   // 32
+t.F = 100; //  (changes C to 37.7777)
+t.C;   // 37.7777 now
+```
+
+A common idiom is to create a "private" version of an a value, using an underscore to the beginning of the name, then using getters and setters for it:
+
+```javascript
+class Person {
+    constructor(first, last, age) {
+        this._first = first;  // Could also hide via defineProperty
+        this._last = last;
+        this._age = age;
+    }
+    get first() { return this._first; }
+    set first(firstName) { this._first = firstName; }
+    get last() { return this._last; }
+    set last(lastName) { this._last = lastName; }
+    get full() { return `${this._first} ${this._last}`; }
+    get age() { return this._age; }
+    set age(newAge) {
+        if (newAge < 0) { throw new Error("Incorrect age value"); }
+        this._age = newAge;
+    }
+}
+
+let haris = new Person("Haris", "Skiadas", 24); // I wish
+haris.full;
+haris.age = -1;  // Throws error
+```
+
 ### Stack implementation, again. Locking things down.
+
+TODO: This part needs to be revised
 
 Let us look at what was the second version of the prototype-based implementation of stacks we had in previous classes:
 
