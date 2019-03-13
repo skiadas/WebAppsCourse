@@ -108,14 +108,15 @@ BREAK
 - Day 1
     - [Object properties](notes/object_properties.md)
 - Day 2
-    - [Graphics in Javascript, SVG](notes/graphics.md)
+    - [Locking things down](notes/locking_things_down.md)
 - Day 3
-    - [Different stack implementations](notes/stack_various.md)
-    - ["Class" construction examples](notes/class_construction.md)
+    - [Graphics in Javascript, SVG](notes/graphics.md)
 
 ## Week 11 (03/16-03/20)
 
 - Day 1
+    - [Different stack implementations](notes/stack_various.md)
+    - ["Class" construction examples](notes/class_construction.md)
     - [Documentation systems](notes/documentation.md)
     - [Code Reviews](notes/code_review.md)
 - Day 2
