@@ -64,12 +64,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <h2 id="notes">Notes</h2>
 <h3 id="graphics-in-javascript">Graphics in Javascript</h3>
-<p>Javascript offers two main systems for doing more elaborate graphics.</p>
+<p>Javascript offers three main systems for doing more elaborate graphics.</p>
 <ul>
-<li>Canvas is essentially more of image drawing. You create a <code>&lt;canvas&gt;</code> element and then use Javascript instructions to draw into that canvas as you would do on a painting.</li>
-<li>SVG stands for “Scalable Vector Graphics”. These are actually more like a set of DOM Elements that you can manipulate, but whose intent is to represent “vector graphics” elements.</li>
+<li><strong>Canvas</strong> is essentially more of image drawing. You create a <code>&lt;canvas&gt;</code> element and then use Javascript instructions to draw into that canvas as you would do on a painting.</li>
+<li><strong>SVG</strong> stands for “Scalable Vector Graphics”. These are actually more like a set of DOM Elements that you can manipulate, but whose intent is to represent “vector graphics” elements.</li>
+<li><strong>WebGL</strong> is infrastructure for doing 3D graphics (while the other two focus on 2D graphics).</li>
 </ul>
-<p>We will focus on this second group, which is based on the SVG XML specification.</p>
+<p>We will focus on SVG for now, which is based on the SVG XML specification.</p>
 <h3 id="svg-graphics">SVG Graphics</h3>
 <p>Here is an example of how an SVG graphic might look in the code:</p>
 <div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;svg</span><span class="ot"> xmlns=</span><span class="st">&quot;http://www.w3.org/2000/svg&quot;</span><span class="ot"> version=</span><span class="st">&quot;1.1&quot;</span>
@@ -125,18 +126,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </dd>
 </dl>
 <p>Of course creating this code on your own can be fairly painful. There are libraries to help you along, and <a href="http://svgjs.com/">SVG.js</a> is the one we will use. Setting it up could be as simple as including the following script on your page:</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.7.1/svg.min.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
 <p>or dynamically on a page using the following:</p>
 <pre><code>var s = document.createElement(&#39;script&#39;);
-s.setAttribute(&#39;src&#39;, &#39;https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.min.js&#39;);
+s.setAttribute(&#39;src&#39;, &#39;https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.7.1/svg.min.js&#39;);
 document.body.appendChild(s);</code></pre>
 <p>This gives us an <code>SVG</code> global object to use. We can now use that to create elements. Here’s a typical interaction:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> aDiv <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&#39;div&#39;</span>)<span class="op">;</span>
 <span class="va">aDiv</span>.<span class="at">setAttribute</span>(<span class="st">&#39;id&#39;</span><span class="op">,</span> <span class="st">&#39;myDrawing&#39;</span>)<span class="op">;</span>
 <span class="va">document</span>.<span class="va">body</span>.<span class="at">prepend</span>(aDiv)<span class="op">;</span>
-<span class="kw">var</span> draw <span class="op">=</span> <span class="at">SVG</span>(<span class="st">&#39;myDrawing&#39;</span>).<span class="at">size</span>(<span class="dv">300</span><span class="op">,</span> <span class="dv">300</span>)<span class="op">;</span></code></pre></div>
+<span class="kw">var</span> draw <span class="op">=</span> <span class="at">SVG</span>(<span class="st">&#39;myDrawing&#39;</span>).<span class="at">size</span>(<span class="dv">100</span><span class="op">,</span> <span class="dv">300</span>)<span class="op">;</span></code></pre></div>
 <p>This creates a new div element, and creates a new SVG empty element within it. Let’s add a rectangle in it:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> rect <span class="op">=</span> <span class="va">draw</span>.<span class="at">rect</span>(<span class="dv">100</span><span class="op">,</span> <span class="dv">100</span>).<span class="at">attr</span>(<span class="op">{</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">&#39;#f06&#39;</span> <span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> rect <span class="op">=</span> <span class="va">draw</span>.<span class="at">rect</span>(<span class="dv">60</span><span class="op">,</span> <span class="dv">100</span>).<span class="at">attr</span>(<span class="op">{</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">&#39;#f06&#39;</span> <span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>Let’s move it, then change its color:</p>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">rect</span>.<span class="at">animate</span>().<span class="at">move</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">50</span>)<span class="op">;</span>
 <span class="va">rect</span>.<span class="at">animate</span>().<span class="at">fill</span>(<span class="st">&#39;#f55&#39;</span>)<span class="op">;</span></code></pre></div>
@@ -174,9 +175,9 @@ document.body.appendChild(s);</code></pre>
 m 20, 30      &lt;--------   Move 20 pixels to the right and 30 pixels down
 
 L 30, 40      &lt;--------   Draw a straight line to location (30, 40)
-l -30, 40     &lt;--------   Draw a straight line to going 30 pixels to the left and 40 pixels down
-H 30          &lt;--------   Draw a straight horizontal line to going the point with x coordinate 30
-v 10          &lt;--------   Draw a straight vertical line line to going 10 pixels down
+l -30, 40     &lt;--------   Draw a straight line going 30 pixels to the left and 40 pixels down
+H 30          &lt;--------   Draw a straight horizontal line to the point with x coordinate 30
+v 10          &lt;--------   Draw a straight vertical line going 10 pixels down
 Z             &lt;--------   Close the path, joining the current point to the start
 
 C 10,20 20,20 30,10  &lt;------ Draw a &quot;cubic bezier curve&quot; to the point (30, 10) using the two control points (10, 20) and (20, 20)
@@ -208,19 +209,40 @@ A        &lt;----- Used for arcs. We will not discuss these.</code></pre>
 <span class="kw">var</span> c <span class="op">=</span> <span class="va">draw</span>.<span class="at">circle</span>().<span class="at">x</span>(<span class="dv">50</span>).<span class="at">y</span>(<span class="dv">50</span>).<span class="at">radius</span>(<span class="dv">30</span>).<span class="at">fill</span>(pattern)<span class="op">;</span></code></pre></div>
 <h4 id="transforms">Transforms</h4>
 <p>There are a number of transformations. We’ll make a simple clock using them to rotate the indices.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> circle <span class="op">=</span> <span class="va">draw</span>.<span class="at">circle</span>(<span class="dv">100</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>)<span class="op">;</span>
-<span class="kw">var</span> secIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -45&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>)<span class="op">;</span>
-<span class="kw">var</span> minIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -35 l -5,5 m 5,-5 l 5,5 m -5,-5&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span>
-<span class="kw">var</span> hourIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -15 l -5,5 m 5,-5 l 5,5 m -5,-5&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> circle <span class="op">=</span> <span class="va">draw</span>.<span class="at">circle</span>(<span class="dv">80</span>).<span class="at">cx</span>(<span class="dv">50</span>).<span class="at">cy</span>(<span class="dv">50</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> secIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -38&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>)<span class="op">;</span>
+<span class="kw">var</span> minIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">group</span>()<span class="op">;</span>
+<span class="va">minIndex</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 m 0,-35 m -5,5 l 5,-5 l 5,5&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">2</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-linecap&#39;</span><span class="op">,</span> <span class="st">&#39;round&#39;</span>)<span class="op">;</span>
+<span class="va">minIndex</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -35&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span>
+<span class="kw">var</span> hourIndex <span class="op">=</span> <span class="va">draw</span>.<span class="at">group</span>()<span class="op">;</span>
+<span class="va">hourIndex</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 m 0,-15 m -5,5 l 5,-5 l 5,5 m -5,-5&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">3</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-linecap&#39;</span><span class="op">,</span> <span class="st">&#39;round&#39;</span>)<span class="op">;</span>
+<span class="va">hourIndex</span>.<span class="at">path</span>(<span class="st">&#39;M 50,50 v -15&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;black&#39;</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span>
 
-<span class="kw">var</span> seconds <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>
-<span class="kw">var</span> t <span class="op">=</span> <span class="at">setInterval</span>(<span class="kw">function</span>() <span class="op">{</span>
-  seconds <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span>
-  <span class="va">secIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> seconds)<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
-  <span class="va">minIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> seconds / <span class="dv">60</span>)<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
-  <span class="va">hourIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> seconds / <span class="dv">60</span> / <span class="dv">60</span>)<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
-<span class="op">},</span> <span class="dv">1000</span>)<span class="op">;</span></code></pre></div>
+<span class="kw">function</span> <span class="at">showTime</span>() <span class="op">{</span>
+  <span class="kw">let</span> now <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span>
+  <span class="va">secIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> <span class="va">now</span>.<span class="at">getSeconds</span>())<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
+  <span class="va">minIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> <span class="va">now</span>.<span class="at">getMinutes</span>())<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
+  <span class="va">hourIndex</span>.<span class="at">transform</span>(<span class="op">{</span> <span class="dt">rotation</span><span class="op">:</span> (<span class="dv">6</span> <span class="op">*</span> <span class="va">now</span>.<span class="at">getHours</span>())<span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">50</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>
+<span class="at">showTime</span>()<span class="op">;</span>
+<span class="kw">var</span> t <span class="op">=</span> <span class="at">setInterval</span>(showTime<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></code></pre></div>
 <p><strong>Practice 1</strong>: Add ticks at every hour. Start by putting one at 12 o’clock, then using <code>use</code> and rotation for the other 11.</p>
 <p><strong>Practice 2</strong>: Add the hours numbers.</p>
+<h4 id="events-on-svg">Events on SVG</h4>
+<p>SVG elements are normal DOM elements, and we can therefore place handlers on them to react when they are clicked etc. In this section we will decide a “door” which when clicked will open.</p>
+<p>Let’s start with the door basics. We want a rectangular frame containing another rectangle.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> aDiv <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&#39;div&#39;</span>)<span class="op">;</span>
+<span class="va">aDiv</span>.<span class="at">setAttribute</span>(<span class="st">&#39;id&#39;</span><span class="op">,</span> <span class="st">&#39;door&#39;</span>)<span class="op">;</span>
+<span class="va">aDiv</span>.<span class="at">setAttribute</span>(<span class="st">&#39;style&#39;</span><span class="op">,</span> <span class="st">&#39;height: 200px;width:80px;&#39;</span>)<span class="op">;</span>
+<span class="va">document</span>.<span class="va">body</span>.<span class="at">prepend</span>(aDiv)<span class="op">;</span>
+<span class="kw">var</span> draw <span class="op">=</span> <span class="at">SVG</span>(<span class="st">&#39;door&#39;</span>).<span class="at">size</span>(<span class="dv">100</span><span class="op">,</span> <span class="dv">200</span>)<span class="op">;</span>
+
+<span class="kw">var</span> frame <span class="op">=</span> <span class="va">draw</span>.<span class="at">rect</span>(<span class="dv">80</span><span class="op">,</span> <span class="dv">120</span>).<span class="at">x</span>(<span class="dv">10</span>).<span class="at">y</span>(<span class="dv">10</span>).<span class="at">fill</span>(<span class="st">&#39;white&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;purple&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;stroke-width&#39;</span><span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span>
+<span class="kw">var</span> door <span class="op">=</span> <span class="va">draw</span>.<span class="at">rect</span>(<span class="dv">76</span><span class="op">,</span> <span class="dv">116</span>).<span class="at">x</span>(<span class="dv">12</span>).<span class="at">y</span>(<span class="dv">12</span>).<span class="at">fill</span>(<span class="st">&#39;magenta&#39;</span>).<span class="at">stroke</span>(<span class="st">&#39;magenta&#39;</span>)<span class="op">;</span></code></pre></div>
+<p>Then we want the door to “slide” when the user clicks it:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">door</span>.<span class="at">click</span>(<span class="kw">function</span>() <span class="op">{</span>
+   <span class="kw">this</span>.<span class="at">animate</span>().<span class="at">transform</span>(<span class="op">{</span> <span class="dt">relative</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">scaleX</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">cx</span><span class="op">:</span> <span class="dv">90</span><span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> <span class="dv">130</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>You can read more about the available SVG transformations <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform">over here</a>.</p>
 </body>
 </html>

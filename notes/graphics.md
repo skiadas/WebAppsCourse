@@ -15,12 +15,13 @@
 
 ### Graphics in Javascript
 
-Javascript offers two main systems for doing more elaborate graphics.
+Javascript offers three main systems for doing more elaborate graphics.
 
-- Canvas is essentially more of image drawing. You create a `<canvas>` element and then use Javascript instructions to draw into that canvas as you would do on a painting.
-- SVG stands for "Scalable Vector Graphics". These are actually more like a set of DOM Elements that you can manipulate, but whose intent is to represent "vector graphics" elements.
+- **Canvas** is essentially more of image drawing. You create a `<canvas>` element and then use Javascript instructions to draw into that canvas as you would do on a painting.
+- **SVG** stands for "Scalable Vector Graphics". These are actually more like a set of DOM Elements that you can manipulate, but whose intent is to represent "vector graphics" elements.
+- **WebGL** is infrastructure for doing 3D graphics (while the other two focus on 2D graphics).
 
-We will focus on this second group, which is based on the SVG XML specification.
+We will focus on SVG for now, which is based on the SVG XML specification.
 
 ### SVG Graphics
 
@@ -84,12 +85,12 @@ text
 
 Of course creating this code on your own can be fairly painful. There are libraries to help you along, and [SVG.js](http://svgjs.com/) is the one we will use. Setting it up could be as simple as including the following script on your page:
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.7.1/svg.min.js"></script>
 ```
 or dynamically on a page using the following:
 ```
 var s = document.createElement('script');
-s.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.min.js');
+s.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.7.1/svg.min.js');
 document.body.appendChild(s);
 ```
 
@@ -98,11 +99,11 @@ This gives us an `SVG` global object to use. We can now use that to create eleme
 var aDiv = document.createElement('div');
 aDiv.setAttribute('id', 'myDrawing');
 document.body.prepend(aDiv);
-var draw = SVG('myDrawing').size(300, 300);
+var draw = SVG('myDrawing').size(100, 300);
 ```
 This creates a new div element, and creates a new SVG empty element within it. Let's add a rectangle in it:
 ```javascript
-var rect = draw.rect(100, 100).attr({ fill: '#f06' });
+var rect = draw.rect(60, 100).attr({ fill: '#f06' });
 ```
 Let's move it, then change its color:
 ```javascript
@@ -153,9 +154,9 @@ M 15, 20      <--------   Move to the coordinates (15, 20)
 m 20, 30      <--------   Move 20 pixels to the right and 30 pixels down
 
 L 30, 40      <--------   Draw a straight line to location (30, 40)
-l -30, 40     <--------   Draw a straight line to going 30 pixels to the left and 40 pixels down
-H 30          <--------   Draw a straight horizontal line to going the point with x coordinate 30
-v 10          <--------   Draw a straight vertical line line to going 10 pixels down
+l -30, 40     <--------   Draw a straight line going 30 pixels to the left and 40 pixels down
+H 30          <--------   Draw a straight horizontal line to the point with x coordinate 30
+v 10          <--------   Draw a straight vertical line going 10 pixels down
 Z             <--------   Close the path, joining the current point to the start
 
 C 10,20 20,20 30,10  <------ Draw a "cubic bezier curve" to the point (30, 10) using the two control points (10, 20) and (20, 20)
@@ -203,20 +204,49 @@ var c = draw.circle().x(50).y(50).radius(30).fill(pattern);
 There are a number of transformations. We'll make a simple clock using them to rotate the indices.
 
 ```javascript
-var circle = draw.circle(100).fill('white').stroke('black');
-var secIndex = draw.path('M 50,50 v -45').stroke('black').fill('white');
-var minIndex = draw.path('M 50,50 v -35 l -5,5 m 5,-5 l 5,5 m -5,-5').stroke('black').fill('white').attr('stroke-width', 2);
-var hourIndex = draw.path('M 50,50 v -15 l -5,5 m 5,-5 l 5,5 m -5,-5').stroke('black').fill('white').attr('stroke-width', 3);
+var circle = draw.circle(80).cx(50).cy(50).fill('white').stroke('black');
+var secIndex = draw.path('M 50,50 v -38').stroke('black').fill('white');
+var minIndex = draw.group();
+minIndex.path('M 50,50 m 0,-35 m -5,5 l 5,-5 l 5,5').stroke('black').fill('white').attr('stroke-width', 2).attr('stroke-linecap', 'round');
+minIndex.path('M 50,50 v -35').stroke('black').fill('white').attr('stroke-width', 2);
+var hourIndex = draw.group();
+hourIndex.path('M 50,50 m 0,-15 m -5,5 l 5,-5 l 5,5 m -5,-5').stroke('black').fill('white').attr('stroke-width', 3).attr('stroke-linecap', 'round');
+hourIndex.path('M 50,50 v -15').stroke('black').fill('white').attr('stroke-width', 3);
 
-var seconds = 0;
-var t = setInterval(function() {
-  seconds += 1;
-  secIndex.transform({ rotation: (6 * seconds), cx: 50, cy: 50 });
-  minIndex.transform({ rotation: (6 * seconds / 60), cx: 50, cy: 50 });
-  hourIndex.transform({ rotation: (6 * seconds / 60 / 60), cx: 50, cy: 50 });
-}, 1000);
+function showTime() {
+  let now = new Date();
+  secIndex.transform({ rotation: (6 * now.getSeconds()), cx: 50, cy: 50 });
+  minIndex.transform({ rotation: (6 * now.getMinutes()), cx: 50, cy: 50 });
+  hourIndex.transform({ rotation: (6 * now.getHours()), cx: 50, cy: 50 });
+}
+showTime();
+var t = setInterval(showTime, 1000);
 ```
 
 **Practice 1**: Add ticks at every hour. Start by putting one at 12 o'clock, then using `use` and rotation for the other 11.
 
 **Practice 2**: Add the hours numbers.
+
+#### Events on SVG
+
+SVG elements are normal DOM elements, and we can therefore place handlers on them to react when they are clicked etc. In this section we will decide a "door" which when clicked will open.
+
+Let's start with the door basics. We want a rectangular frame containing another rectangle.
+
+```javascript
+var aDiv = document.createElement('div');
+aDiv.setAttribute('id', 'door');
+aDiv.setAttribute('style', 'height: 200px;width:80px;');
+document.body.prepend(aDiv);
+var draw = SVG('door').size(100, 200);
+
+var frame = draw.rect(80, 120).x(10).y(10).fill('white').stroke('purple').attr('stroke-width', 3);
+var door = draw.rect(76, 116).x(12).y(12).fill('magenta').stroke('magenta');
+```
+Then we want the door to "slide" when the user clicks it:
+```javascript
+door.click(function() {
+   this.animate().transform({ relative: true, scaleX: 0, cx: 90, cy: 130 });
+});
+```
+You can read more about the available SVG transformations [over here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform).
