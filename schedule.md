@@ -115,16 +115,17 @@ BREAK
 ## Week 11 (03/16-03/20)
 
 - Day 1
-    - [Different stack implementations](notes/stack_various.md)
-    - ["Class" construction examples](notes/class_construction.md)
-    - [Documentation systems](notes/documentation.md)
-    - [Code Reviews](notes/code_review.md)
+    - Projects progress
 - Day 2
 - Day 3
 
 ## Week 12 (03/23-03/27)
 
 - Day 1
+    - [Different stack implementations](notes/stack_various.md)
+    - ["Class" construction examples](notes/class_construction.md)
+    - [Documentation systems](notes/documentation.md)
+    - [Code Reviews](notes/code_review.md)
 - Day 2
     - [Basics of HTTP](notes/http_intro.md)
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
