@@ -117,14 +117,13 @@ BREAK
 - Day 1
     - Projects progress
 - Day 2
+    - Projects progress
 - Day 3
+    - [Documentation systems](notes/documentation.md)
 
 ## Week 12 (03/23-03/27)
 
 - Day 1
-    - [Different stack implementations](notes/stack_various.md)
-    - ["Class" construction examples](notes/class_construction.md)
-    - [Documentation systems](notes/documentation.md)
     - [Code Reviews](notes/code_review.md)
 - Day 2
     - [Basics of HTTP](notes/http_intro.md)
@@ -181,3 +180,5 @@ BREAK
 - [UMD modules](notes/umd.md)
 - [The Visitor Pattern and the need for it](notes/patterns_visitor.md)
 - [The DRY principle](notes/dry.md)
+- [Different stack implementations](notes/stack_various.md)
+- ["Class" construction examples](notes/class_construction.md)

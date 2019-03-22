@@ -69,13 +69,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>There are at least two very different approaches to automatic code documentation:</p>
 <ul>
-<li>Generating a single HTML document with comments interspersed with the corresponding code. These tools tend to process all comments. You can see how this looks <a href="http://underscorejs.org/docs/underscore.html">here</a>. <a href="https://jashkenas.github.io/docco/">Docco</a> is a prime examples of this system, often called <em>literate programming</em>.</li>
-<li>Reading only specific comments, and producing an set of webpages from them. This is the standard documentation system, similar to JavaDoc. Standard examples of this in Javascript are <a href="http://usejsdoc.org/">JSDoc</a>, <a href="http://documentation.js.org/">documentationjs</a> and <a href="https://esdoc.org/">ESDoc</a>.</li>
+<li>Generating a single HTML document with comments interspersed with the corresponding code. These tools tend to process all comments. You can see how this looks <a href="http://underscorejs.org/docs/underscore.html">here</a>. <a href="https://jashkenas.github.io/docco/">Docco</a> is a prime example of this system, often called <em>literate programming</em>.</li>
+<li>Reading only specific comments, and producing a set of webpages from them. This is the standard documentation system, similar to JavaDoc. Standard examples of this in Javascript are <a href="http://usejsdoc.org/">JSDoc</a>, <a href="http://documentation.js.org/">documentationjs</a> and <a href="https://esdoc.org/">ESDoc</a>.</li>
 </ul>
 <p>We will be seeing documentationjs in this section, but other systems are similar.</p>
 <p>In any case, most of these systems allow you to customize the CSS for your pages, and most allow you to use Markdown syntax in your comments.</p>
 <h3 id="jsdoc-comments">JSDoc comments</h3>
-<p>JSDoc comments are special comments that processed by JSDoc and other systems:</p>
+<p>JSDoc comments are special comments that are processed by JSDoc and other systems:</p>
 <ul>
 <li>They are indicated by an initial <code>/**</code>, with two stars.</li>
 <li>They end as usual with <code>*/</code>.</li>
@@ -144,8 +144,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Add your own customizations that interact with the documentation tool and modify some parts of the process.</li>
 </ul>
 <p>The simplest thing to do would be something like this:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">documentation</span> build js/taskListController.js -f html -o docs
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">documentation</span> build js/taskListController.js -f html -o docs
 <span class="co"># This will open the file</span>
-<span class="kw">documentation</span> build --watch js/taskListController.js -f html -o docs</code></pre></div>
+<span class="ex">documentation</span> build --watch js/taskListController.js -f html -o docs</code></pre></div>
 </body>
 </html>

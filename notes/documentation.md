@@ -20,8 +20,8 @@ There are fundamentally a couple of different kinds of documentation:
 
 There are at least two very different approaches to automatic code documentation:
 
-- Generating a single HTML document with comments interspersed with the corresponding code. These tools tend to process all comments. You can see how this looks [here](http://underscorejs.org/docs/underscore.html). [Docco](https://jashkenas.github.io/docco/) is a prime examples of this system, often called *literate programming*.
-- Reading only specific comments, and producing an set of webpages from them. This is the standard documentation system, similar to JavaDoc. Standard examples of this in Javascript are [JSDoc](http://usejsdoc.org/), [documentationjs](http://documentation.js.org/) and [ESDoc](https://esdoc.org/).
+- Generating a single HTML document with comments interspersed with the corresponding code. These tools tend to process all comments. You can see how this looks [here](http://underscorejs.org/docs/underscore.html). [Docco](https://jashkenas.github.io/docco/) is a prime example of this system, often called *literate programming*.
+- Reading only specific comments, and producing a set of webpages from them. This is the standard documentation system, similar to JavaDoc. Standard examples of this in Javascript are [JSDoc](http://usejsdoc.org/), [documentationjs](http://documentation.js.org/) and [ESDoc](https://esdoc.org/).
 
 We will be seeing documentationjs in this section, but other systems are similar.
 
@@ -29,7 +29,7 @@ In any case, most of these systems allow you to customize the CSS for your pages
 
 ### JSDoc comments
 
-JSDoc comments are special comments that processed by JSDoc and other systems:
+JSDoc comments are special comments that are processed by JSDoc and other systems:
 
 - They are indicated by an initial `/**`, with two stars.
 - They end as usual with `*/`.
