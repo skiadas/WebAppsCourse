@@ -129,6 +129,7 @@ BREAK
     - [Basics of HTTP](notes/http_intro.md)
     - [Introduction to XMLHttpRequest](notes/xhr_intro.md)
 - Day 3
+    - [Asynchronous loading example](notes/asynchronous_loading_example.md)
 
 ## Week 13 (03/30-04/03)
 

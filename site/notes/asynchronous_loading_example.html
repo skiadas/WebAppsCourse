@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="an-example-of-asynchronous-loading">An example of asynchronous loading</h1>
+<h2 id="relevant-links">Relevant links</h2>
+<ul>
+<li><a href="http://exploringjs.com/es6/ch_promises.html">Introduction to promises</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN documentation on promises</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">async and await</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>In this section we will a small example to illustrate the different asynchronous loading techniques.</p>
+<p>We will use a small Node.js application that runs a tiny local server and keeps a running list of tasks. Here is the code for it, stored in a file called <code>app.js</code>:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// To run, need:</span>
+<span class="co">// npm install express express-handlebars</span>
+<span class="co">// node app.js</span>
+
+<span class="kw">const</span> express <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;express&#39;</span>)
+<span class="kw">const</span> exphbs  <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;express-handlebars&#39;</span>)<span class="op">;</span>
+
+<span class="kw">const</span> app <span class="op">=</span> <span class="at">express</span>()
+<span class="kw">const</span> port <span class="op">=</span> <span class="dv">3000</span>
+
+<span class="kw">const</span> tasks <span class="op">=</span> []<span class="op">;</span>
+
+<span class="co">// Templates</span>
+<span class="va">app</span>.<span class="at">engine</span>(<span class="st">&#39;handlebars&#39;</span><span class="op">,</span> <span class="at">exphbs</span>(<span class="op">{</span> <span class="dt">defaultLayout</span><span class="op">:</span> <span class="kw">false</span> <span class="op">}</span>))<span class="op">;</span>
+<span class="va">app</span>.<span class="at">set</span>(<span class="st">&#39;view engine&#39;</span><span class="op">,</span> <span class="st">&#39;handlebars&#39;</span>)<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">get</span>(<span class="st">&#39;/json&#39;</span><span class="op">,</span> (req<span class="op">,</span> res) <span class="op">=&gt;</span> <span class="va">res</span>.<span class="at">json</span>(<span class="op">{</span> <span class="dt">tasks</span><span class="op">:</span> tasks <span class="op">}</span>))<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">get</span>(<span class="st">&#39;/&#39;</span><span class="op">,</span> (req<span class="op">,</span> res) <span class="op">=&gt;</span> <span class="va">res</span>.<span class="at">render</span>(<span class="st">&#39;tasks&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">tasks</span><span class="op">:</span> tasks <span class="op">}</span>))<span class="op">;</span>
+<span class="va">app</span>.<span class="at">post</span>(<span class="st">&#39;/&#39;</span><span class="op">,</span> (req<span class="op">,</span> res) <span class="op">=&gt;</span> <span class="op">{</span>
+   <span class="va">tasks</span>.<span class="at">push</span>(<span class="va">req</span>.<span class="va">body</span>.<span class="at">task</span>)<span class="op">;</span>
+   <span class="va">res</span>.<span class="at">redirect</span>(<span class="st">&#39;/&#39;</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">listen</span>(port<span class="op">,</span> () <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="vs">`Example app listening on port </span><span class="sc">${</span>port<span class="sc">}</span><span class="vs">!`</span>))</code></pre></div>
+<p>This uses a view file called <code>views/tasks.handlebars</code> to render the list of tasks. Here is the code for that:</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<span class="kw">&lt;html&gt;</span>
+   <span class="kw">&lt;head&gt;</span>
+       <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;utf-8&quot;</span><span class="kw">&gt;</span>
+       <span class="kw">&lt;title&gt;</span>Example App<span class="kw">&lt;/title&gt;</span>
+   <span class="kw">&lt;/head&gt;</span>
+   <span class="kw">&lt;body&gt;</span>
+      <span class="kw">&lt;div&gt;</span>
+         <span class="kw">&lt;ol</span><span class="ot"> id=</span><span class="st">&quot;tasks&quot;</span><span class="kw">&gt;</span>
+            {{#each tasks}}
+            <span class="kw">&lt;li&gt;</span>{{this}}<span class="kw">&lt;/li&gt;</span>
+            {{/each}}
+         <span class="kw">&lt;/ol&gt;</span>
+      <span class="kw">&lt;/div&gt;</span>
+      <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;/&quot;</span><span class="ot"> method=</span><span class="st">&quot;post&quot;</span><span class="kw">&gt;</span>
+         <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;input&quot;</span><span class="ot"> name=</span><span class="st">&quot;task&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;add a task here!&quot;</span> <span class="kw">/&gt;</span>
+         <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="ot"> value=</span><span class="st">&quot;Add it!&quot;</span> <span class="kw">/&gt;</span>
+      <span class="kw">&lt;/form&gt;</span>
+      <span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;module&quot;</span><span class="kw">&gt;</span>
+      <span class="co">// Add javascript code here</span>
+      <span class="kw">&lt;/script&gt;</span>
+
+<span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre></div>
+<p>We can start the application by running <code>node app.js</code> from the terminal. Then we can open up our browsers to <code>localhost:3000</code> and interact with the application (in fact, multiple people can interact at the same time, all adding to the same list of tasks).</p>
+<p>Currently this works non-dynamically:</p>
+<ol style="list-style-type: decimal">
+<li>When you hit the submit button, a POST request is sent to the server.</li>
+<li>The server processes this request, and serves back a <strong>new</strong> webpage, which just so happens to be the one we started at.</li>
+<li>One of the consequences is that when someone else adds a new task to the list, we will not see it until we either refresh the current page or submit a new task of our own.</li>
+</ol>
+<h3 id="basic-xhr-solution">Basic XHR solution</h3>
+<p>What we want instead is a system whereby the page periodically checks for changes in the background. To that end, we have the <code>/json</code> endpoint (try <code>localhost:3000/json)</code>, which provides the list of tasks in a more compact and easy to process way. Let’s use the <code>XMLHttpRequest</code> object to process this:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">requestUpdates</span>() <span class="op">{</span>
+  <span class="kw">let</span> xhr <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span>
+  <span class="va">xhr</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>(ev) <span class="op">{</span>
+      <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Event&quot;</span><span class="op">,</span> ev)<span class="op">;</span>
+      <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;xhr object has info&quot;</span><span class="op">,</span> xhr)<span class="op">;</span>
+  <span class="op">};</span>
+  <span class="va">xhr</span>.<span class="at">open</span>(<span class="st">&quot;get&quot;</span><span class="op">,</span> <span class="st">&quot;/json&quot;</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span>
+  <span class="va">xhr</span>.<span class="at">send</span>()<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="at">setInterval</span>(requestUpdates<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></code></pre></div>
+<p>So we create a function that sets up the whole <code>xhr</code> object, an <code>onload</code> handler etc. Then we set that function to be called on a 1 second interval. So every second this function will ask for updated data from the server, then it will console.log some information for us.</p>
+<p>Of course instead of it logging some information, we want to change what the webpage shows us. In general, what we do in the <code>onload</code> function can be pretty complex, we’ll want to find a way to separate what we do from the loading process.</p>
+<p>To start with, let’s extract the information we want instead of console.logging those massive objects.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">  <span class="va">xhr</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>(ev) <span class="op">{</span>
+      <span class="kw">let</span> json <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span>
+      <span class="kw">let</span> tasks <span class="op">=</span> <span class="va">json</span>.<span class="at">tasks</span><span class="op">;</span>
+      <span class="va">console</span>.<span class="at">log</span>(json)<span class="op">;</span>
+  <span class="op">};</span></code></pre></div>
+<p>So now we have this <code>json</code> object, which contains the updated list of tasks. What we want to do is add any new tasks to the webpage. We will do this in a simple way here, though using <code>jQuery</code> or something similar would probably be best long term, then some nice visual effects can be added.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span> tasks <span class="op">=</span> <span class="va">json</span>.<span class="at">tasks</span><span class="op">;</span>
+<span class="kw">let</span> existingCount <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementsByTagName</span>(<span class="st">&quot;li&quot;</span>).<span class="at">length</span><span class="op">;</span>
+<span class="kw">let</span> list <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&quot;tasks&quot;</span>)<span class="op">;</span>
+<span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> existingCount<span class="op">;</span> i <span class="op">&lt;</span> <span class="va">tasks</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">++</span>) <span class="op">{</span>
+  <span class="kw">let</span> el <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;li&quot;</span>)<span class="op">;</span>
+  <span class="va">el</span>.<span class="at">innerHTML</span> <span class="op">=</span> tasks[i]<span class="op">;</span>
+  <span class="va">list</span>.<span class="at">appendChild</span>(el)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>Now try it out! Open another browser instance, and add a task to that instance. Watch as the first instance updates within a second.</p>
+<h3 id="decoupling-things">Decoupling things</h3>
+<p>So now that we have something basic working, let’s consider how to improve the code. Right now we put everything we want to have happen inside the <code>onload</code> function. This kind of gets buried in the code that tries to manage the connection. What we would like to be able to do is say “why don’t you mess with all that connection stuff, and then give me the resulting list of items, then I’ll do something with it”. So we would <em>like</em> to be able to write the following:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Won&#39;t work</span>
+<span class="kw">let</span> updates <span class="op">=</span> <span class="at">useXHRandGetResults</span>()<span class="op">;</span>
+... <span class="at">do</span> <span class="at">something</span> <span class="at">with</span> <span class="va">updates</span> ...</code></pre></div>
+<p>There are two reasons why this won’t quite work out. The first is that the process of remotely getting data might fail (wrong connection, timeouts etc). Our code above does not appear to handle this in any way. The other is that getting that data happens asynchronously; it will take time and we don’t want our javascript code to just freeze there waiting for that to happen.</p>
+<p>One solution to this is the so-called callbacks solution. Here’s how that might look like:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">asyncLoad</span>(link<span class="op">,</span> onSuccess<span class="op">,</span> onError) <span class="op">{</span>
+  <span class="kw">let</span> xhr <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span>
+  <span class="va">xhr</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>(ev) <span class="op">{</span>
+      <span class="cf">if</span> (<span class="va">xhr</span>.<span class="at">status</span> <span class="op">==</span> <span class="dv">200</span>) <span class="op">{</span>
+         <span class="at">onSuccess</span>(<span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">xhr</span>.<span class="at">responseText</span>))<span class="op">;</span>
+      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+         <span class="at">onError</span>(<span class="va">xhr</span>.<span class="at">status</span>)<span class="op">;</span>
+      <span class="op">}</span>
+  <span class="op">};</span>
+  <span class="va">xhr</span>.<span class="at">open</span>(<span class="st">&quot;get&quot;</span><span class="op">,</span> link<span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span>
+  <span class="va">xhr</span>.<span class="at">send</span>()<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">updatePageWithTasks</span>(json) <span class="op">{</span>
+   <span class="kw">let</span> tasks <span class="op">=</span> <span class="va">json</span>.<span class="at">tasks</span><span class="op">;</span>
+   <span class="kw">let</span> existingCount <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementsByTagName</span>(<span class="st">&quot;li&quot;</span>).<span class="at">length</span><span class="op">;</span>
+   <span class="kw">let</span> list <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&quot;tasks&quot;</span>)<span class="op">;</span>
+   <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> existingCount<span class="op">;</span> i <span class="op">&lt;</span> <span class="va">tasks</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">++</span>) <span class="op">{</span>
+     <span class="kw">let</span> el <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;li&quot;</span>)<span class="op">;</span>
+     <span class="va">el</span>.<span class="at">innerHTML</span> <span class="op">=</span> tasks[i]<span class="op">;</span>
+     <span class="va">list</span>.<span class="at">appendChild</span>(el)<span class="op">;</span>
+   <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">requestUpdates</span>() <span class="op">{</span>
+   <span class="at">asyncLoad</span>(<span class="st">&#39;/json&#39;</span><span class="op">,</span>
+            updatePageWithTasks<span class="op">,</span>
+            status <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Error status: &quot;</span> <span class="op">+</span> status))<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="at">setInterval</span>(requestUpdates<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></code></pre></div>
+<p>So we have separated the loading logic from the processing logic. We have this <code>asyncLoad</code> method which takes as input the webpage to load, and two functions: One function to handle a successful load, and one to handle a failed request. This is a nice separation of concerns, using the key idea of <strong>callbacks</strong>.</p>
+<h3 id="introducing-promises">Introducing promises</h3>
+<p>This callback approach does have its limitations however. One of these limitations is that we must provide those callbacks along with calling the function, we can’t decide what they will be later on. And if we chain such asynchronous requests over after the other, we can get a very nested sequence of callsbacks that becomes hard to read.</p>
+<p>Promises are here to help with this idea. A <strong>promise</strong> is an object whose value hasn’t been resolved yet. But it is a fully formed object and it can be passed around as any other object, until at some point later it will get resolved. We can then add handlers to that object on what should happen if and when it gets resolved.</p>
+<p>As an example, here is a simple promise object that will get resolved in 3 seconds:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span> o <span class="op">=</span> <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="op">=&gt;</span> <span class="op">{</span>
+  <span class="at">setTimeout</span>(() <span class="op">=&gt;</span> <span class="at">resolve</span>(<span class="st">&quot;yes!&quot;</span>)<span class="op">,</span> <span class="dv">3000</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>By itself this does not do much. but now we can <em>add</em> handlers to the object, as follows:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">o</span>.<span class="at">then</span>(value <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(value))<span class="op">;</span></code></pre></div>
+<p>So the <code>then</code> part tells the promise that whenever it figures out its value it should pass that value to the <code>console.log</code> function.</p>
+<p>The nice thing about it is that you can do this multiple times:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">o</span>.<span class="at">then</span>(value <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(value))<span class="op">;</span>
+<span class="va">o</span>.<span class="at">then</span>(value <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(value))<span class="op">;</span></code></pre></div>
+<p>and now <em>both</em> callbacks will execute.</p>
+<p>Or you can even do this <em>after</em> the object has been resolved. So for example we can do:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// After the 3 seconds</span>
+<span class="va">o</span>.<span class="at">then</span>(value <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(value))<span class="op">;</span></code></pre></div>
+<p>And it will execute right away, as that object is resolved already.</p>
+<p>Let’s also look at an example with an error thrown:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">let</span> o <span class="op">=</span> <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="op">=&gt;</span> <span class="op">{</span>
+  <span class="at">setTimeout</span>(() <span class="op">=&gt;</span> <span class="at">reject</span>(<span class="st">&quot;something went wrong?&quot;</span>)<span class="op">,</span> <span class="dv">3000</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+<span class="va">o</span>.<span class="at">then</span>(v <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;all&#39;s well.&quot;</span>))
+  .<span class="at">catch</span>(err <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;well now:&quot;</span><span class="op">,</span> err))<span class="op">;</span></code></pre></div>
+<p>Notice that we <em>chained</em> the calls. In fact when we write <code>o.then(f)</code> this is actually again a promise. This allows you to chain a series of operations, and have a single <code>catch</code> at the end to account for all the things that can go wrong.</p>
+<p>A <code>Promise</code> object can be in one of three states:</p>
+<ul>
+<li><strong>pending</strong>, meaning it is an ongoing computation.</li>
+<li><strong>fulfilled</strong>, meaning it has completed in a positive way.</li>
+<li><strong>rejected</strong>, meaning an error happened.</li>
+</ul>
+<p>A promise starts its life in the “pending” state, and it will move exactly once, to one of the other (final) states. We say that the promise is then <strong>settled</strong>.</p>
+<p>Here’s another example: We can implement a simple <code>delay</code> via a promise that does <code>setTimeout</code>, like so:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">delay</span>(ms) <span class="op">{</span>
+    <span class="cf">return</span> <span class="kw">new</span> <span class="at">Promise</span>(
+      (resolve<span class="op">,</span> reject) <span class="op">=&gt;</span> <span class="at">setTimeout</span>(resolve<span class="op">,</span> ms)
+    )<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">// Using delay():</span>
+<span class="at">delay</span>(<span class="dv">5000</span>).<span class="at">then</span>( () <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;after 5 seconds!&#39;</span>) )<span class="op">;</span></code></pre></div>
+<h3 id="promises-with-xhr">Promises with XHR</h3>
+<p>Now we will use promises to do the remote task reading described earlier. Here’s how that might look like:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">asyncLoad</span>(link) <span class="op">{</span>
+  <span class="cf">return</span> <span class="kw">new</span> <span class="at">Promise</span>(
+    (resolve<span class="op">,</span> reject) <span class="op">=&gt;</span> <span class="op">{</span>
+      <span class="kw">const</span> xhr <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span>
+      <span class="va">xhr</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>(ev) <span class="op">{</span>
+          <span class="cf">if</span> (<span class="va">xhr</span>.<span class="at">status</span> <span class="op">==</span> <span class="dv">200</span>) <span class="op">{</span>
+             <span class="at">resolve</span>(<span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">xhr</span>.<span class="at">responseText</span>))<span class="op">;</span>
+          <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+             <span class="at">reject</span>(<span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">status</span>))<span class="op">;</span>
+          <span class="op">}</span>
+      <span class="op">};</span>
+      <span class="va">xhr</span>.<span class="at">open</span>(<span class="st">&quot;get&quot;</span><span class="op">,</span> link<span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span>
+      <span class="va">xhr</span>.<span class="at">send</span>()<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">updatePageWithTasks</span>(json) <span class="op">{</span>
+   ... <span class="at">same</span>
+<span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">requestUpdates</span>() <span class="op">{</span>
+   <span class="at">asyncLoad</span>(<span class="st">&#39;/json&#39;</span>)
+    .<span class="at">then</span>(updatePageWithTasks)
+    .<span class="at">catch</span>(status <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Error status: &quot;</span> <span class="op">+</span> status))<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="at">setInterval</span>(requestUpdates<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></code></pre></div>
+<p>Before we move away from promises, here are some useful methods that the <code>Promise</code> object offers:</p>
+<dl>
+<dt>Promise.all</dt>
+<dd>Given an array of promises, it returns a promise. If any of the promises in the array rejects, then the returned promise also rejects. If all promises in the array are resolved, then the returned promise also is resolved, with value the array of values from the provided promises.
+</dd>
+<dt>Promise.race</dt>
+<dd>Given an array of promises, it returns a promise that settles the moment any one of the passed promises settles, and in the same way.
+</dd>
+</dl>
+<h3 id="async-and-await">Async and await</h3>
+<p>Async functions are another way to work with promise objects. Basically:</p>
+<ol style="list-style-type: decimal">
+<li>An async function basically immediately returns a promise object then starts executing.</li>
+<li>Along the way, it can use <code>await</code> “calls” to <em>wait</em> for another asynchronous function or promise to be resolved. It does so without blocking (i.e. other functions get to execute while it waits).</li>
+<li>When the function reaches a return call, then the promise object that it returned gets resolved to that value.</li>
+<li>If the function throws an exception or some other error along the way, then the promise object it returned is rejected.</li>
+</ol>
+<p>As an example of this, our <code>requestUpdates</code> function from earlier could be written as follows:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// old version</span>
+<span class="kw">function</span> <span class="at">requestUpdates</span>() <span class="op">{</span>
+   <span class="at">asyncLoad</span>(<span class="st">&#39;/json&#39;</span>)
+    .<span class="at">then</span>(updatePageWithTasks)
+    .<span class="at">catch</span>(status <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Error status: &quot;</span> <span class="op">+</span> status))<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">// new version</span>
+async <span class="kw">function</span> <span class="at">requestUpdates</span>() <span class="op">{</span>
+  <span class="cf">try</span> <span class="op">{</span>
+   <span class="kw">let</span> json <span class="op">=</span> await <span class="at">asyncLoad</span>(<span class="st">&#39;/json&#39;</span>)<span class="op">;</span>
+   <span class="at">updatePageWithTasks</span>(json)<span class="op">;</span>
+  <span class="op">}</span> <span class="cf">catch</span>(e) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Error: &quot;</span> <span class="op">+</span> e)
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>The big advantage of this is that it is written almost like a synchronous function would be written, with only difference the fact that it actually isn’t: The <code>await asyncLoad</code> part will wait (but not block, other functions will get to run in the meantime) until the <code>asyncLoad</code> function has resolved its promise (i.e. the data has been read). In other words, the <code>await</code> part takes in a promise and waits for it to be resolved, then returns the corresponding value (or an error is raised if the promise was rejected).</p>
+<p>As another example, with the <code>delay</code> function we discussed earlier we could write an asynchronous function like so:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// returns a promise right away.</span>
+async <span class="kw">function</span> <span class="at">f</span>() <span class="op">{</span>
+  await <span class="at">delay</span>(<span class="dv">3000</span>)<span class="op">;</span>  <span class="co">// waits 3 seconds</span>
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;done!&quot;</span>)<span class="op">;</span>
+  <span class="cf">return</span> <span class="dv">5</span><span class="op">;</span>           <span class="co">// the promise gets resolved with value 5</span>
+<span class="op">}</span>
+
+<span class="kw">let</span> o <span class="op">=</span> <span class="at">f</span>(<span class="dv">5</span>)<span class="op">;</span> <span class="co">// runs right away</span>
+<span class="va">o</span>.<span class="at">then</span>( (v) <span class="op">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;function done with value: &quot;</span> <span class="op">+</span> v) )<span class="op">;</span> <span class="co">// runs right away</span>
+<span class="co">// other stuff happens here</span>
+<span class="co">// the console.logs will happen after 3 seconds, with &quot;done!&quot; happening first</span></code></pre></div>
+</body>
+</html>
