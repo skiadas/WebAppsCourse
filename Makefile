@@ -9,7 +9,7 @@ IMGFILES := $(shell find images -name \*.png)
 IMGFILES := $(IMGFILES:%=site/notes/%)
 
 $(HTMLFILES): site/%.html: %.md $(TEMPLATE)
-	pandoc -o $@ --template=$(TEMPLATE) --mathjax --smart --filter ./makeHtml.hs $<
+	pandoc -o $@ --template=$(TEMPLATE) --highlight-style=haddock --mathjax --filter ./makeHtml.hs $<
 
 $(PDFS): site/%.pdf: %.md $(TEXTEMPLATE)
 	pandoc -o $@ --template=$(TEXTEMPLATE) -t latex --listings --filter ./makeTex.hs $<

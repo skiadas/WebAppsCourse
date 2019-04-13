@@ -5,44 +5,65 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <title></title>
+  <title>xhr_intro</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </style>
 <link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
 <script type="text/javascript"
@@ -57,6 +78,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest">MDN’s page on using XMLHttpRequest</a></li>
 <li>Flanagan’s book, chapter 18</li>
 <li><a href="http://www.html5rocks.com/en/tutorials/cors/">Cross-Origin Resource Sharing article</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">MDN documentation on CORS</a></li>
 </ul>
 <h2 id="notes">Notes</h2>
 <h3 id="xmlhttprequest">XMLHttpRequest</h3>
@@ -69,14 +91,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Call the instance’s <code>open</code> method, providing the request’s parameters</li>
 <li>Call the instance’s <code>send</code> method.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> xhr <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span>
-<span class="va">xhr</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>(ev) <span class="op">{</span>
-    <span class="co">// Runs when resource is loaded</span>
-    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Event&quot;</span><span class="op">,</span> ev)<span class="op">;</span>
-    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;xhr object has info&quot;</span><span class="op">,</span> xhr)<span class="op">;</span>
-<span class="op">};</span>
-<span class="va">xhr</span>.<span class="at">open</span>(<span class="st">&quot;get&quot;</span><span class="op">,</span> <span class="st">&quot;xhr_intro.html&quot;</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span>
-<span class="va">xhr</span>.<span class="at">send</span>()<span class="op">;</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">var</span> xhr <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="va">xhr</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>(ev) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="co">// Runs when resource is loaded</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Event&quot;</span><span class="op">,</span> ev)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;xhr object has info&quot;</span><span class="op">,</span> xhr)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="op">};</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="va">xhr</span>.<span class="at">open</span>(<span class="st">&quot;get&quot;</span><span class="op">,</span> <span class="st">&quot;xhr_intro.html&quot;</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="va">xhr</span>.<span class="at">send</span>()<span class="op">;</span></a></code></pre></div>
 <p>You will see that the <code>xhr</code> object has been populated with a number of useful information about the request and corresponding response, including status text, code, response etc.</p>
 <p>Look at the documentation for more details on how to use XMLHttpRequest directly. In particular, the API offers fairly fine-grained control over the whole process, including receiving progress notifications at various stages.</p>
 <p>For the remaining of this section we will focus on using jQuery’s AJAX features.</p>
@@ -133,38 +155,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </dd>
 </dl>
 <p>So a typical way to make an AJAX request would be:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">$</span>.<span class="at">ajax</span>(requestObject).<span class="at">then</span>(onSuccess<span class="op">,</span> onFail)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">$</span>.<span class="at">ajax</span>(requestObject).<span class="at">then</span>(onSuccess<span class="op">,</span> onFail)</a></code></pre></div>
 </dd>
 </dl>
 <p>Consult the jQuery documentation for details if you need to use this.</p>
 <h3 id="the-same-origin-policy-and-ways-around-it">The Same Origin Policy and ways around it</h3>
-<p>The <strong>same-origin</strong> policy is a security measure that protects the execution of Javascript code with certain permissions. The policy says that “scripts are contained in a first web page are allowed to access data that is in another web page <strong>only</strong> if those pages have the same <em>origin</em>”.</p>
+<p>The <strong>same-origin</strong> policy is a security measure that protects the execution of Javascript code with certain permissions. The policy says that “scripts that are contained in a first web page are allowed to access data that is in another web page <strong>only</strong> if those pages have the same <em>origin</em>”.</p>
 <p>For instance there are ways in HTML to load another page within a “frame” of the existing page. This way for instance we can include third-party sections in our page, like amazon ads, widgets etc.</p>
 <p>But we do not want those widgets to have access to the possibly sensitive data that our application creates. We have no reason to trust those scripts that are coming from other sources like google, amazon etc. They can access information related to the “frame” that created them, but they are prevented from interacting with the rest of the page.</p>
 <p>This is very critical, and it causes some problems in relation to XHR and ajax.</p>
 <p>Simply put, when performing an ajax request, you can in general only make requests to the same host that provided the page and script in the first place. For example we can’t easily make a request to anything other than, in this case, <code>skiadas.github.io</code>, because that would mean our script would attempt to read data originating in a different “origin”.</p>
 <p>You can easily try this out:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Getting jQuery loaded</span>
-<span class="kw">var</span> jq <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&#39;script&#39;</span>)<span class="op">;</span>
-<span class="va">jq</span>.<span class="at">src</span> <span class="op">=</span> <span class="st">&quot;https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;</span><span class="op">;</span>
-<span class="va">document</span>.<span class="at">getElementsByTagName</span>(<span class="st">&#39;head&#39;</span>)[<span class="dv">0</span>].<span class="at">appendChild</span>(jq)<span class="op">;</span>
-<span class="co">// Wait a bit. Then $ = jQuery will exist</span>
-<span class="kw">var</span> xhr <span class="op">=</span> <span class="va">$</span>.<span class="at">ajax</span>(<span class="op">{</span> <span class="dt">url</span><span class="op">:</span> <span class="st">&quot;http://www.google.com&quot;</span> <span class="op">}</span>)<span class="op">;</span>
-<span class="co">// You get an error</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// Getting jQuery loaded</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">var</span> jq <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&#39;script&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="va">jq</span>.<span class="at">src</span> <span class="op">=</span> <span class="st">&quot;https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="va">document</span>.<span class="at">getElementsByTagName</span>(<span class="st">&#39;head&#39;</span>)[<span class="dv">0</span>].<span class="at">appendChild</span>(jq)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">// Wait a bit. Then $ = jQuery will exist</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="kw">var</span> xhr <span class="op">=</span> <span class="va">$</span>.<span class="at">ajax</span>(<span class="op">{</span> <span class="dt">url</span><span class="op">:</span> <span class="st">&quot;http://www.google.com&quot;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">// You get an error</span></a></code></pre></div>
 <p>There are two nowadays standard ways around this problem, both requiring some setup on the server side. So these will work provided the server has enabled the necessary functionality.</p>
 <h4 id="jsonp">JSONP</h4>
 <p>JSONP stands for “JSON with padding”. The idea is as follows: Normally the site would return information as a JSON object, so something like:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
-    <span class="dt">a</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span>
-    <span class="dt">b</span><span class="op">:</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]
-<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">    <span class="dt">a</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="dt">b</span><span class="op">:</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="op">}</span></a></code></pre></div>
 <p>When we make a JSON GET request, we add a “<code>callback=foo</code>” to its end. Then what will get sent back instead is the JSON document wrapped in a function call:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">foo</span>(<span class="op">{</span>
-    <span class="dt">a</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span>
-    <span class="dt">b</span><span class="op">:</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]
-<span class="op">}</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">foo</span>(<span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">    <span class="dt">a</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="dt">b</span><span class="op">:</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="op">}</span>)</a></code></pre></div>
 <p>This can then be placed as the source in a <code>&lt;script&gt;</code> tag. Script tags don’t suffer the same-origin problems (or else we couldn’t load things like jQuery). So as long as we have provided a global function called <code>foo</code>, this will get processed properly. The end result would be the injection into the page of code like:</p>
-<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://pathToJSONResource?callback=foo&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://pathToJSONResource?callback=foo&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></a></code></pre></div>
 <p>This code then loads the aforementioned “script” and executes it.</p>
 <p>jQuery has support for this feature. So we can do something like:</p>
 <pre><code>var xhr = $.ajax({

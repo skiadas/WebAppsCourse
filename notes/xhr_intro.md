@@ -6,6 +6,7 @@
 - [MDN's page on using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest)
 - Flanagan's book, chapter 18
 - [Cross-Origin Resource Sharing article](http://www.html5rocks.com/en/tutorials/cors/)
+- [MDN documentation on CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 
 ## Notes
 
@@ -100,7 +101,7 @@ Consult the jQuery documentation for details if you need to use this.
 
 ### The Same Origin Policy and ways around it
 
-The **same-origin** policy is a security measure that protects the execution of Javascript code with certain permissions. The policy says that "scripts are contained in a first web page are allowed to access data that is in another web page **only** if those pages have the same *origin*".
+The **same-origin** policy is a security measure that protects the execution of Javascript code with certain permissions. The policy says that "scripts that are contained in a first web page are allowed to access data that is in another web page **only** if those pages have the same *origin*".
 
 For instance there are ways in HTML to load another page within a "frame" of the existing page. This way for instance we can include third-party sections in our page, like amazon ads, widgets etc.
 

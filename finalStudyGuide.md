@@ -1,10 +1,9 @@
 # Final Study Guide
 
-Here is a representative list of questions for the final. You should be able to answer these questions or questions very similar to them.
+Here is a representative list of questions for the final. You should be able to answer these questions or questions similar to them.
 
-1. Explain how the special variable `this` differs from other variables (e.g. local or global variables).
-2. Javascript, HTML and CSS are all responsible for different parts of a webpage. Describe the role of each.
-3. Which of the following are valid ways of accessing the element at the entry with index 1 in an array `a`?
+1. Explain the differences between local variables, parameters, the special variable `this`,  and global variables.
+2. Which of the following are valid ways of accessing the element at the entry with index 1 in an array `a`?
 
     i. `a.1`
     ii. `a."1"`
@@ -13,60 +12,72 @@ Here is a representative list of questions for the final. You should be able to 
     v. `a["1"]`
     vi. `a(1)`
     vii. `a("1")`
-4. What happens when we call a function with more arguments than its definition suggests?
-
-    i. An error is thrown
-    ii. A warning is thrown
-    iii. The extra arguments can be accessed via a specific syntax
-    iv. The extra arguments are ignored
-5. What do we mean when we say that functions are "first-class values"? Illustrate with examples.
-6. What is the result of the expression `("2" + 3)`?
-
-    i. `"23"`
-    ii. `23`
-    iii. `"5"`
-    iv. `5`
-    v. `NaN`
-    vi. An error
-7. Similar question for `("2" * 3)` and `("2" * "3")`.
-8. Which of the following values are treated as "falsy" (i.e. considered as false for the purposes of a conditional)?
-
-    i. `0`
-    ii. `NaN`
-    iii. `-1`
-    iv. `false`
-    v. `"false"`
-    vi. `""`
-    vi. `{}`
-    vii. `null`
-    viii. `undefined`
-    ix. `[]`
-9. Which of the following will the expression `Object.create({ a: 2 })` create?
+3. Which of the following will the expression `Object.create({ a: 2 })` create?
 
     i. An object with a property `a`.
     ii. An object whose prototype has a property `a`.
     iii. An empty object with empty prototype.
     iv. Nothing useful, it is not a valid expression.
-10. What is the difference between the expressions `(a in obj)` and `(obj.hasOwnProperty("a"))`?
-11. Create an object `obj` that has an enumerable property `b` but for which the expression `obj.hasOwnProperty("b")` returns `false`. What would then be two valid ways to test that `obj` does indeed have a property `b`?
-12. Which of the following can be possible scopes for local variables?
+4. Create an object `obj` that has an enumerable property `b` but for which the expression `obj.hasOwnProperty("b")` returns `false`. What would then be two valid ways to test that `obj` does indeed have a property `b`?
+5. Which of the following can be possible scopes for local variables (distinguish between variables declared via `var` and those declared via `let` or `const`)?
 
     i. Function bodies
     ii. Any sets of curly braces
     iii. the bodies of `for` loops
-13. Describe the "Immediate Function Invocation" pattern and what its purpose is.
-14. Demonstrate how we can write a function `oneTime(f)` with the following behavior. It expects as argument a function `f` that would be called with no arguments. It then returns a function `g` that when called (you can assume with no arguments) will call `f` and return the same value that `f` would return, but so that subsequent calls to `g` just return that same value without calling `f` again. Further, the function `f` should not be called until `g` is called for the first time.
-15. How can we arrange for a function `f` to be called at some time in the future, say in 1 second? Show the precise syntax. Provide reasons why `f` might not actually be called in exactly 1 second.
-16. Outside of the `Function` prototype methods like `bind`, `call` and `apply`, there are three other ways of invoking a function:
+6. Using ES6 templates, write a function that takes as a parameter someone's name and returns a string that greets them.
+7. What do template libraries like Handlebars bring to us that can't easily be done with ES6 templates?
+8. What would be the code that would allow us to add to an object `o` a property `a` whose value is 20, it cannot be changed, and it appears when we look at the object's keys via `Object.keys`?
+9. Similar to the `Person` class that appears at the bottom of [the object properties notes](notes/object_properties.md), write a `Point` class with the following behaviors:
+    ```javascript
+    let point = new Point(2, 3);
+    point.x;           // Should equal 2
+    point.y;           // Should equal 3
+    point.x = 4;       // Should NOT change x
+    point.y = 4;       // Should NOT change y
+    point.distance;    // Should equal the distance from the origin, sqrt(x^2+y^2)
+                       // But you should not have had to create a field called distance
+    point.shift(3, 4); // Should change the x to be 2+3 and the y to be 3+4
+    point.copy();      // Returns a *new* point with the same x, y
+    ```
+10. The following code creates an `adder` class, and uses it:
+    ```javascript
+    // In module adder.js
+    export default class Adder {
+        constructor() {
+            this.numbers = [];
+        }
+        add(x) {
+            this.numbers.push(x);
+        }
+        computeSum() {
+            let sum = 0;
+            for (let x in this.numbers) {
+                sum += x;
+            }
+            return sum;
+        }
+    }
 
-    i. Function invocation
-    ii. Method invocation
-    iii. Constructor invocation
+    // In another module
+    import Adder from './adder.js';
 
-    Describe what the syntax for each of these is, and what the value of the `this` object is in each case.
-17. Describe the Observer pattern. What is its goal, and how is this goal achieved in Javascript?
-18. Describe the Visitor pattern, what problem it solves, how it achieves it (in Javascript), and in what situations it might be appropriate.
-19. Describe the Iterator pattern, what problem it solves, and how we might implement it in Javascript.
-20. Many Graphical User Interface applications promote the Model-View-Controller pattern. Describe what these three components do, what their responsibilities are, and how they interact.
-21. Two fundamental methods of code "reuse" are *inheritance* and *composition*. Describe how each works and what some tradeoffs are.
-22. What is the *same-origin policy*? Why is it in place? Why does it not affect script tags?
+    let adder = new Adder();
+    adder.add(4);
+    adder.add(3);
+    console.log(adder.computeSum());  // Normally prints 7
+    ```
+    You also have a module of your own, which gets loaded inbetween the Adder module and the module that uses the Adder module. Describe what changes you would make to achieve each of the following:
+        - The `add` method always adds the number `42` in the `numbers` array.
+        - The `computeSum` method always returns `42` as its result.
+        - The `push` method does NOT add the elements in the array (or any other array for that matter).
+        - The `add` method does it job normally, but the numbers are also added to an array defined in *your* module.
+11. We discussed three different graphics technologies for the web. What are they? What are the pros and cons of each?
+12. Write SVG.js code that would produce the following:
+    - Two circles of equal radius that each pass through the other's center.
+    - A chessboard pattern (8x8 with alternating colored squares).
+    - A circle that changes in size over a period of time.
+13. Describe what Javascript Promises are, what states a promise can be in, and how to use a promise to handle an asynchronous event. Use promises to create a `delay(milliseconds)` function that can be used to trigger actions after a specific time.
+14. What is the *same-origin policy*? Why is it in place? Why does it not affect script tags?
+15. Describe how CORS works, being clear about all the actors involved.
+16. Describe how the keywords `async` and `await` behave, and what they allow us to do.
+17. What is the `XMLHttpRequest` object used for? How is it set up to use so that we do not have to block everything while waiting for a reply?
