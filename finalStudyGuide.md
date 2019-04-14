@@ -28,6 +28,7 @@ Here is a representative list of questions for the final. You should be able to 
 7. What do template libraries like Handlebars bring to us that can't easily be done with ES6 templates?
 8. What would be the code that would allow us to add to an object `o` a property `a` whose value is 20, it cannot be changed, and it appears when we look at the object's keys via `Object.keys`?
 9. Similar to the `Person` class that appears at the bottom of [the object properties notes](notes/object_properties.md), write a `Point` class with the following behaviors:
+
     ```javascript
     let point = new Point(2, 3);
     point.x;           // Should equal 2
@@ -35,7 +36,7 @@ Here is a representative list of questions for the final. You should be able to 
     point.x = 4;       // Should NOT change x
     point.y = 4;       // Should NOT change y
     point.distance;    // Should equal the distance from the origin, sqrt(x^2+y^2)
-                       // But you should not have had to create a field called distance
+    //                    But you should not have had to create a field called distance
     point.shift(3, 4); // Should change the x to be 2+3 and the y to be 3+4
     point.copy();      // Returns a *new* point with the same x, y
     ```
